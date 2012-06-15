@@ -1,5 +1,5 @@
 //
-//  BBAddAccountVC.h
+//  BBAccountFormVC.h
 //  ByBalance
 //
 //  Created by Andrew Sinkevitch on 05/08/2012.
@@ -8,7 +8,7 @@
 
 #import "BBBaseViewController.h"
 
-@interface BBAddAccountVC : BBBaseViewController <UITextFieldDelegate>
+@interface BBAccountFormVC : BBBaseViewController <UITextFieldDelegate>
 {
     
 @private
@@ -20,10 +20,13 @@
     IBOutlet UIButton * btnAdd;
     
     BBMAccountType * accountType;
-    
+    BOOL editMode;
+    BBMAccount * account;
 }
 
 @property (strong, nonatomic) BBMAccountType * accountType;
+@property (assign, nonatomic) BOOL editMode;
+@property (strong, nonatomic) BBMAccount * account;
 
 - (IBAction) add:(id) sender;
 - (IBAction) hideKeyboard:(id) sender;

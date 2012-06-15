@@ -18,7 +18,6 @@
     IBOutlet UIButton * btnBigAdd;
     
     NSArray * accounts;
-    BOOL needUpdateTable;
     
 }
 

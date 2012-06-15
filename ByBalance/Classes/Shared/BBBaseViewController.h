@@ -11,6 +11,7 @@
     
 @protected
     // UI:
+    BOOL needUpdateScreen;
     
 @private
     // Helper:
@@ -24,10 +25,11 @@
 - (IBAction) onNavButtonLeft:(id)sender;
 - (IBAction) onNavButtonRight:(id)sender;
 //
-- (void) showWaitIndicator:(BOOL) anFlag;
+- (void) showWaitIndicator:(BOOL) aFlag;
 - (void) setWaitTitle:(NSString *) newTitle;
 //
 - (void) setupNavBar;
-
+//
+- (void) accountsListUpdated:(NSNotification *)notification;
 
 @end

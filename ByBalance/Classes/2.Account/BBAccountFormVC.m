@@ -6,23 +6,27 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import "BBAddAccountVC.h"
+#import "BBAccountFormVC.h"
 
-@interface BBAddAccountVC ()
+@interface BBAccountFormVC ()
 
 - (void) updateScreenForType;
 - (NSString *) loginTitle;
 
 @end
 
-@implementation BBAddAccountVC
+@implementation BBAccountFormVC
 
 @synthesize accountType;
+@synthesize editMode;
+@synthesize account;
 
 - (void)viewDidLoad
 {
+    if (editMode) self.accountType = self.account.type;
+    
     [super viewDidLoad];
-	
+    
     [self updateScreenForType];
     
     [APP_CONTEXT makeRedButton:btnAdd];
@@ -36,11 +40,12 @@
 
 - (void) cleanup
 {
-    [super cleanup];
+    self.accountType = nil;
+    self.account = nil;
     
-    //[tfUsername resignFirstResponder];
-    //[tfPassword resignFirstResponder];
     [self.view endEditing:YES];
+    
+    [super cleanup];
 }
 
 
@@ -88,17 +93,32 @@
         return;
     }
     
-    BBMAccount * account = [BBMAccount createEntity];
-    account.type = accountType;
-    account.username = tfUsername.text;
-    account.password = tfPassword.text;
-    [APP_CONTEXT saveDatabase];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    
-    [APP_CONTEXT showToastWithText:@"Новый аккаунт добавлен"]; 
+    if (editMode)
+    {
+        account.username = tfUsername.text;
+        account.password = tfPassword.text;
+        [APP_CONTEXT saveDatabase];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        [APP_CONTEXT showToastWithText:@"Аккаунт обновлён"];
+    }
+    else
+    {
+        BBMAccount * newAccount = [BBMAccount createEntity];
+        newAccount.type = accountType;
+        newAccount.username = tfUsername.text;
+        newAccount.password = tfPassword.text;
+        [APP_CONTEXT saveDatabase];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        [APP_CONTEXT showToastWithText:@"Новый аккаунт добавлен"]; 
+    }
 }
 
 
@@ -122,6 +142,15 @@
         lblUsernamePrefix.hidden = YES;
         tfUsername.frame = CGRectMake(35, 54, 251, 31);
         tfUsername.keyboardType = UIKeyboardTypeNumberPad;
+    }
+    
+    if (editMode)
+    {
+        tfUsername.text = account.username;
+        tfPassword.text = account.password;
+        
+        [btnAdd setTitle:@"Сохранить" forState:UIControlStateNormal];
+
     }
 }
 

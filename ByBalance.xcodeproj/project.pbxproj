@@ -44,8 +44,8 @@
 		CE3EAA6115CEC956008DA719 /* BBHomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA6015CEC956008DA719 /* BBHomeVC.xib */; };
 		CE3EAA6715CECAA3008DA719 /* BBAccountTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA6615CECAA3008DA719 /* BBAccountTypeCell.xib */; };
 		CE3EAA6B15CECB6A008DA719 /* BBAccountTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA6A15CECB6A008DA719 /* BBAccountTypeCell.m */; };
-		CE3EAA7215CED7AA008DA719 /* BBAddAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA7115CED7AA008DA719 /* BBAddAccountVC.m */; };
-		CE3EAA7515CED7DC008DA719 /* BBAddAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA7415CED7DC008DA719 /* BBAddAccountVC.xib */; };
+		CE3EAA7215CED7AA008DA719 /* BBAccountFormVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA7115CED7AA008DA719 /* BBAccountFormVC.m */; };
+		CE3EAA7515CED7DC008DA719 /* BBAccountFormVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA7415CED7DC008DA719 /* BBAccountFormVC.xib */; };
 		CE3EAA7715D5A079008DA719 /* BBHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA7615D5A079008DA719 /* BBHomeCell.xib */; };
 		CE3EAA7A15D5A0C1008DA719 /* BBHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */; };
 		CE59105215D58084006CEE0E /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = CE59105015D58084006CEE0E /* info.png */; };
@@ -145,9 +145,9 @@
 		CE3EAA6615CECAA3008DA719 /* BBAccountTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAccountTypeCell.xib; sourceTree = "<group>"; };
 		CE3EAA6915CECB6A008DA719 /* BBAccountTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAccountTypeCell.h; sourceTree = "<group>"; };
 		CE3EAA6A15CECB6A008DA719 /* BBAccountTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAccountTypeCell.m; sourceTree = "<group>"; };
-		CE3EAA7015CED7AA008DA719 /* BBAddAccountVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAddAccountVC.h; sourceTree = "<group>"; };
-		CE3EAA7115CED7AA008DA719 /* BBAddAccountVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAddAccountVC.m; sourceTree = "<group>"; };
-		CE3EAA7415CED7DC008DA719 /* BBAddAccountVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAddAccountVC.xib; sourceTree = "<group>"; };
+		CE3EAA7015CED7AA008DA719 /* BBAccountFormVC.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BBAccountFormVC.h; sourceTree = "<group>"; };
+		CE3EAA7115CED7AA008DA719 /* BBAccountFormVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAccountFormVC.m; sourceTree = "<group>"; };
+		CE3EAA7415CED7DC008DA719 /* BBAccountFormVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAccountFormVC.xib; sourceTree = "<group>"; };
 		CE3EAA7615D5A079008DA719 /* BBHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBHomeCell.xib; sourceTree = "<group>"; };
 		CE3EAA7815D5A0C1008DA719 /* BBHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHomeCell.h; sourceTree = "<group>"; };
 		CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHomeCell.m; sourceTree = "<group>"; };
@@ -554,8 +554,8 @@
 				CEA2FDBB15CD861600C98E7A /* BBSelectAccountTypeVC.m */,
 				CE3EAA6915CECB6A008DA719 /* BBAccountTypeCell.h */,
 				CE3EAA6A15CECB6A008DA719 /* BBAccountTypeCell.m */,
-				CE3EAA7015CED7AA008DA719 /* BBAddAccountVC.h */,
-				CE3EAA7115CED7AA008DA719 /* BBAddAccountVC.m */,
+				CE3EAA7015CED7AA008DA719 /* BBAccountFormVC.h */,
+				CE3EAA7115CED7AA008DA719 /* BBAccountFormVC.m */,
 			);
 			path = 2.Account;
 			sourceTree = "<group>";
@@ -565,7 +565,7 @@
 			children = (
 				CE3EAA5E15CEC8E1008DA719 /* BBSelectAccountTypeVC.xib */,
 				CE3EAA6615CECAA3008DA719 /* BBAccountTypeCell.xib */,
-				CE3EAA7415CED7DC008DA719 /* BBAddAccountVC.xib */,
+				CE3EAA7415CED7DC008DA719 /* BBAccountFormVC.xib */,
 			);
 			path = 2.Account;
 			sourceTree = "<group>";
@@ -674,7 +674,7 @@
 				CE3EAA5F15CEC8E1008DA719 /* BBSelectAccountTypeVC.xib in Resources */,
 				CE3EAA6115CEC956008DA719 /* BBHomeVC.xib in Resources */,
 				CE3EAA6715CECAA3008DA719 /* BBAccountTypeCell.xib in Resources */,
-				CE3EAA7515CED7DC008DA719 /* BBAddAccountVC.xib in Resources */,
+				CE3EAA7515CED7DC008DA719 /* BBAccountFormVC.xib in Resources */,
 				CE3EAA7715D5A079008DA719 /* BBHomeCell.xib in Resources */,
 				CE59105215D58084006CEE0E /* info.png in Resources */,
 				CE59105315D58084006CEE0E /* info@2x.png in Resources */,
@@ -728,7 +728,7 @@
 				CEA2FDBC15CD861700C98E7A /* BBSelectAccountTypeVC.m in Sources */,
 				CE3EAA5D15CEC244008DA719 /* IDRoundedCellBackgroundView.m in Sources */,
 				CE3EAA6B15CECB6A008DA719 /* BBAccountTypeCell.m in Sources */,
-				CE3EAA7215CED7AA008DA719 /* BBAddAccountVC.m in Sources */,
+				CE3EAA7215CED7AA008DA719 /* BBAccountFormVC.m in Sources */,
 				CE3EAA7A15D5A0C1008DA719 /* BBHomeCell.m in Sources */,
 				CE59105815D7D96C006CEE0E /* BBBalanceVC.m in Sources */,
 				CE212CBC15D41094000D16AA /* BBMAccountType.m in Sources */,

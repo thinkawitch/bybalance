@@ -7,6 +7,7 @@
 //
 
 #import "BBBalanceVC.h"
+#import "BBAccountFormVC.h"
 
 @interface BBBalanceVC ()
 
@@ -27,18 +28,36 @@
     lblName.text = account.username;
     
     [APP_CONTEXT makeRedButton:btnRefresh];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
 
 - (void) cleanup
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnAccountsListUpdated object:nil];
+    
     self.account = nil;
     
     [super cleanup];
+}
+
+- (void) accountsListUpdated:(NSNotification *)notification
+{
+    needUpdateScreen = YES;
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (needUpdateScreen)
+    {
+        lblType.text = account.type.name;
+        lblName.text = account.username;
+        
+        needUpdateScreen = NO;
+    }
 }
 
 #pragma mark - Setup
@@ -78,7 +97,11 @@
 
 - (void) onBtnEdit:(id)sender
 {
-    
+    BBAccountFormVC * vc = NEWVCFROMNIB(BBAccountFormVC);
+    vc.account = self.account;
+    vc.editMode = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
 - (void) onBtnDelete:(id)sender

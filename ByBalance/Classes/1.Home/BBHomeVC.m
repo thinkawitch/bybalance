@@ -16,7 +16,6 @@
 
 @property (strong,nonatomic) NSArray * accounts;
 
-- (void) accountsListUpdated:(NSNotification *)notification;
 - (void) toggleSplashMode;
 
 @end
@@ -55,17 +54,17 @@
 
 - (void) accountsListUpdated:(NSNotification *)notification
 {
-    needUpdateTable = YES;
+    needUpdateScreen = YES;
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if (needUpdateTable)
+    if (needUpdateScreen)
     {
         self.accounts = [BBMAccount findAll];
-        needUpdateTable = NO;
+        needUpdateScreen = NO;
         [self toggleSplashMode];
     }
 }

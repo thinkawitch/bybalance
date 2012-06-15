@@ -123,6 +123,13 @@
     }
 }
 
+#pragma mark - Notifications
+
+- (void) accountsListUpdated:(NSNotification *)notification
+{
+    
+}
+
 #pragma mark - NSObject
 //
 - (NSString *) description
