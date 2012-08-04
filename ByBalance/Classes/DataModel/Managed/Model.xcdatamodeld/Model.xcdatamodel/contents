@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BBMAccount" representedClassName="BBMAccount" syncable="YES">
+        <attribute name="password" attributeType="String" syncable="YES"/>
+        <attribute name="username" attributeType="String" syncable="YES"/>
+        <relationship name="type" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="BBMAccountType" inverseName="accounts" inverseEntity="BBMAccountType" syncable="YES"/>
+    </entity>
+    <entity name="BBMAccountType" representedClassName="BBMAccountType" syncable="YES">
+        <attribute name="id" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BBMAccount" inverseName="type" inverseEntity="BBMAccount" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BBMAccountType" positionX="-351" positionY="-216" width="128" height="90"/>
+        <element name="BBMAccount" positionX="-540" positionY="-135" width="128" height="90"/>
+    </elements>
+</model>

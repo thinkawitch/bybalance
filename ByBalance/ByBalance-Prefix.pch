@@ -1,0 +1,28 @@
+//
+// Prefix header for all source files of the 'ByBalance' target in the 'ByBalance' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    //
+    #import "SynthesizeSingleton.h"
+    #import "DSActivityView.h"
+    #import "NSString+PDRegex.h"
+    #import "CoreData+ActiveRecordFetching.h"
+    //
+    #import "AppGlobal.h"
+    #import "MacrosAndDefines.h"
+    //
+    #import "BBAllDataItems.h"
+    #import "BBMAllManagedItems.h"
+    #import "BBLoaderDelegate.h"
+    #import "BBLoaderBase.h"
+    //
+#endif
