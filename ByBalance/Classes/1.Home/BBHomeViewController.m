@@ -2,8 +2,8 @@
 //  BBViewController.m
 //  ByBalance
 //
-//  Created by Lion User on 17/06/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Andrew Sinkevitch on 17/06/2012.
+//  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
 #import "BBHomeViewController.h"
@@ -89,8 +89,8 @@
     */
     
     BBItemMts *item = [[BBItemMts new] autorelease];
-    item.username = @"xxxxxxx";
-    item.password = @"xx";
+    item.username = @"xxxxxxxxx";
+    item.password = @"xxx";
     
     BBLoaderBase * loader = [BBLoaderBase new];
     loader.item = item;
