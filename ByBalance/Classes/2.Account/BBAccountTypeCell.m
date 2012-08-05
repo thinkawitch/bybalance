@@ -10,4 +10,16 @@
 
 @implementation BBAccountTypeCell
 
+
+- (void) setupWithAccountType:(BBMAccountType*) type
+{
+    lblTitle.text = type.name;
+    accountType = [type.id integerValue];
+}
+
+- (NSInteger) accountType
+{
+    return accountType;
+}
+
 @end

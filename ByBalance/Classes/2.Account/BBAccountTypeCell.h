@@ -6,8 +6,19 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@class BBMAccountType;
 
-@interface BBAccountTypeCell : NSObject
+@interface BBAccountTypeCell : UITableViewCell
+{
+    
+@private
+    IBOutlet UILabel * lblTitle;
+    
+    NSInteger accountType;
+}
+
+
+- (void) setupWithAccountType:(BBMAccountType*) type;
+- (NSInteger) accountType;
 
 @end

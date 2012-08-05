@@ -18,3 +18,9 @@ NSString * const kAppEmailRegexp = @"^([\\w\\-\\.]+)@((\\[([0-9]{1,3}\\.){3}[0-9
 //
 NSInteger const kAccountMTS = 1;
 NSInteger const kAccountBN = 2;
+
+
+#pragma mark - Cells sizes
+//
+CGFloat const kAccountTypeCellHeight = 73.f + 1.f;
+//

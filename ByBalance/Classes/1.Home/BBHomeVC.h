@@ -1,5 +1,5 @@
 //
-//  BBViewController.h
+//  BBHomeVC.h
 //  ByBalance
 //
 //  Created by Andrew Sinkevitch on 17/06/2012.
@@ -8,7 +8,7 @@
 
 #import "BBBaseViewController.h"
 
-@interface BBHomeViewController : BBBaseViewController <BBLoaderDelegate>
+@interface BBHomeVC : BBBaseViewController <BBLoaderDelegate>
 {
     
 @private

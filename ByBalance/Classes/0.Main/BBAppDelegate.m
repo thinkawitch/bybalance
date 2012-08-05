@@ -8,7 +8,7 @@
 
 #import "BBAppDelegate.h"
 
-#import "BBHomeViewController.h"
+#import "BBHomeVC.h"
 
 @implementation BBAppDelegate
 

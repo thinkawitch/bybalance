@@ -1,19 +1,19 @@
 //
-//  BBViewController.m
+//  BBHomeVC.m
 //  ByBalance
 //
 //  Created by Andrew Sinkevitch on 17/06/2012.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import "BBHomeViewController.h"
-#import "BBAddAccountViewController.h"
+#import "BBHomeVC.h"
+#import "BBSelectAccountTypeVC.h"
 
-@interface BBHomeViewController ()
+@interface BBHomeVC ()
 
 @end
 
-@implementation BBHomeViewController
+@implementation BBHomeVC
 
 #pragma mark - ObjectLife
 
@@ -64,7 +64,7 @@
 
 - (IBAction) onNavButtonRight:(id)sender
 {
-    BBAddAccountViewController * vc = NEWVCFROMNIB(BBAddAccountViewController);
+    BBSelectAccountTypeVC * vc = NEWVCFROMNIB(BBSelectAccountTypeVC);
     //[[BBAddAccountViewController alloc] initWithNibName:@"BBAddAccountView" bundle:nil];
    [self.navigationController pushViewController:vc animated:YES];
    [vc release];
@@ -89,8 +89,8 @@
     */
     
     BBItemMts *item = [[BBItemMts new] autorelease];
-    item.username = @"xxxxxxxxx";
-    item.password = @"xxx";
+    item.username = @"297527406";
+    item.password = @"9068";
     
     BBLoaderBase * loader = [BBLoaderBase new];
     loader.item = item;

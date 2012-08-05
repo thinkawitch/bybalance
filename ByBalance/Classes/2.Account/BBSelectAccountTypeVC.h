@@ -1,5 +1,5 @@
 //
-//  BBAddAccountViewController.h
+//  BBSelectAccountTypeVC.h
 //  ByBalance
 //
 //  Created by Andrew Sinkevitch on 04/08/2012.
@@ -8,6 +8,11 @@
 
 #import "BBBaseViewController.h"
 
-@interface BBAddAccountViewController : BBBaseViewController
+@interface BBSelectAccountTypeVC : BBBaseViewController
+<UITableViewDataSource, UITableViewDelegate>
+{
+@private
+    IBOutlet UITableView * tblAccountTypes;
+}
 
 @end
