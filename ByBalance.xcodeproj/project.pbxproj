@@ -36,6 +36,8 @@
 		CE3EAA6115CEC956008DA719 /* BBHomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA6015CEC956008DA719 /* BBHomeVC.xib */; };
 		CE3EAA6715CECAA3008DA719 /* BBAccountTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA6615CECAA3008DA719 /* BBAccountTypeCell.xib */; };
 		CE3EAA6B15CECB6A008DA719 /* BBAccountTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA6A15CECB6A008DA719 /* BBAccountTypeCell.m */; };
+		CE3EAA7215CED7AA008DA719 /* BBAddAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA7115CED7AA008DA719 /* BBAddAccountVC.m */; };
+		CE3EAA7515CED7DC008DA719 /* BBAddAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA7415CED7DC008DA719 /* BBAddAccountVC.xib */; };
 		CEA2FD6515BC3FA700C98E7A /* mts_balance.html in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6415BC3FA700C98E7A /* mts_balance.html */; };
 		CEA2FD6E15BC4D0500C98E7A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6C15BC4D0500C98E7A /* Icon.png */; };
 		CEA2FD6F15BC4D0500C98E7A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6D15BC4D0500C98E7A /* Icon@2x.png */; };
@@ -122,6 +124,9 @@
 		CE3EAA6615CECAA3008DA719 /* BBAccountTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAccountTypeCell.xib; sourceTree = "<group>"; };
 		CE3EAA6915CECB6A008DA719 /* BBAccountTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAccountTypeCell.h; sourceTree = "<group>"; };
 		CE3EAA6A15CECB6A008DA719 /* BBAccountTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAccountTypeCell.m; sourceTree = "<group>"; };
+		CE3EAA7015CED7AA008DA719 /* BBAddAccountVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAddAccountVC.h; sourceTree = "<group>"; };
+		CE3EAA7115CED7AA008DA719 /* BBAddAccountVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAddAccountVC.m; sourceTree = "<group>"; };
+		CE3EAA7415CED7DC008DA719 /* BBAddAccountVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAddAccountVC.xib; sourceTree = "<group>"; };
 		CEA2FD6415BC3FA700C98E7A /* mts_balance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = mts_balance.html; path = ../../../mts_balance.html; sourceTree = "<group>"; };
 		CEA2FD6C15BC4D0500C98E7A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		CEA2FD6D15BC4D0500C98E7A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -484,6 +489,8 @@
 				CEA2FDBB15CD861600C98E7A /* BBSelectAccountTypeVC.m */,
 				CE3EAA6915CECB6A008DA719 /* BBAccountTypeCell.h */,
 				CE3EAA6A15CECB6A008DA719 /* BBAccountTypeCell.m */,
+				CE3EAA7015CED7AA008DA719 /* BBAddAccountVC.h */,
+				CE3EAA7115CED7AA008DA719 /* BBAddAccountVC.m */,
 			);
 			path = 2.Account;
 			sourceTree = "<group>";
@@ -493,6 +500,7 @@
 			children = (
 				CE3EAA5E15CEC8E1008DA719 /* BBSelectAccountTypeVC.xib */,
 				CE3EAA6615CECAA3008DA719 /* BBAccountTypeCell.xib */,
+				CE3EAA7415CED7DC008DA719 /* BBAddAccountVC.xib */,
 			);
 			path = 2.Account;
 			sourceTree = "<group>";
@@ -599,6 +607,7 @@
 				CE3EAA5F15CEC8E1008DA719 /* BBSelectAccountTypeVC.xib in Resources */,
 				CE3EAA6115CEC956008DA719 /* BBHomeVC.xib in Resources */,
 				CE3EAA6715CECAA3008DA719 /* BBAccountTypeCell.xib in Resources */,
+				CE3EAA7515CED7DC008DA719 /* BBAddAccountVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +654,7 @@
 				CEA2FDBC15CD861700C98E7A /* BBSelectAccountTypeVC.m in Sources */,
 				CE3EAA5D15CEC244008DA719 /* IDRoundedCellBackgroundView.m in Sources */,
 				CE3EAA6B15CECB6A008DA719 /* BBAccountTypeCell.m in Sources */,
+				CE3EAA7215CED7AA008DA719 /* BBAddAccountVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

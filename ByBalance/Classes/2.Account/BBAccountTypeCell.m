@@ -10,14 +10,15 @@
 
 @implementation BBAccountTypeCell
 
+@synthesize accountType;
 
 - (void) setupWithAccountType:(BBMAccountType*) type
 {
     lblTitle.text = type.name;
-    accountType = [type.id integerValue];
+    self.accountType = type;
 }
 
-- (NSInteger) accountType
+- (BBMAccountType *) accountType
 {
     return accountType;
 }

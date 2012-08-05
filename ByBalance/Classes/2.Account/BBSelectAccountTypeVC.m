@@ -8,6 +8,7 @@
 
 #import "BBSelectAccountTypeVC.h"
 #import "BBAccountTypeCell.h"
+#import "BBAddAccountVC.h"
 
 @interface BBSelectAccountTypeVC ()
 
@@ -106,9 +107,10 @@
         return;
     }
     
-    
-    NSLog(@"selected type: %d", cell.accountType);
-    
+    BBAddAccountVC * vc = NEWVCFROMNIB(BBAddAccountVC);
+    vc.accountType = cell.accountType;
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
     
 }
 

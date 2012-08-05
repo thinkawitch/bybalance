@@ -65,9 +65,8 @@
 - (IBAction) onNavButtonRight:(id)sender
 {
     BBSelectAccountTypeVC * vc = NEWVCFROMNIB(BBSelectAccountTypeVC);
-    //[[BBAddAccountViewController alloc] initWithNibName:@"BBAddAccountView" bundle:nil];
-   [self.navigationController pushViewController:vc animated:YES];
-   [vc release];
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
 #pragma mark - Logic
@@ -89,8 +88,8 @@
     */
     
     BBItemMts *item = [[BBItemMts new] autorelease];
-    item.username = @"297527406";
-    item.password = @"9068";
+    item.username = @"xxxxxxxxx";
+    item.password = @"xxx";
     
     BBLoaderBase * loader = [BBLoaderBase new];
     loader.item = item;

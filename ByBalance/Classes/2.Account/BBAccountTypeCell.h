@@ -14,11 +14,11 @@
 @private
     IBOutlet UILabel * lblTitle;
     
-    NSInteger accountType;
+    BBMAccountType * accountType;
 }
 
+@property (strong, nonatomic) BBMAccountType * accountType;
 
 - (void) setupWithAccountType:(BBMAccountType*) type;
-- (NSInteger) accountType;
 
 @end

@@ -41,7 +41,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
     
     //
     iToastSettings * ts = [iToastSettings getSharedSettings];
-    ts.duration = 13000;
+    ts.duration = 3000;
 }
 
 - (void) stopContext
