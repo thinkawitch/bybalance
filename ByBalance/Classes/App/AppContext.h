@@ -40,6 +40,9 @@
 - (UIImage *) stretchedImageNamed:(NSString *) anName width:(CGRect)anRect;
 - (UILabel *) navBarLabel;
 
+// Styles
+- (void) makeRedButton:(UIButton *) button;
+
 // UIAlertView variations:
 - (void) showAlertForNoInternet;
 - (void) showAlertWithTitle:(NSString *) anTitle andText:(NSString *) anText;

@@ -14,13 +14,11 @@
 
 @synthesize window = _window;
 @synthesize viewController = _viewController;
-@synthesize navController = _navController;
 
 - (void)dealloc
 {
     [_window release];
     [_viewController release];
-    [_navController release];
     
     [super dealloc];
 }

@@ -9,6 +9,7 @@
 #import "AppContext.h"
 #import "Reachability.h"
 #import "iToast.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface AppContext ()
@@ -204,8 +205,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
     label.font = [UIFont boldSystemFontOfSize:24.0f];
     label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
     label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1];
+    label.textColor = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
     return label;
+}
+
+#pragma mark - Styles
+
+- (void) makeRedButton:(UIButton *) button
+{
+    [[button layer] setCornerRadius:12.0f];
+    //[[button layer] setBorderWidth:1.0f];
+    //[[button layer] setBorderColor:[[UIColor blackColor] CGColor]];
+    [button setBackgroundColor:[UIColor colorWithRed:179.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f]];
+    [button setTitleColor:[UIColor colorWithRed:220.f/255.f green:220.f/255.f blue:220.f/255.f alpha:1] forState:UIControlStateNormal];
 }
 
 //

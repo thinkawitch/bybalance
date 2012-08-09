@@ -2,7 +2,7 @@
 //  BBMAccount.h
 //  ByBalance
 //
-//  Created by Andrew Sinkevitch on 04/08/2012.
+//  Created by Andrew Sinkevitch on 09/08/2012.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
@@ -13,8 +13,8 @@
 
 @interface BBMAccount : NSManagedObject
 
-@property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSString * password;
+@property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) BBMAccountType *type;
 
 @end

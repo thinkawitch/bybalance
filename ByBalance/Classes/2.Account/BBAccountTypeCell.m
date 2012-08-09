@@ -14,8 +14,16 @@
 
 - (void) setupWithAccountType:(BBMAccountType*) type
 {
-    lblTitle.text = type.name;
     self.accountType = type;
+    
+    lblTitle.text = type.name;
+}
+
+- (void) dealloc
+{
+    self.accountType = nil;
+    
+    [super dealloc];
 }
 
 @end

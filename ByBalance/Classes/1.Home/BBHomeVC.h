@@ -13,8 +13,9 @@
 {
     
 @private
-    IBOutlet UITextView * textView;
     IBOutlet UITableView * tblAccounts;
+    IBOutlet UIView * splashView;
+    IBOutlet UIButton * btnBigAdd;
     
     NSArray * accounts;
     BOOL needUpdateTable;

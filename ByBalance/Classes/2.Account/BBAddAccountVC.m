@@ -25,6 +25,8 @@
 	
     [self updateScreenForType];
     
+    [APP_CONTEXT makeRedButton:btnAdd];
+    
 }
 
 - (void)viewDidUnload

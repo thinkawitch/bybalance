@@ -29,6 +29,14 @@
 		CE052500158E066900FB6CDF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0524FF158E066900FB6CDF /* SystemConfiguration.framework */; };
 		CE052502158E067600FB6CDF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE052501158E067600FB6CDF /* MobileCoreServices.framework */; };
 		CE052504158E06D900FB6CDF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE052503158E06D900FB6CDF /* libz.dylib */; };
+		CE20B1E315D55839004006B8 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = CE20B1E115D55839004006B8 /* edit.png */; };
+		CE20B1E415D55839004006B8 /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE20B1E215D55839004006B8 /* edit@2x.png */; };
+		CE212CB715D409B3000D16AA /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = CE212CB515D409B3000D16AA /* delete.png */; };
+		CE212CB815D409B3000D16AA /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE212CB615D409B3000D16AA /* delete@2x.png */; };
+		CE212CBC15D41094000D16AA /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE212CBB15D41094000D16AA /* BBMAccountType.m */; };
+		CE212CBF15D41095000D16AA /* BBMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CE212CBE15D41095000D16AA /* BBMAccount.m */; };
+		CE212CC315D4175D000D16AA /* BBAboutVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE212CC215D4175D000D16AA /* BBAboutVC.m */; };
+		CE212CC615D417EB000D16AA /* BBAboutVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE212CC515D417EB000D16AA /* BBAboutVC.xib */; };
 		CE2CFA4215BC29E500FF5DFE /* BBLoaderBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2CFA4115BC29E500FF5DFE /* BBLoaderBase.m */; };
 		CE2CFA4F15BC3D4C00FF5DFE /* NSString+PDRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2CFA4E15BC3D4C00FF5DFE /* NSString+PDRegex.m */; };
 		CE3EAA5D15CEC244008DA719 /* IDRoundedCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA5C15CEC244008DA719 /* IDRoundedCellBackgroundView.m */; };
@@ -42,6 +50,8 @@
 		CE3EAA7A15D5A0C1008DA719 /* BBHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */; };
 		CE59105215D58084006CEE0E /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = CE59105015D58084006CEE0E /* info.png */; };
 		CE59105315D58084006CEE0E /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE59105115D58084006CEE0E /* info@2x.png */; };
+		CE59105815D7D96C006CEE0E /* BBBalanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE59105715D7D96C006CEE0E /* BBBalanceVC.m */; };
+		CE59105B15D7D9CE006CEE0E /* BBBalanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE59105A15D7D9CE006CEE0E /* BBBalanceVC.xib */; };
 		CEA2FD6515BC3FA700C98E7A /* mts_balance.html in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6415BC3FA700C98E7A /* mts_balance.html */; };
 		CEA2FD6E15BC4D0500C98E7A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6C15BC4D0500C98E7A /* Icon.png */; };
 		CEA2FD6F15BC4D0500C98E7A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6D15BC4D0500C98E7A /* Icon@2x.png */; };
@@ -54,8 +64,6 @@
 		CEA2FD9315CD548100C98E7A /* NSManagedObjectModel+ActiveRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2FD8B15CD548100C98E7A /* NSManagedObjectModel+ActiveRecord.m */; };
 		CEA2FD9415CD548100C98E7A /* NSPersistentStore+ActiveRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2FD8D15CD548100C98E7A /* NSPersistentStore+ActiveRecord.m */; };
 		CEA2FD9515CD548100C98E7A /* NSPersistentStoreCoordinator+ActiveRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2FD8F15CD548100C98E7A /* NSPersistentStoreCoordinator+ActiveRecord.m */; };
-		CEA2FD9815CD58F300C98E7A /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2FD9715CD58F300C98E7A /* BBMAccountType.m */; };
-		CEA2FD9B15CD58F400C98E7A /* BBMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2FD9A15CD58F400C98E7A /* BBMAccount.m */; };
 		CEA2FD9D15CD593D00C98E7A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA2FD9C15CD593D00C98E7A /* CoreData.framework */; };
 		CEA2FDAA15CD686700C98E7A /* BBMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FDA915CD686700C98E7A /* BBMainWindow.xib */; };
 		CEA2FDAE15CD747A00C98E7A /* BBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2FDAD15CD747A00C98E7A /* BBBaseViewController.m */; };
@@ -115,6 +123,17 @@
 		CE0524FF158E066900FB6CDF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE052501158E067600FB6CDF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CE052503158E06D900FB6CDF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		CE20B1E115D55839004006B8 /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
+		CE20B1E215D55839004006B8 /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
+		CE212CB515D409B3000D16AA /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		CE212CB615D409B3000D16AA /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
+		CE212CBA15D41094000D16AA /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
+		CE212CBB15D41094000D16AA /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
+		CE212CBD15D41095000D16AA /* BBMAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccount.h; sourceTree = "<group>"; };
+		CE212CBE15D41095000D16AA /* BBMAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccount.m; sourceTree = "<group>"; };
+		CE212CC115D4175D000D16AA /* BBAboutVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAboutVC.h; sourceTree = "<group>"; };
+		CE212CC215D4175D000D16AA /* BBAboutVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAboutVC.m; sourceTree = "<group>"; };
+		CE212CC515D417EB000D16AA /* BBAboutVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAboutVC.xib; sourceTree = "<group>"; };
 		CE2CFA4015BC29E500FF5DFE /* BBLoaderBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderBase.h; sourceTree = "<group>"; };
 		CE2CFA4115BC29E500FF5DFE /* BBLoaderBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderBase.m; sourceTree = "<group>"; };
 		CE2CFA4D15BC3D4C00FF5DFE /* NSString+PDRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PDRegex.h"; sourceTree = "<group>"; };
@@ -134,6 +153,9 @@
 		CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHomeCell.m; sourceTree = "<group>"; };
 		CE59105015D58084006CEE0E /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		CE59105115D58084006CEE0E /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
+		CE59105615D7D96C006CEE0E /* BBBalanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceVC.h; sourceTree = "<group>"; };
+		CE59105715D7D96C006CEE0E /* BBBalanceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBalanceVC.m; sourceTree = "<group>"; };
+		CE59105A15D7D9CE006CEE0E /* BBBalanceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBBalanceVC.xib; sourceTree = "<group>"; };
 		CEA2FD6415BC3FA700C98E7A /* mts_balance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = mts_balance.html; path = ../../../mts_balance.html; sourceTree = "<group>"; };
 		CEA2FD6C15BC4D0500C98E7A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		CEA2FD6D15BC4D0500C98E7A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -157,10 +179,6 @@
 		CEA2FD8D15CD548100C98E7A /* NSPersistentStore+ActiveRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPersistentStore+ActiveRecord.m"; sourceTree = "<group>"; };
 		CEA2FD8E15CD548100C98E7A /* NSPersistentStoreCoordinator+ActiveRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPersistentStoreCoordinator+ActiveRecord.h"; sourceTree = "<group>"; };
 		CEA2FD8F15CD548100C98E7A /* NSPersistentStoreCoordinator+ActiveRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPersistentStoreCoordinator+ActiveRecord.m"; sourceTree = "<group>"; };
-		CEA2FD9615CD58F300C98E7A /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
-		CEA2FD9715CD58F300C98E7A /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
-		CEA2FD9915CD58F400C98E7A /* BBMAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccount.h; sourceTree = "<group>"; };
-		CEA2FD9A15CD58F400C98E7A /* BBMAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccount.m; sourceTree = "<group>"; };
 		CEA2FD9C15CD593D00C98E7A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CEA2FD9E15CD59A200C98E7A /* BBMAllManagedItems.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBMAllManagedItems.h; sourceTree = "<group>"; };
 		CEA2FDA915CD686700C98E7A /* BBMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBMainWindow.xib; sourceTree = "<group>"; };
@@ -263,6 +281,8 @@
 				CE0524C2158E027C00FB6CDF /* 0.Main */,
 				CE0524C5158E027C00FB6CDF /* 1.Home */,
 				CEA2FDB315CD859300C98E7A /* 2.Account */,
+				CE59105515D7D90C006CEE0E /* 3.Balance */,
+				CE212CC015D41743000D16AA /* 4.About */,
 				CE0524CE158E05D300FB6CDF /* Assets */,
 			);
 			path = Classes;
@@ -291,10 +311,12 @@
 		CE0524CA158E02E700FB6CDF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CEA2FDA815CD686600C98E7A /* 0.Main */,
 				CEA2FD6715BC4C8B00C98E7A /* Icons */,
+				CEA2FDA815CD686600C98E7A /* 0.Main */,
 				CE0524CB158E02E700FB6CDF /* 1.Home */,
 				CEA2FDBD15CD87E100C98E7A /* 2.Account */,
+				CE59105915D7D9A7006CEE0E /* 3.Balance */,
+				CE212CC415D417C0000D16AA /* 4.About */,
 				CEA2FD6415BC3FA700C98E7A /* mts_balance.html */,
 			);
 			path = Resources;
@@ -389,6 +411,24 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		CE212CC015D41743000D16AA /* 4.About */ = {
+			isa = PBXGroup;
+			children = (
+				CE212CC115D4175D000D16AA /* BBAboutVC.h */,
+				CE212CC215D4175D000D16AA /* BBAboutVC.m */,
+			);
+			path = 4.About;
+			sourceTree = "<group>";
+		};
+		CE212CC415D417C0000D16AA /* 4.About */ = {
+			isa = PBXGroup;
+			children = (
+				CE212CC515D417EB000D16AA /* BBAboutVC.xib */,
+			);
+			name = 4.About;
+			path = ByBalance/Resources/4.About;
+			sourceTree = SOURCE_ROOT;
+		};
 		CE2CFA3F15BC29E500FF5DFE /* Loader */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +455,23 @@
 				CE3EAA5C15CEC244008DA719 /* IDRoundedCellBackgroundView.m */,
 			);
 			path = RoundedTableCells;
+			sourceTree = "<group>";
+		};
+		CE59105515D7D90C006CEE0E /* 3.Balance */ = {
+			isa = PBXGroup;
+			children = (
+				CE59105615D7D96C006CEE0E /* BBBalanceVC.h */,
+				CE59105715D7D96C006CEE0E /* BBBalanceVC.m */,
+			);
+			path = 3.Balance;
+			sourceTree = "<group>";
+		};
+		CE59105915D7D9A7006CEE0E /* 3.Balance */ = {
+			isa = PBXGroup;
+			children = (
+				CE59105A15D7D9CE006CEE0E /* BBBalanceVC.xib */,
+			);
+			path = 3.Balance;
 			sourceTree = "<group>";
 		};
 		CEA2FD6715BC4C8B00C98E7A /* Icons */ = {
@@ -445,10 +502,10 @@
 			children = (
 				CEA2FD9E15CD59A200C98E7A /* BBMAllManagedItems.h */,
 				CEA2FD7F15CD51FD00C98E7A /* Model.xcdatamodeld */,
-				CEA2FD9915CD58F400C98E7A /* BBMAccount.h */,
-				CEA2FD9A15CD58F400C98E7A /* BBMAccount.m */,
-				CEA2FD9615CD58F300C98E7A /* BBMAccountType.h */,
-				CEA2FD9715CD58F300C98E7A /* BBMAccountType.m */,
+				CE212CBD15D41095000D16AA /* BBMAccount.h */,
+				CE212CBE15D41095000D16AA /* BBMAccount.m */,
+				CE212CBA15D41094000D16AA /* BBMAccountType.h */,
+				CE212CBB15D41094000D16AA /* BBMAccountType.m */,
 			);
 			path = Managed;
 			sourceTree = "<group>";
@@ -516,6 +573,10 @@
 		CEA2FDC215CD8C0900C98E7A /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				CE212CB515D409B3000D16AA /* delete.png */,
+				CE212CB615D409B3000D16AA /* delete@2x.png */,
+				CE20B1E115D55839004006B8 /* edit.png */,
+				CE20B1E215D55839004006B8 /* edit@2x.png */,
 				CE59105015D58084006CEE0E /* info.png */,
 				CE59105115D58084006CEE0E /* info@2x.png */,
 				CEA2FDC315CD8C0900C98E7A /* add.png */,
@@ -617,6 +678,12 @@
 				CE3EAA7715D5A079008DA719 /* BBHomeCell.xib in Resources */,
 				CE59105215D58084006CEE0E /* info.png in Resources */,
 				CE59105315D58084006CEE0E /* info@2x.png in Resources */,
+				CE59105B15D7D9CE006CEE0E /* BBBalanceVC.xib in Resources */,
+				CE20B1E315D55839004006B8 /* edit.png in Resources */,
+				CE20B1E415D55839004006B8 /* edit@2x.png in Resources */,
+				CE212CB715D409B3000D16AA /* delete.png in Resources */,
+				CE212CB815D409B3000D16AA /* delete@2x.png in Resources */,
+				CE212CC615D417EB000D16AA /* BBAboutVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,14 +724,16 @@
 				CEA2FD9315CD548100C98E7A /* NSManagedObjectModel+ActiveRecord.m in Sources */,
 				CEA2FD9415CD548100C98E7A /* NSPersistentStore+ActiveRecord.m in Sources */,
 				CEA2FD9515CD548100C98E7A /* NSPersistentStoreCoordinator+ActiveRecord.m in Sources */,
-				CEA2FD9815CD58F300C98E7A /* BBMAccountType.m in Sources */,
-				CEA2FD9B15CD58F400C98E7A /* BBMAccount.m in Sources */,
 				CEA2FDAE15CD747A00C98E7A /* BBBaseViewController.m in Sources */,
 				CEA2FDBC15CD861700C98E7A /* BBSelectAccountTypeVC.m in Sources */,
 				CE3EAA5D15CEC244008DA719 /* IDRoundedCellBackgroundView.m in Sources */,
 				CE3EAA6B15CECB6A008DA719 /* BBAccountTypeCell.m in Sources */,
 				CE3EAA7215CED7AA008DA719 /* BBAddAccountVC.m in Sources */,
 				CE3EAA7A15D5A0C1008DA719 /* BBHomeCell.m in Sources */,
+				CE59105815D7D96C006CEE0E /* BBBalanceVC.m in Sources */,
+				CE212CBC15D41094000D16AA /* BBMAccountType.m in Sources */,
+				CE212CBF15D41095000D16AA /* BBMAccount.m in Sources */,
+				CE212CC315D4175D000D16AA /* BBAboutVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

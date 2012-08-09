@@ -40,6 +40,7 @@
     UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"arrow_left"];
     [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = btnInfo;    
+    
     //title
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
     titleView.text = @"Добавить аккаунт";
@@ -72,6 +73,7 @@
     {
         nibs = [[NSBundle mainBundle] loadNibNamed:@"BBAccountTypeCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     NSNumber * atId  = [NSNumber numberWithInt:indexPath.row + 1];
@@ -112,11 +114,6 @@
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
     
-}
-
-- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath 
-{
-    return UITableViewCellAccessoryDisclosureIndicator;
 }
 
 

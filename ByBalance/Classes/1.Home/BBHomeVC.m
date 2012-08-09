@@ -9,11 +9,18 @@
 #import "BBHomeVC.h"
 #import "BBSelectAccountTypeVC.h"
 #import "BBHomeCell.h"
+#import "BBBalanceVC.h"
+#import "BBAboutVC.h"
 
 @interface BBHomeVC ()
+
 @property (strong,nonatomic) NSArray * accounts;
+
 - (void) accountsListUpdated:(NSNotification *)notification;
+- (void) toggleSplashMode;
+
 @end
+
 
 @implementation BBHomeVC
 
@@ -24,16 +31,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 
-    textView.text = [SETTINGS log];
-    [textView scrollRangeToVisible:NSMakeRange([textView.text length], 0)];
-    
     [tblAccounts setSeparatorColor:[UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1]];
+    
+    [APP_CONTEXT makeRedButton:btnBigAdd];
     
     self.accounts = [BBMAccount findAll];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
+    
+    [self toggleSplashMode];
     
 }
 
@@ -57,11 +64,24 @@
     
     if (needUpdateTable)
     {
-        
         self.accounts = [BBMAccount findAll];
-        [tblAccounts reloadData];
-        
         needUpdateTable = NO;
+        [self toggleSplashMode];
+    }
+}
+
+- (void) toggleSplashMode
+{
+    if ([accounts count] > 0)
+    {
+        splashView.hidden = YES;
+        tblAccounts.hidden = NO;
+        [tblAccounts reloadData];
+    }
+    else 
+    {
+        tblAccounts.hidden = YES;
+        splashView.hidden = NO;
     }
 }
 
@@ -71,33 +91,52 @@
 {
     [super setupNavBar];
     
+    /*
     UIBarButtonItem * spacer = [[UIBarButtonItem alloc] 
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace 
                                 target:nil action:nil];
     spacer.width = 10; 
+    */
     
     //left button
     UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"info"]; //[APP_CONTEXT infoIconButton];
     [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spacer, btnInfo, nil];
+    self.navigationItem.leftBarButtonItem = btnInfo;
     
     //title
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
     titleView.text = @"ByBalance";
     [titleView sizeToFit];
     
-    
     //right button
-    //UIBarButtonItem * btnAdd = [APP_CONTEXT addIconButton];
     UIBarButtonItem * btnAdd = [APP_CONTEXT buttonFromName:@"add"];
     [(UIButton *)btnAdd.customView addTarget:self action:@selector(onNavButtonRight:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spacer, btnAdd, nil];
+    self.navigationItem.rightBarButtonItem = btnAdd;
 }
 
 #pragma mark - Actions
 
 - (IBAction) onNavButtonLeft:(id)sender
 {
+    /*
+    BBAboutVC * vc = NEWVCFROMNIB(BBAboutVC);
+    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentModalViewController:vc animated:YES];
+    //[self.navigationController pushViewController:vc animated:YES];
+    [vc release];
+    */
+    
+    BBAboutVC * vc = NEWVCFROMNIB(BBAboutVC);
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+    [vc release];
+    
+    navController.modalPresentationStyle = UIModalPresentationFullScreen;
+    navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    navController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    
+    [self presentModalViewController:navController animated:YES];
+    [navController release];
     
 }
 
@@ -144,6 +183,7 @@
 {
     [self showWaitIndicator:NO];
     
+    /*
     IDDateHelper * dh = [IDDateHelper sharedIDDateHelper];
     NSString * time = [dh dateToMysqlDateTime:[NSDate date]];
     textView.text = [textView.text stringByAppendingFormat:@"\r\n%@\r\n%@\r\n", time, loader.item.fullDescription];
@@ -152,12 +192,15 @@
     [loader autorelease];
     
     SETTINGS.log = textView.text;
+    */
+
 }
 
 - (void) dataLoaderFail:(BBLoaderBase*)loader
 {
     [self showWaitIndicator:NO];
     
+    /*
     IDDateHelper * dh = [IDDateHelper sharedIDDateHelper];
     NSString * time = [dh dateToMysqlDateTime:[NSDate date]];
     textView.text = [textView.text stringByAppendingFormat:@"\r\n%@\r\n%@\r\n", time, loader.item.fullDescription];
@@ -166,6 +209,7 @@
     [loader autorelease];
     
     SETTINGS.log = textView.text;
+    */
 }
 
 #pragma mark - UITableViewDataSource
@@ -185,6 +229,7 @@
     {
         nibs = [[NSBundle mainBundle] loadNibNamed:@"BBHomeCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     BBMAccount * account = [self.accounts objectAtIndex:indexPath.row];
@@ -209,13 +254,19 @@
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    
+    BBHomeCell * cell = (BBHomeCell *)[tblAccounts cellForRowAtIndexPath:indexPath];
+    if (nil == cell)
+    {
+        NSAssert(0, @"%@. Cell is nil", [self class]);
+        return;
+    }
+    
+    BBBalanceVC * vc = NEWVCFROMNIB(BBBalanceVC);
+    vc.account = cell.account;
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
-- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath 
-{
-    return UITableViewCellAccessoryDisclosureIndicator;
-}
 
 
 @end

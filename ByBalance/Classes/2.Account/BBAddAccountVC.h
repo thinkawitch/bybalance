@@ -15,9 +15,9 @@
     IBOutlet UILabel * lblUsername;
     IBOutlet UILabel * lblUsernamePrefix;
     IBOutlet UILabel * lblPassword;
-    
     IBOutlet UITextField * tfUsername;
     IBOutlet UITextField * tfPassword;
+    IBOutlet UIButton * btnAdd;
     
     BBMAccountType * accountType;
     
