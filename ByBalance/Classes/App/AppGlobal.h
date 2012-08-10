@@ -18,7 +18,11 @@ extern NSString * const kAppEmailRegexp;
 extern NSInteger  const kAccountMTS;
 extern NSInteger  const kAccountBN;
 
+//
+extern NSString * const kNotificationOnAccountsListUpdated;
+
 #pragma mark - Cells sizes
 //
+extern const CGFloat kHomeCellHeight;
 extern const CGFloat kAccountTypeCellHeight;
 //

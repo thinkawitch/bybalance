@@ -18,9 +18,4 @@
     self.accountType = type;
 }
 
-- (BBMAccountType *) accountType
-{
-    return accountType;
-}
-
 @end

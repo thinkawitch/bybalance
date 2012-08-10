@@ -8,12 +8,16 @@
 
 #import "BBHomeVC.h"
 #import "BBSelectAccountTypeVC.h"
+#import "BBHomeCell.h"
 
 @interface BBHomeVC ()
-
+@property (strong,nonatomic) NSArray * accounts;
+- (void) accountsListUpdated:(NSNotification *)notification;
 @end
 
 @implementation BBHomeVC
+
+@synthesize accounts;
 
 #pragma mark - ObjectLife
 
@@ -24,6 +28,41 @@
 
     textView.text = [SETTINGS log];
     [textView scrollRangeToVisible:NSMakeRange([textView.text length], 0)];
+    
+    [tblAccounts setSeparatorColor:[UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1]];
+    
+    self.accounts = [BBMAccount findAll];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
+    
+}
+
+- (void) cleanup
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnAccountsListUpdated object:nil];
+    
+    self.accounts = nil;
+    
+    [super cleanup];
+}
+
+- (void) accountsListUpdated:(NSNotification *)notification
+{
+    needUpdateTable = YES;
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (needUpdateTable)
+    {
+        
+        self.accounts = [BBMAccount findAll];
+        [tblAccounts reloadData];
+        
+        needUpdateTable = NO;
+    }
 }
 
 #pragma mark - Setup
@@ -128,5 +167,50 @@
     
     SETTINGS.log = textView.text;
 }
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)_tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.accounts count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * cellId = @"BBHomeCellID";
+    NSArray * nibs;
+    
+    BBHomeCell * cell = (BBHomeCell*)[tblAccounts dequeueReusableCellWithIdentifier:cellId];
+    if (!cell)
+    {
+        nibs = [[NSBundle mainBundle] loadNibNamed:@"BBHomeCell" owner:self options:nil];
+        cell = [nibs objectAtIndex:0];
+    }
+    
+    BBMAccount * account = [self.accounts objectAtIndex:indexPath.row];
+    
+    [cell setupWithAccount:account];
+    
+    return cell;
+    
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView
+{
+    return 1;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return kHomeCellHeight;
+}
+
+- (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //    
+}
+
 
 @end

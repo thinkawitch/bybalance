@@ -92,6 +92,8 @@
     account.password = tfPassword.text;
     [APP_CONTEXT saveDatabase];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
     
     [APP_CONTEXT showToastWithText:@"Новый аккаунт добавлен"]; 

@@ -8,11 +8,16 @@
 
 #import "BBBaseViewController.h"
 
-@interface BBHomeVC : BBBaseViewController <BBLoaderDelegate>
+@interface BBHomeVC : BBBaseViewController
+<BBLoaderDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     
 @private
     IBOutlet UITextView * textView;
+    IBOutlet UITableView * tblAccounts;
+    
+    NSArray * accounts;
+    BOOL needUpdateTable;
     
 }
 

@@ -19,8 +19,11 @@ NSString * const kAppEmailRegexp = @"^([\\w\\-\\.]+)@((\\[([0-9]{1,3}\\.){3}[0-9
 NSInteger const kAccountMTS = 1;
 NSInteger const kAccountBN = 2;
 
+//
+NSString * const kNotificationOnAccountsListUpdated = @"ON_ACCOUNTS_LIST_UPDATED";
 
 #pragma mark - Cells sizes
 //
+CGFloat const kHomeCellHeight = 73.f + 1.f;
 CGFloat const kAccountTypeCellHeight = 73.f + 1.f;
 //

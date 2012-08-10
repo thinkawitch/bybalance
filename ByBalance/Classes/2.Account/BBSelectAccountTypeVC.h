@@ -8,7 +8,7 @@
 
 #import "BBBaseViewController.h"
 
-@interface BBSelectAccountTypeVC : BBBaseViewController
+@interface BBSelectAccountTypeVC : BBBaseViewController 
 <UITableViewDataSource, UITableViewDelegate>
 {
 @private

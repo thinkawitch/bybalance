@@ -38,6 +38,8 @@
 		CE3EAA6B15CECB6A008DA719 /* BBAccountTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA6A15CECB6A008DA719 /* BBAccountTypeCell.m */; };
 		CE3EAA7215CED7AA008DA719 /* BBAddAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA7115CED7AA008DA719 /* BBAddAccountVC.m */; };
 		CE3EAA7515CED7DC008DA719 /* BBAddAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA7415CED7DC008DA719 /* BBAddAccountVC.xib */; };
+		CE3EAA7715D5A079008DA719 /* BBHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA7615D5A079008DA719 /* BBHomeCell.xib */; };
+		CE3EAA7A15D5A0C1008DA719 /* BBHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */; };
 		CEA2FD6515BC3FA700C98E7A /* mts_balance.html in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6415BC3FA700C98E7A /* mts_balance.html */; };
 		CEA2FD6E15BC4D0500C98E7A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6C15BC4D0500C98E7A /* Icon.png */; };
 		CEA2FD6F15BC4D0500C98E7A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6D15BC4D0500C98E7A /* Icon@2x.png */; };
@@ -127,6 +129,9 @@
 		CE3EAA7015CED7AA008DA719 /* BBAddAccountVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAddAccountVC.h; sourceTree = "<group>"; };
 		CE3EAA7115CED7AA008DA719 /* BBAddAccountVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAddAccountVC.m; sourceTree = "<group>"; };
 		CE3EAA7415CED7DC008DA719 /* BBAddAccountVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAddAccountVC.xib; sourceTree = "<group>"; };
+		CE3EAA7615D5A079008DA719 /* BBHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBHomeCell.xib; sourceTree = "<group>"; };
+		CE3EAA7815D5A0C1008DA719 /* BBHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHomeCell.h; sourceTree = "<group>"; };
+		CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHomeCell.m; sourceTree = "<group>"; };
 		CEA2FD6415BC3FA700C98E7A /* mts_balance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = mts_balance.html; path = ../../../mts_balance.html; sourceTree = "<group>"; };
 		CEA2FD6C15BC4D0500C98E7A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		CEA2FD6D15BC4D0500C98E7A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -277,6 +282,8 @@
 			children = (
 				CE0524C6158E027C00FB6CDF /* BBHomeVC.h */,
 				CE0524C7158E027C00FB6CDF /* BBHomeVC.m */,
+				CE3EAA7815D5A0C1008DA719 /* BBHomeCell.h */,
+				CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */,
 			);
 			path = 1.Home;
 			sourceTree = "<group>";
@@ -296,6 +303,7 @@
 		CE0524CB158E02E700FB6CDF /* 1.Home */ = {
 			isa = PBXGroup;
 			children = (
+				CE3EAA7615D5A079008DA719 /* BBHomeCell.xib */,
 				CE3EAA6015CEC956008DA719 /* BBHomeVC.xib */,
 			);
 			path = 1.Home;
@@ -608,6 +616,7 @@
 				CE3EAA6115CEC956008DA719 /* BBHomeVC.xib in Resources */,
 				CE3EAA6715CECAA3008DA719 /* BBAccountTypeCell.xib in Resources */,
 				CE3EAA7515CED7DC008DA719 /* BBAddAccountVC.xib in Resources */,
+				CE3EAA7715D5A079008DA719 /* BBHomeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +664,7 @@
 				CE3EAA5D15CEC244008DA719 /* IDRoundedCellBackgroundView.m in Sources */,
 				CE3EAA6B15CECB6A008DA719 /* BBAccountTypeCell.m in Sources */,
 				CE3EAA7215CED7AA008DA719 /* BBAddAccountVC.m in Sources */,
+				CE3EAA7A15D5A0C1008DA719 /* BBHomeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
