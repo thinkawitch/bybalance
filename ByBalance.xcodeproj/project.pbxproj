@@ -40,6 +40,8 @@
 		CE3EAA7515CED7DC008DA719 /* BBAddAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA7415CED7DC008DA719 /* BBAddAccountVC.xib */; };
 		CE3EAA7715D5A079008DA719 /* BBHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAA7615D5A079008DA719 /* BBHomeCell.xib */; };
 		CE3EAA7A15D5A0C1008DA719 /* BBHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */; };
+		CE59105215D58084006CEE0E /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = CE59105015D58084006CEE0E /* info.png */; };
+		CE59105315D58084006CEE0E /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE59105115D58084006CEE0E /* info@2x.png */; };
 		CEA2FD6515BC3FA700C98E7A /* mts_balance.html in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6415BC3FA700C98E7A /* mts_balance.html */; };
 		CEA2FD6E15BC4D0500C98E7A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6C15BC4D0500C98E7A /* Icon.png */; };
 		CEA2FD6F15BC4D0500C98E7A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FD6D15BC4D0500C98E7A /* Icon@2x.png */; };
@@ -62,8 +64,6 @@
 		CEA2FDCA15CD8C0900C98E7A /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FDC415CD8C0900C98E7A /* add@2x.png */; };
 		CEA2FDCB15CD8C0900C98E7A /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FDC515CD8C0900C98E7A /* arrow_left.png */; };
 		CEA2FDCC15CD8C0900C98E7A /* arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FDC615CD8C0900C98E7A /* arrow_left@2x.png */; };
-		CEA2FDCD15CD8C0900C98E7A /* key_add.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FDC715CD8C0900C98E7A /* key_add.png */; };
-		CEA2FDD015CD8D2100C98E7A /* key_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FDCF15CD8D2000C98E7A /* key_add@2x.png */; };
 		CEC486E7158E0B14008CA493 /* AppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486E3158E0B14008CA493 /* AppContext.m */; };
 		CEC486E8158E0B14008CA493 /* AppGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486E5158E0B14008CA493 /* AppGlobal.m */; };
 		CEC486EC158E0EDA008CA493 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486EB158E0EDA008CA493 /* AppSettings.m */; };
@@ -132,6 +132,8 @@
 		CE3EAA7615D5A079008DA719 /* BBHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBHomeCell.xib; sourceTree = "<group>"; };
 		CE3EAA7815D5A0C1008DA719 /* BBHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHomeCell.h; sourceTree = "<group>"; };
 		CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHomeCell.m; sourceTree = "<group>"; };
+		CE59105015D58084006CEE0E /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		CE59105115D58084006CEE0E /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
 		CEA2FD6415BC3FA700C98E7A /* mts_balance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = mts_balance.html; path = ../../../mts_balance.html; sourceTree = "<group>"; };
 		CEA2FD6C15BC4D0500C98E7A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		CEA2FD6D15BC4D0500C98E7A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -170,8 +172,6 @@
 		CEA2FDC415CD8C0900C98E7A /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		CEA2FDC515CD8C0900C98E7A /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_left.png; sourceTree = "<group>"; };
 		CEA2FDC615CD8C0900C98E7A /* arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_left@2x.png"; sourceTree = "<group>"; };
-		CEA2FDC715CD8C0900C98E7A /* key_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_add.png; sourceTree = "<group>"; };
-		CEA2FDCF15CD8D2000C98E7A /* key_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "key_add@2x.png"; sourceTree = "<group>"; };
 		CEC486E2158E0B14008CA493 /* AppContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppContext.h; sourceTree = "<group>"; };
 		CEC486E3158E0B14008CA493 /* AppContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppContext.m; sourceTree = "<group>"; };
 		CEC486E4158E0B14008CA493 /* AppGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppGlobal.h; sourceTree = "<group>"; };
@@ -516,12 +516,12 @@
 		CEA2FDC215CD8C0900C98E7A /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				CE59105015D58084006CEE0E /* info.png */,
+				CE59105115D58084006CEE0E /* info@2x.png */,
 				CEA2FDC315CD8C0900C98E7A /* add.png */,
 				CEA2FDC415CD8C0900C98E7A /* add@2x.png */,
 				CEA2FDC515CD8C0900C98E7A /* arrow_left.png */,
 				CEA2FDC615CD8C0900C98E7A /* arrow_left@2x.png */,
-				CEA2FDC715CD8C0900C98E7A /* key_add.png */,
-				CEA2FDCF15CD8D2000C98E7A /* key_add@2x.png */,
 			);
 			path = buttons;
 			sourceTree = "<group>";
@@ -610,13 +610,13 @@
 				CEA2FDCA15CD8C0900C98E7A /* add@2x.png in Resources */,
 				CEA2FDCB15CD8C0900C98E7A /* arrow_left.png in Resources */,
 				CEA2FDCC15CD8C0900C98E7A /* arrow_left@2x.png in Resources */,
-				CEA2FDCD15CD8C0900C98E7A /* key_add.png in Resources */,
-				CEA2FDD015CD8D2100C98E7A /* key_add@2x.png in Resources */,
 				CE3EAA5F15CEC8E1008DA719 /* BBSelectAccountTypeVC.xib in Resources */,
 				CE3EAA6115CEC956008DA719 /* BBHomeVC.xib in Resources */,
 				CE3EAA6715CECAA3008DA719 /* BBAccountTypeCell.xib in Resources */,
 				CE3EAA7515CED7DC008DA719 /* BBAddAccountVC.xib in Resources */,
 				CE3EAA7715D5A079008DA719 /* BBHomeCell.xib in Resources */,
+				CE59105215D58084006CEE0E /* info.png in Resources */,
+				CE59105315D58084006CEE0E /* info@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

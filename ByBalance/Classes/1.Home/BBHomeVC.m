@@ -77,7 +77,7 @@
     spacer.width = 10; 
     
     //left button
-    UIBarButtonItem * btnInfo = [APP_CONTEXT infoIconButton];
+    UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"info"]; //[APP_CONTEXT infoIconButton];
     [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spacer, btnInfo, nil];
     
@@ -89,7 +89,7 @@
     
     //right button
     //UIBarButtonItem * btnAdd = [APP_CONTEXT addIconButton];
-    UIBarButtonItem * btnAdd = [APP_CONTEXT buttonFromName:@"key_add"];
+    UIBarButtonItem * btnAdd = [APP_CONTEXT buttonFromName:@"add"];
     [(UIButton *)btnAdd.customView addTarget:self action:@selector(onNavButtonRight:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spacer, btnAdd, nil];
 }
@@ -210,6 +210,11 @@
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //    
+}
+
+- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath 
+{
+    return UITableViewCellAccessoryDisclosureIndicator;
 }
 
 

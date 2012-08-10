@@ -114,9 +114,9 @@
     
 }
 
-- (CGFloat)tableView:(UITableView *)_tableView heightForHeaderInSection:(NSInteger)section
+- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath 
 {
-    return 0;
+    return UITableViewCellAccessoryDisclosureIndicator;
 }
 
 
