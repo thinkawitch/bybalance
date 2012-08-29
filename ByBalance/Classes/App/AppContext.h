@@ -39,6 +39,7 @@
 - (UIBarButtonItem *) buttonWithTitle:(NSString *) anTitle;
 - (UIImage *) stretchedImageNamed:(NSString *) anName width:(CGRect)anRect;
 - (UILabel *) navBarLabel;
+- (UILabel *) toolBarLabel;
 
 // Styles
 - (void) makeRedButton:(UIButton *) button;

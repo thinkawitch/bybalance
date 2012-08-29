@@ -19,6 +19,8 @@
     
     NSArray * accounts;
     
+    IBOutlet UIToolbar * toolbar;
+    
 }
 
 - (IBAction) update:(id)sender;

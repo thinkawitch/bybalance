@@ -39,6 +39,40 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
     
+    //toolbar
+    /*
+    
+    */
+    
+    /*
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                            target:nil 
+                                                            action:nil];
+    */
+    
+    UIBarButtonItem * bbiRefresh = [APP_CONTEXT buttonFromName:@"refresh"];
+    
+    /*
+    UIBarButtonItem * label = [[UIBarButtonItem alloc] initWithTitle:@"ещё не обновлялся" 
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:nil 
+                                                            action:nil];
+    */
+    UILabel * label = [APP_CONTEXT toolBarLabel];
+    label.text = @"ещё не обновлялся";
+    [label sizeToFit];
+    UIBarButtonItem * bbiLabel = [[UIBarButtonItem alloc] initWithCustomView:label];
+
+
+    
+    UIBarButtonItem * bbiSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                            target:nil 
+                                                                            action:nil];
+    
+    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiLabel, bbiSpacer, nil];
+    
+    [toolbar setItems:items];
+    
     [self toggleSplashMode];
     
 }
@@ -76,11 +110,13 @@
         splashView.hidden = YES;
         tblAccounts.hidden = NO;
         [tblAccounts reloadData];
+        toolbar.hidden = NO;
     }
     else 
     {
         tblAccounts.hidden = YES;
         splashView.hidden = NO;
+        toolbar.hidden = YES;
     }
 }
 
