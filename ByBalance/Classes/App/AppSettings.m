@@ -14,7 +14,6 @@
 #define OPT_KEY_PASSWORD    @"password"
 #define OPT_KEY_SEND_EMAIL_UPDATES  @"sendEmailUpdates"
 #define OPT_KEY_INTRO_VERSION  @"introVersion"
-#define OPT_KEY_LOG  @"log"
 
 #import "AppSettings.h"
 
@@ -27,7 +26,6 @@
 @synthesize password;
 @synthesize sendEmailUpdates;
 @synthesize introVersion;
-@synthesize log;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings);
 
@@ -47,9 +45,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings);
 	[userDefaults setObject:[NSNumber numberWithBool:NO] forKey:OPT_KEY_SEND_EMAIL_UPDATES];
     [userDefaults setObject:[NSNumber numberWithInt:1] forKey:OPT_KEY_INTRO_VERSION];
 	
-	[settingsDefaults setObject:userDefaults forKey:OPT_DICT_SETTINGS]; 
-    
-    [userDefaults setObject:@"" forKey:OPT_KEY_LOG];
+	[settingsDefaults setObject:userDefaults forKey:OPT_DICT_SETTINGS];
 	
     [defaults registerDefaults:settingsDefaults];
     [defaults synchronize];
@@ -75,7 +71,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings);
     self.email = nil;
 	self.password = nil;
     self.introVersion = nil;
-    self.log = nil;
 	
 	[super dealloc];
 }
@@ -101,7 +96,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings);
         self.introVersion = [NSNumber numberWithInt:1];
     }
     
-    self.log = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:OPT_KEY_LOG]];
 }
 
 - (void) saveData
@@ -118,8 +112,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings);
 	[userDefaults setObject:[NSNumber numberWithBool:sendEmailUpdates] forKey:OPT_KEY_SEND_EMAIL_UPDATES];
     
     [userDefaults setObject:introVersion?introVersion:[NSNumber numberWithInt:1] forKey:OPT_KEY_INTRO_VERSION];
-    
-    [userDefaults setObject:log?log:@"" forKey:OPT_KEY_LOG];
 	
 	[defaults setObject:userDefaults forKey:OPT_DICT_SETTINGS];
     [defaults synchronize];

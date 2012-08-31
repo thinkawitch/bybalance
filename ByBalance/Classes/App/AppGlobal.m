@@ -21,6 +21,9 @@ NSInteger const kAccountBN = 2;
 
 //
 NSString * const kNotificationOnAccountsListUpdated = @"ON_ACCOUNTS_LIST_UPDATED";
+NSString * const kNotificationOnBalanceCheckStart = @"ON_BALANCE_CHECK_START";
+NSString * const kNotificationOnBalanceCheckProgress = @"ON_BALANCE_CHECK_PROGRESS";
+NSString * const kNotificationOnBalanceCheckStop = @"ON_BALANCE_CHECK_STOP";
 
 #pragma mark - Cells sizes
 //

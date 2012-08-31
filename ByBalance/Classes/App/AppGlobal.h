@@ -20,6 +20,9 @@ extern NSInteger  const kAccountBN;
 
 //
 extern NSString * const kNotificationOnAccountsListUpdated;
+extern NSString * const kNotificationOnBalanceCheckStart;
+extern NSString * const kNotificationOnBalanceCheckProgress;
+extern NSString * const kNotificationOnBalanceCheckStop;
 
 #pragma mark - Cells sizes
 //

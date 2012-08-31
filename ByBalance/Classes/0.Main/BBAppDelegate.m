@@ -31,6 +31,8 @@
     //start context logic
     [APP_CONTEXT startContext];
     
+    [BALANCE_CHECKER start];
+    
     return YES;
 }
 

@@ -20,7 +20,6 @@
     BOOL sendEmailUpdates;
     NSNumber * introVersion;
     
-    NSString * log;
 }
 
 @property (nonatomic, retain) NSNumber * userId;
@@ -30,7 +29,6 @@
 @property (nonatomic, retain) NSString * password;
 @property (nonatomic, assign) BOOL sendEmailUpdates;
 @property (nonatomic, retain) NSNumber * introVersion;
-@property (nonatomic, retain) NSString * log;
 
 + (AppSettings *) sharedAppSettings;
 
