@@ -18,6 +18,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     
     queue = [[NSOperationQueue alloc] init];
     queue.maxConcurrentOperationCount = 1;
+    
+    syncFlag1 = [[NSObject alloc] init];
+    syncFlag2 = [[NSObject alloc] init];
+    syncFlag3 = [[NSObject alloc] init];
 }
 
 - (BOOL) isBusy
@@ -35,6 +39,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         [queue release];
         queue = nil;
     }
+    
+    if (syncFlag1) 
+    {
+        [syncFlag1 release];
+        syncFlag1 = nil;
+    }
+    if (syncFlag2) 
+    {
+        [syncFlag2 release];
+        syncFlag2 = nil;
+    }
+    if (syncFlag3) 
+    {
+        [syncFlag3 release];
+        syncFlag3 = nil;
+    }
+    
+    [APP_CONTEXT saveDatabase];
     
     isBusy = NO;
 }
