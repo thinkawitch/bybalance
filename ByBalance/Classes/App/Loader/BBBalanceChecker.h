@@ -8,6 +8,8 @@
 
 #import "ASIHTTPRequestDelegate.h"
 
+@class BBMAccount;
+
 @interface BBBalanceChecker : NSObject <ASIHTTPRequestDelegate>
 {
     
@@ -27,6 +29,8 @@
 - (BOOL) isBusy;
 - (void) stop;
 //
+
+- (void) addItem:(BBMAccount *) item;
 
 
 

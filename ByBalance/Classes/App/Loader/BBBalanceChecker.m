@@ -61,4 +61,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     isBusy = NO;
 }
 
+- (void) addItem:(BBMAccount *) item
+{
+    
+}
+
 @end
