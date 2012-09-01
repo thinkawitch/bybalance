@@ -32,7 +32,25 @@
     item.username = self.username;
     item.password = self.password;
     
-    return item;
+    return [item autorelease];
+}
+
+- (BBMBalanceHistory *) lastGoodBalance
+{
+    if (!self.history) return nil;
+    
+    /*
+    [BBMBalanceHistory findByAttribute:@"account" 
+                             withValue:self 
+                            andOrderBy:@"date" 
+                             ascending:NO];
+    */
+    
+    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"isExtracted=1 AND account=%@", self];
+    return [BBMBalanceHistory findFirstWithPredicate:predicate 
+                                            sortedBy:@"date" 
+                                           ascending:NO];
+    
 }
 
 @end

@@ -16,7 +16,9 @@
 
 @property (strong,nonatomic) NSArray * accounts;
 
+- (void) setupToolbar;
 - (void) toggleSplashMode;
+- (NSString *) lastBalanceStatus;
 
 @end
 
@@ -37,58 +39,32 @@
     
     self.accounts = [BBMAccount findAll];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
-    
-    //toolbar
-    /*
-    
-    */
-    
-    /*
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                            target:nil 
-                                                            action:nil];
-    */
-    
-    UIBarButtonItem * bbiRefresh = [APP_CONTEXT buttonFromName:@"refresh"];
-    
-    /*
-    UIBarButtonItem * label = [[UIBarButtonItem alloc] initWithTitle:@"ещё не обновлялся" 
-                                                             style:UIBarButtonItemStylePlain
-                                                            target:nil 
-                                                            action:nil];
-    */
-    UILabel * label = [APP_CONTEXT toolBarLabel];
-    label.text = @"ещё не обновлялся";
-    [label sizeToFit];
-    UIBarButtonItem * bbiLabel = [[UIBarButtonItem alloc] initWithCustomView:label];
-
-
-    
-    UIBarButtonItem * bbiSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                            target:nil 
-                                                                            action:nil];
-    
-    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiLabel, bbiSpacer, nil];
-    
-    [toolbar setItems:items];
+    [self setupToolbar];
     
     [self toggleSplashMode];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckStarted:) name:kNotificationOnBalanceCheckStart object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckProgress:) name:kNotificationOnBalanceCheckProgress object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckStopped:) name:kNotificationOnBalanceCheckStop object:nil];
 }
 
 - (void) cleanup
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnAccountsListUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnBalanceCheckStart object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnBalanceCheckProgress object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnBalanceCheckStop object:nil];
     
     self.accounts = nil;
     
+    if (lblStatus)
+    {
+        [lblStatus release];
+        lblStatus = nil;
+    }
+    
     [super cleanup];
-}
-
-- (void) accountsListUpdated:(NSNotification *)notification
-{
-    needUpdateScreen = YES;
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -103,40 +79,24 @@
     }
 }
 
-- (void) toggleSplashMode
-{
-    if ([accounts count] > 0)
-    {
-        splashView.hidden = YES;
-        tblAccounts.hidden = NO;
-        [tblAccounts reloadData];
-        toolbar.hidden = NO;
-    }
-    else 
-    {
-        tblAccounts.hidden = YES;
-        splashView.hidden = NO;
-        toolbar.hidden = YES;
-    }
-}
-
 #pragma mark - Setup
 
 - (void) setupNavBar
 {
     [super setupNavBar];
     
-    /*
+    
     UIBarButtonItem * spacer = [[UIBarButtonItem alloc] 
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace 
                                 target:nil action:nil];
-    spacer.width = 10; 
-    */
+    spacer.width = 5; 
+    
     
     //left button
     UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"info"]; //[APP_CONTEXT infoIconButton];
     [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = btnInfo;
+    //self.navigationItem.leftBarButtonItem = btnInfo;
+    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:spacer, btnInfo, nil]];
     
     //title
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
@@ -146,22 +106,15 @@
     //right button
     UIBarButtonItem * btnAdd = [APP_CONTEXT buttonFromName:@"add"];
     [(UIButton *)btnAdd.customView addTarget:self action:@selector(onNavButtonRight:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = btnAdd;
+    //self.navigationItem.rightBarButtonItem = btnAdd;
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:spacer, btnAdd, nil]];
 }
+
 
 #pragma mark - Actions
 
 - (IBAction) onNavButtonLeft:(id)sender
-{
-    /*
-    BBAboutVC * vc = NEWVCFROMNIB(BBAboutVC);
-    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentModalViewController:vc animated:YES];
-    //[self.navigationController pushViewController:vc animated:YES];
-    [vc release];
-    */
-    
+{    
     BBAboutVC * vc = NEWVCFROMNIB(BBAboutVC);
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     [vc release];
@@ -172,7 +125,6 @@
     
     [self presentModalViewController:navController animated:YES];
     [navController release];
-    
 }
 
 - (IBAction) onNavButtonRight:(id)sender
@@ -192,24 +144,123 @@
         return;
     }
     
-    /*
-    NSError * error = nil;
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"mts_balance" ofType:@"html"];
+    //nothing to update
+    if ([self.accounts count] < 1)
+    {
+        return;
+    }
     
-    NSString * str = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:&error];
-    //NSLog(@"%@", str);
-    */
+    if ([BALANCE_CHECKER isBusy])
+    {
+        [APP_CONTEXT showToastWithText:@"Идёт обновление, подождите"];
+        return;
+    }
     
-    BBItemMts *item = [[BBItemMts new] autorelease];
-    item.username = @"xxxxxxxxx";
-    item.password = @"xxx";
+    for (BBMAccount * account in accounts)
+    {
+        [BALANCE_CHECKER addItem:account];
+    }
+}
+
+#pragma mark - Notifications
+
+- (void) accountsListUpdated:(NSNotification *)notification
+{
+    needUpdateScreen = YES;
+}
+
+- (void) balanceCheckStarted:(NSNotification *)notification
+{
+    NSLog(@"BBHomeVC.balanceCheckStarted");
     
-    BBLoaderBase * loader = [BBLoaderBase new];
-    loader.item = item;
-    loader.delegate = self;
-    [loader start];
+    lblStatus.text = @"обновление началось";
+    [lblStatus sizeToFit];
+}
+
+- (void) balanceCheckProgress:(NSNotification *)notification
+{
+    NSLog(@"BBHomeVC.balanceCheckProgress");
     
-    [self showWaitIndicator:YES]; 
+    BBMAccount * account = [[notification userInfo] objectForKey:kDictKeyAccount];
+    if (account)
+    {
+        lblStatus.text = [NSString stringWithFormat:@"обновляю %@", account.username];
+        [lblStatus sizeToFit];
+    }
+    
+    [tblAccounts reloadData];
+}
+
+- (void) balanceCheckStopped:(NSNotification *)notification
+{
+    NSLog(@"BBHomeVC.balanceCheckStopped");
+    
+    
+    lblStatus.text = [self lastBalanceStatus];
+    [lblStatus sizeToFit];
+    
+    [tblAccounts reloadData];
+}
+
+#pragma mark - Private
+
+- (void) setupToolbar
+{
+    
+    UIImage * img = [UIImage imageNamed:@"refresh"];
+	UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
+	[btn setImage:img forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(update:) forControlEvents:UIControlEventTouchUpInside];
+	
+	UIBarButtonItem * bbiRefresh = [[[UIBarButtonItem alloc] initWithCustomView:btn] autorelease];
+	[btn release];
+    
+    
+    lblStatus = [[APP_CONTEXT toolBarLabel] retain];
+    lblStatus.text = [self lastBalanceStatus];
+    [lblStatus sizeToFit];
+    UIBarButtonItem * bbiLabel = [[UIBarButtonItem alloc] initWithCustomView:lblStatus];
+    
+    
+    UIBarButtonItem * bbiSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                                target:nil 
+                                                                                action:nil];
+    
+    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiLabel, bbiSpacer, nil];
+    
+    [toolbar setItems:items];
+}
+
+- (void) toggleSplashMode
+{
+    if ([self.accounts count] > 0)
+    {
+        splashView.hidden = YES;
+        tblAccounts.hidden = NO;
+        [tblAccounts reloadData];
+        toolbar.hidden = NO;
+    }
+    else 
+    {
+        tblAccounts.hidden = YES;
+        splashView.hidden = NO;
+        toolbar.hidden = YES;
+    }
+}
+
+- (NSString *) lastBalanceStatus;
+{
+    NSArray * arr = [BBMBalanceHistory findAllSortedBy:@"date" ascending:NO];
+    
+    if (!arr || [arr count] < 1) return @"ещё не обновлялся";
+    
+    BBMBalanceHistory * bh = [arr objectAtIndex:0];
+    
+    NSString * strDate = [NSDateFormatter localizedStringFromDate:bh.date 
+                                                        dateStyle:NSDateFormatterMediumStyle
+                                                        timeStyle:NSDateFormatterShortStyle];
+    
+    return [NSString stringWithFormat:@"обновлено %@", strDate];
 }
 
 #pragma mark - BBLoaderDelegate

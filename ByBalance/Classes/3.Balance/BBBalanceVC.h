@@ -16,11 +16,17 @@
     IBOutlet UILabel * lblName;
     IBOutlet UILabel * lblDate;
     IBOutlet UILabel * lblBalance;
+    
     IBOutlet UIButton * btnRefresh;
     
+    IBOutlet UITableView * tblHistory;
+    
     BBMAccount * account;
+    NSArray * history;
 }
 
 @property (strong,nonatomic) BBMAccount * account;
+
+- (IBAction) onBtnRefresh:(id)sender;
 
 @end

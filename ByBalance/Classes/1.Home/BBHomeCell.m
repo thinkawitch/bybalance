@@ -18,6 +18,23 @@
     
     lblType.text = account.type.name;
     lblName.text = account.username;
+    
+    BBMBalanceHistory * bh = account.lastGoodBalance;
+    if (bh)
+    {
+        lblDate.text = [NSDateFormatter localizedStringFromDate:bh.date 
+                                                      dateStyle:NSDateFormatterMediumStyle
+                                                      timeStyle:NSDateFormatterNoStyle];
+        
+        lblBalance.text = [NSNumberFormatter localizedStringFromNumber:bh.balance
+                                                           numberStyle:kCFNumberFormatterDecimalStyle];
+    }
+    else 
+    {
+        lblDate.text = @"";
+        lblBalance.text = @"не обновлялся";
+    }
+    
 }
 
 - (void) dealloc

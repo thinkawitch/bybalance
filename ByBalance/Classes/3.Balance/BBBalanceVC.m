@@ -8,43 +8,47 @@
 
 #import "BBBalanceVC.h"
 #import "BBAccountFormVC.h"
+#import "BBBalanceHistoryCell.h"
 
 @interface BBBalanceVC ()
 
+@property (strong,nonatomic) NSArray * history;
+
 - (void) onBtnEdit:(id)sender;
 - (void) onBtnDelete:(id)sender;
+- (void) updateScreen;
 
 @end
 
 @implementation BBBalanceVC
 
 @synthesize account;
+@synthesize history;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    lblType.text = account.type.name;
-    lblName.text = account.username;
+    [tblHistory setSeparatorColor:[UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1]];
+    
+    [self updateScreen];
     
     [APP_CONTEXT makeRedButton:btnRefresh];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceChecked:) name:kNotificationOnBalanceChecked object:nil];
 }
 
 
 - (void) cleanup
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnAccountsListUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnBalanceChecked object:nil];
     
     self.account = nil;
+    self.history = nil;
     
     [super cleanup];
-}
-
-- (void) accountsListUpdated:(NSNotification *)notification
-{
-    needUpdateScreen = YES;
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -53,8 +57,7 @@
     
     if (needUpdateScreen)
     {
-        lblType.text = account.type.name;
-        lblName.text = account.username;
+        [self updateScreen];
         
         needUpdateScreen = NO;
     }
@@ -112,6 +115,78 @@
                    andButtonsTitles:[NSArray arrayWithObjects:@"Нет", @"Да", nil]];
 }
 
+- (IBAction) onBtnRefresh:(id)sender
+{
+    if (![APP_CONTEXT isOnline])
+    {
+        [APP_CONTEXT showAlertForNoInternet];
+        return;
+    }
+    
+    if ([BALANCE_CHECKER isBusy])
+    {
+        [APP_CONTEXT showToastWithText:@"Идёт обновление, подождите"];
+        return;
+    }
+    
+    //add one account
+    [BALANCE_CHECKER addItem:account];
+}
+
+
+#pragma mark - Notifications
+
+- (void) accountsListUpdated:(NSNotification *)notification
+{
+    needUpdateScreen = YES;
+}
+
+- (void) balanceChecked:(NSNotification *)notification
+{
+    NSLog(@"BBBalanceVC.balanceChecked");
+    
+    BBMAccount * updatedAcc = [[notification userInfo] objectForKey:kDictKeyAccount];
+    if (!updatedAcc) return;
+    
+    if ([updatedAcc.type.id integerValue] == [self.account.type.id integerValue] &&
+        updatedAcc.username == self.account.username)
+    {
+        NSLog(@"account matches");
+        [self updateScreen];
+    }
+}
+
+#pragma mark - Private
+
+- (void) updateScreen
+{
+    lblType.text = account.type.name;
+    lblName.text = account.username;
+    
+    BBMBalanceHistory * bh = account.lastGoodBalance;
+    if (bh)
+    {
+        lblDate.text = [NSDateFormatter localizedStringFromDate:bh.date 
+                                                      dateStyle:NSDateFormatterMediumStyle
+                                                      timeStyle:NSDateFormatterNoStyle];
+        
+        lblBalance.text = [NSNumberFormatter localizedStringFromNumber:bh.balance
+                                                           numberStyle:kCFNumberFormatterDecimalStyle];
+    }
+    else 
+    {
+        lblDate.text = @"";
+        lblBalance.text = @"не обновлялся";
+    }
+    
+    
+    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"account=%@", self.account];
+    self.history = [BBMBalanceHistory findAllSortedBy:@"date"
+                                            ascending:NO
+                                        withPredicate:predicate];
+        
+    [tblHistory reloadData];
+}
 
 #pragma mark - UIAlertViewDelegate
 
@@ -131,5 +206,50 @@
     }
 }
 
+
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)_tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.history count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * cellId = @"BBBalanceHistoryCellID";
+    NSArray * nibs;
+    
+    BBBalanceHistoryCell * cell = (BBBalanceHistoryCell*)[tblHistory dequeueReusableCellWithIdentifier:cellId];
+    if (!cell)
+    {
+        nibs = [[NSBundle mainBundle] loadNibNamed:@"BBBalanceHistoryCell" owner:self options:nil];
+        cell = [nibs objectAtIndex:0];
+    }
+    
+    BBMBalanceHistory * bh = [self.history objectAtIndex:indexPath.row];
+    
+    [cell setupWithHistory:bh];
+    
+    return cell;
+    
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView
+{
+    return 1;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return kBalanceHistoryCellHeight;
+}
+
+- (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //
+}
 
 @end

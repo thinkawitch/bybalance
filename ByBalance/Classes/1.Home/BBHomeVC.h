@@ -9,7 +9,7 @@
 #import "BBBaseViewController.h"
 
 @interface BBHomeVC : BBBaseViewController
-<BBLoaderDelegate, UITableViewDataSource, UITableViewDelegate>
+<UITableViewDataSource, UITableViewDelegate>
 {
     
 @private
@@ -20,6 +20,8 @@
     NSArray * accounts;
     
     IBOutlet UIToolbar * toolbar;
+    
+    UILabel * lblStatus;
     
 }
 

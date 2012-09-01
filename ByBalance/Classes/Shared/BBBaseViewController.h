@@ -31,5 +31,9 @@
 - (void) setupNavBar;
 //
 - (void) accountsListUpdated:(NSNotification *)notification;
+- (void) balanceCheckStarted:(NSNotification *)notification;
+- (void) balanceCheckProgress:(NSNotification *)notification;
+- (void) balanceChecked:(NSNotification *)notification;
+- (void) balanceCheckStopped:(NSNotification *)notification;
 
 @end

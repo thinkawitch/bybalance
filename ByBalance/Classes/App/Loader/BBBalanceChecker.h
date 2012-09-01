@@ -30,7 +30,7 @@
 - (void) stop;
 //
 
-- (void) addItem:(BBMAccount *) item;
+- (void) addItem:(BBMAccount *) account;
 
 
 

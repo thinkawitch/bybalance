@@ -81,6 +81,9 @@
 		CEC486E8158E0B14008CA493 /* AppGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486E5158E0B14008CA493 /* AppGlobal.m */; };
 		CEC486EC158E0EDA008CA493 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486EB158E0EDA008CA493 /* AppSettings.m */; };
 		CEC486F0158E0F80008CA493 /* IDDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486EF158E0F80008CA493 /* IDDateHelper.m */; };
+		CEDB127F15F2310D00213052 /* BBLoaderMts.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB127E15F2310D00213052 /* BBLoaderMts.m */; };
+		CEDB129215F26CD800213052 /* BBBalanceHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEDB129115F26CD800213052 /* BBBalanceHistoryCell.xib */; };
+		CEDB129515F26D9400213052 /* BBBalanceHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB129415F26D9400213052 /* BBBalanceHistoryCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,6 +215,11 @@
 		CEC486EB158E0EDA008CA493 /* AppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSettings.m; sourceTree = "<group>"; };
 		CEC486EE158E0F80008CA493 /* IDDateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDDateHelper.h; sourceTree = "<group>"; };
 		CEC486EF158E0F80008CA493 /* IDDateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDDateHelper.m; sourceTree = "<group>"; };
+		CEDB127D15F2310D00213052 /* BBLoaderMts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderMts.h; sourceTree = "<group>"; };
+		CEDB127E15F2310D00213052 /* BBLoaderMts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderMts.m; sourceTree = "<group>"; };
+		CEDB129115F26CD800213052 /* BBBalanceHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBBalanceHistoryCell.xib; sourceTree = "<group>"; };
+		CEDB129315F26D9300213052 /* BBBalanceHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceHistoryCell.h; sourceTree = "<group>"; };
+		CEDB129415F26D9400213052 /* BBBalanceHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBalanceHistoryCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -447,6 +455,8 @@
 			children = (
 				CE2CFA4015BC29E500FF5DFE /* BBLoaderBase.h */,
 				CE2CFA4115BC29E500FF5DFE /* BBLoaderBase.m */,
+				CEDB127D15F2310D00213052 /* BBLoaderMts.h */,
+				CEDB127E15F2310D00213052 /* BBLoaderMts.m */,
 				CEA2FD7A15BC5CBD00C98E7A /* BBLoaderDelegate.h */,
 				CE88B1F115F174D300547021 /* BBBalanceChecker.h */,
 				CE88B1F215F174D300547021 /* BBBalanceChecker.m */,
@@ -477,6 +487,8 @@
 			children = (
 				CE59105615D7D96C006CEE0E /* BBBalanceVC.h */,
 				CE59105715D7D96C006CEE0E /* BBBalanceVC.m */,
+				CEDB129315F26D9300213052 /* BBBalanceHistoryCell.h */,
+				CEDB129415F26D9400213052 /* BBBalanceHistoryCell.m */,
 			);
 			path = 3.Balance;
 			sourceTree = "<group>";
@@ -485,6 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				CE59105A15D7D9CE006CEE0E /* BBBalanceVC.xib */,
+				CEDB129115F26CD800213052 /* BBBalanceHistoryCell.xib */,
 			);
 			path = 3.Balance;
 			sourceTree = "<group>";
@@ -715,6 +728,7 @@
 				CE212CC615D417EB000D16AA /* BBAboutVC.xib in Resources */,
 				CE44A95615EEA70900AFD3D3 /* refresh.png in Resources */,
 				CE44A95715EEA70900AFD3D3 /* refresh@2x.png in Resources */,
+				CEDB129215F26CD800213052 /* BBBalanceHistoryCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +782,8 @@
 				CE88B1FA15F22C0100547021 /* BBMUtils.m in Sources */,
 				CE88B20215F22F6900547021 /* BBBaseItem.m in Sources */,
 				CE88B20315F22F6900547021 /* BBItemMts.m in Sources */,
+				CEDB127F15F2310D00213052 /* BBLoaderMts.m in Sources */,
+				CEDB129515F26D9400213052 /* BBBalanceHistoryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

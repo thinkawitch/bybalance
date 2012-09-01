@@ -96,16 +96,15 @@
 								</object>
 								<reference key="IBUIHighlightedColor" ref="982907713"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<float key="IBUIMinimumFontSize">14</float>
+								<float key="IBUIMinimumFontSize">16</float>
 								<reference key="IBUIFontDescription" ref="508055937"/>
 								<reference key="IBUIFont" ref="945215290"/>
 							</object>
 							<object class="IBUILabel" id="641553219">
 								<reference key="NSNextResponder" ref="408991755"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{188, 37}, {97, 21}}</string>
+								<string key="NSFrame">{{188, 39}, {97, 21}}</string>
 								<reference key="NSSuperview" ref="408991755"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -116,7 +115,7 @@
 								<reference key="IBUITextColor" ref="554044347"/>
 								<reference key="IBUIHighlightedColor" ref="982907713"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<float key="IBUIMinimumFontSize">10</float>
+								<float key="IBUIMinimumFontSize">12</float>
 								<int key="IBUITextAlignment">2</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="325149481">
 									<int key="type">1</int>
@@ -131,7 +130,7 @@
 							<object class="IBUILabel" id="816584460">
 								<reference key="NSNextResponder" ref="408991755"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{211, 11}, {74, 21}}</string>
+								<string key="NSFrame">{{206, 13}, {79, 21}}</string>
 								<reference key="NSSuperview" ref="408991755"/>
 								<reference key="NSNextKeyView" ref="137689372"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -144,7 +143,7 @@
 								<reference key="IBUITextColor" ref="236858421"/>
 								<reference key="IBUIHighlightedColor" ref="982907713"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<float key="IBUIMinimumFontSize">10</float>
+								<float key="IBUIMinimumFontSize">12</float>
 								<int key="IBUITextAlignment">2</int>
 								<reference key="IBUIFontDescription" ref="325149481"/>
 								<reference key="IBUIFont" ref="980315338"/>
@@ -230,8 +229,8 @@
 						<int key="objectID">2</int>
 						<reference key="object" ref="619444168"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="667786671"/>
 							<reference ref="137689372"/>
+							<reference ref="667786671"/>
 							<reference ref="641553219"/>
 							<reference ref="816584460"/>
 						</array>

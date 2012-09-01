@@ -8,4 +8,5 @@
 
 #import "BBMAccountType.h"
 #import "BBMAccount.h"
+#import "BBMBalanceHistory.h"
 #import "BBMUtils.h"

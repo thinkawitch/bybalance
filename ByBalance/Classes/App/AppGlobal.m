@@ -15,18 +15,27 @@ NSString * const kAppNoInternetAlertText = @"You have no internet connection";
 //
 NSString * const kAppEmailRegexp = @"^([\\w\\-\\.]+)@((\\[([0-9]{1,3}\\.){3}[0-9]{1,3}\\])|(([\\w\\-]+\\.)+)([a-zA-Z]{2,4}))$";
 
+#pragma mark - Account types
 //
 NSInteger const kAccountMTS = 1;
 NSInteger const kAccountBN = 2;
 
+#pragma mark - Dictionary keys
+//
+NSString * const kDictKeyAccount = @"account";
+NSString * const kDictKeyBaseItem = @"baseItem";
+
+#pragma mark - Notifications
 //
 NSString * const kNotificationOnAccountsListUpdated = @"ON_ACCOUNTS_LIST_UPDATED";
 NSString * const kNotificationOnBalanceCheckStart = @"ON_BALANCE_CHECK_START";
 NSString * const kNotificationOnBalanceCheckProgress = @"ON_BALANCE_CHECK_PROGRESS";
+NSString * const kNotificationOnBalanceChecked = @"ON_BALANCE_CHECKED";
 NSString * const kNotificationOnBalanceCheckStop = @"ON_BALANCE_CHECK_STOP";
 
 #pragma mark - Cells sizes
 //
 CGFloat const kHomeCellHeight = 73.f + 1.f;
 CGFloat const kAccountTypeCellHeight = 73.f + 1.f;
+CGFloat const kBalanceHistoryCellHeight = 30.f + 1.f;
 //

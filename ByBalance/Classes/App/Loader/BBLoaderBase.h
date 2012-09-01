@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ASIHTTPRequestDelegate.h"
+#import "ASIFormDataRequest.h"
 
 @interface BBLoaderBase : NSObject <ASIHTTPRequestDelegate>
 {
@@ -23,5 +24,7 @@
 
 - (void) login;
 - (void) getDetails;
+
+- (ASIFormDataRequest *) requestWithURL:(NSURL *)anUrl;
 
 @end

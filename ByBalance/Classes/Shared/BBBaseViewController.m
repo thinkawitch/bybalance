@@ -123,11 +123,32 @@
     }
 }
 
+
 #pragma mark - Notifications
 
 - (void) accountsListUpdated:(NSNotification *)notification
 {
     
+}
+
+- (void) balanceCheckStarted:(NSNotification *)notification
+{
+    //queue started
+}
+
+- (void) balanceCheckProgress:(NSNotification *)notification
+{
+    //queue request started
+}
+
+- (void) balanceChecked:(NSNotification *)notification
+{
+    //queue request processed
+}
+
+- (void) balanceCheckStopped:(NSNotification *)notification
+{
+    //queue stopped
 }
 
 #pragma mark - NSObject
