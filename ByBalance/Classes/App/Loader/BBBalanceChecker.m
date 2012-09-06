@@ -205,6 +205,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         [request setPostValue:account.password forKey:@"ctl00$MainContent$tbPassword"];
         [request setPostValue:@"Войти" forKey:@"ctl00$MainContent$btnEnter"];
     }
+    else if (type == kAccountBN)
+    {
+        [request addRequestHeader:@"Referer" value:baseItem.loginUrl];
+        [request setPostValue:account.username forKey:@"login"];
+        [request setPostValue:account.password forKey:@"passwd"];
+    }
     
     return request;
 }

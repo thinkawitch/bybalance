@@ -1,14 +1,14 @@
 //
-//  BBItemMts.m
+//  BBItemBn.m
 //  ByBalance
 //
-//  Created by Andrew Sinkevitch on 22/07/2012.
+//  Created by Andrew Sinkevitch on 06/09/2012.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import "BBItemMts.h"
+#import "BBItemBn.h"
 
-@implementation BBItemMts
+@implementation BBItemBn
 
 #pragma mark - ObjectLife
 
@@ -17,8 +17,8 @@
 	self = [super init];
 	if (self)
 	{
-        self.loginUrl = @"https://ihelper.mts.by/SelfCare/logon.aspx";
-        self.detailsUrl = @"https://ihelper.mts.by/SelfCare/welcome.aspx";
+        self.loginUrl = @"http://ui.bn.by/index.php?mode=login";
+        self.detailsUrl = @"http://ui.bn.by/index.php?s=h31dp80q24ufokt7lnvgv1m4c4";
 	}
 	
 	return self;
@@ -28,10 +28,12 @@
 
 - (void) extractFromHtml:(NSString *)html
 {
+    NSLog(@"%@", html);
+    
     NSString * buf = @"";
     
     //ban
-    NSArray * arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class=\"logon-result-block\">(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
+    NSArray * arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class='alarma'>(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
     if (arr && [arr count] == 1) 
     {
         buf = [arr objectAtIndex:0];
@@ -49,7 +51,7 @@
     }
     
     //userTitle
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<h3>(.+)</h3>" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Ф.И.О.:</td><td>([^<]+)</td></tr>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1) 
     {
         buf = [arr objectAtIndex:0];
@@ -61,7 +63,7 @@
     NSLog(@"userTitle: %@", userTitle);
     
     //userPlan
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план: <strong>(.+)</strong>" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Тариф:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1) 
     {
         buf = [arr objectAtIndex:0];
@@ -73,7 +75,7 @@
     NSLog(@"userPlan: %@", userPlan);
     
     //balance
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<span id=\"customer-info-balance\"><strong>(.+)</strong>" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1) 
     {
         buf = [arr objectAtIndex:0];
@@ -91,11 +93,11 @@
 {
     if (isExtracted)
     {
-        return [NSString stringWithFormat:@"%@\r\n+375%@\r\n%@\r\n%@", userTitle, username, userPlan, userBalance];
+        return [NSString stringWithFormat:@"%@\r\n%@\r\n%@\r\n%@", userTitle, username, userPlan, userBalance];
     }
     else 
     {
-        return [NSString stringWithFormat:@"данные от МТС по +375%@ не получены", username];
+        return [NSString stringWithFormat:@"данные от ДС по %@ не получены", username];
     }
 }
 

@@ -22,7 +22,7 @@
     }
     else if (type == kAccountBN)
     {
-        //item = [BBItemBN new];
+        item = [BBItemBn new];
     }
     else
     {
