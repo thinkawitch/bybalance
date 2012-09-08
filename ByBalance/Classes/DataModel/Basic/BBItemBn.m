@@ -28,8 +28,6 @@
 
 - (void) extractFromHtml:(NSString *)html
 {
-    NSLog(@"%@", html);
-    
     NSString * buf = @"";
     
     //ban

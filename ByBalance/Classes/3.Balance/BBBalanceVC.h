@@ -18,15 +18,20 @@
     IBOutlet UILabel * lblBalance;
     
     IBOutlet UIButton * btnRefresh;
+    IBOutlet UIButton * btnClear;
     
     IBOutlet UITableView * tblHistory;
     
     BBMAccount * account;
     NSArray * history;
+    
+    NSInteger alertMode;
+    NSInteger historyStay;
 }
 
 @property (strong,nonatomic) BBMAccount * account;
 
 - (IBAction) onBtnRefresh:(id)sender;
+- (IBAction) onBtnClear:(id)sender;
 
 @end

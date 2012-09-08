@@ -22,6 +22,7 @@
     IBOutlet UIToolbar * toolbar;
     
     UILabel * lblStatus;
+    UIActivityIndicatorView * vActivity;
     
 }
 

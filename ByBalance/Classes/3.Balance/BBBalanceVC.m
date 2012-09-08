@@ -10,13 +10,24 @@
 #import "BBAccountFormVC.h"
 #import "BBBalanceHistoryCell.h"
 
+
+typedef enum
+{
+	kAlertModeDeleteAccount,
+	kAlertModeClearHistory,
+	
+} kAlertMode;
+
+
+
 @interface BBBalanceVC ()
 
-@property (strong,nonatomic) NSArray * history;
+@property (strong, nonatomic) NSArray * history;
 
 - (void) onBtnEdit:(id)sender;
 - (void) onBtnDelete:(id)sender;
 - (void) updateScreen;
+- (void) clearHistory;
 
 @end
 
@@ -31,9 +42,13 @@
     
     [tblHistory setSeparatorColor:[UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1]];
     
+    historyStay = 5;
+    
     [self updateScreen];
     
     [APP_CONTEXT makeRedButton:btnRefresh];
+    [APP_CONTEXT makeRedButton:btnClear];
+    btnClear.alpha = 0.7f;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceChecked:) name:kNotificationOnBalanceChecked object:nil];
@@ -109,6 +124,9 @@
 
 - (void) onBtnDelete:(id)sender
 {
+    
+    alertMode = kAlertModeDeleteAccount;
+    
     [APP_CONTEXT showAlertWithTitle:@"" 
                             andText:@"Удалить этот аккаунт?" 
                         andDelegate:self 
@@ -131,6 +149,24 @@
     
     //add one account
     [BALANCE_CHECKER addItem:account];
+}
+
+- (IBAction) onBtnClear:(id)sender
+{
+    if (!history) return;
+    
+    NSInteger total = [history count];
+    
+    if (total <= historyStay) return;
+    
+    alertMode = kAlertModeClearHistory;
+    
+    NSString * msg = [NSString stringWithFormat:@"Будут оставлены последние %d записей. Очистить историю?", historyStay];
+    
+    [APP_CONTEXT showAlertWithTitle:@"" 
+                            andText:msg 
+                        andDelegate:self 
+                   andButtonsTitles:[NSArray arrayWithObjects:@"Нет", @"Да", nil]];
 }
 
 
@@ -186,6 +222,29 @@
                                         withPredicate:predicate];
         
     [tblHistory reloadData];
+    
+    btnClear.hidden = ([history count] <= historyStay);
+}
+
+- (void) clearHistory
+{
+    NSInteger c = 0;
+    NSInteger total = [history count];
+    
+    if (total <= historyStay) return;
+    
+    for (BBMBalanceHistory * bh in history)
+    {
+        c++;
+        if (c > historyStay)
+        {
+            [bh deleteEntity];
+        }
+    }
+    
+    [APP_CONTEXT saveDatabase];
+    
+    [self updateScreen];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -193,16 +252,30 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
-    if (buttonIndex == 1)
-    {
-        [account deleteEntity];
-        [APP_CONTEXT saveDatabase];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
-        
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        
-        [APP_CONTEXT showToastWithText:@"Аккаунт удалён"]; 
+    if (alertMode == kAlertModeDeleteAccount)
+    {    
+        if (buttonIndex == 1)
+        {
+            [account deleteEntity];
+            [APP_CONTEXT saveDatabase];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+            [APP_CONTEXT showToastWithText:@"Аккаунт удалён"]; 
+        }
+    }
+    
+    if (alertMode == kAlertModeClearHistory)
+    {    
+        if (buttonIndex == 1)
+        {
+            [self clearHistory];
+            
+            NSString * msg = [NSString stringWithFormat:@"История очищена. Оставлены последние %d записей.", historyStay];
+            [APP_CONTEXT showToastWithText:msg]; 
+        }
     }
 }
 

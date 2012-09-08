@@ -275,7 +275,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
 		
 		[alert addButtonWithTitle: s];
 	}
-	
+    
 	[alert show];
 	[alert release];
 }

@@ -64,6 +64,12 @@
         lblStatus = nil;
     }
     
+    if (vActivity)
+    {
+        [vActivity release];
+        vActivity = nil;
+    }
+    
     [super cleanup];
 }
 
@@ -173,6 +179,8 @@
 {
     NSLog(@"BBHomeVC.balanceCheckStarted");
     
+    [vActivity startAnimating];
+    
     lblStatus.text = @"обновление началось";
     [lblStatus sizeToFit];
 }
@@ -195,6 +203,8 @@
 {
     NSLog(@"BBHomeVC.balanceCheckStopped");
     
+    [vActivity stopAnimating];
+    
     
     lblStatus.text = [self lastBalanceStatus];
     [lblStatus sizeToFit];
@@ -215,18 +225,21 @@
 	UIBarButtonItem * bbiRefresh = [[[UIBarButtonItem alloc] initWithCustomView:btn] autorelease];
 	[btn release];
     
+    vActivity =  [[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] retain];
+    vActivity.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+    vActivity.hidesWhenStopped = YES;
+    UIBarButtonItem * bbiActivity = [[UIBarButtonItem alloc] initWithCustomView:vActivity];
     
     lblStatus = [[APP_CONTEXT toolBarLabel] retain];
     lblStatus.text = [self lastBalanceStatus];
     [lblStatus sizeToFit];
     UIBarButtonItem * bbiLabel = [[UIBarButtonItem alloc] initWithCustomView:lblStatus];
     
-    
     UIBarButtonItem * bbiSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                                                 target:nil 
                                                                                 action:nil];
     
-    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiLabel, bbiSpacer, nil];
+    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiActivity, bbiLabel, bbiSpacer, nil];
     
     [toolbar setItems:items];
 }
