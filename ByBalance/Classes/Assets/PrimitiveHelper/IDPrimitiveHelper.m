@@ -18,7 +18,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(IDPrimitiveHelper);
 	{
 		return aValue;
 	}
-	return [NSString stringWithString:@""];
+	return @"";
 }
 
 - (NSNumber *) numberIntegerValue:(id) aValue

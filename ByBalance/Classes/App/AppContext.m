@@ -56,7 +56,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
 
 - (void) setupDatabase
 {
-    [ActiveRecordHelpers setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"version1.sqlite"];
+    //[ActiveRecordHelpers setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"version1.sqlite"];
+    [MagicalRecordHelpers setupCoreDataStackWithStoreNamed:@"version1.sqlite"];
     
     //test cascade delete
     //[user deleteEntity];
@@ -92,7 +93,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
 
 - (void) saveDatabase
 {
-    [[NSManagedObjectContext defaultContext] save];
+    //[[NSManagedObjectContext defaultContext] save];
+    [[NSManagedObjectContext MR_defaultContext] MR_save];
 }
 
 //

@@ -28,10 +28,13 @@
     
     //load app settings
 	[SETTINGS loadData];
+    
     //start context logic
     [APP_CONTEXT startContext];
     
     [BALANCE_CHECKER start];
+
+    [self.window makeKeyAndVisible];
     
     return YES;
 }

@@ -106,7 +106,7 @@
     
     //title
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
-    titleView.text = @"ByBalance";
+    titleView.text = @"БайБаланс";
     [titleView sizeToFit];
     
     //right button

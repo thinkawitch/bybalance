@@ -40,10 +40,11 @@
 
 - (void) cleanup
 {
-    self.accountType = nil;
-    self.account = nil;
     
     [self.view endEditing:YES];
+    
+    self.accountType = nil;
+    self.account = nil;
     
     [super cleanup];
 }
