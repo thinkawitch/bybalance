@@ -131,7 +131,7 @@
     
     NSInteger type = [accountType.id integerValue];
 
-    if (type == kAccountMTS)
+    if (type == kAccountMTS || type == kAccountVelcom)
     {
         lblUsernamePrefix.hidden = NO;
         tfUsername.frame = CGRectMake(85, 54, 201, 31);
@@ -159,7 +159,7 @@
 {
     NSInteger type = [accountType.id integerValue];
     
-    if (type == kAccountMTS)
+    if (type == kAccountMTS || type == kAccountVelcom)
     {
         return @"Номер телефона";
     }

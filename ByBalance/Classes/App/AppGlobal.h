@@ -17,6 +17,7 @@ extern NSString * const kAppEmailRegexp;
 //
 extern NSInteger  const kAccountMTS;
 extern NSInteger  const kAccountBN;
+extern NSInteger  const kAccountVelcom;
 
 #pragma mark - Dictionary keys
 //

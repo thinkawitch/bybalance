@@ -66,6 +66,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
     //add account types if absent
     NSDictionary * conf = [NSDictionary dictionaryWithObjectsAndKeys: 
                            @"МТС", [NSNumber numberWithInt:kAccountMTS],
+                           @"Velcom", [NSNumber numberWithInt:kAccountVelcom],
                            @"Деловая сеть", [NSNumber numberWithInt:kAccountBN],
                            nil];
     
