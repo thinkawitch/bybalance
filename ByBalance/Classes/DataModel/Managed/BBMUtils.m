@@ -24,6 +24,10 @@
     {
         item = [BBItemBn new];
     }
+    else if (type == kAccountVelcom)
+    {
+        item = [BBItemVelcom new];
+    }
     else
     {
         return nil;

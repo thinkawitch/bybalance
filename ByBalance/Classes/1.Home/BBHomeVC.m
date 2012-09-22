@@ -276,40 +276,6 @@
     return [NSString stringWithFormat:@"обновлено %@", strDate];
 }
 
-#pragma mark - BBLoaderDelegate
-
-- (void) dataLoaderSuccess:(BBLoaderBase*)loader
-{
-    [self showWaitIndicator:NO];
-    
-    /*
-    IDDateHelper * dh = [IDDateHelper sharedIDDateHelper];
-    NSString * time = [dh dateToMysqlDateTime:[NSDate date]];
-    textView.text = [textView.text stringByAppendingFormat:@"\r\n%@\r\n%@\r\n", time, loader.item.fullDescription];
-    [textView scrollRangeToVisible:NSMakeRange([textView.text length], 0)];
-
-    [loader autorelease];
-    
-    SETTINGS.log = textView.text;
-    */
-
-}
-
-- (void) dataLoaderFail:(BBLoaderBase*)loader
-{
-    [self showWaitIndicator:NO];
-    
-    /*
-    IDDateHelper * dh = [IDDateHelper sharedIDDateHelper];
-    NSString * time = [dh dateToMysqlDateTime:[NSDate date]];
-    textView.text = [textView.text stringByAppendingFormat:@"\r\n%@\r\n%@\r\n", time, loader.item.fullDescription];
-    [textView scrollRangeToVisible:NSMakeRange([textView.text length], 0)];
-    
-    [loader autorelease];
-    
-    SETTINGS.log = textView.text;
-    */
-}
 
 #pragma mark - UITableViewDataSource
 
