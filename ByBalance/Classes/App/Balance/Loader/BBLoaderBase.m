@@ -9,42 +9,113 @@
 #import "BBLoaderBase.h"
 
 @interface BBLoaderBase()
-- (void) handleIncorrectResponse;
+//
 @end;
 
 
 @implementation BBLoaderBase
 
-@synthesize item;
+@synthesize account;
 @synthesize delegate;
 
 #pragma mark - ObjectLife
 
 - (void) dealloc
 {
-    self.item = nil;
+    self.account = nil;
     
     [super dealloc];
 }
 
-#pragma mark - Logic
+#pragma mark - NSOperation
 
 - (void) start
 {
-    item.isBanned = NO;
-    item.isExtracted = NO;
+    // Ensure this operation is not being restarted and that it has not been cancelled
+    if (loaderFinished || [self isCancelled])
+    {
+        [self markDone];
+        return;
+    }
     
-    [self login];
+    NSLog(@"%@.start %@ %@", [self class], account.type.name, account.username);
+    
+    if (!account.basicItem)
+    {
+        [self markDone];
+        return;
+    }
+    
+    ASIFormDataRequest * request = [self prepareRequest];
+    if (!request)
+    {
+        [self markDone];
+        return;
+    }
+    
+    [self markStart];
+    
+    [request startAsynchronous];
 }
 
-- (void) login
+- (BOOL) isConcurrent
 {
-
+    return YES;
 }
 
-- (void) getDetails
+- (BOOL) isExecuting
 {
+    return loaderExecuting;
+}
+
+- (BOOL) isFinished
+{
+    return loaderFinished;
+}
+
+- (void) markStart
+{
+    [self willChangeValueForKey:@"isExecuting"];
+    loaderExecuting = YES;
+    [self didChangeValueForKey:@"isExecuting"];
+}
+
+- (void) markStop
+{
+    [self willChangeValueForKey:@"isExecuting"];
+    loaderExecuting = NO;
+    [self didChangeValueForKey:@"isExecuting"];
+}
+
+- (void) markDone
+{
+    [self willChangeValueForKey:@"isExecuting"];
+    loaderExecuting = NO;
+    [self didChangeValueForKey:@"isExecuting"];
     
+    [self willChangeValueForKey:@"isFinished"];
+    loaderFinished = YES;
+    [self didChangeValueForKey:@"isFinished"];
+}
+
+#pragma mark - Logic
+
+- (ASIFormDataRequest *) requestWithURL:(NSURL *)anUrl
+{
+    ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL: anUrl];
+    
+    request.timeOutSeconds = 30;
+    request.userAgentString = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:15.0) Gecko/20100101 Firefox/15.0.1";
+    request.delegate = self;
+    
+    //add some parameters, common for all requests
+    
+    return request;
+}
+
+- (ASIFormDataRequest *) prepareRequest
+{
+    return nil;
 }
 
 #pragma mark - ASIHTTPRequestDelegate
@@ -60,50 +131,14 @@
 {
     NSLog(@"BBLoaderBase.requestFinished");
     NSLog(@"%@", request.responseString);
-    
-    //find data
-    [item extractFromHtml:request.responseString];
-    
-    if (nil == delegate) return;
-    
-    if (item.isExtracted)
-    {
-        [delegate performSelector:@selector(dataLoaderSuccess:) withObject:self];
-    }
-    else
-    {
-        [delegate performSelector:@selector(dataLoaderFail:) withObject:self];
-    }
-    
 }
 
 - (void) requestFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"BBLoaderBase.requestFailed");
     NSLog(@"%@", request.responseString);
-    
-    if (nil == delegate) return;
-    
-    [delegate performSelector:@selector(dataLoaderFail:) withObject:self];
 }
 
-#pragma mark - Private
 
-- (ASIFormDataRequest *) requestWithURL:(NSURL *)anUrl
-{
-    ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL: anUrl];
-    
-    request.timeOutSeconds = 30;
-    request.userAgentString = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1";
-    
-    //add some parameters, common for all requests
-    
-    
-    return request;
-}
 
-- (void) handleIncorrectResponse
-{
-    //TODO
-}
 @end

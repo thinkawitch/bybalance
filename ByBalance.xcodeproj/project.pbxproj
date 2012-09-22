@@ -151,6 +151,7 @@
 		CE173B27160DD54500E6EF25 /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
 		CE173B28160DD54500E6EF25 /* BBLoaderMts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderMts.h; sourceTree = "<group>"; };
 		CE173B29160DD54500E6EF25 /* BBLoaderMts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderMts.m; sourceTree = "<group>"; };
+		CE173B2D160DEE1300E6EF25 /* BBAllLoaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBAllLoaders.h; sourceTree = "<group>"; };
 		CE20B1E115D55839004006B8 /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
 		CE20B1E215D55839004006B8 /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
 		CE212CB515D409B3000D16AA /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
@@ -479,6 +480,7 @@
 		CE173B24160DD54500E6EF25 /* Loader */ = {
 			isa = PBXGroup;
 			children = (
+				CE173B2D160DEE1300E6EF25 /* BBAllLoaders.h */,
 				CE173B27160DD54500E6EF25 /* BBLoaderDelegate.h */,
 				CE173B25160DD54500E6EF25 /* BBLoaderBase.h */,
 				CE173B26160DD54500E6EF25 /* BBLoaderBase.m */,

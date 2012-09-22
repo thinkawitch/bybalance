@@ -15,20 +15,23 @@
 {
     BBBaseItem * item = nil;
     NSInteger type = [self.type.id integerValue];
+    
+    switch (type)
+    {
+        case kAccountMts:
+            item = [BBItemMts new];
+            break;
+            
+        case kAccountBn:
+            item = [BBItemBn new];
+            break;
+            
+        case kAccountVelcom:
+            item = [BBItemVelcom new];
+            break;
+    }
 
-    if (type == kAccountMTS)
-    {
-        item = [BBItemMts new];
-    }
-    else if (type == kAccountBN)
-    {
-        item = [BBItemBn new];
-    }
-    else if (type == kAccountVelcom)
-    {
-        item = [BBItemVelcom new];
-    }
-    else
+    if (!item)
     {
         return nil;
     }

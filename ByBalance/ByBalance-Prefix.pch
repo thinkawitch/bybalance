@@ -25,6 +25,6 @@
     //
     #import "BBAllDataItems.h"
     #import "BBMAllManagedItems.h"
-    #import "BBLoaderDelegate.h"
+    #import "BBAllLoaders.h"
     //
 #endif

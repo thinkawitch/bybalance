@@ -17,9 +17,7 @@ NSString * const kAppEmailRegexp = @"^([\\w\\-\\.]+)@((\\[([0-9]{1,3}\\.){3}[0-9
 
 #pragma mark - Account types
 //
-NSInteger const kAccountMTS = 1;
-NSInteger const kAccountBN = 2;
-NSInteger const kAccountVelcom = 3;
+
 
 #pragma mark - Dictionary keys
 //

@@ -75,6 +75,37 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     NSLog(@"BBBalanceChecker.addItem");
     NSLog(@"adding: %@", account.username);
     
+    //new way
+    NSInteger type = [account.type.id integerValue];
+    
+    BBLoaderBase * loader = nil;
+    
+    switch (type)
+    {
+        case kAccountMts:
+            loader = [[BBLoaderMts new] autorelease];
+            break;
+    }
+    
+    if (!loader)
+    {
+        NSLog(@"loader not created");
+        return;
+    }
+    
+    loader.account = account;
+    
+    //notify about start
+    if (queue.operationCount < 1)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStart object:self userInfo:nil];
+    }
+    
+    [queue addOperation:loader];
+    
+    //--------------------------------
+    return;
+    
     ASIFormDataRequest * request = [self requestWithItem:account];
     if (!request)
     {
@@ -198,7 +229,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     
     NSInteger type = [account.type.id intValue];
     
-    if (type == kAccountMTS)
+    if (type == kAccountMts)
     {
         [request addRequestHeader:@"Referer" value:baseItem.loginUrl];
         [request setPostValue:@"/wEPDwUKMTU5Mzk3MTA0NA9kFgJmD2QWAgICDxYCHgVjbGFzcwUFbG9naW4WAgICD2QWBgIBDw8WAh4JTWF4TGVuZ3RoAglkZAIDDw8WAh4DS0VZBSJjdGwwMF9NYWluQ29udGVudF9jYXB0Y2hhMzA2MjI5NzAwZGQCBQ8PFgYeBFRleHRlHghDc3NDbGFzcwUGc3VibWl0HgRfIVNCAgJkZGRq1lFdf8Isy5ch/s7SUIwpqQoOoA==" forKey:@"__VIEWSTATE"];
@@ -206,7 +237,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         [request setPostValue:account.password forKey:@"ctl00$MainContent$tbPassword"];
         [request setPostValue:@"Войти" forKey:@"ctl00$MainContent$btnEnter"];
     }
-    else if (type == kAccountBN)
+    else if (type == kAccountBn)
     {
         [request addRequestHeader:@"Referer" value:baseItem.loginUrl];
         [request setPostValue:account.username forKey:@"login"];

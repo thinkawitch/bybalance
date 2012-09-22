@@ -15,9 +15,15 @@ extern NSString * const kAppEmailRegexp;
 
 #pragma mark - Account types
 //
-extern NSInteger  const kAccountMTS;
-extern NSInteger  const kAccountBN;
-extern NSInteger  const kAccountVelcom;
+typedef enum
+{
+	kAccountMts = 1,
+	kAccountBn,
+	kAccountVelcom,
+	//----------------------
+	kAccountsCount
+	
+} kAccounts;
 
 #pragma mark - Dictionary keys
 //

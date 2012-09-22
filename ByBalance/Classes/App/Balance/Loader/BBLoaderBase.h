@@ -10,21 +10,32 @@
 #import "ASIHTTPRequestDelegate.h"
 #import "ASIFormDataRequest.h"
 
-@interface BBLoaderBase : NSObject <ASIHTTPRequestDelegate>
+@interface BBLoaderBase : NSOperation <ASIHTTPRequestDelegate>
 {
 @protected
-    BBBaseItem * item;
+    BBMAccount * account;
     id <BBLoaderDelegate> delegate;
+    
+    BOOL loaderExecuting;
+    BOOL loaderFinished;
 }
 
-@property (nonatomic,retain) BBBaseItem * item;
+@property (nonatomic,retain) BBMAccount * account;
 @property (nonatomic,assign) id <BBLoaderDelegate> delegate;
 
+
+// NSOperation
 - (void) start;
+- (BOOL) isConcurrent;
+- (BOOL) isExecuting;
+- (BOOL) isFinished;
+//
+- (void) markStart;
+- (void) markStop;
+- (void) markDone;
 
-- (void) login;
-- (void) getDetails;
-
+//
 - (ASIFormDataRequest *) requestWithURL:(NSURL *)anUrl;
+- (ASIFormDataRequest *) prepareRequest;
 
 @end

@@ -131,14 +131,14 @@
     
     NSInteger type = [accountType.id integerValue];
 
-    if (type == kAccountMTS || type == kAccountVelcom)
+    if (type == kAccountMts || type == kAccountVelcom)
     {
         lblUsernamePrefix.hidden = NO;
         tfUsername.frame = CGRectMake(85, 54, 201, 31);
         tfUsername.keyboardType = UIKeyboardTypeNumberPad;
         
     }
-    else if (type == kAccountBN)
+    else if (type == kAccountBn)
     {
         lblUsernamePrefix.hidden = YES;
         tfUsername.frame = CGRectMake(35, 54, 251, 31);
@@ -159,11 +159,11 @@
 {
     NSInteger type = [accountType.id integerValue];
     
-    if (type == kAccountMTS || type == kAccountVelcom)
+    if (type == kAccountMts || type == kAccountVelcom)
     {
         return @"Номер телефона";
     }
-    else if (type == kAccountBN)
+    else if (type == kAccountBn)
     {
         return @"Номер счёта";
     }
