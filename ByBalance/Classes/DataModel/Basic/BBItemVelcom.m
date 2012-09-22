@@ -17,8 +17,7 @@
 	self = [super init];
 	if (self)
 	{
-        self.loginUrl = @"https://internet.velcom.by/work.html";
-        self.detailsUrl = @"https://internet.velcom.by/work.html";
+        //self.loginUrl = @"https://internet.velcom.by/work.html";
 	}
 	
 	return self;

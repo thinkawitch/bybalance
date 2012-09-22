@@ -9,7 +9,7 @@
 #import "BBLoaderBase.h"
 
 @interface BBLoaderBase()
-//
+- (void) notifyAboutUpdatingAccount;
 @end;
 
 
@@ -55,6 +55,10 @@
     
     [self markStart];
     
+    //notify about progress
+    [self performSelectorOnMainThread:@selector(notifyAboutUpdatingAccount) withObject:nil waitUntilDone:YES];
+    
+    //start request
     [request startAsynchronous];
 }
 
@@ -104,7 +108,7 @@
 {
     ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL: anUrl];
     
-    request.timeOutSeconds = 30;
+    request.timeOutSeconds = 10;
     request.userAgentString = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:15.0) Gecko/20100101 Firefox/15.0.1";
     request.delegate = self;
     
@@ -139,6 +143,16 @@
     NSLog(@"%@", request.responseString);
 }
 
+
+#pragma mark - Private
+
+- (void) notifyAboutUpdatingAccount
+{
+    NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
+                                                      forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckProgress object:self userInfo:info];
+}
 
 
 @end

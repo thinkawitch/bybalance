@@ -12,8 +12,6 @@
 {
     
 @protected
-    NSString * loginUrl;
-    NSString * detailsUrl;
     NSString * username;
     NSString * password;
     //
@@ -24,8 +22,6 @@
     NSString * userBalance;
 }
 
-@property (nonatomic,retain) NSString * loginUrl;
-@property (nonatomic,retain) NSString * detailsUrl;
 @property (nonatomic,retain) NSString * username;
 @property (nonatomic,retain) NSString * password;
 //

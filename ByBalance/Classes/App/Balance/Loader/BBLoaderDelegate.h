@@ -13,7 +13,7 @@
 @protocol BBLoaderDelegate <NSObject>
 
 @required
-- (void) dataLoaderSuccess:(BBLoaderBase*)loader;
-- (void) dataLoaderFail:(BBLoaderBase*)loader;
+- (void) balanceLoaderSuccess:(NSDictionary *)info;
+- (void) balanceLoaderFail:(NSDictionary *)info;
 @end
 

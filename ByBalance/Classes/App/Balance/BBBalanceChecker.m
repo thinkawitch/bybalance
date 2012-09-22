@@ -11,8 +11,7 @@
 
 
 @interface BBBalanceChecker ()
-- (ASIFormDataRequest *) requestWithURL:(NSURL *)anUrl;
-- (ASIFormDataRequest *) requestWithItem:(BBMAccount *)account;
+//
 @end
 
 
@@ -29,7 +28,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     
     syncFlag1 = [[NSObject alloc] init];
     syncFlag2 = [[NSObject alloc] init];
-    syncFlag3 = [[NSObject alloc] init];
 }
 
 - (BOOL) isBusy
@@ -58,11 +56,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     {
         [syncFlag2 release];
         syncFlag2 = nil;
-    }
-    if (syncFlag3) 
-    {
-        [syncFlag3 release];
-        syncFlag3 = nil;
     }
     
     [APP_CONTEXT saveDatabase];
@@ -94,6 +87,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     }
     
     loader.account = account;
+    loader.delegate = self;
     
     //notify about start
     if (queue.operationCount < 1)
@@ -102,53 +96,25 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     }
     
     [queue addOperation:loader];
-    
-    //--------------------------------
-    return;
-    
-    ASIFormDataRequest * request = [self requestWithItem:account];
-    if (!request)
-    {
-        NSLog(@"request not created");
-        return;
-    }
-    
-    //notify about start
-    if (queue.operationCount < 1)
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStart object:self userInfo:nil];
-    }
-    
-    [queue addOperation:request];
 }
 
 
-#pragma mark - ASIHTTPRequestDelegate
+#pragma mark - BBLoaderDelegate
 
-- (void)requestStarted:(ASIHTTPRequest *)request
+- (void) balanceLoaderSuccess:(NSDictionary *)info
 {
-    NSLog(@"BBBalanceChecker.requestStarted");
-    NSLog(@"url: %@", request.url);
-    
     @synchronized (syncFlag1)
 	{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckProgress object:self userInfo:request.userInfo];
-    }
-}
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    NSLog(@"BBBalanceChecker.requestFinished");
-    
-    @synchronized (syncFlag2)
-	{
-        BBMAccount * account = [[request userInfo] objectForKey:kDictKeyAccount];
-        BBBaseItem * baseItem = [[request userInfo] objectForKey:kDictKeyBaseItem];
+        NSLog(@"BBBalanceChecker.balanceLoaderSuccess");
         
-        if (!account || !baseItem) return;
+        BBMAccount * account = [info objectForKey:kDictKeyAccount];
+        BBBaseItem * baseItem = account.basicItem;
+        NSString * html = [info objectForKey:kDictKeyHtml];
+        
+        if (!account || !baseItem || !html) return;
         
         //find data
-        [baseItem extractFromHtml:request.responseString];
+        [baseItem extractFromHtml:html];
         
         //save history
         BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
@@ -160,7 +126,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         
         [APP_CONTEXT saveDatabase];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceChecked object:self userInfo:request.userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceChecked object:self userInfo:info];
         
         if (queue.operationCount < 1)
         {
@@ -169,17 +135,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     }
 }
 
-- (void) requestFailed:(ASIHTTPRequest *)request
+- (void) balanceLoaderFail:(NSDictionary *)info
 {
-    NSLog(@"BBBalanceChecker.requestFailed");
-    NSLog(@"%@", [request error]);
-    
-    @synchronized (syncFlag3)
+    @synchronized (syncFlag2)
 	{
-        BBMAccount * account = [[request userInfo] objectForKey:kDictKeyAccount];
-        BBBaseItem * baseItem = [[request userInfo] objectForKey:kDictKeyBaseItem];
+        NSLog(@"BBBalanceChecker.balanceLoaderFail");
         
-        if (!account || !baseItem) return;
+        BBMAccount * account = [info objectForKey:kDictKeyAccount];
+        
+        if (!account) return;
         
         //save history
         BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
@@ -191,6 +155,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         
         [APP_CONTEXT saveDatabase];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceChecked object:self userInfo:info];
+        
+        NSLog(@"operationCount: %d", queue.operationCount);
+        
         if (queue.operationCount < 1)
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStop object:self userInfo:nil];
@@ -198,53 +166,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     }
 }
 
+
 #pragma mark - Private
 
-- (ASIFormDataRequest *) requestWithURL:(NSURL *)anUrl
-{
-    ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL: anUrl];
-    
-    request.timeOutSeconds = 30;
-    request.userAgentString = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1";
-    request.delegate = self;
-    
-    //add some parameters, common for all requests
-    
-    
-    return request;
-}
-
-- (ASIFormDataRequest *) requestWithItem:(BBMAccount *)account
-{
-    BBBaseItem * baseItem = account.basicItem;
-    NSLog(@"%@", account);
-    if (!baseItem) return nil;
-    
-    NSURL * url = [NSURL URLWithString:baseItem.loginUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    //remember request data
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, baseItem, nil] 
-                                                   forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyBaseItem, nil]];
-    
-    NSInteger type = [account.type.id intValue];
-    
-    if (type == kAccountMts)
-    {
-        [request addRequestHeader:@"Referer" value:baseItem.loginUrl];
-        [request setPostValue:@"/wEPDwUKMTU5Mzk3MTA0NA9kFgJmD2QWAgICDxYCHgVjbGFzcwUFbG9naW4WAgICD2QWBgIBDw8WAh4JTWF4TGVuZ3RoAglkZAIDDw8WAh4DS0VZBSJjdGwwMF9NYWluQ29udGVudF9jYXB0Y2hhMzA2MjI5NzAwZGQCBQ8PFgYeBFRleHRlHghDc3NDbGFzcwUGc3VibWl0HgRfIVNCAgJkZGRq1lFdf8Isy5ch/s7SUIwpqQoOoA==" forKey:@"__VIEWSTATE"];
-        [request setPostValue:account.username forKey:@"ctl00$MainContent$tbPhoneNumber"];
-        [request setPostValue:account.password forKey:@"ctl00$MainContent$tbPassword"];
-        [request setPostValue:@"Войти" forKey:@"ctl00$MainContent$btnEnter"];
-    }
-    else if (type == kAccountBn)
-    {
-        [request addRequestHeader:@"Referer" value:baseItem.loginUrl];
-        [request setPostValue:account.username forKey:@"login"];
-        [request setPostValue:account.password forKey:@"passwd"];
-    }
-    
-    return request;
-}
 
 @end

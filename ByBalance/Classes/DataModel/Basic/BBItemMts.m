@@ -17,8 +17,7 @@
 	self = [super init];
 	if (self)
 	{
-        self.loginUrl = @"https://ihelper.mts.by/SelfCare/logon.aspx";
-        self.detailsUrl = @"https://ihelper.mts.by/SelfCare/welcome.aspx";
+        //
 	}
 	
 	return self;

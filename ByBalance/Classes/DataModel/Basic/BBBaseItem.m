@@ -10,8 +10,6 @@
 
 @implementation BBBaseItem
 
-@synthesize loginUrl;
-@synthesize detailsUrl;
 @synthesize username;
 @synthesize password;
 
@@ -28,8 +26,6 @@
 	self = [super init];
 	if (self)
 	{
-        self.loginUrl = @"";
-        self.detailsUrl = @"";
         self.username = @"";
         self.password = @"";
         
@@ -45,8 +41,6 @@
 
 - (void) dealloc
 {
-    self.loginUrl = nil;
-    self.detailsUrl = nil;
     self.username = nil;
     self.password = nil;
     

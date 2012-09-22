@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import "ASIHTTPRequestDelegate.h"
+#import "BBLoaderDelegate.h"
 
 @class BBMAccount;
 
-@interface BBBalanceChecker : NSObject <ASIHTTPRequestDelegate>
+@interface BBBalanceChecker : NSObject <BBLoaderDelegate>
 {
     
 @private
@@ -18,7 +18,6 @@
     BOOL isBusy;
     NSObject * syncFlag1;
     NSObject * syncFlag2;
-    NSObject * syncFlag3;
     NSOperationQueue * queue;
 }
 
