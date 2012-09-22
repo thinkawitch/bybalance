@@ -17,7 +17,7 @@
 	self = [super init];
 	if (self)
 	{
-        //self.loginUrl = @"http://ui.bn.by/index.php?mode=login";
+        //
 	}
 	
 	return self;

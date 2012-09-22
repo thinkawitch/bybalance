@@ -33,6 +33,8 @@
 		CE173B2A160DD54500E6EF25 /* BBBalanceChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = CE173B23160DD54500E6EF25 /* BBBalanceChecker.m */; };
 		CE173B2B160DD54500E6EF25 /* BBLoaderBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CE173B26160DD54500E6EF25 /* BBLoaderBase.m */; };
 		CE173B2C160DD54500E6EF25 /* BBLoaderMts.m in Sources */ = {isa = PBXBuildFile; fileRef = CE173B29160DD54500E6EF25 /* BBLoaderMts.m */; };
+		CE173B34160E1F6000E6EF25 /* BBLoaderBn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE173B33160E1F5F00E6EF25 /* BBLoaderBn.m */; };
+		CE173B37160E21F200E6EF25 /* BBLoaderVelcom.m in Sources */ = {isa = PBXBuildFile; fileRef = CE173B36160E21F100E6EF25 /* BBLoaderVelcom.m */; };
 		CE20B1E315D55839004006B8 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = CE20B1E115D55839004006B8 /* edit.png */; };
 		CE20B1E415D55839004006B8 /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE20B1E215D55839004006B8 /* edit@2x.png */; };
 		CE212CB715D409B3000D16AA /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = CE212CB515D409B3000D16AA /* delete.png */; };
@@ -152,6 +154,10 @@
 		CE173B28160DD54500E6EF25 /* BBLoaderMts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderMts.h; sourceTree = "<group>"; };
 		CE173B29160DD54500E6EF25 /* BBLoaderMts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderMts.m; sourceTree = "<group>"; };
 		CE173B2D160DEE1300E6EF25 /* BBAllLoaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBAllLoaders.h; sourceTree = "<group>"; };
+		CE173B32160E1F5F00E6EF25 /* BBLoaderBn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderBn.h; sourceTree = "<group>"; };
+		CE173B33160E1F5F00E6EF25 /* BBLoaderBn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderBn.m; sourceTree = "<group>"; };
+		CE173B35160E21F000E6EF25 /* BBLoaderVelcom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderVelcom.h; sourceTree = "<group>"; };
+		CE173B36160E21F100E6EF25 /* BBLoaderVelcom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderVelcom.m; sourceTree = "<group>"; };
 		CE20B1E115D55839004006B8 /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
 		CE20B1E215D55839004006B8 /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
 		CE212CB515D409B3000D16AA /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
@@ -486,6 +492,10 @@
 				CE173B26160DD54500E6EF25 /* BBLoaderBase.m */,
 				CE173B28160DD54500E6EF25 /* BBLoaderMts.h */,
 				CE173B29160DD54500E6EF25 /* BBLoaderMts.m */,
+				CE173B32160E1F5F00E6EF25 /* BBLoaderBn.h */,
+				CE173B33160E1F5F00E6EF25 /* BBLoaderBn.m */,
+				CE173B35160E21F000E6EF25 /* BBLoaderVelcom.h */,
+				CE173B36160E21F100E6EF25 /* BBLoaderVelcom.m */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -876,6 +886,8 @@
 				CE173B2A160DD54500E6EF25 /* BBBalanceChecker.m in Sources */,
 				CE173B2B160DD54500E6EF25 /* BBLoaderBase.m in Sources */,
 				CE173B2C160DD54500E6EF25 /* BBLoaderMts.m in Sources */,
+				CE173B34160E1F6000E6EF25 /* BBLoaderBn.m in Sources */,
+				CE173B37160E21F200E6EF25 /* BBLoaderVelcom.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,8 +14,6 @@
 {
     
 @private
-    
-    BOOL isBusy;
     NSObject * syncFlag1;
     NSObject * syncFlag2;
     NSOperationQueue * queue;

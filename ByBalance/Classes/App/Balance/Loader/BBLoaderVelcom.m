@@ -1,31 +1,25 @@
 //
-//  BBLoaderMts.m
+//  BBLoaderVelcom.m
 //  ByBalance
 //
-//  Created by Andrew Sinkevitch on 01/09/2012.
+//  Created by Admin on 22/09/2012.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import "BBLoaderMts.h"
+#import "BBLoaderVelcom.h"
 
-@implementation BBLoaderMts
+@implementation BBLoaderVelcom
 
 - (ASIFormDataRequest *) prepareRequest
 {
-    NSString * loginUrl = @"https://ihelper.mts.by/SelfCare/logon.aspx";
-
+    NSString * loginUrl = @"httpsd://internet.velcom.by/work.html";
+    
     NSURL * url = [NSURL URLWithString:loginUrl];
     ASIFormDataRequest * request = [self requestWithURL:url];
     
-    //remember request data
-    //request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, baseItem, nil]
-    //                                               forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyBaseItem, nil]];
-    
     [request addRequestHeader:@"Referer" value:loginUrl];
-    [request setPostValue:@"/wEPDwUKMTU5Mzk3MTA0NA9kFgJmD2QWAgICDxYCHgVjbGFzcwUFbG9naW4WAgICD2QWBgIBDw8WAh4JTWF4TGVuZ3RoAglkZAIDDw8WAh4DS0VZBSJjdGwwMF9NYWluQ29udGVudF9jYXB0Y2hhMzA2MjI5NzAwZGQCBQ8PFgYeBFRleHRlHghDc3NDbGFzcwUGc3VibWl0HgRfIVNCAgJkZGRq1lFdf8Isy5ch/s7SUIwpqQoOoA==" forKey:@"__VIEWSTATE"];
-    [request setPostValue:account.username forKey:@"ctl00$MainContent$tbPhoneNumber"];
-    [request setPostValue:account.password forKey:@"ctl00$MainContent$tbPassword"];
-    [request setPostValue:@"Войти" forKey:@"ctl00$MainContent$btnEnter"];
+    //[request setPostValue:account.username forKey:@"login"];
+    //[request setPostValue:account.password forKey:@"passwd"];
     
     request.delegate = self;
     
@@ -70,6 +64,5 @@
         [self.delegate balanceLoaderFail:info];
     }
 }
-
 
 @end

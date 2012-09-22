@@ -21,8 +21,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
 
 - (void) start
 {
-    isBusy = YES;
-    
     queue = [[NSOperationQueue alloc] init];
     queue.maxConcurrentOperationCount = 1;
     
@@ -32,7 +30,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
 
 - (BOOL) isBusy
 {
-    //return isBusy;
     return queue.operationCount > 0;
 }
 
@@ -47,12 +44,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         queue = nil;
     }
     
-    if (syncFlag1) 
+    if (syncFlag1)
     {
         [syncFlag1 release];
         syncFlag1 = nil;
     }
-    if (syncFlag2) 
+    if (syncFlag2)
     {
         [syncFlag2 release];
         syncFlag2 = nil;
@@ -60,7 +57,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     
     [APP_CONTEXT saveDatabase];
     
-    isBusy = NO;
 }
 
 - (void) addItem:(BBMAccount *) account
@@ -77,6 +73,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
     {
         case kAccountMts:
             loader = [[BBLoaderMts new] autorelease];
+            break;
+            
+        case kAccountBn:
+            loader = [[BBLoaderBn new] autorelease];
+            break;
+            
+        case kAccountVelcom:
+            loader = [[BBLoaderVelcom new] autorelease];
             break;
     }
     
