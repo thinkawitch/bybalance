@@ -206,7 +206,6 @@
     
     [vActivity stopAnimating];
     
-    
     lblStatus.text = [self lastBalanceStatus];
     [lblStatus sizeToFit];
     

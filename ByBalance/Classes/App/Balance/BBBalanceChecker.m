@@ -132,7 +132,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceChecked object:self userInfo:info];
         
-        if (queue.operationCount < 1)
+        if (queue.operationCount <= 1)
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStop object:self userInfo:nil];
         }
@@ -163,7 +163,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         
         NSLog(@"operationCount: %d", queue.operationCount);
         
-        if (queue.operationCount < 1)
+        if (queue.operationCount <= 1)
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStop object:self userInfo:nil];
         }

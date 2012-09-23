@@ -38,7 +38,7 @@
 {
     NSLog(@"%@.requestFinished", [self class]);
     
-    [self markDone];
+    
     
     if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
     {
@@ -47,6 +47,8 @@
         
         [self.delegate balanceLoaderSuccess:info];
     }
+    
+    [self markDone];
 }
 
 - (void) requestFailed:(ASIHTTPRequest *)request
@@ -54,7 +56,7 @@
     NSLog(@"%@.requestFailed" , [self class]);
     NSLog(@"%@", [request error]);
     
-    [self markDone];
+    
     
     if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)] )
     {
@@ -63,6 +65,8 @@
         
         [self.delegate balanceLoaderFail:info];
     }
+    
+    [self markDone];
 }
 
 @end
