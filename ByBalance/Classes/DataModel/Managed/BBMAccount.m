@@ -2,7 +2,7 @@
 //  BBMAccount.m
 //  ByBalance
 //
-//  Created by Andrew Sinkevitch on 01/09/2012.
+//  Created by Admin on 06/10/2012.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
@@ -15,7 +15,7 @@
 
 @dynamic password;
 @dynamic username;
-@dynamic type;
 @dynamic history;
+@dynamic type;
 
 @end

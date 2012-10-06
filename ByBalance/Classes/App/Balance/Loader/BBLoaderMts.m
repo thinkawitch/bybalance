@@ -30,18 +30,10 @@
     [request setPostValue:account.password forKey:@"ctl00$MainContent$tbPassword"];
     [request setPostValue:@"Войти" forKey:@"ctl00$MainContent$btnEnter"];
     
-    request.delegate = self;
-    
     return request;
 }
 
 #pragma mark - ASIHTTPRequestDelegate
-
-- (void)requestStarted:(ASIHTTPRequest *)request
-{
-    //NSLog(@"%@.requestStarted", [self class]);
-    NSLog(@"url: %@", request.url);
-}
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {

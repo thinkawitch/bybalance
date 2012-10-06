@@ -13,8 +13,8 @@
 @synthesize username;
 @synthesize password;
 
-@synthesize isBanned;
-@synthesize isExtracted;
+@synthesize incorrectLogin;
+@synthesize extracted;
 @synthesize userTitle;
 @synthesize userPlan;
 @synthesize userBalance;
@@ -29,8 +29,8 @@
         self.username = @"";
         self.password = @"";
         
-        self.isBanned = NO;
-		self.isExtracted = NO;
+        self.incorrectLogin = NO;
+		self.extracted = NO;
         self.userTitle = @"";
         self.userPlan = @"";
         self.userBalance = @"";

@@ -126,21 +126,20 @@
 
 - (void)requestStarted:(ASIHTTPRequest *)request
 {
-    NSLog(@"BBLoaderBase.requestStarted");
+    NSLog(@"%@.requestStarted", [self class]);
     NSLog(@"url: %@", request.url);
-    NSLog(@"userAgent: %@", request.userAgentString);
 }
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"BBLoaderBase.requestFinished");
-    NSLog(@"%@", request.responseString);
+    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@", request.responseString);
 }
 
 - (void) requestFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"BBLoaderBase.requestFailed");
-    NSLog(@"%@", request.responseString);
+    NSLog(@"%@.requestFailed" , [self class]);
+    NSLog(@"%@", [request error]);
 }
 
 

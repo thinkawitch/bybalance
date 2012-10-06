@@ -15,8 +15,8 @@
     NSString * username;
     NSString * password;
     //
-    BOOL isBanned;
-    BOOL isExtracted;
+    BOOL incorrectLogin;
+    BOOL extracted;
     NSString * userTitle;
     NSString * userPlan;
     NSString * userBalance;
@@ -25,8 +25,8 @@
 @property (nonatomic,retain) NSString * username;
 @property (nonatomic,retain) NSString * password;
 //
-@property (nonatomic,assign) BOOL isBanned;
-@property (nonatomic,assign) BOOL isExtracted;
+@property (nonatomic,assign) BOOL incorrectLogin;
+@property (nonatomic,assign) BOOL extracted;
 @property (nonatomic,retain) NSString * userTitle;
 @property (nonatomic,retain) NSString * userPlan;
 @property (nonatomic,retain) NSString * userBalance;

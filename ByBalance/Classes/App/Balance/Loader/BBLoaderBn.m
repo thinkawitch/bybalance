@@ -24,8 +24,6 @@
     [request setPostValue:account.username forKey:@"login"];
     [request setPostValue:account.password forKey:@"passwd"];
     
-    request.delegate = self;
-    
     return request;
 }
 

@@ -27,23 +27,24 @@
 
 - (void) extractFromHtml:(NSString *)html
 {
-    NSString * buf = @"";
+    NSString * buf = nil;
+    NSArray * arr = nil;
     
-    //ban
-    NSArray * arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class=\"logon-result-block\">(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
+    //incorrect login/pass
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class=\"logon-result-block\">(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
     if (arr && [arr count] == 1) 
     {
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            self.isBanned = YES;
+            self.incorrectLogin = YES;
         }
     }
-    NSLog(@"isBanned: %d", isBanned);
+    NSLog(@"incorrectLogin: %d", incorrectLogin);
     
-    if (isBanned)
+    if (incorrectLogin)
     {
-        self.isExtracted = NO;
+        self.extracted = NO;
         return;
     }
     
@@ -83,12 +84,12 @@
     }
     NSLog(@"balance: %@", userBalance);
     
-    self.isExtracted = [userTitle length] > 0 && [userPlan length] > 0 && [userBalance length] > 0;
+    self.extracted = [userTitle length] > 0 && [userPlan length] > 0 && [userBalance length] > 0;
 }
 
 - (NSString *) fullDescription
 {
-    if (isExtracted)
+    if (extracted)
     {
         return [NSString stringWithFormat:@"%@\r\n+375%@\r\n%@\r\n%@", userTitle, username, userPlan, userBalance];
     }

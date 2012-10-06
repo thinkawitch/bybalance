@@ -124,8 +124,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
         bh.date = [NSDate date];
         bh.balance = [NSDecimalNumber decimalNumberWithString: baseItem.userBalance];
-        bh.isExtracted = [NSNumber numberWithBool:baseItem.isExtracted];
-        bh.isBanned = [NSNumber numberWithBool:baseItem.isBanned];
+        bh.extracted = [NSNumber numberWithBool:baseItem.extracted];
+        bh.incorrectLogin = [NSNumber numberWithBool:baseItem.incorrectLogin];
         bh.account = account;
         
         [APP_CONTEXT saveDatabase];
@@ -153,8 +153,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
         bh.date = [NSDate date];
         bh.balance = [NSDecimalNumber decimalNumberWithString: @"0.0"];
-        bh.isExtracted = [NSNumber numberWithBool:NO];
-        bh.isBanned = [NSNumber numberWithBool:NO];
+        bh.extracted = [NSNumber numberWithBool:NO];
+        bh.incorrectLogin = [NSNumber numberWithBool:NO];
         bh.account = account;
         
         [APP_CONTEXT saveDatabase];

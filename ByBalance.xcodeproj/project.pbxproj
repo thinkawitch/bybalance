@@ -59,10 +59,10 @@
 		CE59105B15D7D9CE006CEE0E /* BBBalanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE59105A15D7D9CE006CEE0E /* BBBalanceVC.xib */; };
 		CE7E00821604C1C4009387FD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E007F1604C1C4009387FD /* Default.png */; };
 		CE7E00831604C1C4009387FD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E00801604C1C4009387FD /* Default@2x.png */; };
+		CE86FE6C162073F600966327 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6B162073F600966327 /* BBMAccountType.m */; };
+		CE86FE6F162073F700966327 /* BBMBalanceHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6E162073F700966327 /* BBMBalanceHistory.m */; };
+		CE86FE72162073F700966327 /* BBMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE71162073F700966327 /* BBMAccount.m */; };
 		CE884B1715F9369D00DDF0D0 /* BBItemBn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE884B1615F9369D00DDF0D0 /* BBItemBn.m */; };
-		CE88B1E515F171CF00547021 /* BBMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CE88B1E415F171CF00547021 /* BBMAccount.m */; };
-		CE88B1E815F171D000547021 /* BBMBalanceHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE88B1E715F171D000547021 /* BBMBalanceHistory.m */; };
-		CE88B1EB15F171D000547021 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE88B1EA15F171D000547021 /* BBMAccountType.m */; };
 		CE88B1FA15F22C0100547021 /* BBMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CE88B1F915F22C0100547021 /* BBMUtils.m */; };
 		CE88B20215F22F6900547021 /* BBBaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE88B1FF15F22F6900547021 /* BBBaseItem.m */; };
 		CE88B20315F22F6900547021 /* BBItemMts.m in Sources */ = {isa = PBXBuildFile; fileRef = CE88B20115F22F6900547021 /* BBItemMts.m */; };
@@ -189,14 +189,14 @@
 		CE59105A15D7D9CE006CEE0E /* BBBalanceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBBalanceVC.xib; sourceTree = "<group>"; };
 		CE7E007F1604C1C4009387FD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CE7E00801604C1C4009387FD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CE86FE6A162073F600966327 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
+		CE86FE6B162073F600966327 /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
+		CE86FE6D162073F700966327 /* BBMBalanceHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMBalanceHistory.h; sourceTree = "<group>"; };
+		CE86FE6E162073F700966327 /* BBMBalanceHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMBalanceHistory.m; sourceTree = "<group>"; };
+		CE86FE70162073F700966327 /* BBMAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccount.h; sourceTree = "<group>"; };
+		CE86FE71162073F700966327 /* BBMAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccount.m; sourceTree = "<group>"; };
 		CE884B1515F9369D00DDF0D0 /* BBItemBn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemBn.h; sourceTree = "<group>"; };
 		CE884B1615F9369D00DDF0D0 /* BBItemBn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemBn.m; sourceTree = "<group>"; };
-		CE88B1E315F171CF00547021 /* BBMAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccount.h; sourceTree = "<group>"; };
-		CE88B1E415F171CF00547021 /* BBMAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccount.m; sourceTree = "<group>"; };
-		CE88B1E615F171D000547021 /* BBMBalanceHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMBalanceHistory.h; sourceTree = "<group>"; };
-		CE88B1E715F171D000547021 /* BBMBalanceHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMBalanceHistory.m; sourceTree = "<group>"; };
-		CE88B1E915F171D000547021 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
-		CE88B1EA15F171D000547021 /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
 		CE88B1F815F22C0100547021 /* BBMUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMUtils.h; sourceTree = "<group>"; };
 		CE88B1F915F22C0100547021 /* BBMUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMUtils.m; sourceTree = "<group>"; };
 		CE88B1FD15F22F6900547021 /* BBAllDataItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAllDataItems.h; sourceTree = "<group>"; };
@@ -651,12 +651,12 @@
 				CE88B1F815F22C0100547021 /* BBMUtils.h */,
 				CE88B1F915F22C0100547021 /* BBMUtils.m */,
 				CEA2FD7F15CD51FD00C98E7A /* Model.xcdatamodeld */,
-				CE88B1E915F171D000547021 /* BBMAccountType.h */,
-				CE88B1EA15F171D000547021 /* BBMAccountType.m */,
-				CE88B1E615F171D000547021 /* BBMBalanceHistory.h */,
-				CE88B1E715F171D000547021 /* BBMBalanceHistory.m */,
-				CE88B1E315F171CF00547021 /* BBMAccount.h */,
-				CE88B1E415F171CF00547021 /* BBMAccount.m */,
+				CE86FE70162073F700966327 /* BBMAccount.h */,
+				CE86FE71162073F700966327 /* BBMAccount.m */,
+				CE86FE6D162073F700966327 /* BBMBalanceHistory.h */,
+				CE86FE6E162073F700966327 /* BBMBalanceHistory.m */,
+				CE86FE6A162073F600966327 /* BBMAccountType.h */,
+				CE86FE6B162073F600966327 /* BBMAccountType.m */,
 			);
 			path = Managed;
 			sourceTree = "<group>";
@@ -860,9 +860,6 @@
 				CE3EAA7A15D5A0C1008DA719 /* BBHomeCell.m in Sources */,
 				CE59105815D7D96C006CEE0E /* BBBalanceVC.m in Sources */,
 				CE212CC315D4175D000D16AA /* BBAboutVC.m in Sources */,
-				CE88B1E515F171CF00547021 /* BBMAccount.m in Sources */,
-				CE88B1E815F171D000547021 /* BBMBalanceHistory.m in Sources */,
-				CE88B1EB15F171D000547021 /* BBMAccountType.m in Sources */,
 				CE88B1FA15F22C0100547021 /* BBMUtils.m in Sources */,
 				CE88B20215F22F6900547021 /* BBBaseItem.m in Sources */,
 				CE88B20315F22F6900547021 /* BBItemMts.m in Sources */,
@@ -888,6 +885,9 @@
 				CE173B2C160DD54500E6EF25 /* BBLoaderMts.m in Sources */,
 				CE173B34160E1F6000E6EF25 /* BBLoaderBn.m in Sources */,
 				CE173B37160E21F200E6EF25 /* BBLoaderVelcom.m in Sources */,
+				CE86FE6C162073F600966327 /* BBMAccountType.m in Sources */,
+				CE86FE6F162073F700966327 /* BBMBalanceHistory.m in Sources */,
+				CE86FE72162073F700966327 /* BBMAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

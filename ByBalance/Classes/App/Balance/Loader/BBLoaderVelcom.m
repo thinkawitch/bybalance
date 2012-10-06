@@ -13,9 +13,7 @@
 @property (strong, readwrite) NSString * sessionId;
 
 - (void) onStep1:(NSString *)html;
-//- (void) step2start;
 - (void) onStep2:(NSString *)html;
-//- (void) step3start;
 - (void) onStep3:(NSString *)html;
 
 - (void) doFail;
@@ -51,8 +49,6 @@
     
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
-
-    request.delegate = self;
     
     self.sessionId = nil;
     
@@ -66,6 +62,7 @@
     NSLog(@"%@.requestStarted", [self class]);
     NSLog(@"url: %@", request.url);
     
+    /*
     for (NSString * name in request.requestHeaders)
     {
         NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
@@ -75,6 +72,7 @@
     {
         NSLog(@"[cookie] %@", name);
     }
+    */
 }
 
 - (void) requestFinished:(ASIHTTPRequest *)request
@@ -83,7 +81,7 @@
     
     NSString * step = [request.userInfo objectForKey:@"step"];
     
-    NSLog(@"responseEncoding %d", request.responseEncoding);
+    //NSLog(@"responseEncoding %d", request.responseEncoding);
     
     NSString * html = nil;
     if (request.responseEncoding == NSISOLatin1StringEncoding)
@@ -161,8 +159,6 @@
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
-    request.delegate = self;
-    
     NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
     
     NSString * s1 = [account.username substringToIndex:2];
@@ -189,12 +185,13 @@
     //NSLog(@"%@", html);
     
     //check if we logged in
-    BOOL loggedIn = [html rangeOfString:@"_root/USER_INFO"].location != NSNotFound;
+    BOOL loggedIn = ([html rangeOfString:@"_root/USER_INFO"].location != NSNotFound);
     
     if (!loggedIn)
     {
-        //TODO incorrect login/pass
-        [self doFail];
+        //maybe login problem
+        //[self doFail];
+        [self doSuccess:html];
         return;
     }
     
@@ -207,8 +204,6 @@
     
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"3", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    request.delegate = self;
     
     NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
     

@@ -21,12 +21,12 @@
                                                   dateStyle:NSDateFormatterMediumStyle
                                                   timeStyle:NSDateFormatterShortStyle];
 
-    if ([history.isExtracted boolValue])
+    if ([history.extracted boolValue])
     {
         lblBalance.text = [NSNumberFormatter localizedStringFromNumber:history.balance
                                                        numberStyle:kCFNumberFormatterDecimalStyle];
     }
-    else if ([history.isBanned boolValue])
+    else if ([history.incorrectLogin boolValue])
     {
         lblBalance.text = @"неправильный логин";
     }

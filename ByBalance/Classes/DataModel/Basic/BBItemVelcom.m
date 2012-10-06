@@ -27,25 +27,25 @@
 
 - (void) extractFromHtml:(NSString *)html
 {
-    NSString * buf = @"";
+    NSString * buf = nil;
+    NSArray * arr = nil;
     
-    //ban
-    NSArray * arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class='alarma'>(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
-    if (arr && [arr count] == 1)
+    
+    BOOL loggedIn = ([html rangeOfString:@"_root/USER_INFO"].location != NSNotFound);
+    if (!loggedIn)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
+        //incorrect login/pass
+        self.incorrectLogin = ([html rangeOfString:@"INFO_Error_caption"].location != NSNotFound);
+        NSLog(@"incorrectLogin: %d", incorrectLogin);
+        
+        if (incorrectLogin)
         {
-            self.isBanned = YES;
+            self.extracted = NO;
+            return;
         }
     }
-    NSLog(@"isBanned: %d", isBanned);
     
-    if (isBanned)
-    {
-        self.isExtracted = NO;
-        return;
-    }
+    
     
     //userTitle
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"ФИО:</td><td class=\"INFO\">([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
@@ -83,12 +83,12 @@
     }
     NSLog(@"balance: %@", userBalance);
     
-    self.isExtracted = [userTitle length] > 0 && [userPlan length] > 0 && [userBalance length] > 0;
+    self.extracted = [userTitle length] > 0 && [userPlan length] > 0 && [userBalance length] > 0;
 }
 
 - (NSString *) fullDescription
 {
-    if (isExtracted)
+    if (extracted)
     {
         return [NSString stringWithFormat:@"%@\r\n%@\r\n%@\r\n%@", userTitle, username, userPlan, userBalance];
     }
