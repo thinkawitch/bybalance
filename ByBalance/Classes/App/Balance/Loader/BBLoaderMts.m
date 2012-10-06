@@ -12,6 +12,9 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    //don't use other cookies
+    [ASIHTTPRequest setSessionCookies:nil];
+    
     NSString * loginUrl = @"https://ihelper.mts.by/SelfCare/logon.aspx";
 
     NSURL * url = [NSURL URLWithString:loginUrl];
@@ -59,8 +62,6 @@
 {
     NSLog(@"%@.requestFailed" , [self class]);
     NSLog(@"%@", [request error]);
-    
-    
     
     if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)] )
     {

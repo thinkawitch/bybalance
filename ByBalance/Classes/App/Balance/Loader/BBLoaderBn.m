@@ -12,6 +12,9 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    //don't use other cookies
+    [ASIHTTPRequest setSessionCookies:nil];
+    
     NSString * loginUrl = @"http://ui.bn.by/index.php?mode=login";
     
     NSURL * url = [NSURL URLWithString:loginUrl];

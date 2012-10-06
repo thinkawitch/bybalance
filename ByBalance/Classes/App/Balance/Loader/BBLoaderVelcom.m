@@ -19,7 +19,7 @@
 - (void) onStep3:(NSString *)html;
 
 - (void) doFail;
-- (void) doSuccess;
+- (void) doSuccess:(NSString *)html;
 
 @end
 
@@ -39,27 +39,22 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    //don't use other cookies
+    [ASIHTTPRequest setSessionCookies:nil];
+    
     NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/"];
     ASIFormDataRequest * request = [self requestWithURL:url];
-    //request.useCookiePersistence = NO;
-//    request.useSessionPersistence = NO;
     
-    //[request addRequestHeader:@"Accept" value:@"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"];
-    //[request addRequestHeader:@"Accept-Language" value:@"en-us,en;q=0.5"];
-    //[request addRequestHeader:@"Accept-Encoding" value:@"gzip, deflate"];
-    //[request addRequestHeader:@"Cache-Control" value:@"no-store, no-cache"];
-    //[request addRequestHeader:@"Connection" value:@"keep-alive"];
-    //[request addRequestHeader:@"Cookie" value:@"__utma=188814252.644509678.1343864594.1348941338.1348944137.6; __utmz=188814252.1343864594.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utmc=188814252; __utmb=188814252.1.10.1348944137"];
-    //[request addRequestHeader:@"Host" value:@"internet.velcom.by"];
-    //[request addRequestHeader:@"Referer" value:@"http://www.velcom.by/"];
+    [request setRequestMethod:@"GET"];
+    [request addRequestHeader:@"Host" value:@"internet.velcom.by"];
+    [request addRequestHeader:@"Referer" value:@"http://www.velcom.by/"];
     
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
 
     request.delegate = self;
     
-    
-    self.sessionId = @"";
+    self.sessionId = nil;
     
     return request;
 }
@@ -68,27 +63,23 @@
 
 - (void)requestStarted:(ASIHTTPRequest *)request
 {
-    //NSLog(@"%@.requestStarted", [self class]);
+    NSLog(@"%@.requestStarted", [self class]);
     NSLog(@"url: %@", request.url);
-   // NSLog(@"%@", request.headers)
     
     for (NSString * name in request.requestHeaders)
     {
-        NSLog(@"%@: %@", name, [request.requestHeaders objectForKey:name]);
+        NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
     }
     
     for (NSString * name in request.requestCookies)
     {
-        NSLog(@"%@", name);
+        NSLog(@"[cookie] %@", name);
     }
 }
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
     NSLog(@"%@.requestFinished", [self class]);
-    
-    //[self doFail];
-    //return;
     
     NSString * step = [request.userInfo objectForKey:@"step"];
     
@@ -117,22 +108,10 @@
     {
         [self onStep3:html];
     }
-    
-    
-    [self doFail];
-    
-    /*
-    
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
+    else
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, request.responseString, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
+        [self doFail];
     }
-    
-    [self markDone];
-    */
 }
 
 - (void) requestFailed:(ASIHTTPRequest *)request
@@ -148,19 +127,108 @@
 - (void) onStep1:(NSString *)html
 {
     NSLog(@"BBLoaderVelcom.onStep1");
-    NSLog(@"%@", html);
-
+    //NSLog(@"%@", html);
+    
+    NSString * buf = nil;
+    NSArray * arr = nil;
+    
+    //try to detect session
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"name=\"sid3\" value=\"([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            self.sessionId = buf;
+        }
+    }
+    
+    NSLog(@"sessionId: %@", self.sessionId);
+    
+    if (!self.sessionId)
+    {
+        [self doFail];
+        return;
+    }
+    
+    NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/work.html"];
+    ASIFormDataRequest * request = [self requestWithURL:url];
+    [request setRequestMethod:@"POST"];
+    [request setPostFormat:ASIMultipartFormDataPostFormat];
+    [request addRequestHeader:@"Host" value:@"internet.velcom.by"];
+    [request addRequestHeader:@"Referer" value:@"https://internet.velcom.by/"];
+    
+    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
+                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
+    
+    request.delegate = self;
+    
+    NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
+    
+    NSString * s1 = [account.username substringToIndex:2];
+    NSString * s2 = [account.username substringFromIndex:2];
+    
+    [request setPostValue:self.sessionId forKey:@"sid3"];
+    [request setPostValue:ts forKey:@"user_input_timestamp"];
+    [request setPostValue:@"_next" forKey:@"user_input_0"];
+    [request setPostValue:@"" forKey:@"last_id"];
+    [request setPostValue:@"1" forKey:@"user_input_10"];
+    [request setPostValue:s1 forKey:@"user_input_1"];
+    [request setPostValue:s2 forKey:@"user_input_2"];
+    [request setPostValue:account.password forKey:@"user_input_3"];
+    [request setPostValue:@"0" forKey:@"user_input_9"];
+    [request setPostValue:@"1" forKey:@"user_input_8"];
+    
+    //start request
+    [request startAsynchronous];
 }
 
 - (void) onStep2:(NSString *)html
 {
+    NSLog(@"BBLoaderVelcom.onStep2");
+    //NSLog(@"%@", html);
     
+    //check if we logged in
+    BOOL loggedIn = [html rangeOfString:@"_root/USER_INFO"].location != NSNotFound;
+    
+    if (!loggedIn)
+    {
+        //TODO incorrect login/pass
+        [self doFail];
+        return;
+    }
+    
+    NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/work.html"];
+    ASIFormDataRequest * request = [self requestWithURL:url];
+    [request setRequestMethod:@"POST"];
+    [request setPostFormat:ASIMultipartFormDataPostFormat];
+    [request addRequestHeader:@"Host" value:@"internet.velcom.by"];
+    [request addRequestHeader:@"Referer" value:@"https://internet.velcom.by/work.html"];
+    
+    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"3", nil]
+                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
+    
+    request.delegate = self;
+    
+    NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
+    
+    [request setPostValue:self.sessionId forKey:@"sid3"];
+    [request setPostValue:ts forKey:@"user_input_timestamp"];
+    [request setPostValue:@"_root/USER_INFO" forKey:@"user_input_0"];
+    [request setPostValue:@"" forKey:@"last_id"];
+    
+    //start request
+    [request startAsynchronous];
+
 }
 
 
 - (void) onStep3:(NSString *)html
 {
+    NSLog(@"BBLoaderVelcom.onStep3");
+    //NSLog(@"%@", html);
     
+    [self doSuccess:html];
 }
 
 - (void) doFail
@@ -176,9 +244,17 @@
     [self markDone];
 }
 
-- (void) doSuccess
+- (void) doSuccess:(NSString *)html
 {
+    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
+    {
+        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
+                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
+        
+        [self.delegate balanceLoaderSuccess:info];
+    }
     
+    [self markDone];
 }
 
 @end

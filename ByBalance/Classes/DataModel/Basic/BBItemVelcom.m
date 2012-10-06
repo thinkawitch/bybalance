@@ -48,7 +48,7 @@
     }
     
     //userTitle
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Ф.И.О.:</td><td>([^<]+)</td></tr>" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"ФИО:</td><td class=\"INFO\">([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         buf = [arr objectAtIndex:0];
@@ -60,7 +60,7 @@
     NSLog(@"userTitle: %@", userTitle);
     
     //userPlan
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Тариф:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:\\s*</td><td class=\"INFO\" width=\"200px\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         buf = [arr objectAtIndex:0];
@@ -72,7 +72,7 @@
     NSLog(@"userPlan: %@", userPlan);
     
     //balance
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         buf = [arr objectAtIndex:0];

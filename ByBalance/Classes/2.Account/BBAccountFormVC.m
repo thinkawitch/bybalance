@@ -88,6 +88,14 @@
         return;
     }
     
+    NSInteger type = [accountType.id integerValue];
+    BOOL isPhone = (type == kAccountMts || type == kAccountVelcom);
+    if (isPhone && [tfUsername.text length] != 9)
+    {
+        [APP_CONTEXT showToastWithText:@"Введите 9 цифр в номер телефона"];
+        return;
+    }
+    
     if ([tfPassword.text length] < 1)
     {
         [APP_CONTEXT showToastWithText:@"Введите пароль"];
