@@ -915,7 +915,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "55CE525E-BED3-4915-AC18-C4CB8E3A5790";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos5.1;
 			};
 			name = Debug;
 		};
@@ -924,7 +924,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitali Plugachev (KJ9DZJV8VP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andrei Sinkevich (P779M2PD8B)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -933,8 +933,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "635A4384-2724-47F0-BABE-94D3D463E8EA";
-				SDKROOT = iphoneos;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "55CE525E-BED3-4915-AC18-C4CB8E3A5790";
+				SDKROOT = iphoneos5.1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

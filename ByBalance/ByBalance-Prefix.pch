@@ -16,7 +16,6 @@
     #import "DSActivityView.h"
     #import "NSString+PDRegex.h"
     //
-    //#import "CoreData+ActiveRecordFetching.h"
     #define MR_SHORTHAND
     #import "CoreData+MagicalRecord.h"
     //
