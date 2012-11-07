@@ -15,7 +15,7 @@
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
-    NSString * loginUrl = @"http://ui.bn.by/index.php?mode=login";
+    NSString * loginUrl = @"http://ui.bn.by/index.php?mode=login&locale=ru";
     
     NSURL * url = [NSURL URLWithString:loginUrl];
     ASIFormDataRequest * request = [self requestWithURL:url];

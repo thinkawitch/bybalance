@@ -20,6 +20,8 @@
     
     //lblVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     lblVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    
+    [APP_CONTEXT makeRedButton:btnBlog];
 }
 
 - (void)viewDidUnload
@@ -46,9 +48,16 @@
     [titleView sizeToFit];
 }
 
+#pragma mark - Actions
+
 - (IBAction) onNavButtonLeft:(id)sender
 {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction) onBtnBlog:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://bybalance.wordpress.com"]];
 }
 
 

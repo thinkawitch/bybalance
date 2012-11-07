@@ -220,10 +220,22 @@ typedef enum
     self.history = [BBMBalanceHistory findAllSortedBy:@"date"
                                             ascending:NO
                                         withPredicate:predicate];
-        
-    [tblHistory reloadData];
     
-    btnClear.hidden = ([history count] <= historyStay);
+    if ([history count] < 1)
+    {
+        //no history
+        tblHistory.hidden = YES;
+        btnClear.hidden = YES;
+        lblHistory.hidden = YES;
+    }
+    else
+    {
+        //update table
+        tblHistory.hidden = NO;
+        [tblHistory reloadData];
+        lblHistory.hidden = NO;
+        btnClear.hidden = ([history count] <= historyStay);
+    }
 }
 
 - (void) clearHistory

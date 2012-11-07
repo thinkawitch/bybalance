@@ -16,6 +16,7 @@
     IBOutlet UILabel * lblName;
     IBOutlet UILabel * lblDate;
     IBOutlet UILabel * lblBalance;
+    IBOutlet UILabel * lblHistory;
     
     IBOutlet UIButton * btnRefresh;
     IBOutlet UIButton * btnClear;

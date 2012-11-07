@@ -12,6 +12,7 @@
 {
 @private
     IBOutlet UILabel * lblVersion;
+    IBOutlet UIButton * btnBlog;
 }
-
+- (IBAction) onBtnBlog:(id)sender;
 @end
