@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BBBaseItem.h"
 
-@interface BBItemLife : NSObject
+@interface BBItemLife : BBBaseItem
 
 @end

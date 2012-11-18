@@ -57,6 +57,8 @@
 		CE59105315D58084006CEE0E /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE59105115D58084006CEE0E /* info@2x.png */; };
 		CE59105815D7D96C006CEE0E /* BBBalanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE59105715D7D96C006CEE0E /* BBBalanceVC.m */; };
 		CE59105B15D7D9CE006CEE0E /* BBBalanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE59105A15D7D9CE006CEE0E /* BBBalanceVC.xib */; };
+		CE62C5921657DC7100D95376 /* BBItemLife.m in Sources */ = {isa = PBXBuildFile; fileRef = CE62C5911657DC7100D95376 /* BBItemLife.m */; };
+		CE62C5951657DDB400D95376 /* BBLoaderLife.m in Sources */ = {isa = PBXBuildFile; fileRef = CE62C5941657DDB300D95376 /* BBLoaderLife.m */; };
 		CE7E00821604C1C4009387FD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E007F1604C1C4009387FD /* Default.png */; };
 		CE7E00831604C1C4009387FD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E00801604C1C4009387FD /* Default@2x.png */; };
 		CE86FE6C162073F600966327 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6B162073F600966327 /* BBMAccountType.m */; };
@@ -187,6 +189,10 @@
 		CE59105615D7D96C006CEE0E /* BBBalanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceVC.h; sourceTree = "<group>"; };
 		CE59105715D7D96C006CEE0E /* BBBalanceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBalanceVC.m; sourceTree = "<group>"; };
 		CE59105A15D7D9CE006CEE0E /* BBBalanceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBBalanceVC.xib; sourceTree = "<group>"; };
+		CE62C5901657DC7100D95376 /* BBItemLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemLife.h; sourceTree = "<group>"; };
+		CE62C5911657DC7100D95376 /* BBItemLife.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemLife.m; sourceTree = "<group>"; };
+		CE62C5931657DDB300D95376 /* BBLoaderLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderLife.h; sourceTree = "<group>"; };
+		CE62C5941657DDB300D95376 /* BBLoaderLife.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderLife.m; sourceTree = "<group>"; };
 		CE7E007F1604C1C4009387FD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CE7E00801604C1C4009387FD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CE86FE6A162073F600966327 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
@@ -496,6 +502,8 @@
 				CE173B33160E1F5F00E6EF25 /* BBLoaderBn.m */,
 				CE173B35160E21F000E6EF25 /* BBLoaderVelcom.h */,
 				CE173B36160E21F100E6EF25 /* BBLoaderVelcom.m */,
+				CE62C5931657DDB300D95376 /* BBLoaderLife.h */,
+				CE62C5941657DDB300D95376 /* BBLoaderLife.m */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -568,6 +576,8 @@
 				CE884B1615F9369D00DDF0D0 /* BBItemBn.m */,
 				CE173B17160DD20A00E6EF25 /* BBItemVelcom.h */,
 				CE173B18160DD20A00E6EF25 /* BBItemVelcom.m */,
+				CE62C5901657DC7100D95376 /* BBItemLife.h */,
+				CE62C5911657DC7100D95376 /* BBItemLife.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -888,6 +898,8 @@
 				CE86FE6C162073F600966327 /* BBMAccountType.m in Sources */,
 				CE86FE6F162073F700966327 /* BBMBalanceHistory.m in Sources */,
 				CE86FE72162073F700966327 /* BBMAccount.m in Sources */,
+				CE62C5921657DC7100D95376 /* BBItemLife.m in Sources */,
+				CE62C5951657DDB400D95376 /* BBLoaderLife.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

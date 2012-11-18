@@ -67,6 +67,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
     NSDictionary * conf = [NSDictionary dictionaryWithObjectsAndKeys: 
                            @"МТС", [NSNumber numberWithInt:kAccountMts],
                            @"Velcom", [NSNumber numberWithInt:kAccountVelcom],
+                           @"Life :)", [NSNumber numberWithInt:kAccountLife],
                            @"Деловая сеть", [NSNumber numberWithInt:kAccountBn],
                            nil];
     

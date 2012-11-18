@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BBLoaderBase.h"
 
-@interface BBLoaderLife : NSObject
+@interface BBLoaderLife : BBLoaderBase
 
 @end

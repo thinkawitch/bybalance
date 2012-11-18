@@ -20,6 +20,7 @@ typedef enum
 	kAccountMts = 1,
 	kAccountBn,
 	kAccountVelcom,
+    kAccountLife,
 	//----------------------
 	kAccountsCount
 	

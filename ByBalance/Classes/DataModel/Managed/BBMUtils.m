@@ -29,6 +29,10 @@
         case kAccountVelcom:
             item = [BBItemVelcom new];
             break;
+            
+        case kAccountLife:
+            item = [BBItemLife new];
+            break;
     }
 
     if (!item)

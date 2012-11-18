@@ -11,3 +11,4 @@
 #import "BBLoaderMts.h"
 #import "BBLoaderBn.h"
 #import "BBLoaderVelcom.h"
+#import "BBLoaderLife.h"

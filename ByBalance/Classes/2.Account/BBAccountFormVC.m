@@ -89,7 +89,7 @@
     }
     
     NSInteger type = [accountType.id integerValue];
-    BOOL isPhone = (type == kAccountMts || type == kAccountVelcom);
+    BOOL isPhone = (type == kAccountMts || type == kAccountVelcom || type ==kAccountLife);
     if (isPhone && [tfUsername.text length] != 9)
     {
         [APP_CONTEXT showToastWithText:@"Введите 9 цифр в номер телефона"];
@@ -139,7 +139,7 @@
     
     NSInteger type = [accountType.id integerValue];
 
-    if (type == kAccountMts || type == kAccountVelcom)
+    if (type == kAccountMts || type == kAccountVelcom || type == kAccountLife)
     {
         lblUsernamePrefix.hidden = NO;
         tfUsername.frame = CGRectMake(85, 54, 201, 31);
@@ -167,7 +167,7 @@
 {
     NSInteger type = [accountType.id integerValue];
     
-    if (type == kAccountMts || type == kAccountVelcom)
+    if (type == kAccountMts || type == kAccountVelcom || type == kAccountLife)
     {
         return @"Номер телефона";
     }
