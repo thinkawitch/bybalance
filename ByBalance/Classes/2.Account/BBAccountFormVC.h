@@ -22,11 +22,14 @@
     BBMAccountType * accountType;
     BOOL editMode;
     BBMAccount * account;
+    
+    BOOL cellPhone;
 }
 
 @property (strong, nonatomic) BBMAccountType * accountType;
 @property (assign, nonatomic) BOOL editMode;
 @property (strong, nonatomic) BBMAccount * account;
+@property (assign, nonatomic) BOOL cellPhone;
 
 - (IBAction) add:(id) sender;
 - (IBAction) hideKeyboard:(id) sender;

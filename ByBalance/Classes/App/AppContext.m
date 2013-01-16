@@ -69,6 +69,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
                            @"Velcom", [NSNumber numberWithInt:kAccountVelcom],
                            @"Life :)", [NSNumber numberWithInt:kAccountLife],
                            @"Деловая сеть", [NSNumber numberWithInt:kAccountBn],
+                           @"TCM", [NSNumber numberWithInt:kAccountTcm],
                            nil];
     
     BBMAccountType * item = nil;
@@ -304,6 +305,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
 - (NSString *) basePath
 {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+}
+
+//
+- (BOOL) stringIsNumeric:(NSString *) str
+{
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    NSNumber *number = [formatter numberFromString:str];
+    [formatter release];
+    return !!number; // If the string is not numeric, number will be nil
 }
 
 

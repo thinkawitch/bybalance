@@ -48,7 +48,7 @@
         return;
     }
     
-    NSLog(@"%@", html);
+    //NSLog(@"%@", html);
     
     //userTitle
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Ф.И.О.:</td><td>([^<]+)</td></tr>" caseInsensitive:YES treatAsOneLine:NO];

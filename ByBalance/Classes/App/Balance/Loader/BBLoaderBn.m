@@ -27,4 +27,37 @@
     return request;
 }
 
+#pragma mark - ASIHTTPRequestDelegate
+
+- (void) requestFinished:(ASIHTTPRequest *)request
+{
+    NSLog(@"%@.requestFinished", [self class]);
+    
+    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
+    {
+        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, request.responseString, nil]
+                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
+        
+        [self.delegate balanceLoaderSuccess:info];
+    }
+    
+    [self markDone];
+}
+
+- (void) requestFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"%@.requestFailed" , [self class]);
+    NSLog(@"%@", [request error]);
+    
+    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)] )
+    {
+        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
+                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
+        
+        [self.delegate balanceLoaderFail:info];
+    }
+    
+    [self markDone];
+}
+
 @end

@@ -1,13 +1,13 @@
 //
-//  BBLoadeTcm.h
+//  BBLoaderTcm.h
 //  ByBalance
 //
 //  Created by Admin on 16.01.13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BBLoaderBase.h"
 
-@interface BBLoadeTcm : NSObject
+@interface BBLoaderTcm : BBLoaderBase
 
 @end

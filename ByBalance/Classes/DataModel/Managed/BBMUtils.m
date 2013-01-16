@@ -33,6 +33,10 @@
         case kAccountLife:
             item = [BBItemLife new];
             break;
+            
+        case kAccountTcm:
+            item = [BBItemTcm new];
+            break;
     }
 
     if (!item)

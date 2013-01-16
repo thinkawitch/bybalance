@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import "BBLoaderMts.h"
+#import "BBLoaderBase.h"
 
-@interface BBLoaderBn : BBLoaderMts
+@interface BBLoaderBn : BBLoaderBase
 
 @end

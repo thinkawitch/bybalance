@@ -20,6 +20,7 @@
 @synthesize accountType;
 @synthesize editMode;
 @synthesize account;
+@synthesize cellPhone;
 
 - (void)viewDidLoad
 {
@@ -135,22 +136,28 @@
 
 - (void) updateScreenForType
 {
-    lblUsername.text = [self loginTitle];
-    
     NSInteger type = [accountType.id integerValue];
-
+    cellPhone = NO;
     if (type == kAccountMts || type == kAccountVelcom || type == kAccountLife)
+    {
+        cellPhone = YES;
+    }
+    
+    lblUsername.text = [self loginTitle];
+
+    if (cellPhone)
     {
         lblUsernamePrefix.hidden = NO;
         tfUsername.frame = CGRectMake(85, 54, 201, 31);
         tfUsername.keyboardType = UIKeyboardTypeNumberPad;
         
     }
-    else if (type == kAccountBn)
+    else
     {
         lblUsernamePrefix.hidden = YES;
         tfUsername.frame = CGRectMake(35, 54, 251, 31);
-        tfUsername.keyboardType = UIKeyboardTypeNumberPad;
+        if (type == kAccountBn) tfUsername.keyboardType = UIKeyboardTypeNumberPad;
+        else tfUsername.keyboardType = UIKeyboardTypeDefault;
     }
     
     if (editMode)
@@ -167,13 +174,15 @@
 {
     NSInteger type = [accountType.id integerValue];
     
-    if (type == kAccountMts || type == kAccountVelcom || type == kAccountLife)
+    if (cellPhone)
     {
         return @"Номер телефона";
     }
-    else if (type == kAccountBn)
+    else
     {
-        return @"Номер счёта";
+        if (type == kAccountBn) return @"Номер счёта";
+        
+        if (type == kAccountTcm) return @"Логин";
     }
     
     return @"";

@@ -55,6 +55,9 @@
 //
 - (NSString *) basePath;
 
+//
+- (BOOL) stringIsNumeric:(NSString *) str;
+
 
 @end
 
