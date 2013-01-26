@@ -27,7 +27,7 @@
 
 - (void) extractFromHtml:(NSString *)html
 {
-    NSLog(@"%@", html);
+    //NSLog(@"%@", html);
  
     if (!html)
     {

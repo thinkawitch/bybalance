@@ -37,6 +37,10 @@
         case kAccountTcm:
             item = [BBItemTcm new];
             break;
+            
+        case kAccountNiks:
+            item = [BBItemNiks new];
+            break;
     }
 
     if (!item)

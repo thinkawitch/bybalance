@@ -13,3 +13,4 @@
 #import "BBLoaderVelcom.h"
 #import "BBLoaderLife.h"
 #import "BBLoaderTcm.h"
+#import "BBLoaderNiks.h"

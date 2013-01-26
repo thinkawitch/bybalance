@@ -137,7 +137,7 @@
 					<object class="IBUITextView" id="890190026">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{16, 123}, {288, 112}}</string>
+						<string key="NSFrame">{{16, 127}, {288, 112}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1042734440"/>
@@ -148,7 +148,8 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIEditable">NO</bool>
 						<string type="base64-UTF8" key="IBUIText">0JIg0Y3RgtC+0Lkg0LLQtdGA0YHQuNC4INC/0L7QtNC00LXRgNC20LjQstCw0Y7RgtGB0Y86CtCc0KLQ
-oQpWZWxjb20KTGlmZSA6KQrQlNC10LvQvtCy0LDRjyDRgdC10YLRjCAoaURvbSk</string>
+oSwgVmVsY29tLCBMaWZlIDopCtCU0LXQu9C+0LLQsNGPINGB0LXRgtGMIChpRG9tKSwg4oCoVENNLCDQ
+ndCY0JrQoQ</string>
 						<reference key="IBUITextColor" ref="139123197"/>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<int key="IBUIAutocapitalizationType">2</int>

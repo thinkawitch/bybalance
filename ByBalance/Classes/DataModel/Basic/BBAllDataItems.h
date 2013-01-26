@@ -12,3 +12,4 @@
 #import "BBItemVelcom.h"
 #import "BBItemLife.h"
 #import "BBItemTcm.h"
+#import "BBItemNiks.h"

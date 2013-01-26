@@ -22,6 +22,7 @@ typedef enum
 	kAccountVelcom,
     kAccountLife,
     kAccountTcm,
+    kAccountNiks,
 	//----------------------
 	kAccountsCount
 	

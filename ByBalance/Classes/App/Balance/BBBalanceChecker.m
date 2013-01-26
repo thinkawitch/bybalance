@@ -90,6 +90,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         case kAccountTcm:
             loader = [[BBLoaderTcm new] autorelease];
             break;
+            
+        case kAccountNiks:
+            loader = [[BBLoaderNiks new] autorelease];
+            break;
     }
     
     if (!loader)

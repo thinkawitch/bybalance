@@ -181,8 +181,7 @@
     else
     {
         if (type == kAccountBn) return @"Номер счёта";
-        
-        if (type == kAccountTcm) return @"Логин";
+        if (type == kAccountTcm || type == kAccountNiks) return @"Логин";
     }
     
     return @"";
