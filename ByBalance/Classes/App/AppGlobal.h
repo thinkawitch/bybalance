@@ -23,6 +23,7 @@ typedef enum
     kAccountLife,
     kAccountTcm,
     kAccountNiks,
+    kAccountDamavik,
 	//----------------------
 	kAccountsCount
 	

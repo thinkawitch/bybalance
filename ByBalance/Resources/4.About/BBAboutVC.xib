@@ -149,7 +149,7 @@
 						<bool key="IBUIEditable">NO</bool>
 						<string type="base64-UTF8" key="IBUIText">0JIg0Y3RgtC+0Lkg0LLQtdGA0YHQuNC4INC/0L7QtNC00LXRgNC20LjQstCw0Y7RgtGB0Y86CtCc0KLQ
 oSwgVmVsY29tLCBMaWZlIDopCtCU0LXQu9C+0LLQsNGPINGB0LXRgtGMIChpRG9tKSwg4oCoVENNLCDQ
-ndCY0JrQoQ</string>
+ndCY0JrQoQrQqNC/0LDRgNC60ZYg0JTQsNC80LDQstGW0Lo</string>
 						<reference key="IBUITextColor" ref="139123197"/>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<int key="IBUIAutocapitalizationType">2</int>
@@ -262,8 +262,8 @@ ndCY0JrQoQ</string>
 						<array class="NSMutableArray" key="children">
 							<reference ref="6280636"/>
 							<reference ref="372467753"/>
-							<reference ref="829060020"/>
 							<reference ref="1042734440"/>
+							<reference ref="829060020"/>
 							<reference ref="890190026"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -329,20 +329,17 @@ ndCY0JrQoQ</string>
 				<object class="IBPartialClassDescription">
 					<string key="className">BBAboutVC</string>
 					<string key="superclassName">BBBaseViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="onBtnBlog:">id</string>
-						<string key="onNavButtonLeft:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="onBtnBlog:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">onBtnBlog:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">onBtnBlog:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">onBtnBlog:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="onNavButtonLeft:">
-							<string key="name">onNavButtonLeft:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="btnBlog">UIButton</string>
 						<string key="lblVersion">UILabel</string>

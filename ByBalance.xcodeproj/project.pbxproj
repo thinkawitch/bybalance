@@ -69,6 +69,8 @@
 		CE74EBDD16B43FBB002AE1BA /* cb_mono_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE74EBC416B43FBB002AE1BA /* cb_mono_on@2x.png */; };
 		CE74EBDE16B43FBB002AE1BA /* UIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBC716B43FBB002AE1BA /* UIHelpers.m */; };
 		CE74EBDF16B43FBB002AE1BA /* SSCheckBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBC916B43FBB002AE1BA /* SSCheckBoxView.m */; };
+		CE74EBE216B45916002AE1BA /* BBLoaderDamavik.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBE116B45910002AE1BA /* BBLoaderDamavik.m */; };
+		CE74EBE516B45CC3002AE1BA /* BBItemDamavik.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBE416B45CC0002AE1BA /* BBItemDamavik.m */; };
 		CE7E00821604C1C4009387FD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E007F1604C1C4009387FD /* Default.png */; };
 		CE7E00831604C1C4009387FD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E00801604C1C4009387FD /* Default@2x.png */; };
 		CE86FE6C162073F600966327 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6B162073F600966327 /* BBMAccountType.m */; };
@@ -235,6 +237,10 @@
 		CE74EBC716B43FBB002AE1BA /* UIHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelpers.m; sourceTree = "<group>"; };
 		CE74EBC816B43FBB002AE1BA /* SSCheckBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCheckBoxView.h; sourceTree = "<group>"; };
 		CE74EBC916B43FBB002AE1BA /* SSCheckBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCheckBoxView.m; sourceTree = "<group>"; };
+		CE74EBE016B4590C002AE1BA /* BBLoaderDamavik.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDamavik.h; sourceTree = "<group>"; };
+		CE74EBE116B45910002AE1BA /* BBLoaderDamavik.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDamavik.m; sourceTree = "<group>"; };
+		CE74EBE316B45CBE002AE1BA /* BBItemDamavik.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemDamavik.h; sourceTree = "<group>"; };
+		CE74EBE416B45CC0002AE1BA /* BBItemDamavik.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemDamavik.m; sourceTree = "<group>"; };
 		CE7E007F1604C1C4009387FD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CE7E00801604C1C4009387FD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CE86FE6A162073F600966327 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
@@ -551,6 +557,8 @@
 				CE74EBA416A72D47002AE1BA /* BBLoaderTcm.m */,
 				CE74EBA916B3FC23002AE1BA /* BBLoaderNiks.h */,
 				CE74EBAA16B3FC24002AE1BA /* BBLoaderNiks.m */,
+				CE74EBE016B4590C002AE1BA /* BBLoaderDamavik.h */,
+				CE74EBE116B45910002AE1BA /* BBLoaderDamavik.m */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -676,6 +684,8 @@
 				CE74EBA716A72F27002AE1BA /* BBItemTcm.m */,
 				CE74EBAC16B402CC002AE1BA /* BBItemNiks.h */,
 				CE74EBAD16B402CD002AE1BA /* BBItemNiks.m */,
+				CE74EBE316B45CBE002AE1BA /* BBItemDamavik.h */,
+				CE74EBE416B45CC0002AE1BA /* BBItemDamavik.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -1008,6 +1018,8 @@
 				CE74EBAE16B402CE002AE1BA /* BBItemNiks.m in Sources */,
 				CE74EBDE16B43FBB002AE1BA /* UIHelpers.m in Sources */,
 				CE74EBDF16B43FBB002AE1BA /* SSCheckBoxView.m in Sources */,
+				CE74EBE216B45916002AE1BA /* BBLoaderDamavik.m in Sources */,
+				CE74EBE516B45CC3002AE1BA /* BBItemDamavik.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,16 +1,14 @@
 //
-//  BBLoaderVelcom.m
+//  BBLoaderDamavik.m
 //  ByBalance
 //
-//  Created by Admin on 22/09/2012.
-//  Copyright (c) 2012 sinkevitch.name. All rights reserved.
+//  Created by Andrew Sinkevitch on 26.01.13.
+//  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
-#import "BBLoaderVelcom.h"
+#import "BBLoaderDamavik.h"
 
-@interface BBLoaderVelcom ()
-
-@property (strong, readwrite) NSString * sessionId;
+@interface BBLoaderDamavik ()
 
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
@@ -21,39 +19,24 @@
 
 @end
 
-
-@implementation BBLoaderVelcom
-
-@synthesize sessionId;
-
-#pragma mark - ObjectLife
-
-- (void) dealloc
-{
-    self.sessionId = nil;
-    
-    [super dealloc];
-}
+@implementation BBLoaderDamavik
 
 - (ASIFormDataRequest *) prepareRequest
 {
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
-    NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/"];
-    ASIFormDataRequest * request = [self requestWithURL:url];
+    NSString * loginUrl = @"https://issa.damavik.by/";
     
-    [request setRequestMethod:@"GET"];
-    [request addRequestHeader:@"Host" value:@"internet.velcom.by"];
-    [request addRequestHeader:@"Referer" value:@"http://www.velcom.by/"];
+    NSURL * url = [NSURL URLWithString:loginUrl];
+    ASIFormDataRequest * request = [self requestWithURL:url];
     
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
-    self.sessionId = nil;
-    
     return request;
 }
+
 
 #pragma mark - ASIHTTPRequestDelegate
 
@@ -79,20 +62,8 @@
 {
     NSLog(@"%@.requestFinished", [self class]);
     
+    NSString * html = html = request.responseString;
     NSString * step = [request.userInfo objectForKey:@"step"];
-    
-    //NSLog(@"responseEncoding %d", request.responseEncoding);
-    
-    NSString * html = nil;
-    if (request.responseEncoding == NSISOLatin1StringEncoding)
-    {
-        html = [[[NSString alloc] initWithData:request.responseData encoding:NSWindowsCP1251StringEncoding] autorelease];
-    }
-    else
-    {
-        html = request.responseString;
-    }
-    
     
     if ([step isEqualToString:@"1"])
     {
@@ -124,56 +95,43 @@
 
 - (void) onStep1:(NSString *)html
 {
-    NSLog(@"BBLoaderVelcom.onStep1");
+    NSLog(@"BBLoaderDamavik.onStep1");
     //NSLog(@"%@", html);
     
     NSString * buf = nil;
     NSArray * arr = nil;
     
-    //try to detect session
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"name=\"sid3\" value=\"([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
+    //search for captcha image
+    
+    NSString * imgName = nil;
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<img src=\"/img/_cap/items/([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            self.sessionId = buf;
+            imgName = buf;
         }
     }
     
-    NSLog(@"sessionId: %@", self.sessionId);
+    NSLog(@"imgName: %@", imgName);
     
-    if (!self.sessionId)
+    if (!imgName)
     {
         [self doFail];
         return;
     }
     
-    NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/work.html"];
+    //load captcha image to get cookies
+    
+    NSString * captchaUrl = @"https://issa.damavik.by/img/_cap/items/";
+    captchaUrl = [captchaUrl stringByAppendingString:imgName];
+    
+    NSURL * url = [NSURL URLWithString:captchaUrl];
     ASIFormDataRequest * request = [self requestWithURL:url];
-    [request setRequestMethod:@"POST"];
-    [request setPostFormat:ASIMultipartFormDataPostFormat];
-    [request addRequestHeader:@"Host" value:@"internet.velcom.by"];
-    [request addRequestHeader:@"Referer" value:@"https://internet.velcom.by/"];
     
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
-    
-    NSString * s1 = [account.username substringToIndex:2];
-    NSString * s2 = [account.username substringFromIndex:2];
-    
-    [request setPostValue:self.sessionId forKey:@"sid3"];
-    [request setPostValue:ts forKey:@"user_input_timestamp"];
-    [request setPostValue:@"_next" forKey:@"user_input_0"];
-    [request setPostValue:@"" forKey:@"last_id"];
-    [request setPostValue:@"1" forKey:@"user_input_10"];
-    [request setPostValue:s1 forKey:@"user_input_1"];
-    [request setPostValue:s2 forKey:@"user_input_2"];
-    [request setPostValue:account.password forKey:@"user_input_3"];
-    [request setPostValue:@"0" forKey:@"user_input_9"];
-    [request setPostValue:@"1" forKey:@"user_input_8"];
     
     //start request
     [request startAsynchronous];
@@ -181,46 +139,29 @@
 
 - (void) onStep2:(NSString *)html
 {
-    NSLog(@"BBLoaderVelcom.onStep2");
-    //NSLog(@"%@", html);
+    NSLog(@"BBLoaderDamavik.onStep2");
     
-    //check if we logged in
-    BOOL loggedIn = ([html rangeOfString:@"_root/USER_INFO"].location != NSNotFound);
+
+    NSString * loginUrl = @"https://issa.damavik.by/";
     
-    if (!loggedIn)
-    {
-        //maybe login problem
-        //[self doFail];
-        [self doSuccess:html];
-        return;
-    }
-    
-    NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/work.html"];
+    NSURL * url = [NSURL URLWithString:loginUrl];
     ASIFormDataRequest * request = [self requestWithURL:url];
-    [request setRequestMethod:@"POST"];
-    [request setPostFormat:ASIMultipartFormDataPostFormat];
-    [request addRequestHeader:@"Host" value:@"internet.velcom.by"];
-    [request addRequestHeader:@"Referer" value:@"https://internet.velcom.by/work.html"];
+    
+    [request setPostValue:@"login" forKey:@"action__n18"];
+    [request setPostValue:@"https://issa.damavik.by/about" forKey:@"form_action_true"];
+    [request setPostValue:account.username forKey:@"login__n18"];
+    [request setPostValue:account.password forKey:@"password__n18"];
     
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"3", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
-    NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
-    
-    [request setPostValue:self.sessionId forKey:@"sid3"];
-    [request setPostValue:ts forKey:@"user_input_timestamp"];
-    [request setPostValue:@"_root/USER_INFO" forKey:@"user_input_0"];
-    [request setPostValue:@"" forKey:@"last_id"];
-    
     //start request
     [request startAsynchronous];
-
 }
-
 
 - (void) onStep3:(NSString *)html
 {
-    NSLog(@"BBLoaderVelcom.onStep3");
+    NSLog(@"BBLoaderDamavik.onStep3");
     //NSLog(@"%@", html);
     
     [self doSuccess:html];

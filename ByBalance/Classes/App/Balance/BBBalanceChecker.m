@@ -94,6 +94,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         case kAccountNiks:
             loader = [[BBLoaderNiks new] autorelease];
             break;
+            
+        case kAccountDamavik:
+            loader = [[BBLoaderDamavik new] autorelease];
+            break;
     }
     
     if (!loader)

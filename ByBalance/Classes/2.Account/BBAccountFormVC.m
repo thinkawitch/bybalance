@@ -195,7 +195,7 @@
     }
     else
     {
-        if (type == kAccountBn) return @"Номер счёта";
+        if (type == kAccountBn || type == kAccountDamavik) return @"Номер счёта";
         if (type == kAccountTcm || type == kAccountNiks) return @"Логин";
     }
     

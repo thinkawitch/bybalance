@@ -41,6 +41,10 @@
         case kAccountNiks:
             item = [BBItemNiks new];
             break;
+            
+        case kAccountDamavik:
+            item = [BBItemDamavik new];
+            break;
     }
 
     if (!item)

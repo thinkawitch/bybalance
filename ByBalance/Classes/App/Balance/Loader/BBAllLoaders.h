@@ -14,3 +14,4 @@
 #import "BBLoaderLife.h"
 #import "BBLoaderTcm.h"
 #import "BBLoaderNiks.h"
+#import "BBLoaderDamavik.h"
