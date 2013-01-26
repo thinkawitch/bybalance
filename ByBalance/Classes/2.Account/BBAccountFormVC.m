@@ -7,6 +7,7 @@
 //
 
 #import "BBAccountFormVC.h"
+#import "SSCheckBoxView.h"
 
 @interface BBAccountFormVC ()
 
@@ -31,6 +32,14 @@
     [self updateScreenForType];
     
     [APP_CONTEXT makeRedButton:btnAdd];
+    
+    SSCheckBoxView *cbv = [[SSCheckBoxView alloc] initWithFrame:CGRectMake(178, 96, 110, 30)
+                                                          style:kSSCheckBoxViewStyleMono
+                                                        checked:NO];
+    [cbv setText:@"показать"];
+    [cbv setStateChangedTarget:self selector:@selector(togglePasswordDisplay:)];
+    [self.view addSubview:cbv];
+    [cbv release];
     
 }
 
@@ -129,6 +138,12 @@
         
         [APP_CONTEXT showToastWithText:@"Новый аккаунт добавлен"]; 
     }
+}
+
+- (IBAction) togglePasswordDisplay:(id) sender
+{
+    [tfPassword resignFirstResponder];
+    tfPassword.secureTextEntry = ![sender checked];
 }
 
 
