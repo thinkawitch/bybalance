@@ -13,6 +13,7 @@
 
 - (void) updateScreenForType;
 - (NSString *) loginTitle;
+- (void)displayPersonPhone:(ABRecordRef)person;
 
 @end
 
@@ -146,6 +147,14 @@
     tfPassword.secureTextEntry = ![sender checked];
 }
 
+- (IBAction) openContacts:(id) sender
+{
+    ABPeoplePickerNavigationController * picker = [[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self;
+    [self presentModalViewController:picker animated:YES];
+    [picker release];
+}
+
 
 #pragma mark - Private
 
@@ -163,8 +172,9 @@
     if (cellPhone)
     {
         lblUsernamePrefix.hidden = NO;
-        tfUsername.frame = CGRectMake(85, 54, 201, 31);
+        tfUsername.frame = CGRectMake(85, 54, 162, 31);
         tfUsername.keyboardType = UIKeyboardTypeNumberPad;
+        btnContacts.hidden = NO;
         
     }
     else
@@ -173,6 +183,7 @@
         tfUsername.frame = CGRectMake(35, 54, 251, 31);
         if (type == kAccountBn) tfUsername.keyboardType = UIKeyboardTypeNumberPad;
         else tfUsername.keyboardType = UIKeyboardTypeDefault;
+        btnContacts.hidden = YES;
     }
     
     if (editMode)
@@ -202,6 +213,30 @@
     return @"";
 }
 
+- (void)displayPersonPhone:(ABRecordRef)person
+{
+    //NSString * name = ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    //self.firstName.text = name;
+    
+    NSString* phone = nil;
+    ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
+    
+    if (ABMultiValueGetCount(phoneNumbers) > 0)
+    {
+        phone = ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
+    }
+    else
+    {
+        phone = @"[нет]";
+        
+    }
+    
+    tfUsername.text = phone;
+    
+    CFRelease(phoneNumbers);
+}
+
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -209,6 +244,60 @@
     [textField resignFirstResponder];
     return NO;
 }
+
+#pragma mark - ABPeoplePickerNavigationControllerDelegate
+
+- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
+{
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person
+{
+
+    return YES;
+}
+
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person
+                                property:(ABPropertyID)property
+                              identifier:(ABMultiValueIdentifier)identifier
+{
+    
+    if (property == kABPersonPhoneProperty)
+    {
+        ABMultiValueRef numbers = ABRecordCopyValue(person, property);
+        NSString * targetNumber = ABMultiValueCopyValueAtIndex(numbers, ABMultiValueGetIndexForIdentifier(numbers, identifier));
+        
+        NSLog(@"%@", targetNumber);
+       
+        NSString * phone = [NSString stringWithFormat:@"%@", targetNumber];
+        phone = [phone stringByReplacingOccurrencesOfString:@"[^0-9]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [phone length])];
+        
+        if ([phone hasPrefix:@"375"]) phone = [phone substringFromIndex:3];
+        else if ([phone hasPrefix:@"802"]) phone = [phone substringFromIndex:2];
+            
+        tfUsername.text = [NSString stringWithFormat:@"%@", phone];
+    }
+    
+    [self dismissModalViewControllerAnimated:YES];
+    
+    return NO;
+}
+
+#pragma mark - ABPersonViewControllerDelegate
+
+- (BOOL)personViewController:(ABPersonViewController *)personViewController
+shouldPerformDefaultActionForPerson:(ABRecordRef)person
+                        identifier:(ABMultiValueIdentifier)identifier
+{
+    return NO;
+}
+
+
 
 
 @end

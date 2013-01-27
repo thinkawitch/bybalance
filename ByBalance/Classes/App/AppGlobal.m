@@ -11,7 +11,7 @@
 #pragma mark - Text and Messages
 //
 NSString * const kAppNoInternetAlertTitle = @"";
-NSString * const kAppNoInternetAlertText = @"You have no internet connection";
+NSString * const kAppNoInternetAlertText =  @"Нет подключения к интернет"; //@"You have no internet connection";
 //
 NSString * const kAppEmailRegexp = @"^([\\w\\-\\.]+)@((\\[([0-9]{1,3}\\.){3}[0-9]{1,3}\\])|(([\\w\\-]+\\.)+)([a-zA-Z]{2,4}))$";
 

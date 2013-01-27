@@ -8,7 +8,11 @@
 
 #import "BBBaseViewController.h"
 
-@interface BBAccountFormVC : BBBaseViewController <UITextFieldDelegate>
+#import <UIKit/UIKit.h>
+#import <AddressBookUI/AddressBookUI.h>
+
+@interface BBAccountFormVC : BBBaseViewController
+<UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate>
 {
     
 @private
@@ -18,6 +22,7 @@
     IBOutlet UITextField * tfUsername;
     IBOutlet UITextField * tfPassword;
     IBOutlet UIButton * btnAdd;
+    IBOutlet UIButton * btnContacts;
     
     BBMAccountType * accountType;
     BOOL editMode;
@@ -34,5 +39,6 @@
 - (IBAction) add:(id) sender;
 - (IBAction) hideKeyboard:(id) sender;
 - (IBAction) togglePasswordDisplay:(id) sender;
+- (IBAction) openContacts:(id) sender;
 
 @end

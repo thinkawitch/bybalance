@@ -71,6 +71,10 @@
 		CE74EBDF16B43FBB002AE1BA /* SSCheckBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBC916B43FBB002AE1BA /* SSCheckBoxView.m */; };
 		CE74EBE216B45916002AE1BA /* BBLoaderDamavik.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBE116B45910002AE1BA /* BBLoaderDamavik.m */; };
 		CE74EBE516B45CC3002AE1BA /* BBItemDamavik.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBE416B45CC0002AE1BA /* BBItemDamavik.m */; };
+		CE74EBE816B55757002AE1BA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE74EBE616B55750002AE1BA /* AddressBook.framework */; };
+		CE74EBE916B55757002AE1BA /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE74EBE716B55753002AE1BA /* AddressBookUI.framework */; };
+		CE74EBEC16B56B7E002AE1BA /* contacts.png in Resources */ = {isa = PBXBuildFile; fileRef = CE74EBEA16B56B7E002AE1BA /* contacts.png */; };
+		CE74EBED16B56B7E002AE1BA /* contacts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE74EBEB16B56B7E002AE1BA /* contacts@2x.png */; };
 		CE7E00821604C1C4009387FD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E007F1604C1C4009387FD /* Default.png */; };
 		CE7E00831604C1C4009387FD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E00801604C1C4009387FD /* Default@2x.png */; };
 		CE86FE6C162073F600966327 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6B162073F600966327 /* BBMAccountType.m */; };
@@ -241,6 +245,10 @@
 		CE74EBE116B45910002AE1BA /* BBLoaderDamavik.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDamavik.m; sourceTree = "<group>"; };
 		CE74EBE316B45CBE002AE1BA /* BBItemDamavik.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemDamavik.h; sourceTree = "<group>"; };
 		CE74EBE416B45CC0002AE1BA /* BBItemDamavik.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemDamavik.m; sourceTree = "<group>"; };
+		CE74EBE616B55750002AE1BA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		CE74EBE716B55753002AE1BA /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		CE74EBEA16B56B7E002AE1BA /* contacts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contacts.png; sourceTree = "<group>"; };
+		CE74EBEB16B56B7E002AE1BA /* contacts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contacts@2x.png"; sourceTree = "<group>"; };
 		CE7E007F1604C1C4009387FD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CE7E00801604C1C4009387FD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CE86FE6A162073F600966327 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
@@ -321,6 +329,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE74EBE816B55757002AE1BA /* AddressBook.framework in Frameworks */,
+				CE74EBE916B55757002AE1BA /* AddressBookUI.framework in Frameworks */,
 				CEA2FD9D15CD593D00C98E7A /* CoreData.framework in Frameworks */,
 				CE052504158E06D900FB6CDF /* libz.dylib in Frameworks */,
 				CE052502158E067600FB6CDF /* MobileCoreServices.framework in Frameworks */,
@@ -340,7 +350,6 @@
 			children = (
 				CE0524AA158E01FE00FB6CDF /* ByBalance */,
 				CE0524A3158E01FE00FB6CDF /* Frameworks */,
-				CE052503158E06D900FB6CDF /* libz.dylib */,
 				CE0524A1158E01FE00FB6CDF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -356,6 +365,9 @@
 		CE0524A3158E01FE00FB6CDF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE052503158E06D900FB6CDF /* libz.dylib */,
+				CE74EBE616B55750002AE1BA /* AddressBook.framework */,
+				CE74EBE716B55753002AE1BA /* AddressBookUI.framework */,
 				CEA2FD9C15CD593D00C98E7A /* CoreData.framework */,
 				CE052501158E067600FB6CDF /* MobileCoreServices.framework */,
 				CE0524FF158E066900FB6CDF /* SystemConfiguration.framework */,
@@ -822,6 +834,8 @@
 		CEA2FDC215CD8C0900C98E7A /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				CE74EBEA16B56B7E002AE1BA /* contacts.png */,
+				CE74EBEB16B56B7E002AE1BA /* contacts@2x.png */,
 				CE44A95415EEA70900AFD3D3 /* refresh.png */,
 				CE44A95515EEA70900AFD3D3 /* refresh@2x.png */,
 				CE212CB515D409B3000D16AA /* delete.png */,
@@ -943,6 +957,8 @@
 				CE74EBDB16B43FBB002AE1BA /* cb_mono_off@2x.png in Resources */,
 				CE74EBDC16B43FBB002AE1BA /* cb_mono_on.png in Resources */,
 				CE74EBDD16B43FBB002AE1BA /* cb_mono_on@2x.png in Resources */,
+				CE74EBEC16B56B7E002AE1BA /* contacts.png in Resources */,
+				CE74EBED16B56B7E002AE1BA /* contacts@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
