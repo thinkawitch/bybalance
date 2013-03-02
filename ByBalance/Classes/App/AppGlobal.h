@@ -24,6 +24,8 @@ typedef enum
     kAccountTcm,
     kAccountNiks,
     kAccountDamavik,
+    kAccountSolo,
+    kAccountTeleset,
 	//----------------------
 	kAccountsCount
 	

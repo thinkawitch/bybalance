@@ -72,6 +72,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
                            @"TCM", [NSNumber numberWithInt:kAccountTcm],
                            @"НИКС", [NSNumber numberWithInt:kAccountNiks],
                            @"Шпаркі Дамавік", [NSNumber numberWithInt:kAccountDamavik],
+                           @"Соло", [NSNumber numberWithInt:kAccountSolo],
+                           @"Телесеть", [NSNumber numberWithInt:kAccountTeleset],
                            nil];
     
     BBMAccountType * item = nil;

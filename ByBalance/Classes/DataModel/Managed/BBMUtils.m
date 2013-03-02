@@ -43,6 +43,8 @@
             break;
             
         case kAccountDamavik:
+        case kAccountSolo:
+        case kAccountTeleset:
             item = [BBItemDamavik new];
             break;
     }

@@ -96,6 +96,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
             break;
             
         case kAccountDamavik:
+        case kAccountSolo:
+        case kAccountTeleset:
             loader = [[BBLoaderDamavik new] autorelease];
             break;
     }

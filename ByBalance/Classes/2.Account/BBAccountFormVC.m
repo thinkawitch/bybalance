@@ -93,6 +93,11 @@
 
 - (IBAction) add:(id) sender
 {
+    
+    //trim username
+    NSString * username = [tfUsername.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+    tfUsername.text = username;
+    
     if ([tfUsername.text length] < 1)
     {
         [APP_CONTEXT showToastWithText:[NSString stringWithFormat:@"Введите %@", [self loginTitle]]];
@@ -222,7 +227,7 @@
     }
     else
     {
-        if (type == kAccountBn || type == kAccountDamavik) return @"Номер счёта";
+        if (type == kAccountBn || type == kAccountDamavik || type == kAccountSolo || type == kAccountTeleset) return @"Номер счёта";
         if (type == kAccountTcm || type == kAccountNiks) return @"Логин";
     }
     
