@@ -8,47 +8,103 @@
 
 #import "BBLoaderMts.h"
 
+@interface BBLoaderMts ()
+
+@property (strong, readwrite) NSString * paramViewState;
+
+- (void) onStep1:(NSString *)html;
+- (void) onStep2:(NSString *)html;
+
+- (void) doFail;
+- (void) doSuccess:(NSString *)html;
+
+@end
+
 @implementation BBLoaderMts
+
+@synthesize paramViewState;
+
+#pragma mark - ObjectLife
+
+- (void) dealloc
+{
+    self.paramViewState = nil;
+    
+    [super dealloc];
+}
 
 - (ASIFormDataRequest *) prepareRequest
 {
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
-    NSString * loginUrl = @"https://ihelper.mts.by/SelfCare/logon.aspx";
-
-    NSURL * url = [NSURL URLWithString:loginUrl];
+    NSURL * url = [NSURL URLWithString:@"https://ihelper.mts.by/SelfCare/"];
     ASIFormDataRequest * request = [self requestWithURL:url];
     
-    //remember request data
-    //request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, baseItem, nil]
-    //                                               forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyBaseItem, nil]];
+    [request setRequestMethod:@"GET"];
+    [request addRequestHeader:@"Host" value:@"ihelper.mts.by"];
+    [request addRequestHeader:@"Referer" value:@"https://ihelper.mts.by/SelfCare/"];
     
-    [request addRequestHeader:@"Referer" value:loginUrl];
-    [request setPostValue:@"/wEPDwUKMTU5Mzk3MTA0NA9kFgJmD2QWAgICDxYCHgVjbGFzcwUFbG9naW4WAgICD2QWBgIBDw8WAh4JTWF4TGVuZ3RoAglkZAIDDw8WAh4DS0VZBSFjdGwwMF9NYWluQ29udGVudF9jYXB0Y2hhNDMyMzE2NTFkZAIFDw8WBh4EVGV4dGUeCENzc0NsYXNzBQZzdWJtaXQeBF8hU0ICAmRkZIdAU40VRNIYqj2+sTHiu3Pfn4zLGc8LAChvKbzwUDZr" forKey:@"__VIEWSTATE"];
-
-    [request setPostValue:account.username forKey:@"ctl00$MainContent$tbPhoneNumber"];
-    [request setPostValue:account.password forKey:@"ctl00$MainContent$tbPassword"];
-    [request setPostValue:@"Войти" forKey:@"ctl00$MainContent$btnEnter"];
+    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
+                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
+    
+    self.paramViewState = nil;
     
     return request;
 }
 
+
 #pragma mark - ASIHTTPRequestDelegate
+
+- (void)requestStarted:(ASIHTTPRequest *)request
+{
+    NSLog(@"%@.requestStarted", [self class]);
+    NSLog(@"url: %@", request.url);
+    
+    /*
+     for (NSString * name in request.requestHeaders)
+     {
+     NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
+     }
+     
+     for (NSString * name in request.requestCookies)
+     {
+     NSLog(@"[cookie] %@", name);
+     }
+     */
+}
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
     NSLog(@"%@.requestFinished", [self class]);
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
+    NSString * step = [request.userInfo objectForKey:@"step"];
+    
+    //NSLog(@"responseEncoding %d", request.responseEncoding);
+    
+    NSString * html = nil;
+    if (request.responseEncoding == NSISOLatin1StringEncoding)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, request.responseString, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
+        html = [[[NSString alloc] initWithData:request.responseData encoding:NSWindowsCP1251StringEncoding] autorelease];
+    }
+    else
+    {
+        html = request.responseString;
     }
     
-    [self markDone];
+    
+    if ([step isEqualToString:@"1"])
+    {
+        [self onStep1:html];
+    }
+    else if ([step isEqualToString:@"2"])
+    {
+        [self onStep2:html];
+    }
+    else
+    {
+        [self doFail];
+    }
 }
 
 - (void) requestFailed:(ASIHTTPRequest *)request
@@ -56,12 +112,87 @@
     NSLog(@"%@.requestFailed" , [self class]);
     NSLog(@"%@", [request error]);
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)] )
+    [self doFail];
+}
+
+
+#pragma mark - Logic
+
+- (void) onStep1:(NSString *)html
+{
+    NSLog(@"BBLoaderMts.onStep1");
+    //NSLog(@"%@", html);
+    
+    NSString * buf = nil;
+    NSArray * arr = nil;
+    
+    //try to detect session
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"id=\"__VIEWSTATE\" value=\"([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            self.paramViewState = buf;
+        }
+    }
+    
+    NSLog(@"paramViewState: %@", self.paramViewState);
+    
+    if (!self.paramViewState)
+    {
+        [self doFail];
+        return;
+    }
+    
+    NSURL * url = [NSURL URLWithString:@"https://ihelper.mts.by/SelfCare/logon.aspx"];
+    ASIFormDataRequest * request = [self requestWithURL:url];
+    //[request setRequestMethod:@"POST"];
+    //[request setPostFormat:ASIMultipartFormDataPostFormat];
+    [request addRequestHeader:@"Host" value:@"ihelper.mts.by"];
+    [request addRequestHeader:@"Referer" value:@"https://ihelper.mts.by/SelfCare/"];
+    
+    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
+                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
+    
+    [request setPostValue:self.paramViewState forKey:@"__VIEWSTATE"];
+    [request setPostValue:account.username forKey:@"ctl00$MainContent$tbPhoneNumber"];
+    [request setPostValue:account.password forKey:@"ctl00$MainContent$tbPassword"];
+    [request setPostValue:@"Войти" forKey:@"ctl00$MainContent$btnEnter"];
+    
+    //start request
+    [request startAsynchronous];
+}
+
+- (void) onStep2:(NSString *)html
+{
+    NSLog(@"BBLoaderMts.onStep2");
+    //NSLog(@"%@", html);
+    
+    [self doSuccess:html];
+}
+
+- (void) doFail
+{
+    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)])
     {
         NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
                                                           forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
         
         [self.delegate balanceLoaderFail:info];
+    }
+    
+    [self markDone];
+}
+
+- (void) doSuccess:(NSString *)html
+{
+    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)])
+    {
+        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
+                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
+        
+        [self.delegate balanceLoaderSuccess:info];
     }
     
     [self markDone];
