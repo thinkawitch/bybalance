@@ -100,11 +100,27 @@
     }
     
     NSInteger type = [accountType.id integerValue];
-    BOOL isPhone = (type == kAccountMts || type == kAccountVelcom || type ==kAccountLife);
-    if (isPhone && [tfUsername.text length] != 9)
+    BOOL isPhone = (type == kAccountMts || type == kAccountVelcom || type == kAccountLife);
+    
+    if (isPhone)
     {
-        [APP_CONTEXT showToastWithText:@"Введите 9 цифр в номер телефона"];
-        return;
+        NSInteger usernameLen = [tfUsername.text length];
+        if (type == kAccountMts)
+        {
+            if (usernameLen < 7)
+            {
+                [APP_CONTEXT showToastWithText:@"Введите 9 цифр для номера телефона. 7 и более цифр для интернет-cчёта"];
+                return;
+            }
+        }
+        else
+        {
+            if (usernameLen != 9)
+            {
+                [APP_CONTEXT showToastWithText:@"Введите 9 цифр в номер телефона"];
+                return;
+            }
+        }
     }
     
     if ([tfPassword.text length] < 1)
