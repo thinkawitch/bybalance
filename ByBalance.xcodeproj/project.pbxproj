@@ -109,6 +109,8 @@
 		CEA2FDCA15CD8C0900C98E7A /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FDC415CD8C0900C98E7A /* add@2x.png */; };
 		CEA2FDCB15CD8C0900C98E7A /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FDC515CD8C0900C98E7A /* arrow_left.png */; };
 		CEA2FDCC15CD8C0900C98E7A /* arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA2FDC615CD8C0900C98E7A /* arrow_left@2x.png */; };
+		CEAD91A216EFBD5C0002BF7F /* BBLoaderByFly.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAD91A116EFBD5B0002BF7F /* BBLoaderByFly.m */; };
+		CEAD91A516EFBEAD0002BF7F /* BBItemByFly.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAD91A416EFBEAD0002BF7F /* BBItemByFly.m */; };
 		CEC486E7158E0B14008CA493 /* AppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486E3158E0B14008CA493 /* AppContext.m */; };
 		CEC486E8158E0B14008CA493 /* AppGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486E5158E0B14008CA493 /* AppGlobal.m */; };
 		CEC486EC158E0EDA008CA493 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486EB158E0EDA008CA493 /* AppSettings.m */; };
@@ -310,6 +312,10 @@
 		CEA2FDC415CD8C0900C98E7A /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		CEA2FDC515CD8C0900C98E7A /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_left.png; sourceTree = "<group>"; };
 		CEA2FDC615CD8C0900C98E7A /* arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_left@2x.png"; sourceTree = "<group>"; };
+		CEAD91A016EFBD5B0002BF7F /* BBLoaderByFly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderByFly.h; sourceTree = "<group>"; };
+		CEAD91A116EFBD5B0002BF7F /* BBLoaderByFly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderByFly.m; sourceTree = "<group>"; };
+		CEAD91A316EFBEAD0002BF7F /* BBItemByFly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemByFly.h; sourceTree = "<group>"; };
+		CEAD91A416EFBEAD0002BF7F /* BBItemByFly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemByFly.m; sourceTree = "<group>"; };
 		CEC486E2158E0B14008CA493 /* AppContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppContext.h; sourceTree = "<group>"; };
 		CEC486E3158E0B14008CA493 /* AppContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppContext.m; sourceTree = "<group>"; };
 		CEC486E4158E0B14008CA493 /* AppGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppGlobal.h; sourceTree = "<group>"; };
@@ -571,6 +577,8 @@
 				CE74EBAA16B3FC24002AE1BA /* BBLoaderNiks.m */,
 				CE74EBE016B4590C002AE1BA /* BBLoaderDamavik.h */,
 				CE74EBE116B45910002AE1BA /* BBLoaderDamavik.m */,
+				CEAD91A016EFBD5B0002BF7F /* BBLoaderByFly.h */,
+				CEAD91A116EFBD5B0002BF7F /* BBLoaderByFly.m */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -698,6 +706,8 @@
 				CE74EBAD16B402CD002AE1BA /* BBItemNiks.m */,
 				CE74EBE316B45CBE002AE1BA /* BBItemDamavik.h */,
 				CE74EBE416B45CC0002AE1BA /* BBItemDamavik.m */,
+				CEAD91A316EFBEAD0002BF7F /* BBItemByFly.h */,
+				CEAD91A416EFBEAD0002BF7F /* BBItemByFly.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -1036,6 +1046,8 @@
 				CE74EBDF16B43FBB002AE1BA /* SSCheckBoxView.m in Sources */,
 				CE74EBE216B45916002AE1BA /* BBLoaderDamavik.m in Sources */,
 				CE74EBE516B45CC3002AE1BA /* BBItemDamavik.m in Sources */,
+				CEAD91A216EFBD5C0002BF7F /* BBLoaderByFly.m in Sources */,
+				CEAD91A516EFBEAD0002BF7F /* BBItemByFly.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

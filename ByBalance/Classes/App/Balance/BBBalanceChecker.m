@@ -100,6 +100,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         case kAccountTeleset:
             loader = [[BBLoaderDamavik new] autorelease];
             break;
+            
+        case kAccountByFly:
+            loader = [[BBLoaderByFly new] autorelease];
+            break;
     }
     
     if (!loader)

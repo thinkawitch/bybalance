@@ -15,3 +15,4 @@
 #import "BBLoaderTcm.h"
 #import "BBLoaderNiks.h"
 #import "BBLoaderDamavik.h"
+#import "BBLoaderByFly.h"

@@ -26,6 +26,7 @@ typedef enum
     kAccountDamavik,
     kAccountSolo,
     kAccountTeleset,
+    kAccountByFly,
 	//----------------------
 	kAccountsCount
 	

@@ -47,6 +47,10 @@
         case kAccountTeleset:
             item = [BBItemDamavik new];
             break;
+            
+        case kAccountByFly:
+            item = [BBItemByFly new];
+            break;
     }
 
     if (!item)
