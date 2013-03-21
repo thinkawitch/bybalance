@@ -16,3 +16,4 @@
 #import "BBLoaderNiks.h"
 #import "BBLoaderDamavik.h"
 #import "BBLoaderByFly.h"
+#import "BBLoaderNetBerry.h"

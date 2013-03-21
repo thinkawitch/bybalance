@@ -75,6 +75,7 @@
 		CE74EBE916B55757002AE1BA /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE74EBE716B55753002AE1BA /* AddressBookUI.framework */; };
 		CE74EBEC16B56B7E002AE1BA /* contacts.png in Resources */ = {isa = PBXBuildFile; fileRef = CE74EBEA16B56B7E002AE1BA /* contacts.png */; };
 		CE74EBED16B56B7E002AE1BA /* contacts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE74EBEB16B56B7E002AE1BA /* contacts@2x.png */; };
+		CE7BFEB116FB8BC700C7D516 /* BBLoaderNetBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */; };
 		CE7E00821604C1C4009387FD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E007F1604C1C4009387FD /* Default.png */; };
 		CE7E00831604C1C4009387FD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E00801604C1C4009387FD /* Default@2x.png */; };
 		CE86FE6C162073F600966327 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6B162073F600966327 /* BBMAccountType.m */; };
@@ -115,6 +116,7 @@
 		CEC486E8158E0B14008CA493 /* AppGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486E5158E0B14008CA493 /* AppGlobal.m */; };
 		CEC486EC158E0EDA008CA493 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486EB158E0EDA008CA493 /* AppSettings.m */; };
 		CEC486F0158E0F80008CA493 /* IDDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC486EF158E0F80008CA493 /* IDDateHelper.m */; };
+		CED5CD6216FB911E00CA155A /* BBItemNetBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = CED5CD6116FB911E00CA155A /* BBItemNetBerry.m */; };
 		CEDB129215F26CD800213052 /* BBBalanceHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEDB129115F26CD800213052 /* BBBalanceHistoryCell.xib */; };
 		CEDB129515F26D9400213052 /* BBBalanceHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB129415F26D9400213052 /* BBBalanceHistoryCell.m */; };
 /* End PBXBuildFile section */
@@ -251,6 +253,8 @@
 		CE74EBE716B55753002AE1BA /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		CE74EBEA16B56B7E002AE1BA /* contacts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contacts.png; sourceTree = "<group>"; };
 		CE74EBEB16B56B7E002AE1BA /* contacts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contacts@2x.png"; sourceTree = "<group>"; };
+		CE7BFEAF16FB8BC400C7D516 /* BBLoaderNetBerry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderNetBerry.h; sourceTree = "<group>"; };
+		CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderNetBerry.m; sourceTree = "<group>"; };
 		CE7E007F1604C1C4009387FD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CE7E00801604C1C4009387FD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CE86FE6A162073F600966327 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
@@ -325,6 +329,8 @@
 		CEC486EB158E0EDA008CA493 /* AppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSettings.m; sourceTree = "<group>"; };
 		CEC486EE158E0F80008CA493 /* IDDateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDDateHelper.h; sourceTree = "<group>"; };
 		CEC486EF158E0F80008CA493 /* IDDateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDDateHelper.m; sourceTree = "<group>"; };
+		CED5CD6016FB911E00CA155A /* BBItemNetBerry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemNetBerry.h; sourceTree = "<group>"; };
+		CED5CD6116FB911E00CA155A /* BBItemNetBerry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemNetBerry.m; sourceTree = "<group>"; };
 		CEDB129115F26CD800213052 /* BBBalanceHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBBalanceHistoryCell.xib; sourceTree = "<group>"; };
 		CEDB129315F26D9300213052 /* BBBalanceHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceHistoryCell.h; sourceTree = "<group>"; };
 		CEDB129415F26D9400213052 /* BBBalanceHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBalanceHistoryCell.m; sourceTree = "<group>"; };
@@ -579,6 +585,8 @@
 				CE74EBE116B45910002AE1BA /* BBLoaderDamavik.m */,
 				CEAD91A016EFBD5B0002BF7F /* BBLoaderByFly.h */,
 				CEAD91A116EFBD5B0002BF7F /* BBLoaderByFly.m */,
+				CE7BFEAF16FB8BC400C7D516 /* BBLoaderNetBerry.h */,
+				CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -708,6 +716,8 @@
 				CE74EBE416B45CC0002AE1BA /* BBItemDamavik.m */,
 				CEAD91A316EFBEAD0002BF7F /* BBItemByFly.h */,
 				CEAD91A416EFBEAD0002BF7F /* BBItemByFly.m */,
+				CED5CD6016FB911E00CA155A /* BBItemNetBerry.h */,
+				CED5CD6116FB911E00CA155A /* BBItemNetBerry.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -1048,6 +1058,8 @@
 				CE74EBE516B45CC3002AE1BA /* BBItemDamavik.m in Sources */,
 				CEAD91A216EFBD5C0002BF7F /* BBLoaderByFly.m in Sources */,
 				CEAD91A516EFBEAD0002BF7F /* BBItemByFly.m in Sources */,
+				CE7BFEB116FB8BC700C7D516 /* BBLoaderNetBerry.m in Sources */,
+				CED5CD6216FB911E00CA155A /* BBItemNetBerry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

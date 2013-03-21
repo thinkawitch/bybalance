@@ -51,6 +51,10 @@
         case kAccountByFly:
             item = [BBItemByFly new];
             break;
+            
+        case kAccountNetBerry:
+            item = [BBItemNetBerry new];
+            break;
     }
 
     if (!item)

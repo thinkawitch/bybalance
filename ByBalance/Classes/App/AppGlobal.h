@@ -27,6 +27,7 @@ typedef enum
     kAccountSolo,
     kAccountTeleset,
     kAccountByFly,
+    kAccountNetBerry,
 	//----------------------
 	kAccountsCount
 	

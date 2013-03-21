@@ -228,7 +228,7 @@
     else
     {
         if (type == kAccountBn || type == kAccountDamavik || type == kAccountSolo || type == kAccountTeleset) return @"Номер счёта";
-        if (type == kAccountByFly) return @"Номер договора";
+        if (type == kAccountByFly || type == kAccountNetBerry) return @"Номер договора";
         if (type == kAccountTcm || type == kAccountNiks) return @"Логин";
     }
     

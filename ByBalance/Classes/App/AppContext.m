@@ -75,6 +75,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
                            @"Соло", [NSNumber numberWithInt:kAccountSolo],
                            @"Телесеть", [NSNumber numberWithInt:kAccountTeleset],
                            @"ByFly", [NSNumber numberWithInt:kAccountByFly],
+                           @"NetBerry", [NSNumber numberWithInt:kAccountNetBerry],
                            nil];
     
     BBMAccountType * item = nil;

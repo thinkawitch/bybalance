@@ -8,6 +8,12 @@
 
 #import "BBLoaderByFly.h"
 
+@interface BBLoaderByFly ()
+
+//@property (strong, readwrite) NSMutableData * receivedData;
+
+@end
+
 @implementation BBLoaderByFly
 
 - (ASIFormDataRequest *) prepareRequest
@@ -18,13 +24,55 @@
     NSURL * url = [NSURL URLWithString:@"https://issa.beltelecom.by/cgi-bin/cgi.exe?function=is_login"];
     ASIFormDataRequest * request = [self requestWithURL:url];
     
+    //[request setShouldAttemptPersistentConnection:NO];
+    [request setShouldCompressRequestBody:NO];
+    [request setAllowCompressedResponse:NO];
+    //[request setValidatesSecureCertificate:NO];
+    
+    //[request setPostFormat:ASIMultipartFormDataPostFormat];
+    //[request setRequestMethod:@"POST"];
+    //[request addRequestHeader:@"Accept-Encoding" value:@"gzip, deflate"];
+    //[request addRequestHeader:@"Accept-Language" value:@"en-US,en;q=0.5"];
+    //[request addRequestHeader:@"Cache-Control" value:@"max-age:0"];
+    //[request addRequestHeader:@"Connection" value:@"keep-alive"];
+    
+    //[request addRequestHeader:@"Host" value:@"issa.beltelecom.by"];
+    
+    //[request setPostValue:@"2" forKey:@"Lang"];
+    
     [request setPostValue:account.username forKey:@"mobnum"];
     [request setPostValue:account.password forKey:@"Password"];
     
+    //[request appendPostData:[@"mobnum=1760003226601&Password=2308039" dataUsingEncoding:NSUTF8StringEncoding]];
+    // Default becomes POST when you use appendPostData: / appendPostDataFromFile: / setPostBody:
+    //[request setRequestMethod:@"POST"];
+    
+
     return request;
 }
 
 #pragma mark - ASIHTTPRequestDelegate
+
+- (void)requestStarted:(ASIHTTPRequest *)request
+{
+    NSLog(@"%@.requestStarted", [self class]);
+    NSLog(@"url: %@", request.url);
+    NSLog(@"requestMethod: %@", request.requestMethod);
+    
+    
+    for (NSString * name in request.requestHeaders)
+    {
+        NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
+    }
+    
+    for (NSString * name in request.requestCookies)
+    {
+        NSLog(@"[cookie] %@", name);
+    }
+    
+    NSLog(@"[body] %@", [[NSString alloc] initWithData:request.postBody encoding:NSUTF8StringEncoding]);
+    
+}
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {

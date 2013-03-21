@@ -190,7 +190,6 @@
     if (!loggedIn)
     {
         //maybe login problem
-        //[self doFail];
         [self doSuccess:html];
         return;
     }

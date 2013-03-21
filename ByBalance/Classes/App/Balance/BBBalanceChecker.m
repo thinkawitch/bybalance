@@ -104,6 +104,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         case kAccountByFly:
             loader = [[BBLoaderByFly new] autorelease];
             break;
+            
+        case kAccountNetBerry:
+            loader = [[BBLoaderNetBerry new] autorelease];
+            break;
     }
     
     if (!loader)
