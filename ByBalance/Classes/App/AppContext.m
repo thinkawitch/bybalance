@@ -76,6 +76,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
                            @"Телесеть", [NSNumber numberWithInt:kAccountTeleset],
                            @"ByFly", [NSNumber numberWithInt:kAccountByFly],
                            @"NetBerry", [NSNumber numberWithInt:kAccountNetBerry],
+                           @"Космос ТВ", [NSNumber numberWithInt:kAccountCosmosTv],
                            nil];
     
     BBMAccountType * item = nil;

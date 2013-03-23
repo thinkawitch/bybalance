@@ -78,6 +78,8 @@
 		CE7BFEB116FB8BC700C7D516 /* BBLoaderNetBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */; };
 		CE7E00821604C1C4009387FD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E007F1604C1C4009387FD /* Default.png */; };
 		CE7E00831604C1C4009387FD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E00801604C1C4009387FD /* Default@2x.png */; };
+		CE7FC02616FE33480063CEAF /* BBLoaderCosmosTV.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FC02516FE33480063CEAF /* BBLoaderCosmosTV.m */; };
+		CE7FC02916FE37FF0063CEAF /* BBItemCosmosTV.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FC02816FE37FF0063CEAF /* BBItemCosmosTV.m */; };
 		CE86FE6C162073F600966327 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6B162073F600966327 /* BBMAccountType.m */; };
 		CE86FE6F162073F700966327 /* BBMBalanceHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6E162073F700966327 /* BBMBalanceHistory.m */; };
 		CE86FE72162073F700966327 /* BBMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE71162073F700966327 /* BBMAccount.m */; };
@@ -257,6 +259,10 @@
 		CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderNetBerry.m; sourceTree = "<group>"; };
 		CE7E007F1604C1C4009387FD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CE7E00801604C1C4009387FD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CE7FC02416FE33480063CEAF /* BBLoaderCosmosTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderCosmosTV.h; sourceTree = "<group>"; };
+		CE7FC02516FE33480063CEAF /* BBLoaderCosmosTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderCosmosTV.m; sourceTree = "<group>"; };
+		CE7FC02716FE37FF0063CEAF /* BBItemCosmosTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemCosmosTV.h; sourceTree = "<group>"; };
+		CE7FC02816FE37FF0063CEAF /* BBItemCosmosTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemCosmosTV.m; sourceTree = "<group>"; };
 		CE86FE6A162073F600966327 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
 		CE86FE6B162073F600966327 /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
 		CE86FE6D162073F700966327 /* BBMBalanceHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMBalanceHistory.h; sourceTree = "<group>"; };
@@ -587,6 +593,8 @@
 				CEAD91A116EFBD5B0002BF7F /* BBLoaderByFly.m */,
 				CE7BFEAF16FB8BC400C7D516 /* BBLoaderNetBerry.h */,
 				CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */,
+				CE7FC02416FE33480063CEAF /* BBLoaderCosmosTV.h */,
+				CE7FC02516FE33480063CEAF /* BBLoaderCosmosTV.m */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -718,6 +726,8 @@
 				CEAD91A416EFBEAD0002BF7F /* BBItemByFly.m */,
 				CED5CD6016FB911E00CA155A /* BBItemNetBerry.h */,
 				CED5CD6116FB911E00CA155A /* BBItemNetBerry.m */,
+				CE7FC02716FE37FF0063CEAF /* BBItemCosmosTV.h */,
+				CE7FC02816FE37FF0063CEAF /* BBItemCosmosTV.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -1060,6 +1070,8 @@
 				CEAD91A516EFBEAD0002BF7F /* BBItemByFly.m in Sources */,
 				CE7BFEB116FB8BC700C7D516 /* BBLoaderNetBerry.m in Sources */,
 				CED5CD6216FB911E00CA155A /* BBItemNetBerry.m in Sources */,
+				CE7FC02616FE33480063CEAF /* BBLoaderCosmosTV.m in Sources */,
+				CE7FC02916FE37FF0063CEAF /* BBItemCosmosTV.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

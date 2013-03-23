@@ -16,3 +16,4 @@
 #import "BBItemDamavik.h"
 #import "BBItemByFly.h"
 #import "BBItemNetBerry.h"
+#import "BBItemCosmosTV.h"

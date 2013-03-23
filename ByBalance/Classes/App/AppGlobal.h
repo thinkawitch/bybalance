@@ -28,6 +28,7 @@ typedef enum
     kAccountTeleset,
     kAccountByFly,
     kAccountNetBerry,
+    kAccountCosmosTv,
 	//----------------------
 	kAccountsCount
 	

@@ -55,6 +55,10 @@
         case kAccountNetBerry:
             item = [BBItemNetBerry new];
             break;
+            
+        case kAccountCosmosTv:
+            item = [BBItemCosmosTV new];
+            break;
     }
 
     if (!item)

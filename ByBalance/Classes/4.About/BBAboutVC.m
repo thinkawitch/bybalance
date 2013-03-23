@@ -44,7 +44,7 @@
     
     //title
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
-    titleView.text = @"О программе";
+    titleView.text = @"Справка";
     [titleView sizeToFit];
 }
 

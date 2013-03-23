@@ -1,24 +1,25 @@
 //
-//  BBLoaderNetBerry.m
+//  BBLoaderCosmosTV.m
 //  ByBalance
 //
-//  Created by Andrew Sinkevitch on 21.03.13.
+//  Created by Andrew Sinkevitch on 23.03.13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
-#import "BBLoaderNetBerry.h"
+#import "BBLoaderCosmosTV.h"
 
-@interface BBLoaderNetBerry ()
+@interface BBLoaderCosmosTV ()
 
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
+- (void) onStep3:(NSString *)html;
 
 - (void) doFail;
 - (void) doSuccess:(NSString *)html;
 
 @end
 
-@implementation BBLoaderNetBerry
+@implementation BBLoaderCosmosTV
 
 #pragma mark - ObjectLife
 
@@ -32,18 +33,14 @@
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
-    NSURL * url = [NSURL URLWithString:@"https://user.nbr.by/bgbilling/webexecuter"];
+    NSURL * url = [NSURL URLWithString:@"http://cosmostv.by/subscribers/login/?process"];
     ASIFormDataRequest * request = [self requestWithURL:url];
+    [request addRequestHeader:@"Referer" value:@"http://cosmostv.by/"];
     
-    [request setRequestMethod:@"GET"];
-    [request addRequestHeader:@"Host" value:@"user.nbr.by"];
-    [request addRequestHeader:@"Referer" value:@"https://user.nbr.by/bgbilling/webexecuter"];
-    
-    [request setValidatesSecureCertificate:NO];
-    
-    [request addPostValue:@"0" forKey:@"midAuth"];
-    [request addPostValue:account.username forKey:@"user"];
-    [request addPostValue:account.password forKey:@"pswd"];
+    [request addPostValue:account.username forKey:@"login"];
+    [request addPostValue:account.password forKey:@"password"];
+    [request addPostValue:@"1" forKey:@"doit!"];
+    [request addPostValue:@"1" forKey:@"ajax"];
     
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
@@ -77,18 +74,7 @@
     NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
-    
-    //NSLog(@"responseEncoding %d", request.responseEncoding);
-    
-    NSString * html = nil;
-    if (request.responseEncoding == NSISOLatin1StringEncoding)
-    {
-        html = [[[NSString alloc] initWithData:request.responseData encoding:NSWindowsCP1251StringEncoding] autorelease];
-    }
-    else
-    {
-        html = request.responseString;
-    }
+    NSString * html = request.responseString;
     
     
     if ([step isEqualToString:@"1"])
@@ -98,6 +84,10 @@
     else if ([step isEqualToString:@"2"])
     {
         [self onStep2:html];
+    }
+    else if ([step isEqualToString:@"3"])
+    {
+        [self onStep3:html];
     }
     else
     {
@@ -118,33 +108,33 @@
 
 - (void) onStep1:(NSString *)html
 {
-    NSLog(@"BBLoaderNetBerry.onStep1");
+    NSLog(@"BBLoaderCosmosTV.onStep1");
     //NSLog(@"%@", html);
     
-    //Ошибка при авторизации
-    if ([html rangeOfString:@"Ошибка при авторизации"].location != NSNotFound)
+    NSString * jsonString = [NSString stringWithFormat:@"%@", html];
+    NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError * jsonError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&jsonError];
+    
+    if (![jsonObject isKindOfClass:[NSDictionary class]])
     {
-        [self doSuccess:html];
+        //это не json
+        [self doFail];
         return;
     }
+        
+    NSDictionary * jsonDictionary = (NSDictionary *)jsonObject;
     
-    //ссылка на страницу баланса
-    if ([html rangeOfString:@"?action=ShowBalance&mid=contract"].location == NSNotFound)
+    NSString * redirect = [jsonDictionary objectForKey:@"redirect"];
+    if (!redirect)
     {
+        //авторизация не прошла
         [self doFail];
         return;
     }
     
-    //https://user.nbr.by/bgbilling/webexecuter?action=ShowBalance&mid=contract
-    
-    NSURL * url = [NSURL URLWithString:@"https://user.nbr.by/bgbilling/webexecuter?action=ShowBalance&mid=contract"];
+    NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://cosmostv.by%@", redirect]];
     ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    [request setValidatesSecureCertificate:NO];
-    
-    [request addRequestHeader:@"Host" value:@"user.nbr.by"];
-    [request addRequestHeader:@"Referer" value:@"https://user.nbr.by/bgbilling/webexecuter"];
-    
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
@@ -154,7 +144,48 @@
 
 - (void) onStep2:(NSString *)html
 {
-    NSLog(@"BBLoaderNetBerry.onStep2");
+    NSLog(@"BBLoaderCosmosTV.onStep2");
+    //NSLog(@"%@", html);
+    
+    //showServices(this, "101932108", "41263"
+    //http://cosmostv.by/json/subscribers/account/cabinet/?contract=101932108
+    
+    
+    NSArray * arr = nil;
+    NSString * buf = nil;
+    NSDecimalNumber * num = nil;
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"showServices\\(this,\\s*\"([^\"]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            num = [NSDecimalNumber decimalNumberWithString:buf];
+            
+        }
+    }
+    
+    if (num)
+    {
+        NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://cosmostv.by/json/subscribers/account/cabinet/?contract=%@", num]];
+        ASIFormDataRequest * request = [self requestWithURL:url];
+        
+        request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"3", nil]
+                                                       forKeys:[NSArray arrayWithObjects:@"step", nil]];
+        
+        [request startAsynchronous];
+    }
+    else
+    {
+        [self doFail];
+    }
+    
+}
+
+- (void) onStep3:(NSString *)html
+{
+    NSLog(@"BBLoaderCosmosTV.onStep3");
     //NSLog(@"%@", html);
     
     [self doSuccess:html];

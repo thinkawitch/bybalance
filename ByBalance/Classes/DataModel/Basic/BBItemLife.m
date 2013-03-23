@@ -110,7 +110,7 @@
 {
     if (extracted)
     {
-        return [NSString stringWithFormat:@"%@\r\n%@\r\n%@\r\n%@", userTitle, username, userPlan, userBalance];
+        return [NSString stringWithFormat:@"%@\r\n%@\r\n%@", username, userPlan, userBalance];
     }
     else
     {
