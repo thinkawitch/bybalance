@@ -80,6 +80,7 @@
 		CE7E00831604C1C4009387FD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E00801604C1C4009387FD /* Default@2x.png */; };
 		CE7FC02616FE33480063CEAF /* BBLoaderCosmosTV.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FC02516FE33480063CEAF /* BBLoaderCosmosTV.m */; };
 		CE7FC02916FE37FF0063CEAF /* BBItemCosmosTV.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FC02816FE37FF0063CEAF /* BBItemCosmosTV.m */; };
+		CE7FC03216FEF04F0063CEAF /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7FC03016FEF04F0063CEAF /* libGoogleAnalytics.a */; };
 		CE86FE6C162073F600966327 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6B162073F600966327 /* BBMAccountType.m */; };
 		CE86FE6F162073F700966327 /* BBMBalanceHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE6E162073F700966327 /* BBMBalanceHistory.m */; };
 		CE86FE72162073F700966327 /* BBMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CE86FE71162073F700966327 /* BBMAccount.m */; };
@@ -263,6 +264,13 @@
 		CE7FC02516FE33480063CEAF /* BBLoaderCosmosTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderCosmosTV.m; sourceTree = "<group>"; };
 		CE7FC02716FE37FF0063CEAF /* BBItemCosmosTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemCosmosTV.h; sourceTree = "<group>"; };
 		CE7FC02816FE37FF0063CEAF /* BBItemCosmosTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemCosmosTV.m; sourceTree = "<group>"; };
+		CE7FC02B16FEF04F0063CEAF /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		CE7FC02C16FEF04F0063CEAF /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		CE7FC02D16FEF04F0063CEAF /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		CE7FC02E16FEF04F0063CEAF /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransaction.h; sourceTree = "<group>"; };
+		CE7FC02F16FEF04F0063CEAF /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
+		CE7FC03016FEF04F0063CEAF /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
+		CE7FC03116FEF04F0063CEAF /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
 		CE86FE6A162073F600966327 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
 		CE86FE6B162073F600966327 /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
 		CE86FE6D162073F700966327 /* BBMBalanceHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMBalanceHistory.h; sourceTree = "<group>"; };
@@ -357,6 +365,7 @@
 				CE0524A5158E01FE00FB6CDF /* UIKit.framework in Frameworks */,
 				CE0524A7158E01FE00FB6CDF /* Foundation.framework in Frameworks */,
 				CE0524A9158E01FE00FB6CDF /* CoreGraphics.framework in Frameworks */,
+				CE7FC03216FEF04F0063CEAF /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +489,7 @@
 		CE0524CE158E05D300FB6CDF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CE7FC02A16FEF04F0063CEAF /* GoogleAnalytics */,
 				CE8FB07A16049E3E00B3CF7F /* MagicalRecord */,
 				CE0524CF158E05D300FB6CDF /* ASIHttpRequestApi */,
 				CEC486ED158E0F80008CA493 /* DateHelper */,
@@ -700,6 +710,20 @@
 				CE74EBC716B43FBB002AE1BA /* UIHelpers.m */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		CE7FC02A16FEF04F0063CEAF /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				CE7FC02B16FEF04F0063CEAF /* GAI.h */,
+				CE7FC02C16FEF04F0063CEAF /* GAITrackedViewController.h */,
+				CE7FC02D16FEF04F0063CEAF /* GAITracker.h */,
+				CE7FC02E16FEF04F0063CEAF /* GAITransaction.h */,
+				CE7FC02F16FEF04F0063CEAF /* GAITransactionItem.h */,
+				CE7FC03016FEF04F0063CEAF /* libGoogleAnalytics.a */,
+				CE7FC03116FEF04F0063CEAF /* libGoogleAnalytics_debug.a */,
+			);
+			path = GoogleAnalytics;
 			sourceTree = "<group>";
 		};
 		CE88B1FC15F22F6900547021 /* Basic */ = {
@@ -1132,6 +1156,10 @@
 				GCC_PREFIX_HEADER = "ByBalance/ByBalance-Prefix.pch";
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ByBalance/Classes/Assets/GoogleAnalytics\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -1145,6 +1173,10 @@
 				GCC_PREFIX_HEADER = "ByBalance/ByBalance-Prefix.pch";
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ByBalance/Classes/Assets/GoogleAnalytics\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

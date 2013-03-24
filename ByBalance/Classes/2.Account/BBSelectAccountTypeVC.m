@@ -30,6 +30,12 @@
     // Release any retained subviews of the main view.
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[[GAI sharedInstance] defaultTracker] sendView:@"Список компаний"];
+}
+
 #pragma mark - Setup
 
 - (void) setupNavBar

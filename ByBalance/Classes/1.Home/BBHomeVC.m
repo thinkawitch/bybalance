@@ -47,6 +47,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckStarted:) name:kNotificationOnBalanceCheckStart object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckProgress:) name:kNotificationOnBalanceCheckProgress object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckStopped:) name:kNotificationOnBalanceCheckStop object:nil];
+
 }
 
 - (void) cleanup
@@ -83,7 +84,10 @@
         needUpdateScreen = NO;
         [self toggleSplashMode];
     }
+    
+    [[[GAI sharedInstance] defaultTracker] sendView:@"Главный экран"];
 }
+
 
 #pragma mark - Setup
 

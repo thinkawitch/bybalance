@@ -7,8 +7,8 @@
 //
 
 #import "BBAppDelegate.h"
-
 #import "BBHomeVC.h"
+
 
 @implementation BBAppDelegate
 
@@ -25,7 +25,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     //load app settings
 	[SETTINGS loadData];
     
@@ -33,6 +32,14 @@
     [APP_CONTEXT startContext];
     
     [BALANCE_CHECKER start];
+    
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 30;
+#ifdef DEBUG
+    [GAI sharedInstance].debug = YES;
+    NSLog(@"GAI debug: %d", [GAI sharedInstance].debug);
+#endif
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-39554166-1"];
 
     [self.window makeKeyAndVisible];
     

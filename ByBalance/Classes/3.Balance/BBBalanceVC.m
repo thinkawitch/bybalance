@@ -76,6 +76,8 @@ typedef enum
         
         needUpdateScreen = NO;
     }
+    
+    [[[GAI sharedInstance] defaultTracker] sendView:@"Баланс"];
 }
 
 #pragma mark - Setup
@@ -268,6 +270,12 @@ typedef enum
     {    
         if (buttonIndex == 1)
         {
+            
+            [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"account"
+                                                              withAction:@"account_delete"
+                                                               withLabel:[NSString stringWithFormat:@"%@", account.type.name]
+                                                               withValue:nil];
+            
             [account deleteEntity];
             [APP_CONTEXT saveDatabase];
             

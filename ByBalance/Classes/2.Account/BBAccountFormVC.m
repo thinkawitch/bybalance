@@ -49,6 +49,12 @@
     [super viewDidUnload];
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[[GAI sharedInstance] defaultTracker] sendView:@"Настройки доступа"];
+}
+
 - (void) cleanup
 {
     
@@ -134,6 +140,9 @@
         return;
     }
     
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     if (editMode)
     {
         account.username = tfUsername.text;
@@ -145,6 +154,11 @@
         [self.navigationController popViewControllerAnimated:YES];
         
         [APP_CONTEXT showToastWithText:@"Аккаунт обновлён"];
+        
+        [tracker sendEventWithCategory:@"account"
+                            withAction:@"account_update"
+                             withLabel:[NSString stringWithFormat:@"%@", account.type.name]
+                             withValue:nil];
     }
     else
     {
@@ -158,7 +172,12 @@
         
         [self.navigationController popToRootViewControllerAnimated:YES];
         
-        [APP_CONTEXT showToastWithText:@"Новый аккаунт добавлен"]; 
+        [APP_CONTEXT showToastWithText:@"Новый аккаунт добавлен"];
+        
+        [tracker sendEventWithCategory:@"account"
+                            withAction:@"account_create"
+                             withLabel:[NSString stringWithFormat:@"%@", account.type.name]
+                             withValue:nil];
     }
 }
 

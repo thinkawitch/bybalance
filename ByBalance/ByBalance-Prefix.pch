@@ -26,4 +26,6 @@
     #import "BBMAllManagedItems.h"
     #import "BBAllLoaders.h"
     //
+    #import "GAI.h"
+    //
 #endif
