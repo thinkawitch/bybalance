@@ -176,7 +176,7 @@
         
         [tracker sendEventWithCategory:@"account"
                             withAction:@"account_create"
-                             withLabel:[NSString stringWithFormat:@"%@", account.type.name]
+                             withLabel:[NSString stringWithFormat:@"%@", accountType.name]
                              withValue:nil];
     }
 }
