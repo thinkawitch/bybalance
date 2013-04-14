@@ -38,4 +38,7 @@
 - (ASIFormDataRequest *) requestWithURL:(NSURL *)anUrl;
 - (ASIFormDataRequest *) prepareRequest;
 
+//
+- (BOOL) isAFNetworking;
+- (void) startAFNetworking;
 @end

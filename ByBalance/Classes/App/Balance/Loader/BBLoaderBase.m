@@ -46,20 +46,35 @@
         return;
     }
     
-    ASIFormDataRequest * request = [self prepareRequest];
-    if (!request)
+    if (self.isAFNetworking)
     {
-        [self markDone];
-        return;
+        [self markStart];
+        
+        //notify about progress
+        [self performSelectorOnMainThread:@selector(notifyAboutUpdatingAccount) withObject:nil waitUntilDone:YES];
+        
+        //start request
+        [self startAFNetworking];
+    }
+    else
+    {
+        ASIFormDataRequest * request = [self prepareRequest];
+        if (!request)
+        {
+            [self markDone];
+            return;
+        }
+        
+        [self markStart];
+        
+        //notify about progress
+        [self performSelectorOnMainThread:@selector(notifyAboutUpdatingAccount) withObject:nil waitUntilDone:YES];
+        
+        //start request
+        [request startAsynchronous];
     }
     
-    [self markStart];
     
-    //notify about progress
-    [self performSelectorOnMainThread:@selector(notifyAboutUpdatingAccount) withObject:nil waitUntilDone:YES];
-    
-    //start request
-    [request startAsynchronous];
 }
 
 - (BOOL) isConcurrent
@@ -120,6 +135,16 @@
 - (ASIFormDataRequest *) prepareRequest
 {
     return nil;
+}
+
+- (BOOL) isAFNetworking
+{
+    return NO;
+}
+
+- (void) startAFNetworking
+{
+    //base, do nothing
 }
 
 #pragma mark - ASIHTTPRequestDelegate

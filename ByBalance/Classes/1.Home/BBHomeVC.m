@@ -86,6 +86,47 @@
     }
     
     [[[GAI sharedInstance] defaultTracker] sendView:@"Главный экран"];
+    
+    
+    /*
+    NSURL *url = [NSURL URLWithString:@"https://issa.beltelecom.by/cgi-bin/cgi.exe?function=is_login"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[[AFHTTPRequestOperation alloc] initWithRequest:request] autorelease];
+    //[operation set
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"good");
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
+        NSLog(@"status code:%d", operation.response.statusCode);
+        NSLog(@"string: %@", operation.responseString);
+        NSLog(@"string2: %@", responseStr);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"bad");
+    }];
+    //AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    //    NSLog(@"App.net Global Stream: %@", JSON);
+    //} failure:nil];
+    
+    [operation start];
+    */
+    
+    /*
+    NSURL *url = [NSURL URLWithString:@"https://issa.beltelecom.by/"];
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"1760003226601", @"mobnum",
+                            @"2308039", @"Password",
+                            nil];
+    
+    [httpClient postPath:@"/cgi-bin/cgi.exe?function=is_login" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
+        NSLog(@"Request Successful, response '%@'", responseStr);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+    }];
+    */ 
+    
 }
 
 
