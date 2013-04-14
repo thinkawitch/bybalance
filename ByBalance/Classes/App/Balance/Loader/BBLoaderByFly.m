@@ -46,11 +46,18 @@
                             account.username, @"mobnum",
                             account.password, @"Password",
                             nil];
+    //NSLog(@"%@", params);
+    
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:@"https://issa.beltelecom.by/cgi-bin/cgi.exe"]];
+    for (NSHTTPCookie *cookie in cookies)
+    {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
     
     [self.httpClient postPath:@"/cgi-bin/cgi.exe?function=is_login" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *response1 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
-        NSLog(@"Response1:\n%@", response1);
+        //NSLog(@"Response1:\n%@", response1);
         
         //cgi.exe?function=is_account
         if ([response1 rangeOfString:@"cgi.exe?function=is_account"].location == NSNotFound)
@@ -59,10 +66,10 @@
         }
         else
         {
-            [self.httpClient getPath:@"/cgi-bin/cgi.exe?function=is_login" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.httpClient getPath:@"/cgi-bin/cgi.exe?function=is_account" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 NSString *response2 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
-                NSLog(@"Response2:\n%@", response2);
+                //NSLog(@"Response2:\n%@", response2);
                 
                 [self doSuccess:response2];
                 

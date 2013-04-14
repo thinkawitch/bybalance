@@ -92,6 +92,8 @@
         html = request.responseString;
     }
     
+    //NSLog(@"%@", html);
+    
     
     if ([step isEqualToString:@"1"])
     {

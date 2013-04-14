@@ -10,7 +10,7 @@
 #import "Reachability.h"
 #import "iToast.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "AFNetworking.h"
 
 @interface AppContext ()
 
@@ -43,6 +43,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
     //
     iToastSettings * ts = [iToastSettings getSharedSettings];
     ts.duration = 3000;
+    
+    //
+    [ASIHTTPRequest setShouldUpdateNetworkActivityIndicator:YES];
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 }
 
 - (void) stopContext

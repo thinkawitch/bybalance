@@ -20,7 +20,7 @@
     //NSLog(@"%@", html);
     
     //balance
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Актуальный баланс:</td>\s*<td class=light width=\"50%\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Актуальный баланс:</td>\\s*<td class=light width=\"50%\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         buf = [arr objectAtIndex:0];

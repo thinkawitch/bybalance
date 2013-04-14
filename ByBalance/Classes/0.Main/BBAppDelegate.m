@@ -36,8 +36,8 @@
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 30;
 #ifdef DEBUG
-    [GAI sharedInstance].debug = YES;
-    NSLog(@"GAI debug: %d", [GAI sharedInstance].debug);
+    //[GAI sharedInstance].debug = YES;
+    //NSLog(@"GAI debug: %d", [GAI sharedInstance].debug);
 #endif
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-39554166-1"];
 
