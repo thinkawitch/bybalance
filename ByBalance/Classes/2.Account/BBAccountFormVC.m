@@ -222,6 +222,7 @@
         lblUsernamePrefix.hidden = YES;
         tfUsername.frame = CGRectMake(35, 54, 251, 31);
         if (type == kAccountBn) tfUsername.keyboardType = UIKeyboardTypeNumberPad;
+        else if (type == kAccountByFly) tfUsername.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         else tfUsername.keyboardType = UIKeyboardTypeDefault;
         btnContacts.hidden = YES;
     }
