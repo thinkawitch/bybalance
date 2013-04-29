@@ -60,7 +60,7 @@
     NSLog(@"userTitle: %@", userTitle);
     
     //userPlan
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:\\s*</td><td class=\"INFO\" width=\"200px\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:\\s*</td><td class=\"INFO\"[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         buf = [arr objectAtIndex:0];
@@ -71,7 +71,7 @@
     }
     NSLog(@"userPlan: %@", userPlan);
     
-    //balance
+    //balance 1
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
@@ -79,6 +79,20 @@
         if (nil != buf && [buf length] > 0)
         {
             self.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }
+    }
+    
+    if (!self.userBalance || [self.userBalance length] < 1)
+    {
+        //balance 2
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+        if (arr && [arr count] == 1)
+        {
+            buf = [arr objectAtIndex:0];
+            if (nil != buf && [buf length] > 0)
+            {
+                self.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            }
         }
     }
     NSLog(@"balance: %@", userBalance);
