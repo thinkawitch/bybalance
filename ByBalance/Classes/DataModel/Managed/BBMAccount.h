@@ -13,6 +13,7 @@
 
 @interface BBMAccount : NSManagedObject
 
+@property (nonatomic, retain) NSString * label;
 @property (nonatomic, retain) NSString * password;
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSSet *history;

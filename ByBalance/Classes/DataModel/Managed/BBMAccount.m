@@ -13,6 +13,7 @@
 
 @implementation BBMAccount
 
+@dynamic label;
 @dynamic password;
 @dynamic username;
 @dynamic history;

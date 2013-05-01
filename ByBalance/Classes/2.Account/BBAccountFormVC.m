@@ -10,10 +10,17 @@
 #import "SSCheckBoxView.h"
 
 @interface BBAccountFormVC ()
-
+{
+    BOOL isFormUp;
+}
 - (void) updateScreenForType;
 - (NSString *) loginTitle;
-- (void)displayPersonPhone:(ABRecordRef)person;
+- (void) displayPersonPhone:(ABRecordRef)person;
+- (void) keyboardDidShow:(NSNotification *)notification;
+- (void) keyboardDidHide:(NSNotification *)notification;
+- (void) moveFormUp;
+- (void) placeFormNormal;
+
 
 @end
 
@@ -42,10 +49,14 @@
     [self.view addSubview:cbv];
     [cbv release];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super viewDidUnload];
 }
 
@@ -147,6 +158,7 @@
     {
         account.username = tfUsername.text;
         account.password = tfPassword.text;
+        account.label = tfLabel.text;
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
@@ -166,6 +178,7 @@
         newAccount.type = accountType;
         newAccount.username = tfUsername.text;
         newAccount.password = tfPassword.text;
+        newAccount.label = tfLabel.text;
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
@@ -231,6 +244,7 @@
     {
         tfUsername.text = account.username;
         tfPassword.text = account.password;
+        tfLabel.text = account.label;
         
         [btnAdd setTitle:@"Сохранить" forState:UIControlStateNormal];
     }
@@ -275,6 +289,44 @@
     tfUsername.text = phone;
     
     CFRelease(phoneNumbers);
+}
+
+
+- (void) keyboardDidShow:(NSNotification *)notification
+{
+    if ([tfLabel isFirstResponder]) [self moveFormUp];
+}
+
+- (void) keyboardDidHide:(NSNotification *)notification
+{
+    [self placeFormNormal];
+}
+
+- (void) moveFormUp
+{
+    //[self.view setFrame:CGRectMake(0, -50, 320, 416)];
+    
+    [UIView beginAnimations:@"moveFormUp" context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration:0.3];
+    self.view.transform = CGAffineTransformMakeTranslation(0, -50);
+    [UIView commitAnimations];
+    
+    isFormUp = YES;
+
+}
+
+- (void) placeFormNormal
+{
+    if (!isFormUp) return;
+    
+    //[self.view setFrame:CGRectMake(0, 0, 320, 416)];
+    
+    [UIView beginAnimations:@"moveFormDown" context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDuration:0.3];
+    self.view.transform = CGAffineTransformMakeTranslation(0, 0);
+    [UIView commitAnimations];
 }
 
 

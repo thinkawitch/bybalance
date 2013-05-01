@@ -61,7 +61,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
 - (void) setupDatabase
 {
     //[ActiveRecordHelpers setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"version1.sqlite"];
-    [MagicalRecordHelpers setupCoreDataStackWithStoreNamed:@"version1.sqlite"];
+    [MagicalRecordHelpers setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"version1.sqlite"];
     
     //test cascade delete
     //[user deleteEntity];
@@ -100,9 +100,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
         
         added = YES;
     }
-    
     if (added) [self saveDatabase];
     
+    
+    BOOL updated = NO;
+    BBMAccount * acc;
+    for (acc in [BBMAccount findAll])
+    {
+        if (!acc.label)
+        {
+            acc.label = @"";
+            updated = YES;
+        }
+    }
+    if (updated) [self saveDatabase];
 }
 
 - (void) saveDatabase

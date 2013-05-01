@@ -21,6 +21,7 @@
     IBOutlet UILabel * lblPassword;
     IBOutlet UITextField * tfUsername;
     IBOutlet UITextField * tfPassword;
+    IBOutlet UITextField * tfLabel;
     IBOutlet UIButton * btnAdd;
     IBOutlet UIButton * btnContacts;
     

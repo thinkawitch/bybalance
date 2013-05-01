@@ -237,8 +237,8 @@
     BBMAccount * account = [[notification userInfo] objectForKey:kDictKeyAccount];
     if (account)
     {
-        NSLog(@"обновляю %@", account.username);
-        lblStatus.text = [NSString stringWithFormat:@"обновляю %@", account.username];
+        NSLog(@"обновляю %@ %@", account.username, account.nameLabel);
+        lblStatus.text = [NSString stringWithFormat:@"обновляю %@", account.nameLabel];
         [lblStatus sizeToFit];
     }
     

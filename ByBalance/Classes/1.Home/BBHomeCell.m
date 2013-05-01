@@ -17,7 +17,7 @@
     self.account = anAccount;
     
     lblType.text = account.type.name;
-    lblName.text = account.username;
+    lblName.text = account.nameLabel;
     
     BBMBalanceHistory * bh = account.lastGoodBalance;
     if (bh)

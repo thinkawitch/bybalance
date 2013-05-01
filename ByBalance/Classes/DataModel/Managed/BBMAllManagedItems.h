@@ -10,3 +10,4 @@
 #import "BBMAccount.h"
 #import "BBMBalanceHistory.h"
 #import "BBMUtils.h"
+#import "BBMModelsExtension.h"

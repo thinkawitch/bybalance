@@ -76,6 +76,7 @@
 		CE74EBEC16B56B7E002AE1BA /* contacts.png in Resources */ = {isa = PBXBuildFile; fileRef = CE74EBEA16B56B7E002AE1BA /* contacts.png */; };
 		CE74EBED16B56B7E002AE1BA /* contacts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE74EBEB16B56B7E002AE1BA /* contacts@2x.png */; };
 		CE7BFEB116FB8BC700C7D516 /* BBLoaderNetBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */; };
+		CE7C961D173166E500EC9DD7 /* BBMModelsExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7C961C173166E500EC9DD7 /* BBMModelsExtension.m */; };
 		CE7E00821604C1C4009387FD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E007F1604C1C4009387FD /* Default.png */; };
 		CE7E00831604C1C4009387FD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E00801604C1C4009387FD /* Default@2x.png */; };
 		CE7FC02616FE33480063CEAF /* BBLoaderCosmosTV.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FC02516FE33480063CEAF /* BBLoaderCosmosTV.m */; };
@@ -226,6 +227,7 @@
 		CE62C5911657DC7100D95376 /* BBItemLife.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemLife.m; sourceTree = "<group>"; };
 		CE62C5931657DDB300D95376 /* BBLoaderLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderLife.h; sourceTree = "<group>"; };
 		CE62C5941657DDB300D95376 /* BBLoaderLife.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderLife.m; sourceTree = "<group>"; };
+		CE735570173152BB001F2582 /* Model2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model2.xcdatamodel; sourceTree = "<group>"; };
 		CE74EBA316A72D46002AE1BA /* BBLoaderTcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderTcm.h; sourceTree = "<group>"; };
 		CE74EBA416A72D47002AE1BA /* BBLoaderTcm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderTcm.m; sourceTree = "<group>"; };
 		CE74EBA616A72F27002AE1BA /* BBItemTcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemTcm.h; sourceTree = "<group>"; };
@@ -268,6 +270,8 @@
 		CE74EBEB16B56B7E002AE1BA /* contacts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contacts@2x.png"; sourceTree = "<group>"; };
 		CE7BFEAF16FB8BC400C7D516 /* BBLoaderNetBerry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderNetBerry.h; sourceTree = "<group>"; };
 		CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderNetBerry.m; sourceTree = "<group>"; };
+		CE7C961B173166E500EC9DD7 /* BBMModelsExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMModelsExtension.h; sourceTree = "<group>"; };
+		CE7C961C173166E500EC9DD7 /* BBMModelsExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMModelsExtension.m; sourceTree = "<group>"; };
 		CE7E007F1604C1C4009387FD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CE7E00801604C1C4009387FD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CE7FC02416FE33480063CEAF /* BBLoaderCosmosTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderCosmosTV.h; sourceTree = "<group>"; };
@@ -873,6 +877,8 @@
 				CE86FE6E162073F700966327 /* BBMBalanceHistory.m */,
 				CE86FE6A162073F600966327 /* BBMAccountType.h */,
 				CE86FE6B162073F600966327 /* BBMAccountType.m */,
+				CE7C961B173166E500EC9DD7 /* BBMModelsExtension.h */,
+				CE7C961C173166E500EC9DD7 /* BBMModelsExtension.m */,
 			);
 			path = Managed;
 			sourceTree = "<group>";
@@ -1166,6 +1172,7 @@
 				CEB65D02171ADC9900838388 /* AFURLConnectionOperation.m in Sources */,
 				CEB65D03171ADC9900838388 /* AFXMLRequestOperation.m in Sources */,
 				CEB65D04171ADC9900838388 /* UIImageView+AFNetworking.m in Sources */,
+				CE7C961D173166E500EC9DD7 /* BBMModelsExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1288,9 +1295,10 @@
 		CEA2FD7F15CD51FD00C98E7A /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				CE735570173152BB001F2582 /* Model2.xcdatamodel */,
 				CEA2FD8015CD51FD00C98E7A /* Model.xcdatamodel */,
 			);
-			currentVersion = CEA2FD8015CD51FD00C98E7A /* Model.xcdatamodel */;
+			currentVersion = CE735570173152BB001F2582 /* Model2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
