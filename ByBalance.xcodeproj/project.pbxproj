@@ -77,6 +77,7 @@
 		CE74EBED16B56B7E002AE1BA /* contacts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE74EBEB16B56B7E002AE1BA /* contacts@2x.png */; };
 		CE7BFEB116FB8BC700C7D516 /* BBLoaderNetBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */; };
 		CE7C961D173166E500EC9DD7 /* BBMModelsExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7C961C173166E500EC9DD7 /* BBMModelsExtension.m */; };
+		CE7C9621173172D900EC9DD7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7C9620173172D900EC9DD7 /* Default-568h@2x.png */; };
 		CE7E00821604C1C4009387FD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E007F1604C1C4009387FD /* Default.png */; };
 		CE7E00831604C1C4009387FD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7E00801604C1C4009387FD /* Default@2x.png */; };
 		CE7FC02616FE33480063CEAF /* BBLoaderCosmosTV.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FC02516FE33480063CEAF /* BBLoaderCosmosTV.m */; };
@@ -272,6 +273,7 @@
 		CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderNetBerry.m; sourceTree = "<group>"; };
 		CE7C961B173166E500EC9DD7 /* BBMModelsExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMModelsExtension.h; sourceTree = "<group>"; };
 		CE7C961C173166E500EC9DD7 /* BBMModelsExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMModelsExtension.m; sourceTree = "<group>"; };
+		CE7C9620173172D900EC9DD7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CE7E007F1604C1C4009387FD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CE7E00801604C1C4009387FD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CE7FC02416FE33480063CEAF /* BBLoaderCosmosTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderCosmosTV.h; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 			children = (
 				CE7E007F1604C1C4009387FD /* Default.png */,
 				CE7E00801604C1C4009387FD /* Default@2x.png */,
+				CE7C9620173172D900EC9DD7 /* Default-568h@2x.png */,
 				CEA2FD6715BC4C8B00C98E7A /* Icons */,
 				CEA2FDA815CD686600C98E7A /* 0.Main */,
 				CE0524CB158E02E700FB6CDF /* 1.Home */,
@@ -1079,6 +1082,7 @@
 				CE74EBDD16B43FBB002AE1BA /* cb_mono_on@2x.png in Resources */,
 				CE74EBEC16B56B7E002AE1BA /* contacts.png in Resources */,
 				CE74EBED16B56B7E002AE1BA /* contacts@2x.png in Resources */,
+				CE7C9621173172D900EC9DD7 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
