@@ -46,7 +46,6 @@
     }
     
     
-    
     //userTitle
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"ФИО:</td><td class=\"INFO\">([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
@@ -95,9 +94,23 @@
             }
         }
     }
+    
+    if (!self.userBalance || [self.userBalance length] < 1)
+    {
+        //balance 3
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+        if (arr && [arr count] == 1)
+        {
+            buf = [arr objectAtIndex:0];
+            if (nil != buf && [buf length] > 0)
+            {
+                self.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            }
+        }
+    }
     NSLog(@"balance: %@", userBalance);
     
-    self.extracted = [userTitle length] > 0 && [userPlan length] > 0 && [userBalance length] > 0;
+    self.extracted = [userPlan length] > 0 && [userBalance length] > 0;
 }
 
 - (NSString *) fullDescription
