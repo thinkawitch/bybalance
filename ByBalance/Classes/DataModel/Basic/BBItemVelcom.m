@@ -30,8 +30,23 @@
     NSString * buf = nil;
     NSArray * arr = nil;
     
+    NSString * menuMarker = @"";
+    NSString * menuMarker1 = @"_root/USER_INFO";
+    NSString * menuMarker2 = @"_root/MENU0";
     
-    BOOL loggedIn = ([html rangeOfString:@"_root/USER_INFO"].location != NSNotFound);
+    BOOL loggedIn = false;
+    //check if we logged in
+    if ([html rangeOfString:menuMarker1].location != NSNotFound)
+    {
+        menuMarker = menuMarker1;
+        loggedIn = YES;
+    }
+    else if ([html rangeOfString:menuMarker2].location != NSNotFound)
+    {
+        menuMarker = menuMarker2;
+        loggedIn = YES;
+    }
+
     if (!loggedIn)
     {
         //incorrect login/pass

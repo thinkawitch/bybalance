@@ -168,12 +168,13 @@
     [request setPostValue:ts forKey:@"user_input_timestamp"];
     [request setPostValue:@"_next" forKey:@"user_input_0"];
     [request setPostValue:@"" forKey:@"last_id"];
-    [request setPostValue:@"1" forKey:@"user_input_10"];
+    [request setPostValue:@"5" forKey:@"user_input_8"];
+    
     [request setPostValue:s1 forKey:@"user_input_1"];
     [request setPostValue:s2 forKey:@"user_input_2"];
-    [request setPostValue:account.password forKey:@"user_input_3"];
-    [request setPostValue:@"0" forKey:@"user_input_9"];
-    [request setPostValue:@"1" forKey:@"user_input_8"];
+    [request setPostValue:account.password forKey:@"user_input_3"];    
+    [request setPostValue:@"2" forKey:@"user_input_9"];
+    [request setPostValue:@"0" forKey:@"user_input_10"];
     
     //start request
     [request startAsynchronous];
@@ -184,9 +185,23 @@
     NSLog(@"BBLoaderVelcom.onStep2");
     //NSLog(@"%@", html);
     
-    //check if we logged in
-    BOOL loggedIn = ([html rangeOfString:@"_root/USER_INFO"].location != NSNotFound);
+    NSString * menuMarker = @"";
+    NSString * menuMarker1 = @"_root/USER_INFO";
+    NSString * menuMarker2 = @"_root/MENU0";
     
+    BOOL loggedIn = false;
+    //check if we logged in
+    if ([html rangeOfString:menuMarker1].location != NSNotFound)
+    {
+        menuMarker = menuMarker1;
+        loggedIn = YES;
+    }
+    else if ([html rangeOfString:menuMarker2].location != NSNotFound)
+    {
+        menuMarker = menuMarker2;
+        loggedIn = YES;
+    }
+
     if (!loggedIn)
     {
         //maybe login problem
@@ -208,7 +223,7 @@
     
     [request setPostValue:self.sessionId forKey:@"sid3"];
     [request setPostValue:ts forKey:@"user_input_timestamp"];
-    [request setPostValue:@"_root/USER_INFO" forKey:@"user_input_0"];
+    [request setPostValue:menuMarker forKey:@"user_input_0"];
     [request setPostValue:@"" forKey:@"last_id"];
     
     //start request
