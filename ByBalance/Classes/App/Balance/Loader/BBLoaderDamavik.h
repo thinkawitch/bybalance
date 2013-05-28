@@ -9,5 +9,12 @@
 #import "BBLoaderBase.h"
 
 @interface BBLoaderDamavik : BBLoaderBase
+{
+    BOOL isDamavik;
+    BOOL isAtlant;
+}
+
+- (void) actAsDamavik;
+- (void) actAsAtlantTelecom;
 
 @end

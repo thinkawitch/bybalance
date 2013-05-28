@@ -99,6 +99,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         case kAccountSolo:
         case kAccountTeleset:
             loader = [[BBLoaderDamavik new] autorelease];
+            [loader actAsDamavik];
+            break;
+            
+        case kAccountAtlantTelecom:
+            loader = [[BBLoaderDamavik new] autorelease];
+            [loader actAsAtlantTelecom];
             break;
             
         case kAccountByFly:

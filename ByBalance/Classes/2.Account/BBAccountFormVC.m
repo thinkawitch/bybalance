@@ -235,7 +235,7 @@
         lblUsernamePrefix.hidden = YES;
         tfUsername.frame = CGRectMake(35, 54, 251, 31);
         if (type == kAccountBn) tfUsername.keyboardType = UIKeyboardTypeNumberPad;
-        else if (type == kAccountByFly) tfUsername.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        else if (type == kAccountByFly || type == kAccountDamavik || type == kAccountSolo || type == kAccountTeleset || type == kAccountAtlantTelecom) tfUsername.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         else tfUsername.keyboardType = UIKeyboardTypeDefault;
         btnContacts.hidden = YES;
     }
@@ -260,7 +260,7 @@
     }
     else
     {
-        if (type == kAccountBn || type == kAccountDamavik || type == kAccountSolo || type == kAccountTeleset) return @"Номер счёта";
+        if (type == kAccountBn || type == kAccountDamavik || type == kAccountSolo || type == kAccountTeleset || type == kAccountAtlantTelecom) return @"Номер счёта";
         if (type == kAccountByFly || type == kAccountNetBerry) return @"Номер договора";
         if (type == kAccountTcm || type == kAccountNiks || type == kAccountCosmosTv) return @"Логин";
     }

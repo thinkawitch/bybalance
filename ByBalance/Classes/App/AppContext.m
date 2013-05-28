@@ -78,6 +78,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
                            @"Шпаркі Дамавік", [NSNumber numberWithInt:kAccountDamavik],
                            @"Соло", [NSNumber numberWithInt:kAccountSolo],
                            @"Телесеть", [NSNumber numberWithInt:kAccountTeleset],
+                           @"Атлант Телеком", [NSNumber numberWithInt:kAccountAtlantTelecom],
                            @"ByFly", [NSNumber numberWithInt:kAccountByFly],
                            @"NetBerry", [NSNumber numberWithInt:kAccountNetBerry],
                            @"Космос ТВ", [NSNumber numberWithInt:kAccountCosmosTv],

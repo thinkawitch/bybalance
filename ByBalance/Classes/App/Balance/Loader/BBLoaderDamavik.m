@@ -10,6 +10,8 @@
 
 @interface BBLoaderDamavik ()
 
+@property (strong, readwrite) NSString * baseUrl;
+
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
 - (void) onStep3:(NSString *)html;
@@ -21,12 +23,24 @@
 
 @implementation BBLoaderDamavik
 
+- (void) actAsDamavik
+{
+    self.baseUrl = @"https://issa.damavik.by/";
+    isDamavik = YES;
+}
+
+- (void) actAsAtlantTelecom
+{
+    self.baseUrl = @"https://issa2b.telecom.by/";
+    isAtlant = YES;
+}
+
 - (ASIFormDataRequest *) prepareRequest
 {
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
-    NSString * loginUrl = @"https://issa.damavik.by/";
+    NSString * loginUrl = self.baseUrl;
     
     NSURL * url = [NSURL URLWithString:loginUrl];
     ASIFormDataRequest * request = [self requestWithURL:url];
@@ -124,7 +138,8 @@
     
     //load captcha image to get cookies
     
-    NSString * captchaUrl = @"https://issa.damavik.by/img/_cap/items/";
+    //NSString * captchaUrl = @"https://issa.damavik.by/img/_cap/items/";
+    NSString * captchaUrl = [NSString stringWithFormat:@"%@img/_cap/items/", self.baseUrl];
     captchaUrl = [captchaUrl stringByAppendingString:imgName];
     
     NSURL * url = [NSURL URLWithString:captchaUrl];
@@ -142,15 +157,27 @@
     NSLog(@"BBLoaderDamavik.onStep2");
     
 
-    NSString * loginUrl = @"https://issa.damavik.by/";
+    NSString * loginUrl = self.baseUrl;
+    NSString * formAction = [NSString stringWithFormat:@"%@about", self.baseUrl];
     
     NSURL * url = [NSURL URLWithString:loginUrl];
     ASIFormDataRequest * request = [self requestWithURL:url];
     
-    [request setPostValue:@"login" forKey:@"action__n18"];
-    [request setPostValue:@"https://issa.damavik.by/about" forKey:@"form_action_true"];
-    [request setPostValue:account.username forKey:@"login__n18"];
-    [request setPostValue:account.password forKey:@"password__n18"];
+    if (isDamavik)
+    {
+        [request setPostValue:@"login" forKey:@"action__n18"];
+        //[request setPostValue:@"https://issa.damavik.by/about" forKey:@"form_action_true"];
+        [request setPostValue:formAction forKey:@"form_action_true"];
+        [request setPostValue:account.username forKey:@"login__n18"];
+        [request setPostValue:account.password forKey:@"password__n18"];
+    }
+    if (isAtlant)
+    {
+        [request setPostValue:@"login" forKey:@"action__n28"];
+        [request setPostValue:formAction forKey:@"form_action_true"];
+        [request setPostValue:account.username forKey:@"login__n28"];
+        [request setPostValue:account.password forKey:@"password__n28"];
+    }
     
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"3", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];

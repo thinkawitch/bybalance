@@ -29,6 +29,7 @@ typedef enum
     kAccountByFly,
     kAccountNetBerry,
     kAccountCosmosTv,
+    kAccountAtlantTelecom,
 	//----------------------
 	kAccountsCount
 	
