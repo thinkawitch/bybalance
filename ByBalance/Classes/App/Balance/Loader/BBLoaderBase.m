@@ -123,7 +123,7 @@
 {
     ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL: anUrl];
     
-    request.timeOutSeconds = 12;
+    request.timeOutSeconds = 12.f;
     request.userAgentString = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0";
     request.delegate = self;
     

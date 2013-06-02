@@ -15,6 +15,7 @@
 }
 - (void) updateScreenForType;
 - (NSString *) loginTitle;
+- (NSString *) passwordTitle;
 - (void) displayPersonPhone:(ABRecordRef)person;
 - (void) keyboardDidShow:(NSNotification *)notification;
 - (void) keyboardDidHide:(NSNotification *)notification;
@@ -117,7 +118,7 @@
     
     if ([tfUsername.text length] < 1)
     {
-        [APP_CONTEXT showToastWithText:[NSString stringWithFormat:@"Введите %@", [self loginTitle]]];
+        [APP_CONTEXT showToastWithText:[NSString stringWithFormat:@"Введите %@", [[self loginTitle] lowercaseString]]];
         return;
     }
     
@@ -147,7 +148,7 @@
     
     if ([tfPassword.text length] < 1)
     {
-        [APP_CONTEXT showToastWithText:@"Введите пароль"];
+        [APP_CONTEXT showToastWithText:[NSString stringWithFormat:@"Введите %@", [[self passwordTitle] lowercaseString]]];
         return;
     }
     
@@ -221,6 +222,7 @@
     }
     
     lblUsername.text = [self loginTitle];
+    lblPassword.text = [self passwordTitle];
 
     if (cellPhone)
     {
@@ -261,11 +263,23 @@
     else
     {
         if (type == kAccountBn || type == kAccountDamavik || type == kAccountSolo || type == kAccountTeleset || type == kAccountAtlantTelecom) return @"Номер счёта";
-        if (type == kAccountByFly || type == kAccountNetBerry) return @"Номер договора";
+        if (type == kAccountByFly || type == kAccountNetBerry || type == kAccountInfolan) return @"Номер договора";
         if (type == kAccountTcm || type == kAccountNiks || type == kAccountCosmosTv) return @"Логин";
     }
     
     return @"";
+}
+
+- (NSString *) passwordTitle
+{
+    NSInteger type = [accountType.id integerValue];
+    
+    if (type == kAccountInfolan)
+    {
+        return @"Код авторизации";
+    }
+    
+    return @"Пароль";
 }
 
 - (void)displayPersonPhone:(ABRecordRef)person

@@ -17,3 +17,4 @@
 #import "BBItemByFly.h"
 #import "BBItemNetBerry.h"
 #import "BBItemCosmosTV.h"
+#import "BBItemInfolan.h"

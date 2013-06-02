@@ -137,7 +137,7 @@
 					<object class="IBUITextView" id="890190026">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{16, 127}, {288, 112}}</string>
+						<string key="NSFrame">{{16, 127}, {288, 131}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1042734440"/>
@@ -150,7 +150,8 @@
 						<string type="base64-UTF8" key="IBUIText">0JIg0Y3RgtC+0Lkg0LLQtdGA0YHQuNC4INC/0L7QtNC00LXRgNC20LjQstCw0Y7RgtGB0Y86CtCc0KLQ
 oSwgVmVsY29tLCBMaWZlIDopCtCU0LXQu9C+0LLQsNGPINGB0LXRgtGMIChpRG9tKSwg4oCoVENNLCDQ
 ndCY0JrQoSwK0KjQv9Cw0YDQutGWINCU0LDQvNCw0LLRltC6LCDQodC+0LvQviwg0KLQtdC70LXRgdC1
-0YLRjCwKTmV0QmVycnksINCa0L7RgdC80L7RgSDQotCSLCBCeUZseQ</string>
+0YLRjCwKTmV0QmVycnksINCa0L7RgdC80L7RgSDQotCSLCBCeUZseSwK0JTQvtC80LDRiNC90Y/RjyDR
+gdC10YLRjCAoaW5mb2xhbi5ieSk</string>
 						<reference key="IBUITextColor" ref="139123197"/>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<int key="IBUIAutocapitalizationType">2</int>
@@ -162,7 +163,7 @@ ndCY0JrQoSwK0KjQv9Cw0YDQutGWINCU0LDQvNCw0LLRltC6LCDQodC+0LvQviwg0KLQtdC70LXRgdC1
 					<object class="IBUIButton" id="1042734440">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{24, 247}, {170, 37}}</string>
+						<string key="NSFrame">{{20, 259}, {170, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -262,8 +263,8 @@ ndCY0JrQoSwK0KjQv9Cw0YDQutGWINCU0LDQvNCw0LLRltC6LCDQodC+0LvQviwg0KLQtdC70LXRgdC1
 						<array class="NSMutableArray" key="children">
 							<reference ref="6280636"/>
 							<reference ref="372467753"/>
-							<reference ref="1042734440"/>
 							<reference ref="829060020"/>
+							<reference ref="1042734440"/>
 							<reference ref="890190026"/>
 						</array>
 						<reference key="parent" ref="0"/>

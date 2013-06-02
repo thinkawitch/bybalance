@@ -18,3 +18,4 @@
 #import "BBLoaderByFly.h"
 #import "BBLoaderNetBerry.h"
 #import "BBLoaderCosmosTV.h"
+#import "BBLoaderInfolan.h"

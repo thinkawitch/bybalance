@@ -30,6 +30,7 @@ typedef enum
     kAccountNetBerry,
     kAccountCosmosTv,
     kAccountAtlantTelecom,
+    kAccountInfolan,
 	//----------------------
 	kAccountsCount
 	

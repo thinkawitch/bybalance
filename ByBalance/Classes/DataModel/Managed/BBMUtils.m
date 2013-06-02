@@ -60,6 +60,10 @@
         case kAccountCosmosTv:
             item = [BBItemCosmosTV new];
             break;
+            
+        case kAccountInfolan:
+            item = [BBItemInfolan new];
+            break;
     }
 
     if (!item)

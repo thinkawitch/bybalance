@@ -118,6 +118,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         case kAccountCosmosTv:
             loader = [[BBLoaderCosmosTV new] autorelease];
             break;
+            
+        case kAccountInfolan:
+            loader = [[BBLoaderInfolan new] autorelease];
+            break;
     }
     
     if (!loader)

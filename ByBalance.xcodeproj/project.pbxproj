@@ -59,6 +59,9 @@
 		CE59105B15D7D9CE006CEE0E /* BBBalanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE59105A15D7D9CE006CEE0E /* BBBalanceVC.xib */; };
 		CE62C5921657DC7100D95376 /* BBItemLife.m in Sources */ = {isa = PBXBuildFile; fileRef = CE62C5911657DC7100D95376 /* BBItemLife.m */; };
 		CE62C5951657DDB400D95376 /* BBLoaderLife.m in Sources */ = {isa = PBXBuildFile; fileRef = CE62C5941657DDB300D95376 /* BBLoaderLife.m */; };
+		CE67DBA3175B528000EDC24D /* BBItemInfolan.m in Sources */ = {isa = PBXBuildFile; fileRef = CE67DBA2175B528000EDC24D /* BBItemInfolan.m */; };
+		CE67DBA6175B534500EDC24D /* BBLoaderInfolan.m in Sources */ = {isa = PBXBuildFile; fileRef = CE67DBA5175B534400EDC24D /* BBLoaderInfolan.m */; };
+		CE67DBAA175B5DAC00EDC24D /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = CE67DBA9175B5DAC00EDC24D /* XMLReader.m */; };
 		CE74EBA516A72D47002AE1BA /* BBLoaderTcm.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBA416A72D47002AE1BA /* BBLoaderTcm.m */; };
 		CE74EBA816A72F28002AE1BA /* BBItemTcm.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBA716A72F27002AE1BA /* BBItemTcm.m */; };
 		CE74EBAB16B3FC26002AE1BA /* BBLoaderNiks.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBAA16B3FC24002AE1BA /* BBLoaderNiks.m */; };
@@ -228,6 +231,12 @@
 		CE62C5911657DC7100D95376 /* BBItemLife.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemLife.m; sourceTree = "<group>"; };
 		CE62C5931657DDB300D95376 /* BBLoaderLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderLife.h; sourceTree = "<group>"; };
 		CE62C5941657DDB300D95376 /* BBLoaderLife.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderLife.m; sourceTree = "<group>"; };
+		CE67DBA1175B528000EDC24D /* BBItemInfolan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBItemInfolan.h; sourceTree = "<group>"; };
+		CE67DBA2175B528000EDC24D /* BBItemInfolan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBItemInfolan.m; sourceTree = "<group>"; };
+		CE67DBA4175B534400EDC24D /* BBLoaderInfolan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderInfolan.h; sourceTree = "<group>"; };
+		CE67DBA5175B534400EDC24D /* BBLoaderInfolan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderInfolan.m; sourceTree = "<group>"; };
+		CE67DBA8175B5DAC00EDC24D /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
+		CE67DBA9175B5DAC00EDC24D /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		CE735570173152BB001F2582 /* Model2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model2.xcdatamodel; sourceTree = "<group>"; };
 		CE74EBA316A72D46002AE1BA /* BBLoaderTcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderTcm.h; sourceTree = "<group>"; };
 		CE74EBA416A72D47002AE1BA /* BBLoaderTcm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderTcm.m; sourceTree = "<group>"; };
@@ -539,6 +548,7 @@
 				CE2CFA4C15BC3D4C00FF5DFE /* RegexOnNSString */,
 				CE3EAA5A15CEC244008DA719 /* RoundedTableCells */,
 				CE74EBAF16B43FBB002AE1BA /* SSCheckBoxView */,
+				CE67DBA7175B5DAC00EDC24D /* XMLReader */,
 				CE0524F0158E05D400FB6CDF /* SynthesizeSingleton.h */,
 			);
 			path = Assets;
@@ -644,6 +654,8 @@
 				CE7BFEB016FB8BC600C7D516 /* BBLoaderNetBerry.m */,
 				CE7FC02416FE33480063CEAF /* BBLoaderCosmosTV.h */,
 				CE7FC02516FE33480063CEAF /* BBLoaderCosmosTV.m */,
+				CE67DBA4175B534400EDC24D /* BBLoaderInfolan.h */,
+				CE67DBA5175B534400EDC24D /* BBLoaderInfolan.m */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -702,6 +714,15 @@
 				CEDB129115F26CD800213052 /* BBBalanceHistoryCell.xib */,
 			);
 			path = 3.Balance;
+			sourceTree = "<group>";
+		};
+		CE67DBA7175B5DAC00EDC24D /* XMLReader */ = {
+			isa = PBXGroup;
+			children = (
+				CE67DBA8175B5DAC00EDC24D /* XMLReader.h */,
+				CE67DBA9175B5DAC00EDC24D /* XMLReader.m */,
+			);
+			path = XMLReader;
 			sourceTree = "<group>";
 		};
 		CE74EBAF16B43FBB002AE1BA /* SSCheckBoxView */ = {
@@ -791,6 +812,8 @@
 				CED5CD6116FB911E00CA155A /* BBItemNetBerry.m */,
 				CE7FC02716FE37FF0063CEAF /* BBItemCosmosTV.h */,
 				CE7FC02816FE37FF0063CEAF /* BBItemCosmosTV.m */,
+				CE67DBA1175B528000EDC24D /* BBItemInfolan.h */,
+				CE67DBA2175B528000EDC24D /* BBItemInfolan.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -1177,6 +1200,9 @@
 				CEB65D03171ADC9900838388 /* AFXMLRequestOperation.m in Sources */,
 				CEB65D04171ADC9900838388 /* UIImageView+AFNetworking.m in Sources */,
 				CE7C961D173166E500EC9DD7 /* BBMModelsExtension.m in Sources */,
+				CE67DBA3175B528000EDC24D /* BBItemInfolan.m in Sources */,
+				CE67DBA6175B534500EDC24D /* BBLoaderInfolan.m in Sources */,
+				CE67DBAA175B5DAC00EDC24D /* XMLReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
