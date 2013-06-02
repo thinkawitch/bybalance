@@ -44,6 +44,8 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 24}, {270, 24}}</string>
 								<reference key="NSSuperview" ref="408991755"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="115701636">
 									<int key="NSColorSpace">3</int>
@@ -76,8 +78,9 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 72}</string>
+						<string key="NSFrameSize">{300, 72}</string>
 						<reference key="NSSuperview" ref="619444168"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="667786671"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
 						<reference key="IBUIBackgroundColor" ref="115701636"/>
@@ -90,10 +93,12 @@
 				</array>
 				<string key="NSFrameSize">{320, 73}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="408991755"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISelectionStyle">0</int>
+				<int key="IBUIAccessoryType">1</int>
 				<reference key="IBUIContentView" ref="408991755"/>
 				<string key="IBUIReuseIdentifier">BBAccountTypeCellID</string>
 			</object>
@@ -157,7 +162,29 @@
 			<nil key="sourceID"/>
 			<int key="maxID">5</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">BBAccountTypeCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">lblTitle</string>
+						<string key="NS.object.0">UILabel</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">lblTitle</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">lblTitle</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BBAccountTypeCell.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">

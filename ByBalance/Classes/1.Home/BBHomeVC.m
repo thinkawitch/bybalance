@@ -20,6 +20,10 @@
 - (void) toggleSplashMode;
 - (NSString *) lastBalanceStatus;
 
+- (void) onBtnReorder:(id)sender;
+- (void) switchToReorder;
+- (void) switchFromReorder;
+
 @end
 
 
@@ -40,7 +44,6 @@
     self.accounts = [BBMAccount findAll];
     
     [self setupToolbar];
-    
     [self toggleSplashMode];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
@@ -59,6 +62,12 @@
     
     self.accounts = nil;
     
+    if (btnRefresh)
+    {
+        [btnRefresh release];
+        btnRefresh = nil;
+    }
+    
     if (lblStatus)
     {
         [lblStatus release];
@@ -69,6 +78,12 @@
     {
         [vActivity release];
         vActivity = nil;
+    }
+    
+    if (btnReorder)
+    {
+        [btnReorder release];
+        btnReorder = nil;
     }
     
     [super cleanup];
@@ -86,46 +101,6 @@
     }
     
     [[[GAI sharedInstance] defaultTracker] sendView:@"Главный экран"];
-    
-    
-    /*
-    NSURL *url = [NSURL URLWithString:@"https://issa.beltelecom.by/cgi-bin/cgi.exe?function=is_login"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFHTTPRequestOperation *operation = [[[AFHTTPRequestOperation alloc] initWithRequest:request] autorelease];
-    //[operation set
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"good");
-        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
-        NSLog(@"status code:%d", operation.response.statusCode);
-        NSLog(@"string: %@", operation.responseString);
-        NSLog(@"string2: %@", responseStr);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"bad");
-    }];
-    //AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-    //    NSLog(@"App.net Global Stream: %@", JSON);
-    //} failure:nil];
-    
-    [operation start];
-    */
-    
-    /*
-    NSURL *url = [NSURL URLWithString:@"https://issa.beltelecom.by/"];
-    
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"1760003226601", @"mobnum",
-                            @"2308039", @"Password",
-                            nil];
-    
-    [httpClient postPath:@"/cgi-bin/cgi.exe?function=is_login" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
-        NSLog(@"Request Successful, response '%@'", responseStr);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
-    }];
-    */ 
     
 }
 
@@ -165,7 +140,7 @@
 #pragma mark - Actions
 
 - (IBAction) onNavButtonLeft:(id)sender
-{    
+{
     BBAboutVC * vc = NEWVCFROMNIB(BBAboutVC);
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     [vc release];
@@ -180,6 +155,9 @@
 
 - (IBAction) onNavButtonRight:(id)sender
 {
+
+    if (tblAccounts.editing) [self switchFromReorder];
+    
     BBSelectAccountTypeVC * vc = NEWVCFROMNIB(BBSelectAccountTypeVC);
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
@@ -207,10 +185,36 @@
         return;
     }
     
+    if (tblAccounts.editing) [self switchFromReorder];
+    
     for (BBMAccount * account in accounts)
     {
         [BALANCE_CHECKER addItem:account];
     }
+}
+
+- (void) onBtnReorder:(id)sender
+{
+    if ([BALANCE_CHECKER isBusy])
+    {
+        [APP_CONTEXT showToastWithText:@"Идёт обновление, подождите"];
+        return;
+    }
+    
+    if (tblAccounts.editing) [self switchFromReorder];
+    else [self switchToReorder];
+    
+    
+}
+
+- (void) switchToReorder
+{
+    [tblAccounts setEditing:YES animated:YES];
+}
+
+- (void) switchFromReorder
+{
+    [tblAccounts setEditing:NO animated:YES];
 }
 
 #pragma mark - Notifications
@@ -261,31 +265,38 @@
 
 - (void) setupToolbar
 {
-    
+    //refresh
     UIImage * img = [UIImage imageNamed:@"refresh"];
-	UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
-	[btn setImage:img forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(update:) forControlEvents:UIControlEventTouchUpInside];
+	btnRefresh = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
+	[btnRefresh setImage:img forState:UIControlStateNormal];
+    [btnRefresh addTarget:self action:@selector(update:) forControlEvents:UIControlEventTouchUpInside];
 	
-	UIBarButtonItem * bbiRefresh = [[[UIBarButtonItem alloc] initWithCustomView:btn] autorelease];
-	[btn release];
-    
+    //activity
     vActivity =  [[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] retain];
     vActivity.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
     vActivity.hidesWhenStopped = YES;
-    UIBarButtonItem * bbiActivity = [[UIBarButtonItem alloc] initWithCustomView:vActivity];
     
+    //status
     lblStatus = [[APP_CONTEXT toolBarLabel] retain];
     lblStatus.text = [self lastBalanceStatus];
     [lblStatus sizeToFit];
-    UIBarButtonItem * bbiLabel = [[UIBarButtonItem alloc] initWithCustomView:lblStatus];
     
+    //reorder
+    UIImage * img2 = [UIImage imageNamed:@"reorder"];
+	btnReorder = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img2.size.width, img2.size.height)];
+	[btnReorder setImage:img2 forState:UIControlStateNormal];
+    [btnReorder addTarget:self action:@selector(onBtnReorder:) forControlEvents:UIControlEventTouchUpInside];
+	
+    //toolbar
+    UIBarButtonItem * bbiRefresh = [[[UIBarButtonItem alloc] initWithCustomView:btnRefresh] autorelease];
     UIBarButtonItem * bbiSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                                                 target:nil
                                                                                 action:nil];
+    UIBarButtonItem * bbiActivity = [[UIBarButtonItem alloc] initWithCustomView:vActivity];
+    UIBarButtonItem * bbiLabel = [[UIBarButtonItem alloc] initWithCustomView:lblStatus];
+    UIBarButtonItem * bbiReorder = [[[UIBarButtonItem alloc] initWithCustomView:btnReorder] autorelease];
     
-    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiActivity, bbiLabel, bbiSpacer, nil];
-    
+    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiActivity, bbiLabel, bbiSpacer, bbiReorder, nil];
     [toolbar setItems:items];
 }
 
@@ -339,7 +350,7 @@
     {
         nibs = [[NSBundle mainBundle] loadNibNamed:@"BBHomeCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     BBMAccount * account = [self.accounts objectAtIndex:indexPath.row];
@@ -353,6 +364,26 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView
 {
     return 1;
+}
+
+- (BOOL)tableView:(UITableView *)_tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)_tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)_tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+   
 }
 
 #pragma mark - UITableViewDelegate
@@ -375,6 +406,11 @@
     vc.account = cell.account;
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)_tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
 }
 
 

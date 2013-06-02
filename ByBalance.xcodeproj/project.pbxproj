@@ -53,6 +53,8 @@
 		CE3EAA7A15D5A0C1008DA719 /* BBHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */; };
 		CE44A95615EEA70900AFD3D3 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = CE44A95415EEA70900AFD3D3 /* refresh.png */; };
 		CE44A95715EEA70900AFD3D3 /* refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE44A95515EEA70900AFD3D3 /* refresh@2x.png */; };
+		CE4A1791175BDACC0076AF3A /* reorder.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4A178F175BDACC0076AF3A /* reorder.png */; };
+		CE4A1792175BDACC0076AF3A /* reorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4A1790175BDACC0076AF3A /* reorder@2x.png */; };
 		CE59105215D58084006CEE0E /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = CE59105015D58084006CEE0E /* info.png */; };
 		CE59105315D58084006CEE0E /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE59105115D58084006CEE0E /* info@2x.png */; };
 		CE59105815D7D96C006CEE0E /* BBBalanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE59105715D7D96C006CEE0E /* BBBalanceVC.m */; };
@@ -225,6 +227,8 @@
 		CE3EAA7915D5A0C1008DA719 /* BBHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHomeCell.m; sourceTree = "<group>"; };
 		CE44A95415EEA70900AFD3D3 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
 		CE44A95515EEA70900AFD3D3 /* refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@2x.png"; sourceTree = "<group>"; };
+		CE4A178F175BDACC0076AF3A /* reorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reorder.png; sourceTree = "<group>"; };
+		CE4A1790175BDACC0076AF3A /* reorder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reorder@2x.png"; sourceTree = "<group>"; };
 		CE59105015D58084006CEE0E /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		CE59105115D58084006CEE0E /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
 		CE59105615D7D96C006CEE0E /* BBBalanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceVC.h; sourceTree = "<group>"; };
@@ -964,6 +968,8 @@
 		CEA2FDC215CD8C0900C98E7A /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				CE4A178F175BDACC0076AF3A /* reorder.png */,
+				CE4A1790175BDACC0076AF3A /* reorder@2x.png */,
 				CE74EBEA16B56B7E002AE1BA /* contacts.png */,
 				CE74EBEB16B56B7E002AE1BA /* contacts@2x.png */,
 				CE44A95415EEA70900AFD3D3 /* refresh.png */,
@@ -1119,6 +1125,8 @@
 				CE74EBED16B56B7E002AE1BA /* contacts@2x.png in Resources */,
 				CE7C9621173172D900EC9DD7 /* Default-568h@2x.png in Resources */,
 				CE67DBAC175B6C3300EDC24D /* BBAboutCell.xib in Resources */,
+				CE4A1791175BDACC0076AF3A /* reorder.png in Resources */,
+				CE4A1792175BDACC0076AF3A /* reorder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

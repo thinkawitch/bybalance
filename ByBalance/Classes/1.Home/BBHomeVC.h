@@ -21,9 +21,10 @@
     
     IBOutlet UIToolbar * toolbar;
     
+    UIButton * btnRefresh;
     UILabel * lblStatus;
     UIActivityIndicatorView * vActivity;
-    
+    UIButton * btnReorder;
 }
 
 - (IBAction) update:(id)sender;

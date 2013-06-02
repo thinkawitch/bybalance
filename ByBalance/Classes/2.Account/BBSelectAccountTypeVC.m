@@ -79,7 +79,6 @@
     {
         nibs = [[NSBundle mainBundle] loadNibNamed:@"BBAccountTypeCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     NSNumber * atId  = [NSNumber numberWithInt:indexPath.row + 1];
