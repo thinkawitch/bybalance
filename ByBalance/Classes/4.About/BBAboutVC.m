@@ -7,8 +7,13 @@
 //
 
 #import "BBAboutVC.h"
+#import "BBAboutCell.h"
 
 @interface BBAboutVC ()
+
+- (void) openBlog;
+- (void) openAppPage;
+- (void) openMessage;
 
 @end
 
@@ -18,10 +23,11 @@
 {
     [super viewDidLoad];
     
+    [tblButtons setSeparatorColor:[UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1]];
+    
     //lblVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     lblVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     
-    [APP_CONTEXT makeRedButton:btnBlog];
 }
 
 - (void)viewDidUnload
@@ -61,10 +67,114 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (IBAction) onBtnBlog:(id)sender
+- (void) openBlog
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://bybalance.wordpress.com"]];
 }
 
+- (void) openAppPage
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://itunes.apple.com/app/id568676131"]];
+}
+
+- (void) openMessage
+{
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController * composer = [[MFMailComposeViewController alloc] init];
+        composer.mailComposeDelegate = self;
+        [composer setToRecipients:[NSArray arrayWithObject:@"by.balance.app@gmail.com"]];
+        [composer setSubject:@"Сообщение по БайБаланс"];
+        [composer setMessageBody:@"Добрый день,\n" isHTML:NO];
+        
+        [self presentModalViewController:composer animated:YES];
+        [composer release];
+    }
+    else
+    {
+        [APP_CONTEXT showToastWithText:@"У вас не настроена почта"];
+    }
+}
+
+
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)_tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * cellId = @"BBAboutCellID";
+    NSArray * nibs;
+    
+    BBAboutCell * cell = (BBAboutCell*)[tblButtons dequeueReusableCellWithIdentifier:cellId];
+    if (!cell)
+    {
+        nibs = [[NSBundle mainBundle] loadNibNamed:@"BBAboutCell" owner:self options:nil];
+        cell = [nibs objectAtIndex:0];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+    switch (indexPath.row)
+    {
+        case 0:
+            [cell setTitle:@"Блог приложения"];
+            break;
+            
+        case 1:
+            [cell setTitle:@"Оценить приложение"];
+            break;
+            
+        case 2:
+            [cell setTitle:@"Сообщение автору"];
+            break;
+    }
+/*
+    BBMAccount * account = [self.accounts objectAtIndex:indexPath.row];
+    
+    [cell setupWithAccount:account];
+  */  
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView
+{
+    return 1;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return kAboutCellHeight;
+}
+
+- (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row)
+    {
+        case 0:
+            [self openBlog];
+            break;
+            
+        case 1:
+            [self openAppPage];
+            break;
+            
+        case 2:
+            [self openMessage];
+            break;
+    }
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+	[controller dismissModalViewControllerAnimated:YES];
+}
 
 @end

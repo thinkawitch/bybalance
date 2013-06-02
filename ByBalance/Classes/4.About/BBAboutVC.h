@@ -7,12 +7,14 @@
 //
 
 #import "BBBaseViewController.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 @interface BBAboutVC : BBBaseViewController
+<UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
 {
 @private
     IBOutlet UILabel * lblVersion;
-    IBOutlet UIButton * btnBlog;
+    IBOutlet UITableView * tblButtons;
 }
-- (IBAction) onBtnBlog:(id)sender;
 @end

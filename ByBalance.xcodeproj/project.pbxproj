@@ -62,6 +62,9 @@
 		CE67DBA3175B528000EDC24D /* BBItemInfolan.m in Sources */ = {isa = PBXBuildFile; fileRef = CE67DBA2175B528000EDC24D /* BBItemInfolan.m */; };
 		CE67DBA6175B534500EDC24D /* BBLoaderInfolan.m in Sources */ = {isa = PBXBuildFile; fileRef = CE67DBA5175B534400EDC24D /* BBLoaderInfolan.m */; };
 		CE67DBAA175B5DAC00EDC24D /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = CE67DBA9175B5DAC00EDC24D /* XMLReader.m */; };
+		CE67DBAC175B6C3300EDC24D /* BBAboutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE67DBAB175B6C3300EDC24D /* BBAboutCell.xib */; };
+		CE67DBAF175B6CB300EDC24D /* BBAboutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE67DBAE175B6CB200EDC24D /* BBAboutCell.m */; };
+		CE67DBB1175B797B00EDC24D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE67DBB0175B797A00EDC24D /* MessageUI.framework */; };
 		CE74EBA516A72D47002AE1BA /* BBLoaderTcm.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBA416A72D47002AE1BA /* BBLoaderTcm.m */; };
 		CE74EBA816A72F28002AE1BA /* BBItemTcm.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBA716A72F27002AE1BA /* BBItemTcm.m */; };
 		CE74EBAB16B3FC26002AE1BA /* BBLoaderNiks.m in Sources */ = {isa = PBXBuildFile; fileRef = CE74EBAA16B3FC24002AE1BA /* BBLoaderNiks.m */; };
@@ -237,6 +240,10 @@
 		CE67DBA5175B534400EDC24D /* BBLoaderInfolan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderInfolan.m; sourceTree = "<group>"; };
 		CE67DBA8175B5DAC00EDC24D /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		CE67DBA9175B5DAC00EDC24D /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		CE67DBAB175B6C3300EDC24D /* BBAboutCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAboutCell.xib; sourceTree = "<group>"; };
+		CE67DBAD175B6CB200EDC24D /* BBAboutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAboutCell.h; sourceTree = "<group>"; };
+		CE67DBAE175B6CB200EDC24D /* BBAboutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAboutCell.m; sourceTree = "<group>"; };
+		CE67DBB0175B797A00EDC24D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CE735570173152BB001F2582 /* Model2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model2.xcdatamodel; sourceTree = "<group>"; };
 		CE74EBA316A72D46002AE1BA /* BBLoaderTcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderTcm.h; sourceTree = "<group>"; };
 		CE74EBA416A72D47002AE1BA /* BBLoaderTcm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderTcm.m; sourceTree = "<group>"; };
@@ -401,6 +408,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE67DBB1175B797B00EDC24D /* MessageUI.framework in Frameworks */,
 				CE74EBE816B55757002AE1BA /* AddressBook.framework in Frameworks */,
 				CE74EBE916B55757002AE1BA /* AddressBookUI.framework in Frameworks */,
 				CEA2FD9D15CD593D00C98E7A /* CoreData.framework in Frameworks */,
@@ -438,6 +446,7 @@
 		CE0524A3158E01FE00FB6CDF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE67DBB0175B797A00EDC24D /* MessageUI.framework */,
 				CE052503158E06D900FB6CDF /* libz.dylib */,
 				CE74EBE616B55750002AE1BA /* AddressBook.framework */,
 				CE74EBE716B55753002AE1BA /* AddressBookUI.framework */,
@@ -665,6 +674,8 @@
 			children = (
 				CE212CC115D4175D000D16AA /* BBAboutVC.h */,
 				CE212CC215D4175D000D16AA /* BBAboutVC.m */,
+				CE67DBAD175B6CB200EDC24D /* BBAboutCell.h */,
+				CE67DBAE175B6CB200EDC24D /* BBAboutCell.m */,
 			);
 			path = 4.About;
 			sourceTree = "<group>";
@@ -673,6 +684,7 @@
 			isa = PBXGroup;
 			children = (
 				CE212CC515D417EB000D16AA /* BBAboutVC.xib */,
+				CE67DBAB175B6C3300EDC24D /* BBAboutCell.xib */,
 			);
 			name = 4.About;
 			path = ByBalance/Resources/4.About;
@@ -1106,6 +1118,7 @@
 				CE74EBEC16B56B7E002AE1BA /* contacts.png in Resources */,
 				CE74EBED16B56B7E002AE1BA /* contacts@2x.png in Resources */,
 				CE7C9621173172D900EC9DD7 /* Default-568h@2x.png in Resources */,
+				CE67DBAC175B6C3300EDC24D /* BBAboutCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1203,6 +1216,7 @@
 				CE67DBA3175B528000EDC24D /* BBItemInfolan.m in Sources */,
 				CE67DBA6175B534500EDC24D /* BBLoaderInfolan.m in Sources */,
 				CE67DBAA175B5DAC00EDC24D /* XMLReader.m in Sources */,
+				CE67DBAF175B6CB300EDC24D /* BBAboutCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

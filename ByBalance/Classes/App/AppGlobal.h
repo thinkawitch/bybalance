@@ -55,4 +55,5 @@ extern NSString * const kNotificationOnBalanceCheckStop;
 extern const CGFloat kHomeCellHeight;
 extern const CGFloat kAccountTypeCellHeight;
 extern const CGFloat kBalanceHistoryCellHeight;
+extern const CGFloat kAboutCellHeight;
 //

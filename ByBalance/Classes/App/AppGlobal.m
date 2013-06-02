@@ -38,4 +38,6 @@ NSString * const kNotificationOnBalanceCheckStop = @"ON_BALANCE_CHECK_STOP";
 CGFloat const kHomeCellHeight = 73.f + 1.f;
 CGFloat const kAccountTypeCellHeight = 73.f + 1.f;
 CGFloat const kBalanceHistoryCellHeight = 30.f + 1.f;
+CGFloat const kAboutCellHeight = 39.f + 1.f;
+
 //
