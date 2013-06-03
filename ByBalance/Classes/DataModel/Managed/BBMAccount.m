@@ -14,6 +14,7 @@
 @implementation BBMAccount
 
 @dynamic label;
+@dynamic order;
 @dynamic password;
 @dynamic username;
 @dynamic history;

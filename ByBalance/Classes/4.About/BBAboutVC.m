@@ -115,7 +115,6 @@
     {
         nibs = [[NSBundle mainBundle] loadNibNamed:@"BBAboutCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     switch (indexPath.row)

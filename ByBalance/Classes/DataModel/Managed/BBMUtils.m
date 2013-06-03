@@ -88,4 +88,16 @@
     
 }
 
++ (NSNumber *) nextOrder
+{
+    NSInteger next = 1;
+    BBMAccount * last = [BBMAccount findFirstWithPredicate:nil sortedBy:@"order" ascending:NO];
+    if (last)
+    {
+        next = [last.order integerValue] + 1;
+    }
+    
+    return [NSNumber numberWithInt:next];
+}
+
 @end

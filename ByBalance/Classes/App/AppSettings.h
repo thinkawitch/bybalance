@@ -12,29 +12,16 @@
 {
     
 @private
-    NSNumber * userId;
-    NSString * authToken;
-    NSString * username;
-    NSString * email;
-    NSString * password;
-    BOOL sendEmailUpdates;
-    NSNumber * introVersion;
-    
+    NSString * appId;
+    NSNumber * build;
 }
 
-@property (nonatomic, retain) NSNumber * userId;
-@property (nonatomic, retain) NSString * authToken;
-@property (nonatomic, retain) NSString * username;
-@property (nonatomic, retain) NSString * email;
-@property (nonatomic, retain) NSString * password;
-@property (nonatomic, assign) BOOL sendEmailUpdates;
-@property (nonatomic, retain) NSNumber * introVersion;
+@property (nonatomic, retain) NSString * appId;
+@property (nonatomic, retain) NSNumber * build;
 
 + (AppSettings *) sharedAppSettings;
 
 - (void) loadData;
 - (void) saveData;
-- (BOOL) isLoggedIn;
-- (void) logout;
 
 @end

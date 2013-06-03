@@ -10,4 +10,5 @@
 @interface BBMAccount (Utils)
 - (BBBaseItem *) basicItem;
 - (BBMBalanceHistory *) lastGoodBalance;
++ (NSNumber *) nextOrder;
 @end

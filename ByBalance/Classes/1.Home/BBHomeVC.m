@@ -16,6 +16,7 @@
 
 @property (strong,nonatomic) NSArray * accounts;
 
+- (void) loadAccounts;
 - (void) setupToolbar;
 - (void) toggleSplashMode;
 - (NSString *) lastBalanceStatus;
@@ -41,16 +42,14 @@
     
     [APP_CONTEXT makeRedButton:btnBigAdd];
     
-    self.accounts = [BBMAccount findAll];
-    
     [self setupToolbar];
+    [self loadAccounts];
     [self toggleSplashMode];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckStarted:) name:kNotificationOnBalanceCheckStart object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckProgress:) name:kNotificationOnBalanceCheckProgress object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckStopped:) name:kNotificationOnBalanceCheckStop object:nil];
-
 }
 
 - (void) cleanup
@@ -95,7 +94,7 @@
     
     if (needUpdateScreen)
     {
-        self.accounts = [BBMAccount findAll];
+        [self loadAccounts];
         needUpdateScreen = NO;
         [self toggleSplashMode];
     }
@@ -136,6 +135,45 @@
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:spacer, btnAdd, nil]];
 }
 
+- (void) setupToolbar
+{
+    //refresh
+    UIImage * img = [UIImage imageNamed:@"refresh"];
+	btnRefresh = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
+	[btnRefresh setImage:img forState:UIControlStateNormal];
+    [btnRefresh addTarget:self action:@selector(update:) forControlEvents:UIControlEventTouchUpInside];
+	
+    //activity
+    vActivity =  [[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] retain];
+    vActivity.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+    vActivity.hidesWhenStopped = YES;
+    
+    //status
+    lblStatus = [[APP_CONTEXT toolBarLabel] retain];
+    lblStatus.text = [self lastBalanceStatus];
+    [lblStatus sizeToFit];
+    
+    //reorder
+    UIImage * img2 = [UIImage imageNamed:@"reorder"];
+	btnReorder = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img2.size.width, img2.size.height)];
+	[btnReorder setImage:img2 forState:UIControlStateNormal];
+    [btnReorder addTarget:self action:@selector(onBtnReorder:) forControlEvents:UIControlEventTouchUpInside];
+	
+    //toolbar
+    UIBarButtonItem * bbiRefresh = [[[UIBarButtonItem alloc] initWithCustomView:btnRefresh] autorelease];
+    UIBarButtonItem * bbiSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                                target:nil
+                                                                                action:nil];
+    UIBarButtonItem * bbiActivity = [[UIBarButtonItem alloc] initWithCustomView:vActivity];
+    UIBarButtonItem * bbiLabel = [[UIBarButtonItem alloc] initWithCustomView:lblStatus];
+    UIBarButtonItem * bbiSpacer2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                                target:nil
+                                                                                action:nil];
+    UIBarButtonItem * bbiReorder = [[[UIBarButtonItem alloc] initWithCustomView:btnReorder] autorelease];
+    
+    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiActivity, bbiLabel, bbiSpacer2, bbiReorder, nil];
+    [toolbar setItems:items];
+}
 
 #pragma mark - Actions
 
@@ -155,7 +193,6 @@
 
 - (IBAction) onNavButtonRight:(id)sender
 {
-
     if (tblAccounts.editing) [self switchFromReorder];
     
     BBSelectAccountTypeVC * vc = NEWVCFROMNIB(BBSelectAccountTypeVC);
@@ -164,6 +201,14 @@
 }
 
 #pragma mark - Logic
+
+- (void) loadAccounts
+{
+    self.accounts = [NSMutableArray arrayWithArray:[BBMAccount findAllSortedBy:@"order" ascending:YES]];
+    
+    btnReorder.hidden = [accounts count] < 2;
+    [lblStatus sizeToFit];
+}
 
 - (IBAction) update:(id)sender
 {
@@ -203,8 +248,6 @@
     
     if (tblAccounts.editing) [self switchFromReorder];
     else [self switchToReorder];
-    
-    
 }
 
 - (void) switchToReorder
@@ -262,43 +305,6 @@
 }
 
 #pragma mark - Private
-
-- (void) setupToolbar
-{
-    //refresh
-    UIImage * img = [UIImage imageNamed:@"refresh"];
-	btnRefresh = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
-	[btnRefresh setImage:img forState:UIControlStateNormal];
-    [btnRefresh addTarget:self action:@selector(update:) forControlEvents:UIControlEventTouchUpInside];
-	
-    //activity
-    vActivity =  [[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] retain];
-    vActivity.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
-    vActivity.hidesWhenStopped = YES;
-    
-    //status
-    lblStatus = [[APP_CONTEXT toolBarLabel] retain];
-    lblStatus.text = [self lastBalanceStatus];
-    [lblStatus sizeToFit];
-    
-    //reorder
-    UIImage * img2 = [UIImage imageNamed:@"reorder"];
-	btnReorder = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img2.size.width, img2.size.height)];
-	[btnReorder setImage:img2 forState:UIControlStateNormal];
-    [btnReorder addTarget:self action:@selector(onBtnReorder:) forControlEvents:UIControlEventTouchUpInside];
-	
-    //toolbar
-    UIBarButtonItem * bbiRefresh = [[[UIBarButtonItem alloc] initWithCustomView:btnRefresh] autorelease];
-    UIBarButtonItem * bbiSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                                target:nil
-                                                                                action:nil];
-    UIBarButtonItem * bbiActivity = [[UIBarButtonItem alloc] initWithCustomView:vActivity];
-    UIBarButtonItem * bbiLabel = [[UIBarButtonItem alloc] initWithCustomView:lblStatus];
-    UIBarButtonItem * bbiReorder = [[[UIBarButtonItem alloc] initWithCustomView:btnReorder] autorelease];
-    
-    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiActivity, bbiLabel, bbiSpacer, bbiReorder, nil];
-    [toolbar setItems:items];
-}
 
 - (void) toggleSplashMode
 {
@@ -361,39 +367,52 @@
     
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
-- (BOOL)tableView:(UITableView *)_tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
 
-- (BOOL)tableView:(UITableView *)_tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
 
-- (BOOL)tableView:(UITableView *)_tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO;
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-   
+    NSObject *tempObj = [[self.accounts objectAtIndex:sourceIndexPath.row] retain];
+    [self.accounts removeObjectAtIndex:sourceIndexPath.row];
+    [self.accounts insertObject:tempObj atIndex:destinationIndexPath.row];
+    [tempObj release];
+    
+    //save new order
+    BBMAccount * acc;
+    NSInteger order = 1;
+    for (acc in self.accounts)
+    {
+        acc.order = [NSNumber numberWithInteger:order];
+        order++;
+    }
+    [APP_CONTEXT saveDatabase];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return kHomeCellHeight;
 }
 
-- (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BBHomeCell * cell = (BBHomeCell *)[tblAccounts cellForRowAtIndexPath:indexPath];
     if (nil == cell)
@@ -408,7 +427,7 @@
     [vc release];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)_tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleNone;
 }

@@ -104,18 +104,49 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
     }
     if (added) [self saveDatabase];
     
+    NSInteger build = [SETTINGS.build integerValue];
+    NSLog(@"build in settings: %d", build);
     
     BOOL updated = NO;
     BBMAccount * acc;
-    for (acc in [BBMAccount findAll])
+    
+    //added labels v1.4
+    if (build < 41)
     {
-        if (!acc.label)
+        NSLog(@"adding field: label");
+        for (acc in [BBMAccount findAll])
         {
-            acc.label = @"";
-            updated = YES;
+            if (!acc.label)
+            {
+                acc.label = @"";
+                updated = YES;
+            }
         }
+        if (updated) [self saveDatabase];
+        
+        SETTINGS.build = [NSNumber numberWithInt:41];
+        [SETTINGS saveData];
     }
-    if (updated) [self saveDatabase];
+    
+    
+    //added order v1.5
+    if (build < 49)
+    {
+        NSLog(@"adding field: order");
+        updated = NO;
+        for (acc in [BBMAccount findAll])
+        {
+            if ([acc.order integerValue] < 1)
+            {
+                acc.order = [BBMAccount nextOrder];
+                updated = YES;
+            }
+        }
+        if (updated) [self saveDatabase];
+        
+        SETTINGS.build = [NSNumber numberWithInt:49];
+        [SETTINGS saveData];
+    }
 }
 
 - (void) saveDatabase

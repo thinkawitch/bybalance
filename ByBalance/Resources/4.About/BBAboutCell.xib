@@ -45,7 +45,6 @@
 								<string key="NSFrame">{{20, 8}, {270, 24}}</string>
 								<reference key="NSSuperview" ref="964906235"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="101745445">
 									<int key="NSColorSpace">3</int>
@@ -78,7 +77,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 39}</string>
+						<string key="NSFrameSize">{300, 39}</string>
 						<reference key="NSSuperview" ref="728703681"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="144292799"/>
@@ -98,6 +97,7 @@
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISelectionStyle">0</int>
+				<int key="IBUIAccessoryType">1</int>
 				<reference key="IBUIContentView" ref="964906235"/>
 				<string key="IBUIReuseIdentifier">BBAboutCellID</string>
 			</object>

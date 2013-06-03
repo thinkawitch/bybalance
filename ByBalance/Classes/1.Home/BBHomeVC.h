@@ -17,7 +17,7 @@
     IBOutlet UIView * splashView;
     IBOutlet UIButton * btnBigAdd;
     
-    NSArray * accounts;
+    NSMutableArray * accounts;
     
     IBOutlet UIToolbar * toolbar;
     

@@ -34,13 +34,6 @@
         lblDate.text = @"";
         lblBalance.text = @"не обновлялся";
     }
-    
-}
-
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated
-{
-    [super setEditing:editing animated:animated];
-    
 }
 
 - (void) dealloc

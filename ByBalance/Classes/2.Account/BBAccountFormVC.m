@@ -180,6 +180,7 @@
         newAccount.username = tfUsername.text;
         newAccount.password = tfPassword.text;
         newAccount.label = tfLabel.text;
+        newAccount.order = [BBMAccount nextOrder];
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];

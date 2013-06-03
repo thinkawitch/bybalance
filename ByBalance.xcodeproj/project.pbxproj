@@ -229,6 +229,7 @@
 		CE44A95515EEA70900AFD3D3 /* refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@2x.png"; sourceTree = "<group>"; };
 		CE4A178F175BDACC0076AF3A /* reorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reorder.png; sourceTree = "<group>"; };
 		CE4A1790175BDACC0076AF3A /* reorder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reorder@2x.png"; sourceTree = "<group>"; };
+		CE4A1793175CB1B40076AF3A /* Model3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = Model3.xcdatamodel; sourceTree = "<group>"; };
 		CE59105015D58084006CEE0E /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		CE59105115D58084006CEE0E /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
 		CE59105615D7D96C006CEE0E /* BBBalanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceVC.h; sourceTree = "<group>"; };
@@ -1348,9 +1349,10 @@
 			isa = XCVersionGroup;
 			children = (
 				CE735570173152BB001F2582 /* Model2.xcdatamodel */,
+				CE4A1793175CB1B40076AF3A /* Model3.xcdatamodel */,
 				CEA2FD8015CD51FD00C98E7A /* Model.xcdatamodel */,
 			);
-			currentVersion = CE735570173152BB001F2582 /* Model2.xcdatamodel */;
+			currentVersion = CE4A1793175CB1B40076AF3A /* Model3.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
