@@ -64,6 +64,10 @@
         case kAccountInfolan:
             item = [BBItemInfolan new];
             break;
+            
+        case kAccountUnetBy:
+            item = [BBItemUnetBy new];
+            break;
     }
 
     if (!item)

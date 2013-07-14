@@ -122,6 +122,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
         case kAccountInfolan:
             loader = [[BBLoaderInfolan new] autorelease];
             break;
+            
+        case kAccountUnetBy:
+            loader = [[BBLoaderUnetBy new] autorelease];
+            break;
     }
     
     if (!loader)
