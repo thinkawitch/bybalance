@@ -1229,8 +1229,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ByBalance/Classes/Assets/GoogleAnalytics\"",
-					"\"$(SRCROOT)/ByBalance/Classes/Assets/GoogleAnalyticsServicesiOS_3.0/GoogleAnalytics/Library\"",
-					"\"$(SRCROOT)/ByBalance/Classes/Assets/GoogleAnalyticsServicesiOS_3.0\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1248,8 +1246,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ByBalance/Classes/Assets/GoogleAnalytics\"",
-					"\"$(SRCROOT)/ByBalance/Classes/Assets/GoogleAnalyticsServicesiOS_3.0/GoogleAnalytics/Library\"",
-					"\"$(SRCROOT)/ByBalance/Classes/Assets/GoogleAnalyticsServicesiOS_3.0\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
