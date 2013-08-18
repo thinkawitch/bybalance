@@ -7,9 +7,12 @@
 //
 
 #import "BBLoaderInfolan.h"
+#import "XMLReader.h"
 
 @implementation BBLoaderInfolan
 
+
+#pragma mark - Logic
 
 - (ASIFormDataRequest *) prepareRequest
 {
@@ -31,8 +34,7 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
-    
+    //NSLog(@"%@.requestFinished", [self class]);
     //NSLog(@"responseEncoding %d", request.responseEncoding);
     NSString * html = nil;
     if (request.responseEncoding == NSISOLatin1StringEncoding)
@@ -44,31 +46,79 @@
         html = request.responseString;
     }
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
-    {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
-    }
-    
-    [self markDone];
+    [self extractInfoFromHtml:html];
+    [self doFinish];
 }
 
-- (void) requestFailed:(ASIHTTPRequest *)request
+#pragma mark - Logic
+
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
+    //NSLog(@"%@", html);
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)] )
+    if (!html)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
+    NSError * error = nil;
+    NSDictionary * dict = [XMLReader dictionaryForXMLString:html
+                                                    options:XMLReaderOptionsProcessNamespaces
+                                                      error:&error];
+    
+    //NSLog(@"%@", dict);
+    if (error || !dict)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    
+    //correct response
+    NSDictionary * nodeResp = [dict objectForKey:@"Response"];
+    if (!nodeResp)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    //NSLog(@"%@", nodeResp);
+    
+    //has error
+    if ([nodeResp objectForKey:@"Error"])
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSDictionary * nodeMain = [nodeResp objectForKey:@"Main"];
+    if (!nodeMain)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSDictionary  * nodeBalance = [nodeMain objectForKey:@"Balance"];
+    if (!nodeBalance)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSString  * textBalance = [nodeBalance objectForKey:@"text"];
+    if (!textBalance)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    //NSLog(@"%@", textBalance);
+    
+    loaderInfo.userBalance = textBalance;
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = YES;
 }
 
 @end

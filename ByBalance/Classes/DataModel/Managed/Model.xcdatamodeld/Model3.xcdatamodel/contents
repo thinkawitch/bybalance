@@ -22,7 +22,7 @@
     </entity>
     <elements>
         <element name="BBMAccount" positionX="-540" positionY="-135" width="128" height="135"/>
-        <element name="BBMAccountType" positionX="-351" positionY="-216" width="128" height="90"/>
-        <element name="BBMBalanceHistory" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="BBMAccountType" positionX="-306" positionY="9" width="128" height="90"/>
+        <element name="BBMBalanceHistory" positionX="-306" positionY="-135" width="128" height="120"/>
     </elements>
 </model>

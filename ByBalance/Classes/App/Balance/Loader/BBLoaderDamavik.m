@@ -16,12 +16,11 @@
 - (void) onStep2:(NSString *)html;
 - (void) onStep3:(NSString *)html;
 
-- (void) doFail;
-- (void) doSuccess:(NSString *)html;
-
 @end
 
 @implementation BBLoaderDamavik
+
+#pragma mark - Logic
 
 - (void) actAsDamavik
 {
@@ -54,27 +53,10 @@
 
 #pragma mark - ASIHTTPRequestDelegate
 
-- (void)requestStarted:(ASIHTTPRequest *)request
-{
-    NSLog(@"%@.requestStarted", [self class]);
-    NSLog(@"url: %@", request.url);
-    
-    /*
-    for (NSString * name in request.requestHeaders)
-    {
-        NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
-    }
-    
-    for (NSString * name in request.requestCookies)
-    {
-        NSLog(@"[cookie] %@", name);
-    }
-    */
-}
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * html = html = request.responseString;
     NSString * step = [request.userInfo objectForKey:@"step"];
@@ -93,23 +75,16 @@
     }
     else
     {
-        [self doFail];
+        [self doFinish];
     }
 }
 
-- (void) requestFailed:(ASIHTTPRequest *)request
-{
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
-    
-    [self doFail];
-}
 
 #pragma mark - Logic
 
 - (void) onStep1:(NSString *)html
 {
-    NSLog(@"BBLoaderDamavik.onStep1");
+    //NSLog(@"BBLoaderDamavik.onStep1");
     //NSLog(@"%@", html);
     
     NSString * buf = nil;
@@ -128,11 +103,11 @@
         }
     }
     
-    NSLog(@"imgName: %@", imgName);
+    //NSLog(@"imgName: %@", imgName);
     
     if (!imgName)
     {
-        [self doFail];
+        [self doFinish];
         return;
     }
     
@@ -154,9 +129,8 @@
 
 - (void) onStep2:(NSString *)html
 {
-    NSLog(@"BBLoaderDamavik.onStep2");
+    //NSLog(@"BBLoaderDamavik.onStep2");
     
-
     NSString * loginUrl = self.baseUrl;
     NSString * formAction = [NSString stringWithFormat:@"%@about", self.baseUrl];
     
@@ -188,36 +162,55 @@
 
 - (void) onStep3:(NSString *)html
 {
-    NSLog(@"BBLoaderDamavik.onStep3");
+    //NSLog(@"BBLoaderDamavik.onStep3");
     //NSLog(@"%@", html);
     
-    [self doSuccess:html];
+    [self extractInfoFromHtml:html];
+    [self doFinish];
 }
 
-- (void) doFail
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)])
+    //NSLog(@"%@", html);
+    
+    if (!html)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
-}
-
-- (void) doSuccess:(NSString *)html
-{
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)])
+    //incorrect login/pass
+    loaderInfo.incorrectLogin = ([html rangeOfString:@"<div class=\"redmsg mesg\"><div>Введенные данные неверны. Проверьте и повторите попытку.</div></div>"].location != NSNotFound);
+    //NSLog(@"incorrectLogin: %d", loaderInfo.incorrectLogin);
+    if (loaderInfo.incorrectLogin)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
+    NSString * buf = nil;
+    NSArray * arr = nil;
+    
+    //userTitle - absent
+    
+    //userPlan - absent
+    
+    //test balance value
+    //html = [html stringByReplacingOccurrencesOfString:@"<td>0</td>" withString:@"<td>5224.55</td>"];
+    
+    //balance
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Состояние счета</td>\\s+<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }
+    }
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
 }
 
 @end

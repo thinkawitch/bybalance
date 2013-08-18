@@ -10,6 +10,8 @@
 
 @implementation BBLoaderBn
 
+#pragma mark - Logic
+
 - (ASIFormDataRequest *) prepareRequest
 {
     //don't use other cookies
@@ -31,33 +33,76 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
-    {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, request.responseString, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
-    }
-    
-    [self markDone];
+    [self extractInfoFromHtml:request.responseString];
+    [self doFinish];
 }
 
-- (void) requestFailed:(ASIHTTPRequest *)request
+#pragma mark - Logic
+
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
+    NSString * buf = nil;
+    NSArray * arr = nil;
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)] )
+    //incorrect login/pass
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class='alarma'>(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
+    if (arr && [arr count] == 1)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.incorrectLogin = YES;
+        }
+    }
+    //NSLog(@"incorrectLogin: %d", loaderInfo.incorrectLogin);
+    
+    if (loaderInfo.incorrectLogin)
+    {
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
+    //NSLog(@"%@", html);
+    
+    //userTitle
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Ф.И.О.:</td><td>([^<]+)</td></tr>" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userTitle = buf;
+        }
+    }
+    //NSLog(@"userTitle: %@", loaderInfo.userTitle);
+    
+    //userPlan
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Тариф:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userPlan = buf;
+        }
+    }
+    //NSLog(@"userPlan: %@", loaderInfo.userPlan);
+    
+    //balance
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }
+    }
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = [loaderInfo.userTitle length] > 0 && [loaderInfo.userPlan length] > 0 && [loaderInfo.userBalance length] > 0;
 }
 
 @end

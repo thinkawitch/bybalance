@@ -7,6 +7,7 @@
 //
 
 #import "BBLoaderDelegate.h"
+#import "BBLoaderInfo.h"
 #import "BBLoaderBase.h"
 #import "BBLoaderMts.h"
 #import "BBLoaderBn.h"

@@ -10,6 +10,8 @@
 
 @implementation BBLoaderTcm
 
+#pragma mark - Logic
+
 - (ASIFormDataRequest *) prepareRequest
 {
     //don't use other cookies
@@ -30,33 +32,59 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
-    {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, request.responseString, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
-    }
-    
-    [self markDone];
+    [self extractInfoFromHtml:request.responseString];
+    [self doFinish];
 }
 
-- (void) requestFailed:(ASIHTTPRequest *)request
+#pragma mark - Logic
+
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
+    //NSLog(@"%@", html);
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)] )
+    if (!html)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
+    if ([html isEqualToString:@"ERROR"] || [html isEqualToString:@"FORBIDDEN"])
+    {
+        loaderInfo.incorrectLogin = YES;
+        return;
+    }
+    
+    /*
+     5081;2703034;226203;0;1;
+     
+     Где:
+     5081 - номер лицевого счета
+     2703034 - логин
+     226203 - баланс, руб.
+     0 - кредит, руб.
+     1 - статус интернета (0 - ОТКЛ, 1 - ВКЛ)
+     */
+    
+    NSArray *arr = [html componentsSeparatedByString:@";"];
+    if (!arr || [arr count] <3)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSString * bal = [arr objectAtIndex:2];
+    if (![APP_CONTEXT stringIsNumeric:bal])
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    loaderInfo.userBalance = bal;
+    
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = YES;
 }
 
 @end

@@ -14,19 +14,11 @@
 - (void) onStep2:(NSString *)html;
 - (void) onStep3:(NSString *)html;
 
-- (void) doFail;
-- (void) doSuccess:(NSString *)html;
-
 @end
 
 @implementation BBLoaderCosmosTV
 
-#pragma mark - ObjectLife
-
-- (void) dealloc
-{
-    [super dealloc];
-}
+#pragma mark - Logic
 
 - (ASIFormDataRequest *) prepareRequest
 {
@@ -51,27 +43,9 @@
 
 #pragma mark - ASIHTTPRequestDelegate
 
-- (void)requestStarted:(ASIHTTPRequest *)request
-{
-    //NSLog(@"%@.requestStarted", [self class]);
-    //NSLog(@"url: %@", request.url);
-    
-    /*
-     for (NSString * name in request.requestHeaders)
-     {
-     NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
-     }
-     
-     for (NSString * name in request.requestCookies)
-     {
-     NSLog(@"[cookie] %@", name);
-     }
-     */
-}
-
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
     NSString * html = request.responseString;
@@ -91,16 +65,8 @@
     }
     else
     {
-        [self doFail];
+        [self doFinish];
     }
-}
-
-- (void) requestFailed:(ASIHTTPRequest *)request
-{
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
-    
-    [self doFail];
 }
 
 
@@ -108,7 +74,7 @@
 
 - (void) onStep1:(NSString *)html
 {
-    NSLog(@"BBLoaderCosmosTV.onStep1");
+    //NSLog(@"BBLoaderCosmosTV.onStep1");
     //NSLog(@"%@", html);
     
     NSString * jsonString = [NSString stringWithFormat:@"%@", html];
@@ -119,7 +85,7 @@
     if (![jsonObject isKindOfClass:[NSDictionary class]])
     {
         //это не json
-        [self doFail];
+        [self doFinish];
         return;
     }
         
@@ -129,7 +95,8 @@
     if (!redirect)
     {
         //авторизация не прошла
-        [self doFail];
+        loaderInfo.incorrectLogin = YES;
+        [self doFinish];
         return;
     }
     
@@ -144,7 +111,7 @@
 
 - (void) onStep2:(NSString *)html
 {
-    NSLog(@"BBLoaderCosmosTV.onStep2");
+    //NSLog(@"BBLoaderCosmosTV.onStep2");
     //NSLog(@"%@", html);
     
     //showServices(this, "101932108", "41263"
@@ -178,43 +145,66 @@
     }
     else
     {
-        [self doFail];
+        [self doFinish];
     }
     
 }
 
 - (void) onStep3:(NSString *)html
 {
-    NSLog(@"BBLoaderCosmosTV.onStep3");
+    //NSLog(@"BBLoaderCosmosTV.onStep3");
     //NSLog(@"%@", html);
     
-    [self doSuccess:html];
+    [self extractInfoFromHtml:html];
+    [self doFinish];
 }
 
-- (void) doFail
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)])
+    if (!html)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
-}
-
-- (void) doSuccess:(NSString *)html
-{
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)])
+    NSString * jsonString = [NSString stringWithFormat:@"%@", html];
+    NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError * jsonError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&jsonError];
+    
+    if (![jsonObject isKindOfClass:[NSDictionary class]])
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
+        //это не json
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
+    NSDictionary * dict = (NSDictionary *) jsonObject;
+    NSArray * services = [dict objectForKey:@"services"];
+    if (!services || [services count] < 1)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSDictionary * service1 = [services objectAtIndex:0];
+    if (![service1 isKindOfClass:[NSDictionary class]])
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSString * pbalance = [service1 objectForKey:@"pbalance"];
+    if (!pbalance)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:pbalance];
+    loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
+    
+    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
 }
 
 @end

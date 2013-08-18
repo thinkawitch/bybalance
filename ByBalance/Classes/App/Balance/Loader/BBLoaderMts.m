@@ -15,9 +15,6 @@
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
 
-- (void) doFail;
-- (void) doSuccess:(NSString *)html;
-
 @end
 
 @implementation BBLoaderMts
@@ -32,6 +29,8 @@
     
     [super dealloc];
 }
+
+#pragma mark - Logic
 
 - (ASIFormDataRequest *) prepareRequest
 {
@@ -58,8 +57,8 @@
 
 - (void)requestStarted:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestStarted", [self class]);
-    NSLog(@"url: %@", request.url);
+    //NSLog(@"%@.requestStarted", [self class]);
+    //NSLog(@"url: %@", request.url);
     
     /*
      for (NSString * name in request.requestHeaders)
@@ -76,7 +75,7 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
     
@@ -105,16 +104,8 @@
     }
     else
     {
-        [self doFail];
+        [self doFinish];
     }
-}
-
-- (void) requestFailed:(ASIHTTPRequest *)request
-{
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
-    
-    [self doFail];
 }
 
 
@@ -122,7 +113,7 @@
 
 - (void) onStep1:(NSString *)html
 {
-    NSLog(@"BBLoaderMts.onStep1");
+    //NSLog(@"BBLoaderMts.onStep1");
     //NSLog(@"%@", html);
     
     NSString * buf = nil;
@@ -139,11 +130,11 @@
         }
     }
     
-    NSLog(@"paramViewState: %@", self.paramViewState);
+    //NSLog(@"paramViewState: %@", self.paramViewState);
     
     if (!self.paramViewState)
     {
-        [self doFail];
+        [self doFinish];
         return;
     }
     
@@ -168,37 +159,69 @@
 
 - (void) onStep2:(NSString *)html
 {
-    NSLog(@"BBLoaderMts.onStep2");
+    //NSLog(@"BBLoaderMts.onStep2");
     //NSLog(@"%@", html);
     
-    [self doSuccess:html];
+    [self extractInfoFromHtml:html];
+    [self doFinish];
 }
 
-- (void) doFail
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)])
+    NSString * buf = nil;
+    NSArray * arr = nil;
+    
+    //incorrect login/pass
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class=\"logon-result-block\">(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
+    if (arr && [arr count] == 1)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.incorrectLogin = YES;
+        }
     }
     
-    [self markDone];
-}
-
-- (void) doSuccess:(NSString *)html
-{
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)])
+    if (loaderInfo.incorrectLogin)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
+    //userTitle
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<h3>(.+)</h3>" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userTitle = buf;
+        }
+    }
+    
+    //userPlan
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план: <strong>(.+)</strong>" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userPlan = buf;
+        }
+    }
+    
+    //balance
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<span id=\"customer-info-balance\"><strong>(.+)</strong>" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }
+    }
+    
+    loaderInfo.extracted = [loaderInfo.userTitle length] > 0 && [loaderInfo.userPlan length] > 0 && [loaderInfo.userBalance length] > 0;
 }
-
 
 @end

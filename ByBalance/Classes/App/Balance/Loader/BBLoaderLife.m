@@ -10,6 +10,8 @@
 
 @implementation BBLoaderLife
 
+#pragma mark - Logic
+
 - (ASIFormDataRequest *) prepareRequest
 {
     //don't use other cookies
@@ -35,33 +37,92 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
-    {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, request.responseString, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
-    }
-    
-    [self markDone];
+    [self extractInfoFromHtml:request.responseString];
+    [self doFinish];
 }
 
-- (void) requestFailed:(ASIHTTPRequest *)request
+#pragma mark - Logic
+
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
+    NSString * buf = nil;
+    NSArray * arr = nil;
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)] )
+    //NSLog(@"%@", html);
+    
+    BOOL loggedIn = ([html rangeOfString:@"/Account.aspx/Logoff"].location != NSNotFound);
+    if (!loggedIn)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
+        //incorrect login/pass
+        loaderInfo.incorrectLogin = ([html rangeOfString:@"errorMessage"].location != NSNotFound);
+        //NSLog(@"incorrectLogin: %d", incorrectLogin);
         
-        [self.delegate balanceLoaderFail:info];
+        if (loaderInfo.incorrectLogin)
+        {
+            loaderInfo.extracted = NO;
+            return;
+        }
     }
     
-    [self markDone];
+    
+    //userTitle
+    /*
+     <div class="divBold">Фамилия:</div>
+     <div>
+     */
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Фамилия:\\s*</div>\\s*<div>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userTitle = [buf stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
+    }
+    //NSLog(@"userTitle: %@", loaderInfo.userTitle);
+    
+    //userPlan
+    /*
+     <div class="divBold">
+     Тарифный план:
+     </div>
+     <div>
+     */
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:\\s*</div>\\s*<div>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userPlan = [buf stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
+    }
+    //NSLog(@"userPlan: %@", loaderInfo.userPlan);
+    
+    //balance
+    /*
+     <div class="divBold">
+     Текущий основной баланс: *
+     </div>
+     <div>
+     7 500,00р.
+     </div>
+     */
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий основной баланс: \\*\\s*</div>\\s*<div>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            //self.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            loaderInfo.userBalance = [buf stringByReplacingRegexPattern:@"[^0-9.,]" withString:@""];
+        }
+    }
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = [loaderInfo.userPlan length] > 0 && [loaderInfo.userBalance length] > 0;
 }
 
 @end

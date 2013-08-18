@@ -23,6 +23,7 @@ NSString * const kAppEmailRegexp = @"^([\\w\\-\\.]+)@((\\[([0-9]{1,3}\\.){3}[0-9
 //
 NSString * const kDictKeyAccount = @"account";
 NSString * const kDictKeyBaseItem = @"baseItem";
+NSString * const kDictKeyLoaderInfo = @"loaderInfo";
 NSString * const kDictKeyHtml = @"html";
 
 #pragma mark - Notifications

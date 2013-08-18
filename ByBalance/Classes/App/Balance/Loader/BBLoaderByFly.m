@@ -13,9 +13,6 @@
 
 @property (strong, readwrite) AFHTTPClient * httpClient;
 
-- (void) doFail;
-- (void) doSuccess:(NSString *)html;
-
 @end
 
 @implementation BBLoaderByFly
@@ -29,12 +26,12 @@
     [super dealloc];
 }
 
+#pragma mark - Logic
 
 - (BOOL) isAFNetworking
 {
     return YES;
 }
-
 
 - (void) startAFNetworking
 {
@@ -62,7 +59,7 @@
         //cgi.exe?function=is_account
         if ([response1 rangeOfString:@"cgi.exe?function=is_account"].location == NSNotFound)
         {
-            [self doFail];
+            [self doFinish];
         }
         else
         {
@@ -71,45 +68,45 @@
                 NSString *response2 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
                 //NSLog(@"Response2:\n%@", response2);
                 
-                [self doSuccess:response2];
+                [self extractInfoFromHtml:response2];
+                [self doFinish];
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 
-                [self doFail];
+                [self doFinish];
             }];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         //NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
-        [self doFail];
+        [self doFinish];
     }];
 }
 
-- (void) doFail
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)])
-    {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
-    }
+    NSString * buf = nil;
+    NSArray * arr = nil;
     
-    [self markDone];
-}
-
-- (void) doSuccess:(NSString *)html
-{
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)])
-    {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
-    }
+    //NSLog(@"%@", html);
     
-    [self markDone];
+    //balance
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Актуальный баланс:</td>\\s*<td class=light width=\"50%\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            buf = [buf stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
+            buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+            loaderInfo.userBalance = buf;
+        }
+    }
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
 }
 
 @end

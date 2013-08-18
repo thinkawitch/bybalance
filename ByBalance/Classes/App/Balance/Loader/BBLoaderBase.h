@@ -15,6 +15,7 @@
 @protected
     BBMAccount * account;
     id <BBLoaderDelegate> delegate;
+    BBLoaderInfo * loaderInfo;
     
     BOOL loaderExecuting;
     BOOL loaderFinished;
@@ -22,6 +23,7 @@
 
 @property (nonatomic,retain) BBMAccount * account;
 @property (nonatomic,assign) id <BBLoaderDelegate> delegate;
+@property (nonatomic,retain) BBLoaderInfo * loaderInfo;
 
 
 // NSOperation
@@ -41,4 +43,8 @@
 //
 - (BOOL) isAFNetworking;
 - (void) startAFNetworking;
+
+//
+- (void) extractInfoFromHtml:(NSString *)html;
+- (void) doFinish;
 @end

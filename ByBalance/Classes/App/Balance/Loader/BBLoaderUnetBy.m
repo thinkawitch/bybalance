@@ -17,15 +17,22 @@
 
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
-- (void) onStep3:(NSString *)html;
-
-- (void) doFail;
-- (void) doSuccess:(NSString *)html;
 
 @end
 
 
 @implementation BBLoaderUnetBy
+
+#pragma mark - ObjectLife
+
+- (void) dealloc
+{
+    self.sessionId = nil;
+    
+    [super dealloc];
+}
+
+#pragma mark - Logic
 
 - (ASIFormDataRequest *) prepareRequest
 {
@@ -46,27 +53,9 @@
 
 #pragma mark - ASIHTTPRequestDelegate
 
-- (void)requestStarted:(ASIHTTPRequest *)request
-{
-    //NSLog(@"%@.requestStarted", [self class]);
-    //NSLog(@"url: %@", request.url);
-    
-    /*
-     for (NSString * name in request.requestHeaders)
-     {
-     NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
-     }
-     
-     for (NSString * name in request.requestCookies)
-     {
-     NSLog(@"[cookie] %@", name);
-     }
-     */
-}
-
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
     
@@ -90,22 +79,10 @@
     {
         [self onStep2:html];
     }
-    else if ([step isEqualToString:@"3"])
-    {
-        [self onStep3:html];
-    }
     else
     {
-        [self doFail];
+        [self doFinish];
     }
-}
-
-- (void) requestFailed:(ASIHTTPRequest *)request
-{
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
-    
-    [self doFail];
 }
 
 
@@ -113,8 +90,8 @@
 
 - (void) onStep1:(NSString *)html
 {
-    NSLog(@"BBLoaderUnetBy.onStep1");
-    NSLog(@"%@", html);
+    //NSLog(@"BBLoaderUnetBy.onStep1");
+    //NSLog(@"%@", html);
     
     NSError * error = nil;
     NSDictionary * dict = [XMLReader dictionaryForXMLString:html
@@ -124,33 +101,33 @@
     //NSLog(@"%@", dict);
     if (error || !dict)
     {
-        [self doFail];
+        [self doFinish];
         return;
     }
     
     NSDictionary * nodeResp = [dict objectForKey:@"res"];
     if (!nodeResp)
     {
-        [self doFail];
+        [self doFinish];
         return;
     }
     
     nodeResp = [nodeResp objectForKey:@"tag"];
     if (!nodeResp)
     {
-        [self doFail];
+        [self doFinish];
         return;
     }
     
     NSString  * session = [nodeResp objectForKey:@"session"];
     if (!session || [session length] < 1)
     {
-        [self doFail];
+        [self doFinish];
         return;
     }
     
     self.sessionId = session;
-    NSLog(@"session: %@", self.sessionId);
+    //NSLog(@"session: %@", self.sessionId);
     
     NSString * infoUrl = [NSString stringWithFormat:@"https://my.unet.by/api/info?api_key=%@&sid=%@", UNET_KEY, self.sessionId];
     
@@ -166,44 +143,68 @@
 
 - (void) onStep2:(NSString *)html
 {
-    NSLog(@"BBLoaderUnetBy.onStep2");
+    //NSLog(@"BBLoaderUnetBy.onStep2");
     //NSLog(@"%@", html);
     
-    [self doSuccess:html];
+    [self extractInfoFromHtml:html];
+    [self doFinish];
 }
 
-- (void) onStep3:(NSString *)html
+
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    NSLog(@"BBLoaderUnetBy.onStep3");
     //NSLog(@"%@", html);
-    
-    [self doSuccess:html];
-}
-
-- (void) doFail
-{
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)])
+    if (!html)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
-}
-
-- (void) doSuccess:(NSString *)html
-{
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)])
+    NSError * error = nil;
+    NSDictionary * dict = [XMLReader dictionaryForXMLString:html
+                                                    options:XMLReaderOptionsProcessNamespaces
+                                                      error:&error];
+    
+    //NSLog(@"%@", dict);
+    if (error || !dict)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
+    
+    NSDictionary * nodeResp = [dict objectForKey:@"res"];
+    if (!nodeResp)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSDictionary * nodeTag = [nodeResp objectForKey:@"tag"];
+    if (!nodeTag)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSDictionary * nodeDeposit = [nodeTag objectForKey:@"deposit"];
+    if (!nodeDeposit)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSString * textBalance = [nodeDeposit objectForKey:@"text"];
+    if (!textBalance)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    loaderInfo.userBalance = textBalance;
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = YES;
 }
 
 

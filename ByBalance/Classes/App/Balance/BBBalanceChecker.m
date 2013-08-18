@@ -149,63 +149,28 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
 
 #pragma mark - BBLoaderDelegate
 
-- (void) balanceLoaderSuccess:(NSDictionary *)info
+- (void) balanceLoaderDone:(NSDictionary *)info
 {
     @synchronized (syncFlag1)
 	{
-        NSLog(@"BBBalanceChecker.balanceLoaderSuccess");
+        NSLog(@"balanceLoaderDone");
         
         BBMAccount * account = [info objectForKey:kDictKeyAccount];
-        BBBaseItem * baseItem = account.basicItem;
-        NSString * html = [info objectForKey:kDictKeyHtml];
+        BBLoaderInfo * loaderInfo = [info objectForKey:kDictKeyLoaderInfo];
         
-        if (!account || !baseItem || !html) return;
-        
-        //find data
-        [baseItem extractFromHtml:html];
+        if (!account || !loaderInfo) return;
         
         //save history
         BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
         bh.date = [NSDate date];
-        bh.balance = [NSDecimalNumber decimalNumberWithString: baseItem.userBalance];
-        bh.extracted = [NSNumber numberWithBool:baseItem.extracted];
-        bh.incorrectLogin = [NSNumber numberWithBool:baseItem.incorrectLogin];
+        bh.balance = [NSDecimalNumber decimalNumberWithString: loaderInfo.userBalance];
+        bh.extracted = [NSNumber numberWithBool:loaderInfo.extracted];
+        bh.incorrectLogin = [NSNumber numberWithBool:loaderInfo.incorrectLogin];
         bh.account = account;
         
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceChecked object:self userInfo:info];
-        
-        if (queue.operationCount <= 1)
-        {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStop object:self userInfo:nil];
-        }
-    }
-}
-
-- (void) balanceLoaderFail:(NSDictionary *)info
-{
-    @synchronized (syncFlag2)
-	{
-        NSLog(@"BBBalanceChecker.balanceLoaderFail");
-        
-        BBMAccount * account = [info objectForKey:kDictKeyAccount];
-        
-        if (!account) return;
-        
-        //save history
-        BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
-        bh.date = [NSDate date];
-        bh.balance = [NSDecimalNumber decimalNumberWithString: @"0.0"];
-        bh.extracted = [NSNumber numberWithBool:NO];
-        bh.incorrectLogin = [NSNumber numberWithBool:NO];
-        bh.account = account;
-        
-        [APP_CONTEXT saveDatabase];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceChecked object:self userInfo:info];
-        
-        NSLog(@"operationCount: %d", queue.operationCount);
         
         if (queue.operationCount <= 1)
         {

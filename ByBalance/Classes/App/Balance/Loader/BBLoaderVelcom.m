@@ -16,9 +16,6 @@
 - (void) onStep2:(NSString *)html;
 - (void) onStep3:(NSString *)html;
 
-- (void) doFail;
-- (void) doSuccess:(NSString *)html;
-
 @end
 
 
@@ -34,6 +31,8 @@
     
     [super dealloc];
 }
+
+#pragma mark - Logic
 
 - (ASIFormDataRequest *) prepareRequest
 {
@@ -57,27 +56,9 @@
 
 #pragma mark - ASIHTTPRequestDelegate
 
-- (void)requestStarted:(ASIHTTPRequest *)request
-{
-    NSLog(@"%@.requestStarted", [self class]);
-    NSLog(@"url: %@", request.url);
-    
-    /*
-    for (NSString * name in request.requestHeaders)
-    {
-        NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
-    }
-    
-    for (NSString * name in request.requestCookies)
-    {
-        NSLog(@"[cookie] %@", name);
-    }
-    */
-}
-
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
     
@@ -108,23 +89,15 @@
     }
     else
     {
-        [self doFail];
+        [self doFinish];
     }
-}
-
-- (void) requestFailed:(ASIHTTPRequest *)request
-{
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
-    
-    [self doFail];
 }
 
 #pragma mark - Logic
 
 - (void) onStep1:(NSString *)html
 {
-    NSLog(@"BBLoaderVelcom.onStep1");
+    //NSLog(@"BBLoaderVelcom.onStep1");
     //NSLog(@"%@", html);
     
     NSString * buf = nil;
@@ -141,11 +114,11 @@
         }
     }
     
-    NSLog(@"sessionId: %@", self.sessionId);
+    //NSLog(@"sessionId: %@", self.sessionId);
     
     if (!self.sessionId)
     {
-        [self doFail];
+        [self doFinish];
         return;
     }
     
@@ -182,7 +155,7 @@
 
 - (void) onStep2:(NSString *)html
 {
-    NSLog(@"BBLoaderVelcom.onStep2");
+    //NSLog(@"BBLoaderVelcom.onStep2");
     //NSLog(@"%@", html);
     
     NSString * menuMarker = @"";
@@ -205,7 +178,8 @@
     if (!loggedIn)
     {
         //maybe login problem
-        [self doSuccess:html];
+        loaderInfo.incorrectLogin = YES;
+        [self doFinish];
         return;
     }
     
@@ -228,42 +202,118 @@
     
     //start request
     [request startAsynchronous];
-
 }
 
 
 - (void) onStep3:(NSString *)html
 {
-    NSLog(@"BBLoaderVelcom.onStep3");
+    //NSLog(@"BBLoaderVelcom.onStep3");
     //NSLog(@"%@", html);
-    
-    [self doSuccess:html];
+    [self extractInfoFromHtml:html];
+    [self doFinish];
 }
 
-- (void) doFail
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)])
+    NSString * buf = nil;
+    NSArray * arr = nil;
+    
+    NSString * menuMarker = @"";
+    NSString * menuMarker1 = @"_root/USER_INFO";
+    NSString * menuMarker2 = @"_root/MENU0";
+    
+    BOOL loggedIn = false;
+    //check if we logged in
+    if ([html rangeOfString:menuMarker1].location != NSNotFound)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        menuMarker = menuMarker1;
+        loggedIn = YES;
+    }
+    else if ([html rangeOfString:menuMarker2].location != NSNotFound)
+    {
+        menuMarker = menuMarker2;
+        loggedIn = YES;
     }
     
-    [self markDone];
-}
-
-- (void) doSuccess:(NSString *)html
-{
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)])
+    if (!loggedIn)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
+        //incorrect login/pass
+        loaderInfo.incorrectLogin = ([html rangeOfString:@"INFO_Error_caption"].location != NSNotFound);
+        //NSLog(@"incorrectLogin: %d", incorrectLogin);
         
-        [self.delegate balanceLoaderSuccess:info];
+        if (loaderInfo.incorrectLogin)
+        {
+            loaderInfo.extracted = NO;
+            return;
+        }
     }
     
-    [self markDone];
+    
+    //userTitle
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"ФИО:</td><td class=\"INFO\">([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userTitle = buf;
+        }
+    }
+    //NSLog(@"userTitle: %@", loaderInfo.userTitle);
+    
+    //userPlan
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:\\s*</td><td class=\"INFO\"[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userPlan = buf;
+        }
+    }
+    //NSLog(@"userPlan: %@", loaderInfo.userPlan);
+    
+    //balance 1
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }
+    }
+    
+    if (!loaderInfo.userBalance || [loaderInfo.userBalance length] < 1)
+    {
+        //balance 2
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+        if (arr && [arr count] == 1)
+        {
+            buf = [arr objectAtIndex:0];
+            if (nil != buf && [buf length] > 0)
+            {
+                loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            }
+        }
+    }
+    
+    if (!loaderInfo.userBalance || [loaderInfo.userBalance length] < 1)
+    {
+        //balance 3
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+        if (arr && [arr count] == 1)
+        {
+            buf = [arr objectAtIndex:0];
+            if (nil != buf && [buf length] > 0)
+            {
+                loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            }
+        }
+    }
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = [loaderInfo.userPlan length] > 0 && [loaderInfo.userBalance length] > 0;
 }
 
 @end

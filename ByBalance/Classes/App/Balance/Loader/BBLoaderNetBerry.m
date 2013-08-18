@@ -13,19 +13,11 @@
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
 
-- (void) doFail;
-- (void) doSuccess:(NSString *)html;
-
 @end
 
 @implementation BBLoaderNetBerry
 
-#pragma mark - ObjectLife
-
-- (void) dealloc
-{
-    [super dealloc];
-}
+#pragma mark - Logic
 
 - (ASIFormDataRequest *) prepareRequest
 {
@@ -54,27 +46,9 @@
 
 #pragma mark - ASIHTTPRequestDelegate
 
-- (void)requestStarted:(ASIHTTPRequest *)request
-{
-    //NSLog(@"%@.requestStarted", [self class]);
-    //NSLog(@"url: %@", request.url);
-    
-    /*
-     for (NSString * name in request.requestHeaders)
-     {
-     NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
-     }
-     
-     for (NSString * name in request.requestCookies)
-     {
-     NSLog(@"[cookie] %@", name);
-     }
-     */
-}
-
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
     
@@ -90,7 +64,6 @@
         html = request.responseString;
     }
     
-    
     if ([step isEqualToString:@"1"])
     {
         [self onStep1:html];
@@ -101,37 +74,29 @@
     }
     else
     {
-        [self doFail];
+        [self doFinish];
     }
 }
-
-- (void) requestFailed:(ASIHTTPRequest *)request
-{
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
-    
-    [self doFail];
-}
-
 
 #pragma mark - Logic
 
 - (void) onStep1:(NSString *)html
 {
-    NSLog(@"BBLoaderNetBerry.onStep1");
+    //NSLog(@"BBLoaderNetBerry.onStep1");
     //NSLog(@"%@", html);
     
     //Ошибка при авторизации
     if ([html rangeOfString:@"Ошибка при авторизации"].location != NSNotFound)
     {
-        [self doSuccess:html];
+        loaderInfo.incorrectLogin = YES;
+        [self doFinish];
         return;
     }
     
     //ссылка на страницу баланса
     if ([html rangeOfString:@"?action=ShowBalance&mid=contract"].location == NSNotFound)
     {
-        [self doFail];
+        [self doFinish];
         return;
     }
     
@@ -154,36 +119,50 @@
 
 - (void) onStep2:(NSString *)html
 {
-    NSLog(@"BBLoaderNetBerry.onStep2");
+    //NSLog(@"BBLoaderNetBerry.onStep2");
     //NSLog(@"%@", html);
     
-    [self doSuccess:html];
+    [self extractInfoFromHtml:html];
+    [self doFinish];
 }
 
-- (void) doFail
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)])
+    if (!html)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
-}
-
-- (void) doSuccess:(NSString *)html
-{
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)])
+    //incorrect login/pass
+    if ([html rangeOfString:@"Ошибка при авторизации"].location != NSNotFound)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, html, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
+        loaderInfo.incorrectLogin = YES;
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
+    NSString * buf = nil;
+    NSArray * arr = nil;
+    
+    //balance
+    // <th>Исходящий остаток на конец месяца</th><td>22 539.06</td>
+    
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Исходящий остаток на конец месяца</th>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
+            loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
+            
+        }
+    }
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
 }
 
 @end

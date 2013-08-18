@@ -10,6 +10,8 @@
 
 @implementation BBLoaderNiks
 
+#pragma mark - Logic
+
 - (ASIFormDataRequest *) prepareRequest
 {
     //don't use other cookies
@@ -33,33 +35,76 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderSuccess:)] )
-    {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, request.responseString, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyHtml, nil]];
-        
-        [self.delegate balanceLoaderSuccess:info];
-    }
-    
-    [self markDone];
+    [self extractInfoFromHtml:request.responseString];
+    [self doFinish];
 }
 
-- (void) requestFailed:(ASIHTTPRequest *)request
+#pragma mark - Logic
+
+- (void) extractInfoFromHtml:(NSString *)html
 {
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
+    //NSLog(@"%@", html);
     
-    if ([self.delegate respondsToSelector:@selector(balanceLoaderFail:)] )
+    if (!html)
     {
-        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:account, nil]
-                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, nil]];
-        
-        [self.delegate balanceLoaderFail:info];
+        loaderInfo.extracted = NO;
+        return;
     }
     
-    [self markDone];
+    //incorrect login/pass
+    loaderInfo.incorrectLogin = ([html rangeOfString:@"id=\"MessageLabel\""].location != NSNotFound);
+    //NSLog(@"incorrectLogin: %d", incorrectLogin);
+    if (loaderInfo.incorrectLogin)
+    {
+        loaderInfo.extracted = NO;
+        return;
+    }
+    
+    NSString * buf = nil;
+    NSArray * arr = nil;
+    
+    //userTitle
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Имя:</td>\\s+<td class=\"bgTableGray2\" width=\"50%\" align=\"left\">([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userTitle = buf;
+        }
+    }
+    //NSLog(@"userTitle: %@", loaderInfo.userTitle);
+    
+    //userPlan
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:</td>\\s*<td class=\"bgTableGray2\" width=\"50%\" align=\"left\">\\s*<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\">\\s*<tr>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userPlan = buf;
+        }
+    }
+    //NSLog(@"userPlan: %@", loaderInfo.userPlan);
+    
+    //test balance value
+    //html = [html stringByReplacingOccurrencesOfString:@"<b>0</b>" withString:@"<b>10 942</b>"];
+    
+    //balance
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Баланс:</td>\\s*<td class=\"bgTableWhite2\" width=\"50%\" align=\"left\">\\s*<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\">\\s*<tr>\\s*<td nowrap><font color=red><b>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        buf = [arr objectAtIndex:0];
+        if (nil != buf && [buf length] > 0)
+        {
+            loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }
+    }
+    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    
+    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
 }
 
 @end

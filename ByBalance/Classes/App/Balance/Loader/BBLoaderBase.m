@@ -17,12 +17,25 @@
 
 @synthesize account;
 @synthesize delegate;
+@synthesize loaderInfo;
 
 #pragma mark - ObjectLife
+
+- (id) init
+{
+	self = [super init];
+	if (self)
+	{
+        self.loaderInfo = [[BBLoaderInfo new] autorelease];
+	}
+	
+	return self;
+}
 
 - (void) dealloc
 {
     self.account = nil;
+    self.loaderInfo = nil;
     
     [super dealloc];
 }
@@ -39,12 +52,6 @@
     }
     
     NSLog(@"%@.start %@ %@", [self class], account.type.name, account.username);
-    
-    if (!account.basicItem)
-    {
-        [self markDone];
-        return;
-    }
     
     if (self.isAFNetworking)
     {
@@ -124,7 +131,7 @@
     ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL: anUrl];
     
     request.timeOutSeconds = 12.f;
-    request.userAgentString = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0";
+    request.userAgentString = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0";
     request.delegate = self;
     
     //add some parameters, common for all requests
@@ -147,24 +154,46 @@
     //base, do nothing
 }
 
+- (void) extractInfoFromHtml:(NSString *)html
+{
+    //base, do nothing
+}
+
+- (void) doFinish
+{
+    if ([self.delegate respondsToSelector:@selector(balanceLoaderDone:)])
+    {
+        NSDictionary * info = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:self.account, self.loaderInfo, nil]
+                                                          forKeys:[NSArray arrayWithObjects:kDictKeyAccount, kDictKeyLoaderInfo, nil]];
+        
+        [self.delegate balanceLoaderDone:info];
+    }
+    
+    NSLog(@"%@ %@", self.account.type.name, [self.loaderInfo fullDescription]);
+    
+    [self markDone];
+}
+
 #pragma mark - ASIHTTPRequestDelegate
 
 - (void)requestStarted:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestStarted", [self class]);
-    NSLog(@"url: %@", request.url);
+    //NSLog(@"%@.requestStarted", [self class]);
+    //NSLog(@"url: %@", request.url);
 }
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFinished", [self class]);
+    //NSLog(@"%@.requestFinished", [self class]);
     //NSLog(@"%@", request.responseString);
 }
 
 - (void) requestFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"%@.requestFailed" , [self class]);
-    NSLog(@"%@", [request error]);
+    //NSLog(@"%@.requestFailed" , [self class]);
+    //NSLog(@"%@", [request error]);
+    
+    [self doFinish];
 }
 
 

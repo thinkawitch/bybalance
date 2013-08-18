@@ -115,7 +115,7 @@
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIEditable">NO</bool>
-						<string key="IBUIText">Определение баланса счетов сотовых операторов и интернет провайдеров Республики Беларусь.</string>
+						<string key="IBUIText">Проверка баланса счетов сотовых операторов и интернет провайдеров Республики Беларусь.</string>
 						<object class="NSColor" key="IBUITextColor" id="139123197">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
@@ -259,9 +259,9 @@ gdC10YLRjCAoaW5mb2xhbi5ieSksIFVORVQuQlk</string>
 						<array class="NSMutableArray" key="children">
 							<reference ref="6280636"/>
 							<reference ref="372467753"/>
-							<reference ref="829060020"/>
 							<reference ref="890190026"/>
 							<reference ref="532803111"/>
+							<reference ref="829060020"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>

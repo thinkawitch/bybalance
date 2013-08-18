@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class BBLoaderBase;
-
 @protocol BBLoaderDelegate <NSObject>
 
 @required
-- (void) balanceLoaderSuccess:(NSDictionary *)info;
-- (void) balanceLoaderFail:(NSDictionary *)info;
+- (void) balanceLoaderDone:(NSDictionary *)info;
+
 @end
 

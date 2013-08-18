@@ -41,6 +41,7 @@ typedef enum
 //
 extern NSString * const kDictKeyAccount;
 extern NSString * const kDictKeyBaseItem;
+extern NSString * const kDictKeyLoaderInfo;
 extern NSString * const kDictKeyHtml;
 
 #pragma mark - Notifications
