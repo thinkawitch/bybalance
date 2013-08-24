@@ -132,6 +132,7 @@
 		CED8CABE17C11ED400EFDF62 /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CED8CABC17C11ED400EFDF62 /* libGoogleAnalytics_debug.a */; };
 		CEDB129215F26CD800213052 /* BBBalanceHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEDB129115F26CD800213052 /* BBBalanceHistoryCell.xib */; };
 		CEDB129515F26D9400213052 /* BBBalanceHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB129415F26D9400213052 /* BBBalanceHistoryCell.m */; };
+		CEEB324417C90F8A009366D5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CEEB324317C90F8A009366D5 /* Settings.bundle */; };
 		CEF4D5BC17929DC6004E60B1 /* BBLoaderUnetBy.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF4D5BB17929DC6004E60B1 /* BBLoaderUnetBy.m */; };
 /* End PBXBuildFile section */
 
@@ -374,6 +375,7 @@
 		CEDB129115F26CD800213052 /* BBBalanceHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBBalanceHistoryCell.xib; sourceTree = "<group>"; };
 		CEDB129315F26D9300213052 /* BBBalanceHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceHistoryCell.h; sourceTree = "<group>"; };
 		CEDB129415F26D9400213052 /* BBBalanceHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBalanceHistoryCell.m; sourceTree = "<group>"; };
+		CEEB324317C90F8A009366D5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CEF4D5BA17929DC6004E60B1 /* BBLoaderUnetBy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderUnetBy.h; sourceTree = "<group>"; };
 		CEF4D5BB17929DC6004E60B1 /* BBLoaderUnetBy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderUnetBy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -443,6 +445,7 @@
 				CE0524C1158E027C00FB6CDF /* Classes */,
 				CE0524CA158E02E700FB6CDF /* Resources */,
 				CE0524AB158E01FE00FB6CDF /* Supporting Files */,
+				CEEB324317C90F8A009366D5 /* Settings.bundle */,
 			);
 			path = ByBalance;
 			sourceTree = "<group>";
@@ -1070,6 +1073,7 @@
 				CE67DBAC175B6C3300EDC24D /* BBAboutCell.xib in Resources */,
 				CE4A1791175BDACC0076AF3A /* reorder.png in Resources */,
 				CE4A1792175BDACC0076AF3A /* reorder@2x.png in Resources */,
+				CEEB324417C90F8A009366D5 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

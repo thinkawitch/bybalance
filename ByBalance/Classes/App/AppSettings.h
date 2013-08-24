@@ -14,10 +14,12 @@
 @private
     NSString * appId;
     NSNumber * build;
+    BOOL autoCheck;
 }
 
 @property (nonatomic, retain) NSString * appId;
 @property (nonatomic, retain) NSNumber * build;
+@property (nonatomic, assign) BOOL autoCheck;
 
 + (AppSettings *) sharedAppSettings;
 
