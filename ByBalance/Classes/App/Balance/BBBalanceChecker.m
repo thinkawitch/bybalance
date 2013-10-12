@@ -17,7 +17,7 @@
 
 @implementation BBBalanceChecker
 
-SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker);
+SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 
 - (void) start
 {
