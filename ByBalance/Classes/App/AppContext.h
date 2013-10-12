@@ -3,7 +3,7 @@
 //  ByBalance
 //
 //  Created by Andrew Sinkevitch on 15.06.12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
 @class Reachability;
@@ -27,7 +27,6 @@
 - (void) startContext;
 - (void) stopContext;
 //
-- (void) setupDatabase;
 - (void) saveDatabase;
 
 // Helper - navigation bar:

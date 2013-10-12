@@ -23,7 +23,7 @@
 @synthesize build;
 @synthesize autoCheck;
 
-SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings);
+SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 
 #pragma mark - ObjectLife
 

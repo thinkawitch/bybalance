@@ -13,14 +13,13 @@
 #import "AFNetworking.h"
 
 @interface AppContext ()
-
+- (void) setupDatabase;
 - (void) reachabilityChanged:(NSNotification *)note;
-
 @end
 
 @implementation AppContext
 
-SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
+SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 
 @synthesize isOnline;
 
@@ -30,7 +29,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
 - (void) startContext
 {
     //reachabilityWithHostName: api server 
-	reachability = [[Reachability reachabilityWithHostName:@"google.com"] retain];
+	reachability = [Reachability reachabilityWithHostName:@"google.com"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 	[reachability startNotifier];
     
@@ -51,17 +50,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext);
 
 - (void) stopContext
 {
-	
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil]
+    
+    [MagicalRecord cleanUp];
+    
 	[reachability stopNotifier];
-	[reachability release];
 	reachability = nil;
 }
 
 - (void) setupDatabase
 {
     //[ActiveRecordHelpers setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"version1.sqlite"];
-    [MagicalRecordHelpers setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"version1.sqlite"];
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"version1.sqlite"];
     
     //test cascade delete
     //[user deleteEntity];
