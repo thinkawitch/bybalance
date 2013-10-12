@@ -10,7 +10,7 @@
 
 @interface BBLoaderVelcom ()
 
-@property (strong, readwrite) NSString * sessionId;
+@property (nonatomic,strong) NSString * sessionId;
 
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
@@ -23,19 +23,12 @@
 
 @synthesize sessionId;
 
-#pragma mark - ObjectLife
-
-- (void) dealloc
-{
-    self.sessionId = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark - Logic
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -52,12 +45,16 @@
     self.sessionId = nil;
     
     return request;
+    */
+    
+    return nil;
 }
 
 #pragma mark - ASIHTTPRequestDelegate
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
@@ -91,6 +88,7 @@
     {
         [self doFinish];
     }
+     */
 }
 
 #pragma mark - Logic
@@ -121,7 +119,7 @@
         [self doFinish];
         return;
     }
-    
+    /*
     NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/work.html"];
     ASIFormDataRequest * request = [self requestWithURL:url];
     [request setRequestMethod:@"POST"];
@@ -151,6 +149,7 @@
     
     //start request
     [request startAsynchronous];
+     */
 }
 
 - (void) onStep2:(NSString *)html
@@ -178,11 +177,11 @@
     if (!loggedIn)
     {
         //maybe login problem
-        loaderInfo.incorrectLogin = YES;
+        self.loaderInfo.incorrectLogin = YES;
         [self doFinish];
         return;
     }
-    
+    /*
     NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/work.html"];
     ASIFormDataRequest * request = [self requestWithURL:url];
     [request setRequestMethod:@"POST"];
@@ -202,6 +201,7 @@
     
     //start request
     [request startAsynchronous];
+     */
 }
 
 
@@ -238,12 +238,12 @@
     if (!loggedIn)
     {
         //incorrect login/pass
-        loaderInfo.incorrectLogin = ([html rangeOfString:@"INFO_Error_caption"].location != NSNotFound);
+        self.loaderInfo.incorrectLogin = ([html rangeOfString:@"INFO_Error_caption"].location != NSNotFound);
         //NSLog(@"incorrectLogin: %d", incorrectLogin);
         
-        if (loaderInfo.incorrectLogin)
+        if (self.loaderInfo.incorrectLogin)
         {
-            loaderInfo.extracted = NO;
+            self.loaderInfo.extracted = NO;
             return;
         }
     }
@@ -256,7 +256,7 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userTitle = buf;
+            self.loaderInfo.userTitle = buf;
         }
     }
     //NSLog(@"userTitle: %@", loaderInfo.userTitle);
@@ -268,7 +268,7 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userPlan = buf;
+            self.loaderInfo.userPlan = buf;
         }
     }
     //NSLog(@"userPlan: %@", loaderInfo.userPlan);
@@ -280,11 +280,11 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
         }
     }
     
-    if (!loaderInfo.userBalance || [loaderInfo.userBalance length] < 1)
+    if (!self.loaderInfo.userBalance || [self.loaderInfo.userBalance length] < 1)
     {
         //balance 2
         arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -293,12 +293,12 @@
             buf = [arr objectAtIndex:0];
             if (nil != buf && [buf length] > 0)
             {
-                loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+                self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
             }
         }
     }
     
-    if (!loaderInfo.userBalance || [loaderInfo.userBalance length] < 1)
+    if (!self.loaderInfo.userBalance || [self.loaderInfo.userBalance length] < 1)
     {
         //balance 3
         arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -307,13 +307,13 @@
             buf = [arr objectAtIndex:0];
             if (nil != buf && [buf length] > 0)
             {
-                loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+                self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
             }
         }
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    loaderInfo.extracted = [loaderInfo.userPlan length] > 0 && [loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = [self.loaderInfo.userPlan length] > 0 && [self.loaderInfo.userBalance length] > 0;
 }
 
 @end

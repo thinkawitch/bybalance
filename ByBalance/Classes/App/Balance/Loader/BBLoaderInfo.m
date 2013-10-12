@@ -16,7 +16,6 @@
 @synthesize userPlan;
 @synthesize userBalance;
 
-
 #pragma mark - ObjectLife
 
 - (id) init
@@ -33,16 +32,6 @@
 	
 	return self;
 }
-
-- (void) dealloc
-{
-    self.userTitle = nil;
-    self.userPlan = nil;
-    self.userBalance = nil;
-    
-    [super dealloc];
-}
-
 
 #pragma mark - Logic
 

@@ -7,13 +7,12 @@
 //
 
 #import "BBLoaderUnetBy.h"
-#import "XMLReader.h"
 
 #define UNET_KEY @"dce5ff68a9094f749cd73cfc794cdd45"
 
 @interface BBLoaderUnetBy()
 
-@property (strong, readwrite) NSString * sessionId;
+@property (nonatomic,strong) NSString * sessionId;
 
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
@@ -23,19 +22,13 @@
 
 @implementation BBLoaderUnetBy
 
-#pragma mark - ObjectLife
-
-- (void) dealloc
-{
-    self.sessionId = nil;
-    
-    [super dealloc];
-}
+@synthesize  sessionId;
 
 #pragma mark - Logic
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -49,12 +42,16 @@
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
     return request;
+     */
+    
+    return nil;
 }
 
 #pragma mark - ASIHTTPRequestDelegate
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
@@ -83,6 +80,7 @@
     {
         [self doFinish];
     }
+     */
 }
 
 
@@ -128,8 +126,9 @@
     
     self.sessionId = session;
     //NSLog(@"session: %@", self.sessionId);
-    
+    /*
     NSString * infoUrl = [NSString stringWithFormat:@"https://my.unet.by/api/info?api_key=%@&sid=%@", UNET_KEY, self.sessionId];
+    
     
     NSURL * url = [NSURL URLWithString:infoUrl];
     ASIFormDataRequest * request = [self requestWithURL:url];
@@ -139,6 +138,7 @@
     
     //start request
     [request startAsynchronous];
+     */
 }
 
 - (void) onStep2:(NSString *)html
@@ -156,7 +156,7 @@
     //NSLog(@"%@", html);
     if (!html)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -168,7 +168,7 @@
     //NSLog(@"%@", dict);
     if (error || !dict)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -176,35 +176,35 @@
     NSDictionary * nodeResp = [dict objectForKey:@"res"];
     if (!nodeResp)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSDictionary * nodeTag = [nodeResp objectForKey:@"tag"];
     if (!nodeTag)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSDictionary * nodeDeposit = [nodeTag objectForKey:@"deposit"];
     if (!nodeDeposit)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSString * textBalance = [nodeDeposit objectForKey:@"text"];
     if (!textBalance)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
-    loaderInfo.userBalance = textBalance;
+    self.loaderInfo.userBalance = textBalance;
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    loaderInfo.extracted = YES;
+    self.loaderInfo.extracted = YES;
 }
 
 

@@ -54,14 +54,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 }
 
 
-- (void) dealloc
-{
-    self.appId = nil;
-    self.build = nil;
-	
-	[super dealloc];
-}
-
 #pragma mark - Public
 
 - (void) loadData

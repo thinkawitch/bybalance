@@ -7,23 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ASIHTTPRequestDelegate.h"
-#import "ASIFormDataRequest.h"
+//#import "ASIHTTPRequestDelegate.h"
+//#import "ASIFormDataRequest.h"
+#import "BBAsiTemp.h"
 
 @interface BBLoaderBase : NSOperation <ASIHTTPRequestDelegate>
 {
-@protected
-    BBMAccount * account;
-    id <BBLoaderDelegate> delegate;
-    BBLoaderInfo * loaderInfo;
-    
     BOOL loaderExecuting;
     BOOL loaderFinished;
 }
 
-@property (nonatomic,retain) BBMAccount * account;
+@property (nonatomic,strong) BBMAccount * account;
+@property (nonatomic,strong) BBLoaderInfo * loaderInfo;
 @property (nonatomic,assign) id <BBLoaderDelegate> delegate;
-@property (nonatomic,retain) BBLoaderInfo * loaderInfo;
+
 
 
 // NSOperation
@@ -37,7 +34,7 @@
 - (void) markDone;
 
 //
-- (ASIFormDataRequest *) requestWithURL:(NSURL *)anUrl;
+- (ASIFormDataRequest *) requestWithURL:(NSURL *)url;
 - (ASIFormDataRequest *) prepareRequest;
 
 //

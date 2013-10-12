@@ -14,6 +14,7 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -29,16 +30,21 @@
     [request setPostValue:@"12" forKey:@"LoginImgBtn.y"];
 
     return request;
+     */
+    
+    return nil;
 }
 
 #pragma mark - ASIHTTPRequestDelegate
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     
     [self extractInfoFromHtml:request.responseString];
     [self doFinish];
+     */
 }
 
 #pragma mark - Logic
@@ -49,16 +55,16 @@
     
     if (!html)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     //incorrect login/pass
-    loaderInfo.incorrectLogin = ([html rangeOfString:@"id=\"MessageLabel\""].location != NSNotFound);
+    self.loaderInfo.incorrectLogin = ([html rangeOfString:@"id=\"MessageLabel\""].location != NSNotFound);
     //NSLog(@"incorrectLogin: %d", incorrectLogin);
-    if (loaderInfo.incorrectLogin)
+    if (self.loaderInfo.incorrectLogin)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -72,7 +78,7 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userTitle = buf;
+            self.loaderInfo.userTitle = buf;
         }
     }
     //NSLog(@"userTitle: %@", loaderInfo.userTitle);
@@ -84,7 +90,7 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userPlan = buf;
+            self.loaderInfo.userPlan = buf;
         }
     }
     //NSLog(@"userPlan: %@", loaderInfo.userPlan);
@@ -99,12 +105,12 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
         }
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = [self.loaderInfo.userBalance length] > 0;
 }
 
 @end

@@ -22,6 +22,7 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -38,6 +39,8 @@
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
     return request;
+     */
+    return nil;
 }
 
 
@@ -45,6 +48,7 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
@@ -67,6 +71,7 @@
     {
         [self doFinish];
     }
+     */
 }
 
 
@@ -95,18 +100,18 @@
     if (!redirect)
     {
         //авторизация не прошла
-        loaderInfo.incorrectLogin = YES;
+        self.loaderInfo.incorrectLogin = YES;
         [self doFinish];
         return;
     }
-    
+    /*
     NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://cosmostv.by%@", redirect]];
     ASIFormDataRequest * request = [self requestWithURL:url];
     request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
     [request startAsynchronous];
-    
+    */
 }
 
 - (void) onStep2:(NSString *)html
@@ -132,7 +137,7 @@
             
         }
     }
-    
+    /*
     if (num)
     {
         NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://cosmostv.by/json/subscribers/account/cabinet/?contract=%@", num]];
@@ -147,6 +152,7 @@
     {
         [self doFinish];
     }
+     */
     
 }
 
@@ -163,7 +169,7 @@
 {
     if (!html)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -175,7 +181,7 @@
     if (![jsonObject isKindOfClass:[NSDictionary class]])
     {
         //это не json
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -183,28 +189,28 @@
     NSArray * services = [dict objectForKey:@"services"];
     if (!services || [services count] < 1)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSDictionary * service1 = [services objectAtIndex:0];
     if (![service1 isKindOfClass:[NSDictionary class]])
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSString * pbalance = [service1 objectForKey:@"pbalance"];
     if (!pbalance)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:pbalance];
-    loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
+    self.loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
     
-    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = [self.loaderInfo.userBalance length] > 0;
 }
 
 @end

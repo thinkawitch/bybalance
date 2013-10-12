@@ -386,6 +386,8 @@ static iToastSettings *sharedSettings = nil;
 @synthesize bgAlpha;
 @synthesize images;
 @synthesize imageLocation;
+@synthesize offsetLeft;
+@synthesize offsetTop;
 
 - (void) setImage:(UIImage *) img withLocation:(iToastImageLocation)location forType:(iToastType) type {
 	if (type == iToastTypeNone) {

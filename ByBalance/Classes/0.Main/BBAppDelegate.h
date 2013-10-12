@@ -12,7 +12,6 @@
 
 @interface BBAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) IBOutlet UIWindow *window;
-@property (strong, nonatomic) IBOutlet BBViewController *viewController;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
 
 @end

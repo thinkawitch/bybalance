@@ -14,6 +14,7 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -31,16 +32,20 @@
     [request setPostValue:s2 forKey:@"Phone"];
     
     return request;
+     */
+    return nil;
 }
 
 #pragma mark - ASIHTTPRequestDelegate
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     
     [self extractInfoFromHtml:request.responseString];
     [self doFinish];
+     */
 }
 
 #pragma mark - Logic
@@ -56,12 +61,12 @@
     if (!loggedIn)
     {
         //incorrect login/pass
-        loaderInfo.incorrectLogin = ([html rangeOfString:@"errorMessage"].location != NSNotFound);
+        self.loaderInfo.incorrectLogin = ([html rangeOfString:@"errorMessage"].location != NSNotFound);
         //NSLog(@"incorrectLogin: %d", incorrectLogin);
         
-        if (loaderInfo.incorrectLogin)
+        if (self.loaderInfo.incorrectLogin)
         {
-            loaderInfo.extracted = NO;
+            self.loaderInfo.extracted = NO;
             return;
         }
     }
@@ -78,7 +83,7 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userTitle = [buf stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            self.loaderInfo.userTitle = [buf stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
     }
     //NSLog(@"userTitle: %@", loaderInfo.userTitle);
@@ -96,7 +101,7 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userPlan = [buf stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            self.loaderInfo.userPlan = [buf stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
     }
     //NSLog(@"userPlan: %@", loaderInfo.userPlan);
@@ -117,12 +122,12 @@
         if (nil != buf && [buf length] > 0)
         {
             //self.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-            loaderInfo.userBalance = [buf stringByReplacingRegexPattern:@"[^0-9.,]" withString:@""];
+            self.loaderInfo.userBalance = [buf stringByReplacingRegexPattern:@"[^0-9.,]" withString:@""];
         }
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    loaderInfo.extracted = [loaderInfo.userPlan length] > 0 && [loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = [self.loaderInfo.userPlan length] > 0 && [self.loaderInfo.userBalance length] > 0;
 }
 
 @end

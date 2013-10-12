@@ -10,7 +10,6 @@
 #import "Reachability.h"
 #import "iToast.h"
 #import <QuartzCore/QuartzCore.h>
-#import "AFNetworking.h"
 
 @interface AppContext ()
 - (void) setupDatabase;
@@ -44,14 +43,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     ts.duration = 3000;
     
     //
-    [ASIHTTPRequest setShouldUpdateNetworkActivityIndicator:YES];
+    //[ASIHTTPRequest setShouldUpdateNetworkActivityIndicator:YES];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 }
 
 - (void) stopContext
 {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil]
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     
     [MagicalRecord cleanUp];
     
@@ -154,7 +153,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 - (void) saveDatabase
 {
     //[[NSManagedObjectContext defaultContext] save];
-    [[NSManagedObjectContext MR_defaultContext] MR_save];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
 //
@@ -170,29 +169,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 	UIImage * img = [UIImage imageNamed:@"shared_btn_menu.png"];
 	UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
 	[btn setImage:img forState:UIControlStateNormal];
-	
-	UIBarButtonItem * btnBackItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-	[btn release];
-	
-	return [btnBackItem autorelease];
+
+	return [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (UIBarButtonItem *) addIconButton;
 {
 	UIButton * btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-	UIBarButtonItem * btnBackItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-	[btn release];
-
-	return [btnBackItem autorelease];
+	return [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (UIBarButtonItem *) infoIconButton;
 {
 	UIButton * btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-	UIBarButtonItem * btnBackItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-	[btn release];
-    
-	return [btnBackItem autorelease];
+	return [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (UIBarButtonItem *) buttonFromName:(NSString *) resourceName
@@ -203,10 +193,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 	UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
 	[btn setImage:img forState:UIControlStateNormal];
 	
-	UIBarButtonItem * btnBackItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-	[btn release];
-	
-	return [btnBackItem autorelease];
+	return [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (UIBarButtonItem *) buttonWithTitle:(NSString *) anTitle
@@ -233,9 +220,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 	NSLog(@"rcTitle = %@, size = %@", NSStringFromCGRect(rcTitle), NSStringFromCGSize(img.size));
 	
 	
-	UIBarButtonItem * btnBackItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-	
-	return [btnBackItem autorelease];
+	return [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (UIImage *) stretchedImageNamed:(NSString *) anName width:(CGRect)anRect
@@ -262,7 +247,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 
 - (UILabel *) navBarLabel
 {
-    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont boldSystemFontOfSize:24.0f];
     label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
@@ -273,7 +258,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 
 - (UILabel *) toolBarLabel
 {
-    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont boldSystemFontOfSize:14.0f];
     label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
@@ -319,7 +304,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 										   cancelButtonTitle: @"Close"
 										   otherButtonTitles: nil];
 	[alert show];
-	[alert release];
 }
 
 - (void) showAlertWithTitle:(NSString *) anTitle andText:(NSString *) anText andDelegate:(id<UIAlertViewDelegate>) anDelegate andButtonsTitles:(NSArray *) arrButtonsTitles
@@ -339,7 +323,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 	}
     
 	[alert show];
-	[alert release];
 }
 
 - (void) showAlertFromError:(NSError *) error
@@ -369,7 +352,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     NSNumber *number = [formatter numberFromString:str];
-    [formatter release];
     return !!number; // If the string is not numeric, number will be nil
 }
 

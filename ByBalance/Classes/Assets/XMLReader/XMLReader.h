@@ -18,7 +18,7 @@ typedef NSUInteger XMLReaderOptions;
 {
     NSMutableArray *dictionaryStack;
     NSMutableString *textInProgress;
-    NSError **errorPointer;
+    NSError __weak **errorPointer;  //andrew edited
 }
 
 + (NSDictionary *)dictionaryForXMLData:(NSData *)data error:(NSError **)errorPointer;

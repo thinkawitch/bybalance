@@ -36,6 +36,7 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -48,6 +49,9 @@
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
     return request;
+     */
+    
+    return nil;
 }
 
 
@@ -56,6 +60,7 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * html = html = request.responseString;
@@ -77,6 +82,7 @@
     {
         [self doFinish];
     }
+     */
 }
 
 
@@ -84,6 +90,7 @@
 
 - (void) onStep1:(NSString *)html
 {
+    /*
     //NSLog(@"BBLoaderDamavik.onStep1");
     //NSLog(@"%@", html);
     
@@ -125,10 +132,12 @@
     
     //start request
     [request startAsynchronous];
+     */
 }
 
 - (void) onStep2:(NSString *)html
 {
+    /*
     //NSLog(@"BBLoaderDamavik.onStep2");
     
     NSString * loginUrl = self.baseUrl;
@@ -158,6 +167,8 @@
     
     //start request
     [request startAsynchronous];
+     
+    */
 }
 
 - (void) onStep3:(NSString *)html
@@ -175,16 +186,16 @@
     
     if (!html)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     //incorrect login/pass
-    loaderInfo.incorrectLogin = ([html rangeOfString:@"<div class=\"redmsg mesg\"><div>Введенные данные неверны. Проверьте и повторите попытку.</div></div>"].location != NSNotFound);
+    self.loaderInfo.incorrectLogin = ([html rangeOfString:@"<div class=\"redmsg mesg\"><div>Введенные данные неверны. Проверьте и повторите попытку.</div></div>"].location != NSNotFound);
     //NSLog(@"incorrectLogin: %d", loaderInfo.incorrectLogin);
-    if (loaderInfo.incorrectLogin)
+    if (self.loaderInfo.incorrectLogin)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -205,12 +216,12 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
         }
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = [self.loaderInfo.userBalance length] > 0;
 }
 
 @end

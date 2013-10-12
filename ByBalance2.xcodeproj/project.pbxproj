@@ -12,6 +12,8 @@
 		C312CD311808AB1F005F25D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD301808AB1F005F25D0 /* UIKit.framework */; };
 		C312CD391808AB1F005F25D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C312CD381808AB1F005F25D0 /* main.m */; };
 		C312CD451808AB1F005F25D0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312CD441808AB1F005F25D0 /* Images.xcassets */; };
+		C33585EC1809D0FB001AB5D3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DE708E1809CA640024F9DD /* SystemConfiguration.framework */; };
+		C33585ED1809D106001AB5D3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E28A281809CF38003679C2 /* MobileCoreServices.framework */; };
 		C3C82AB01808AEC200E2C1D6 /* BBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82AAC1808AEC100E2C1D6 /* BBAppDelegate.m */; };
 		C3C82AB11808AEC200E2C1D6 /* BBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82AAF1808AEC200E2C1D6 /* BBViewController.m */; };
 		C3C82AFD1808C18300E2C1D6 /* BBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C82AFC1808C18300E2C1D6 /* BBViewController.xib */; };
@@ -22,20 +24,6 @@
 		C3C82B341808D4D600E2C1D6 /* AppGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B0D1808D4D600E2C1D6 /* AppGlobal.m */; };
 		C3C82B351808D4D600E2C1D6 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B0F1808D4D600E2C1D6 /* AppSettings.m */; };
 		C3C82B361808D4D600E2C1D6 /* BBBalanceChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B121808D4D600E2C1D6 /* BBBalanceChecker.m */; };
-		C3C82B371808D4D600E2C1D6 /* BBLoaderBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B161808D4D600E2C1D6 /* BBLoaderBase.m */; };
-		C3C82B381808D4D600E2C1D6 /* BBLoaderBn.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B181808D4D600E2C1D6 /* BBLoaderBn.m */; };
-		C3C82B391808D4D600E2C1D6 /* BBLoaderByFly.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B1A1808D4D600E2C1D6 /* BBLoaderByFly.m */; };
-		C3C82B3A1808D4D600E2C1D6 /* BBLoaderCosmosTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B1C1808D4D600E2C1D6 /* BBLoaderCosmosTV.m */; };
-		C3C82B3B1808D4D600E2C1D6 /* BBLoaderDamavik.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B1E1808D4D600E2C1D6 /* BBLoaderDamavik.m */; };
-		C3C82B3C1808D4D600E2C1D6 /* BBLoaderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B211808D4D600E2C1D6 /* BBLoaderInfo.m */; };
-		C3C82B3D1808D4D600E2C1D6 /* BBLoaderInfolan.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B231808D4D600E2C1D6 /* BBLoaderInfolan.m */; };
-		C3C82B3E1808D4D600E2C1D6 /* BBLoaderLife.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B251808D4D600E2C1D6 /* BBLoaderLife.m */; };
-		C3C82B3F1808D4D600E2C1D6 /* BBLoaderMts.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B271808D4D600E2C1D6 /* BBLoaderMts.m */; };
-		C3C82B401808D4D600E2C1D6 /* BBLoaderNetBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B291808D4D600E2C1D6 /* BBLoaderNetBerry.m */; };
-		C3C82B411808D4D600E2C1D6 /* BBLoaderNiks.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B2B1808D4D600E2C1D6 /* BBLoaderNiks.m */; };
-		C3C82B421808D4D600E2C1D6 /* BBLoaderTcm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B2D1808D4D600E2C1D6 /* BBLoaderTcm.m */; };
-		C3C82B431808D4D600E2C1D6 /* BBLoaderUnetBy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B2F1808D4D600E2C1D6 /* BBLoaderUnetBy.m */; };
-		C3C82B441808D4D600E2C1D6 /* BBLoaderVelcom.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B311808D4D600E2C1D6 /* BBLoaderVelcom.m */; };
 		C3C82B4B1808D59B00E2C1D6 /* IDDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B471808D59B00E2C1D6 /* IDDateHelper.m */; };
 		C3C82B4C1808D59B00E2C1D6 /* IDPrimitiveHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B4A1808D59B00E2C1D6 /* IDPrimitiveHelper.m */; };
 		C3C82B511808D9D700E2C1D6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B501808D9D700E2C1D6 /* Reachability.m */; };
@@ -81,7 +69,7 @@
 		C3DE700E1809B2F70024F9DD /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FEA1809B2F70024F9DD /* MagicalRecord+ShorthandSupport.m */; };
 		C3DE700F1809B2F70024F9DD /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FEC1809B2F70024F9DD /* MagicalRecord.m */; };
 		C3DE70101809B2F70024F9DD /* NSString+PDRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FF11809B2F70024F9DD /* NSString+PDRegex.m */; };
-		C3DE70111809B2F70024F9DD /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FF41809B2F70024F9DD /* XMLReader.m */; };
+		C3DE70111809B2F70024F9DD /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FF41809B2F70024F9DD /* XMLReader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3DE702D1809B5A30024F9DD /* cb_box_off.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE70141809B5A30024F9DD /* cb_box_off.png */; };
 		C3DE702E1809B5A30024F9DD /* cb_box_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE70151809B5A30024F9DD /* cb_box_off@2x.png */; };
 		C3DE702F1809B5A30024F9DD /* cb_box_on.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE70161809B5A30024F9DD /* cb_box_on.png */; };
@@ -104,6 +92,26 @@
 		C3DE70401809B5A30024F9DD /* cb_mono_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE70271809B5A30024F9DD /* cb_mono_on@2x.png */; };
 		C3DE70411809B5A30024F9DD /* UIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE702A1809B5A30024F9DD /* UIHelpers.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3DE70421809B5A30024F9DD /* SSCheckBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE702C1809B5A30024F9DD /* SSCheckBoxView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3DE70491809B87E0024F9DD /* BBAsiTemp.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70481809B87E0024F9DD /* BBAsiTemp.m */; };
+		C3DE706A1809BE1C0024F9DD /* BBLoaderBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE704D1809BE1C0024F9DD /* BBLoaderBase.m */; };
+		C3DE706B1809BE1C0024F9DD /* BBLoaderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE704F1809BE1C0024F9DD /* BBLoaderInfo.m */; };
+		C3DE706C1809BE1C0024F9DD /* BBLoaderBn.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70521809BE1C0024F9DD /* BBLoaderBn.m */; };
+		C3DE706D1809BE1C0024F9DD /* BBLoaderByFly.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70541809BE1C0024F9DD /* BBLoaderByFly.m */; };
+		C3DE706E1809BE1C0024F9DD /* BBLoaderCosmosTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70561809BE1C0024F9DD /* BBLoaderCosmosTV.m */; };
+		C3DE706F1809BE1C0024F9DD /* BBLoaderDamavik.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70581809BE1C0024F9DD /* BBLoaderDamavik.m */; };
+		C3DE70701809BE1C0024F9DD /* BBLoaderInfolan.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE705B1809BE1C0024F9DD /* BBLoaderInfolan.m */; };
+		C3DE70711809BE1C0024F9DD /* BBLoaderLife.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE705D1809BE1C0024F9DD /* BBLoaderLife.m */; };
+		C3DE70721809BE1C0024F9DD /* BBLoaderMts.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE705F1809BE1C0024F9DD /* BBLoaderMts.m */; };
+		C3DE70731809BE1C0024F9DD /* BBLoaderNetBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70611809BE1C0024F9DD /* BBLoaderNetBerry.m */; };
+		C3DE70741809BE1C0024F9DD /* BBLoaderNiks.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70631809BE1C0024F9DD /* BBLoaderNiks.m */; };
+		C3DE70751809BE1C0024F9DD /* BBLoaderTcm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70651809BE1C0024F9DD /* BBLoaderTcm.m */; };
+		C3DE70761809BE1C0024F9DD /* BBLoaderUnetBy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70671809BE1C0024F9DD /* BBLoaderUnetBy.m */; };
+		C3DE70771809BE1C0024F9DD /* BBLoaderVelcom.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70691809BE1C0024F9DD /* BBLoaderVelcom.m */; };
+		C3DE70881809C13B0024F9DD /* BBMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE707A1809C13B0024F9DD /* BBMAccount.m */; };
+		C3DE70891809C13B0024F9DD /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE707C1809C13B0024F9DD /* BBMAccountType.m */; };
+		C3DE708A1809C13B0024F9DD /* BBMBalanceHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE707F1809C13B0024F9DD /* BBMBalanceHistory.m */; };
+		C3DE708B1809C13B0024F9DD /* BBMModelsExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70811809C13B0024F9DD /* BBMModelsExtension.m */; };
+		C3DE708D1809C13B0024F9DD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70841809C13B0024F9DD /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,36 +141,6 @@
 		C3C82B0F1808D4D600E2C1D6 /* AppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSettings.m; sourceTree = "<group>"; };
 		C3C82B111808D4D600E2C1D6 /* BBBalanceChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceChecker.h; sourceTree = "<group>"; };
 		C3C82B121808D4D600E2C1D6 /* BBBalanceChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBalanceChecker.m; sourceTree = "<group>"; };
-		C3C82B141808D4D600E2C1D6 /* BBAllLoaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAllLoaders.h; sourceTree = "<group>"; };
-		C3C82B151808D4D600E2C1D6 /* BBLoaderBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderBase.h; sourceTree = "<group>"; };
-		C3C82B161808D4D600E2C1D6 /* BBLoaderBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderBase.m; sourceTree = "<group>"; };
-		C3C82B171808D4D600E2C1D6 /* BBLoaderBn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderBn.h; sourceTree = "<group>"; };
-		C3C82B181808D4D600E2C1D6 /* BBLoaderBn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderBn.m; sourceTree = "<group>"; };
-		C3C82B191808D4D600E2C1D6 /* BBLoaderByFly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderByFly.h; sourceTree = "<group>"; };
-		C3C82B1A1808D4D600E2C1D6 /* BBLoaderByFly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderByFly.m; sourceTree = "<group>"; };
-		C3C82B1B1808D4D600E2C1D6 /* BBLoaderCosmosTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderCosmosTV.h; sourceTree = "<group>"; };
-		C3C82B1C1808D4D600E2C1D6 /* BBLoaderCosmosTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderCosmosTV.m; sourceTree = "<group>"; };
-		C3C82B1D1808D4D600E2C1D6 /* BBLoaderDamavik.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDamavik.h; sourceTree = "<group>"; };
-		C3C82B1E1808D4D600E2C1D6 /* BBLoaderDamavik.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDamavik.m; sourceTree = "<group>"; };
-		C3C82B1F1808D4D600E2C1D6 /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
-		C3C82B201808D4D600E2C1D6 /* BBLoaderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderInfo.h; sourceTree = "<group>"; };
-		C3C82B211808D4D600E2C1D6 /* BBLoaderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderInfo.m; sourceTree = "<group>"; };
-		C3C82B221808D4D600E2C1D6 /* BBLoaderInfolan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderInfolan.h; sourceTree = "<group>"; };
-		C3C82B231808D4D600E2C1D6 /* BBLoaderInfolan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderInfolan.m; sourceTree = "<group>"; };
-		C3C82B241808D4D600E2C1D6 /* BBLoaderLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderLife.h; sourceTree = "<group>"; };
-		C3C82B251808D4D600E2C1D6 /* BBLoaderLife.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderLife.m; sourceTree = "<group>"; };
-		C3C82B261808D4D600E2C1D6 /* BBLoaderMts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderMts.h; sourceTree = "<group>"; };
-		C3C82B271808D4D600E2C1D6 /* BBLoaderMts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderMts.m; sourceTree = "<group>"; };
-		C3C82B281808D4D600E2C1D6 /* BBLoaderNetBerry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderNetBerry.h; sourceTree = "<group>"; };
-		C3C82B291808D4D600E2C1D6 /* BBLoaderNetBerry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderNetBerry.m; sourceTree = "<group>"; };
-		C3C82B2A1808D4D600E2C1D6 /* BBLoaderNiks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderNiks.h; sourceTree = "<group>"; };
-		C3C82B2B1808D4D600E2C1D6 /* BBLoaderNiks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderNiks.m; sourceTree = "<group>"; };
-		C3C82B2C1808D4D600E2C1D6 /* BBLoaderTcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderTcm.h; sourceTree = "<group>"; };
-		C3C82B2D1808D4D600E2C1D6 /* BBLoaderTcm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderTcm.m; sourceTree = "<group>"; };
-		C3C82B2E1808D4D600E2C1D6 /* BBLoaderUnetBy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderUnetBy.h; sourceTree = "<group>"; };
-		C3C82B2F1808D4D600E2C1D6 /* BBLoaderUnetBy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderUnetBy.m; sourceTree = "<group>"; };
-		C3C82B301808D4D600E2C1D6 /* BBLoaderVelcom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderVelcom.h; sourceTree = "<group>"; };
-		C3C82B311808D4D600E2C1D6 /* BBLoaderVelcom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderVelcom.m; sourceTree = "<group>"; };
 		C3C82B321808D4D600E2C1D6 /* MacrosAndDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacrosAndDefines.h; sourceTree = "<group>"; };
 		C3C82B461808D59B00E2C1D6 /* IDDateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDDateHelper.h; sourceTree = "<group>"; };
 		C3C82B471808D59B00E2C1D6 /* IDDateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDDateHelper.m; sourceTree = "<group>"; };
@@ -279,6 +257,52 @@
 		C3DE702A1809B5A30024F9DD /* UIHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelpers.m; sourceTree = "<group>"; };
 		C3DE702B1809B5A30024F9DD /* SSCheckBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCheckBoxView.h; sourceTree = "<group>"; };
 		C3DE702C1809B5A30024F9DD /* SSCheckBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCheckBoxView.m; sourceTree = "<group>"; };
+		C3DE70471809B87E0024F9DD /* BBAsiTemp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAsiTemp.h; sourceTree = "<group>"; };
+		C3DE70481809B87E0024F9DD /* BBAsiTemp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAsiTemp.m; sourceTree = "<group>"; };
+		C3DE704B1809BE1C0024F9DD /* BBAllLoaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAllLoaders.h; sourceTree = "<group>"; };
+		C3DE704C1809BE1C0024F9DD /* BBLoaderBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderBase.h; sourceTree = "<group>"; };
+		C3DE704D1809BE1C0024F9DD /* BBLoaderBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderBase.m; sourceTree = "<group>"; };
+		C3DE704E1809BE1C0024F9DD /* BBLoaderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderInfo.h; sourceTree = "<group>"; };
+		C3DE704F1809BE1C0024F9DD /* BBLoaderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderInfo.m; sourceTree = "<group>"; };
+		C3DE70511809BE1C0024F9DD /* BBLoaderBn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderBn.h; sourceTree = "<group>"; };
+		C3DE70521809BE1C0024F9DD /* BBLoaderBn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderBn.m; sourceTree = "<group>"; };
+		C3DE70531809BE1C0024F9DD /* BBLoaderByFly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderByFly.h; sourceTree = "<group>"; };
+		C3DE70541809BE1C0024F9DD /* BBLoaderByFly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderByFly.m; sourceTree = "<group>"; };
+		C3DE70551809BE1C0024F9DD /* BBLoaderCosmosTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderCosmosTV.h; sourceTree = "<group>"; };
+		C3DE70561809BE1C0024F9DD /* BBLoaderCosmosTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderCosmosTV.m; sourceTree = "<group>"; };
+		C3DE70571809BE1C0024F9DD /* BBLoaderDamavik.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDamavik.h; sourceTree = "<group>"; };
+		C3DE70581809BE1C0024F9DD /* BBLoaderDamavik.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDamavik.m; sourceTree = "<group>"; };
+		C3DE70591809BE1C0024F9DD /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
+		C3DE705A1809BE1C0024F9DD /* BBLoaderInfolan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderInfolan.h; sourceTree = "<group>"; };
+		C3DE705B1809BE1C0024F9DD /* BBLoaderInfolan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderInfolan.m; sourceTree = "<group>"; };
+		C3DE705C1809BE1C0024F9DD /* BBLoaderLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderLife.h; sourceTree = "<group>"; };
+		C3DE705D1809BE1C0024F9DD /* BBLoaderLife.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderLife.m; sourceTree = "<group>"; };
+		C3DE705E1809BE1C0024F9DD /* BBLoaderMts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderMts.h; sourceTree = "<group>"; };
+		C3DE705F1809BE1C0024F9DD /* BBLoaderMts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderMts.m; sourceTree = "<group>"; };
+		C3DE70601809BE1C0024F9DD /* BBLoaderNetBerry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderNetBerry.h; sourceTree = "<group>"; };
+		C3DE70611809BE1C0024F9DD /* BBLoaderNetBerry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderNetBerry.m; sourceTree = "<group>"; };
+		C3DE70621809BE1C0024F9DD /* BBLoaderNiks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderNiks.h; sourceTree = "<group>"; };
+		C3DE70631809BE1C0024F9DD /* BBLoaderNiks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderNiks.m; sourceTree = "<group>"; };
+		C3DE70641809BE1C0024F9DD /* BBLoaderTcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderTcm.h; sourceTree = "<group>"; };
+		C3DE70651809BE1C0024F9DD /* BBLoaderTcm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderTcm.m; sourceTree = "<group>"; };
+		C3DE70661809BE1C0024F9DD /* BBLoaderUnetBy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderUnetBy.h; sourceTree = "<group>"; };
+		C3DE70671809BE1C0024F9DD /* BBLoaderUnetBy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderUnetBy.m; sourceTree = "<group>"; };
+		C3DE70681809BE1C0024F9DD /* BBLoaderVelcom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderVelcom.h; sourceTree = "<group>"; };
+		C3DE70691809BE1C0024F9DD /* BBLoaderVelcom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderVelcom.m; sourceTree = "<group>"; };
+		C3DE70791809C13B0024F9DD /* BBMAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccount.h; sourceTree = "<group>"; };
+		C3DE707A1809C13B0024F9DD /* BBMAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccount.m; sourceTree = "<group>"; };
+		C3DE707B1809C13B0024F9DD /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
+		C3DE707C1809C13B0024F9DD /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
+		C3DE707D1809C13B0024F9DD /* BBMAllManagedItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAllManagedItems.h; sourceTree = "<group>"; };
+		C3DE707E1809C13B0024F9DD /* BBMBalanceHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMBalanceHistory.h; sourceTree = "<group>"; };
+		C3DE707F1809C13B0024F9DD /* BBMBalanceHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMBalanceHistory.m; sourceTree = "<group>"; };
+		C3DE70801809C13B0024F9DD /* BBMModelsExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMModelsExtension.h; sourceTree = "<group>"; };
+		C3DE70811809C13B0024F9DD /* BBMModelsExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMModelsExtension.m; sourceTree = "<group>"; };
+		C3DE70851809C13B0024F9DD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		C3DE70861809C13B0024F9DD /* Model2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model2.xcdatamodel; sourceTree = "<group>"; };
+		C3DE70871809C13B0024F9DD /* Model3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model3.xcdatamodel; sourceTree = "<group>"; };
+		C3DE708E1809CA640024F9DD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C3E28A281809CF38003679C2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +310,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C33585ED1809D106001AB5D3 /* MobileCoreServices.framework in Frameworks */,
+				C33585EC1809D0FB001AB5D3 /* SystemConfiguration.framework in Frameworks */,
 				C3DE6F921809B2360024F9DD /* CoreData.framework in Frameworks */,
 				C3DE6F901809B22F0024F9DD /* MessageUI.framework in Frameworks */,
 				C3DE6F8C1809B2270024F9DD /* AddressBook.framework in Frameworks */,
@@ -320,13 +346,15 @@
 		C312CD2B1808AB1F005F25D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C3DE6F911809B2360024F9DD /* CoreData.framework */,
-				C3DE6F8F1809B22F0024F9DD /* MessageUI.framework */,
 				C3DE6F891809B2270024F9DD /* AddressBook.framework */,
 				C3DE6F8A1809B2270024F9DD /* AddressBookUI.framework */,
+				C3DE6F911809B2360024F9DD /* CoreData.framework */,
+				C312CD2E1808AB1F005F25D0 /* CoreGraphics.framework */,
 				C3DE6F8B1809B2270024F9DD /* CFNetwork.framework */,
 				C312CD2C1808AB1F005F25D0 /* Foundation.framework */,
-				C312CD2E1808AB1F005F25D0 /* CoreGraphics.framework */,
+				C3DE6F8F1809B22F0024F9DD /* MessageUI.framework */,
+				C3E28A281809CF38003679C2 /* MobileCoreServices.framework */,
+				C3DE708E1809CA640024F9DD /* SystemConfiguration.framework */,
 				C312CD301808AB1F005F25D0 /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -357,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				C3C82B091808D4D600E2C1D6 /* App */,
+				C3DE70781809C13B0024F9DD /* DataModel */,
 				C3C82B001808CE1500E2C1D6 /* Shared */,
 				C3C82AAA1808AEC100E2C1D6 /* 0.Main */,
 				C3C82AAD1808AEC100E2C1D6 /* 1.Home */,
@@ -420,6 +449,7 @@
 		C3C82B041808D1AF00E2C1D6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C3DE70461809B87E0024F9DD /* BBAsiTemp */,
 				C3DE6F931809B2E60024F9DD /* AFNetworking */,
 				C3C82B451808D59B00E2C1D6 /* DateHelper */,
 				C3DE6FB01809B2F70024F9DD /* iToast */,
@@ -462,48 +492,11 @@
 		C3C82B101808D4D600E2C1D6 /* Balance */ = {
 			isa = PBXGroup;
 			children = (
+				C3DE704A1809BE1C0024F9DD /* Loader */,
 				C3C82B111808D4D600E2C1D6 /* BBBalanceChecker.h */,
 				C3C82B121808D4D600E2C1D6 /* BBBalanceChecker.m */,
-				C3C82B131808D4D600E2C1D6 /* Loader */,
 			);
 			path = Balance;
-			sourceTree = "<group>";
-		};
-		C3C82B131808D4D600E2C1D6 /* Loader */ = {
-			isa = PBXGroup;
-			children = (
-				C3C82B141808D4D600E2C1D6 /* BBAllLoaders.h */,
-				C3C82B151808D4D600E2C1D6 /* BBLoaderBase.h */,
-				C3C82B161808D4D600E2C1D6 /* BBLoaderBase.m */,
-				C3C82B171808D4D600E2C1D6 /* BBLoaderBn.h */,
-				C3C82B181808D4D600E2C1D6 /* BBLoaderBn.m */,
-				C3C82B191808D4D600E2C1D6 /* BBLoaderByFly.h */,
-				C3C82B1A1808D4D600E2C1D6 /* BBLoaderByFly.m */,
-				C3C82B1B1808D4D600E2C1D6 /* BBLoaderCosmosTV.h */,
-				C3C82B1C1808D4D600E2C1D6 /* BBLoaderCosmosTV.m */,
-				C3C82B1D1808D4D600E2C1D6 /* BBLoaderDamavik.h */,
-				C3C82B1E1808D4D600E2C1D6 /* BBLoaderDamavik.m */,
-				C3C82B1F1808D4D600E2C1D6 /* BBLoaderDelegate.h */,
-				C3C82B201808D4D600E2C1D6 /* BBLoaderInfo.h */,
-				C3C82B211808D4D600E2C1D6 /* BBLoaderInfo.m */,
-				C3C82B221808D4D600E2C1D6 /* BBLoaderInfolan.h */,
-				C3C82B231808D4D600E2C1D6 /* BBLoaderInfolan.m */,
-				C3C82B241808D4D600E2C1D6 /* BBLoaderLife.h */,
-				C3C82B251808D4D600E2C1D6 /* BBLoaderLife.m */,
-				C3C82B261808D4D600E2C1D6 /* BBLoaderMts.h */,
-				C3C82B271808D4D600E2C1D6 /* BBLoaderMts.m */,
-				C3C82B281808D4D600E2C1D6 /* BBLoaderNetBerry.h */,
-				C3C82B291808D4D600E2C1D6 /* BBLoaderNetBerry.m */,
-				C3C82B2A1808D4D600E2C1D6 /* BBLoaderNiks.h */,
-				C3C82B2B1808D4D600E2C1D6 /* BBLoaderNiks.m */,
-				C3C82B2C1808D4D600E2C1D6 /* BBLoaderTcm.h */,
-				C3C82B2D1808D4D600E2C1D6 /* BBLoaderTcm.m */,
-				C3C82B2E1808D4D600E2C1D6 /* BBLoaderUnetBy.h */,
-				C3C82B2F1808D4D600E2C1D6 /* BBLoaderUnetBy.m */,
-				C3C82B301808D4D600E2C1D6 /* BBLoaderVelcom.h */,
-				C3C82B311808D4D600E2C1D6 /* BBLoaderVelcom.m */,
-			);
-			path = Loader;
 			sourceTree = "<group>";
 		};
 		C3C82B451808D59B00E2C1D6 /* DateHelper */ = {
@@ -734,6 +727,77 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		C3DE70461809B87E0024F9DD /* BBAsiTemp */ = {
+			isa = PBXGroup;
+			children = (
+				C3DE70471809B87E0024F9DD /* BBAsiTemp.h */,
+				C3DE70481809B87E0024F9DD /* BBAsiTemp.m */,
+			);
+			path = BBAsiTemp;
+			sourceTree = "<group>";
+		};
+		C3DE704A1809BE1C0024F9DD /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				C3DE70501809BE1C0024F9DD /* Loaders */,
+				C3DE704B1809BE1C0024F9DD /* BBAllLoaders.h */,
+				C3DE704E1809BE1C0024F9DD /* BBLoaderInfo.h */,
+				C3DE704F1809BE1C0024F9DD /* BBLoaderInfo.m */,
+				C3DE704C1809BE1C0024F9DD /* BBLoaderBase.h */,
+				C3DE704D1809BE1C0024F9DD /* BBLoaderBase.m */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
+		C3DE70501809BE1C0024F9DD /* Loaders */ = {
+			isa = PBXGroup;
+			children = (
+				C3DE70511809BE1C0024F9DD /* BBLoaderBn.h */,
+				C3DE70521809BE1C0024F9DD /* BBLoaderBn.m */,
+				C3DE70531809BE1C0024F9DD /* BBLoaderByFly.h */,
+				C3DE70541809BE1C0024F9DD /* BBLoaderByFly.m */,
+				C3DE70551809BE1C0024F9DD /* BBLoaderCosmosTV.h */,
+				C3DE70561809BE1C0024F9DD /* BBLoaderCosmosTV.m */,
+				C3DE70571809BE1C0024F9DD /* BBLoaderDamavik.h */,
+				C3DE70581809BE1C0024F9DD /* BBLoaderDamavik.m */,
+				C3DE70591809BE1C0024F9DD /* BBLoaderDelegate.h */,
+				C3DE705A1809BE1C0024F9DD /* BBLoaderInfolan.h */,
+				C3DE705B1809BE1C0024F9DD /* BBLoaderInfolan.m */,
+				C3DE705C1809BE1C0024F9DD /* BBLoaderLife.h */,
+				C3DE705D1809BE1C0024F9DD /* BBLoaderLife.m */,
+				C3DE705E1809BE1C0024F9DD /* BBLoaderMts.h */,
+				C3DE705F1809BE1C0024F9DD /* BBLoaderMts.m */,
+				C3DE70601809BE1C0024F9DD /* BBLoaderNetBerry.h */,
+				C3DE70611809BE1C0024F9DD /* BBLoaderNetBerry.m */,
+				C3DE70621809BE1C0024F9DD /* BBLoaderNiks.h */,
+				C3DE70631809BE1C0024F9DD /* BBLoaderNiks.m */,
+				C3DE70641809BE1C0024F9DD /* BBLoaderTcm.h */,
+				C3DE70651809BE1C0024F9DD /* BBLoaderTcm.m */,
+				C3DE70661809BE1C0024F9DD /* BBLoaderUnetBy.h */,
+				C3DE70671809BE1C0024F9DD /* BBLoaderUnetBy.m */,
+				C3DE70681809BE1C0024F9DD /* BBLoaderVelcom.h */,
+				C3DE70691809BE1C0024F9DD /* BBLoaderVelcom.m */,
+			);
+			path = Loaders;
+			sourceTree = "<group>";
+		};
+		C3DE70781809C13B0024F9DD /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				C3DE707D1809C13B0024F9DD /* BBMAllManagedItems.h */,
+				C3DE70801809C13B0024F9DD /* BBMModelsExtension.h */,
+				C3DE70811809C13B0024F9DD /* BBMModelsExtension.m */,
+				C3DE70841809C13B0024F9DD /* Model.xcdatamodeld */,
+				C3DE70791809C13B0024F9DD /* BBMAccount.h */,
+				C3DE707A1809C13B0024F9DD /* BBMAccount.m */,
+				C3DE707B1809C13B0024F9DD /* BBMAccountType.h */,
+				C3DE707C1809C13B0024F9DD /* BBMAccountType.m */,
+				C3DE707E1809C13B0024F9DD /* BBMBalanceHistory.h */,
+				C3DE707F1809C13B0024F9DD /* BBMBalanceHistory.m */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -825,41 +889,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3DE70731809BE1C0024F9DD /* BBLoaderNetBerry.m in Sources */,
 				C3DE700E1809B2F70024F9DD /* MagicalRecord+ShorthandSupport.m in Sources */,
 				C3C82B511808D9D700E2C1D6 /* Reachability.m in Sources */,
 				C3C82AB11808AEC200E2C1D6 /* BBViewController.m in Sources */,
 				C3C82B361808D4D600E2C1D6 /* BBBalanceChecker.m in Sources */,
+				C3DE706E1809BE1C0024F9DD /* BBLoaderCosmosTV.m in Sources */,
 				C3DE70091809B2F70024F9DD /* MagicalRecord+Actions.m in Sources */,
-				C3C82B421808D4D600E2C1D6 /* BBLoaderTcm.m in Sources */,
+				C3DE70701809BE1C0024F9DD /* BBLoaderInfolan.m in Sources */,
+				C3DE70491809B87E0024F9DD /* BBAsiTemp.m in Sources */,
+				C3DE708A1809C13B0024F9DD /* BBMBalanceHistory.m in Sources */,
 				C3C82AB01808AEC200E2C1D6 /* BBAppDelegate.m in Sources */,
-				C3C82B3E1808D4D600E2C1D6 /* BBLoaderLife.m in Sources */,
 				C3C82B351808D4D600E2C1D6 /* AppSettings.m in Sources */,
 				C3DE70061809B2F70024F9DD /* NSManagedObjectModel+MagicalRecord.m in Sources */,
+				C3DE706A1809BE1C0024F9DD /* BBLoaderBase.m in Sources */,
+				C3DE70891809C13B0024F9DD /* BBMAccountType.m in Sources */,
+				C3DE706B1809BE1C0024F9DD /* BBLoaderInfo.m in Sources */,
 				C3DE700D1809B2F70024F9DD /* MagicalRecord+Setup.m in Sources */,
 				C3DE6FF91809B2F70024F9DD /* NSNumber+MagicalDataImport.m in Sources */,
 				C3DE70001809B2F70024F9DD /* NSManagedObject+MagicalRecord.m in Sources */,
-				C3C82B411808D4D600E2C1D6 /* BBLoaderNiks.m in Sources */,
 				C3DE70071809B2F70024F9DD /* NSPersistentStore+MagicalRecord.m in Sources */,
 				C3DE6FAA1809B2E60024F9DD /* AFJSONRequestOperation.m in Sources */,
-				C3C82B3F1808D4D600E2C1D6 /* BBLoaderMts.m in Sources */,
+				C3DE70771809BE1C0024F9DD /* BBLoaderVelcom.m in Sources */,
 				C3DE70041809B2F70024F9DD /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				C3C82B081808D1AF00E2C1D6 /* MBProgressHUD.m in Sources */,
 				C3DE70031809B2F70024F9DD /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				C3DE708B1809C13B0024F9DD /* BBMModelsExtension.m in Sources */,
 				C3DE70101809B2F70024F9DD /* NSString+PDRegex.m in Sources */,
 				C3DE6FAB1809B2E60024F9DD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C3DE700F1809B2F70024F9DD /* MagicalRecord.m in Sources */,
-				C3C82B431808D4D600E2C1D6 /* BBLoaderUnetBy.m in Sources */,
-				C3C82B371808D4D600E2C1D6 /* BBLoaderBase.m in Sources */,
-				C3C82B381808D4D600E2C1D6 /* BBLoaderBn.m in Sources */,
+				C3DE70741809BE1C0024F9DD /* BBLoaderNiks.m in Sources */,
 				C3DE70411809B5A30024F9DD /* UIHelpers.m in Sources */,
 				C3C82B4B1808D59B00E2C1D6 /* IDDateHelper.m in Sources */,
+				C3DE70881809C13B0024F9DD /* BBMAccount.m in Sources */,
 				C3DE6FAE1809B2E60024F9DD /* AFXMLRequestOperation.m in Sources */,
 				C312CD391808AB1F005F25D0 /* main.m in Sources */,
+				C3DE706C1809BE1C0024F9DD /* BBLoaderBn.m in Sources */,
+				C3DE70761809BE1C0024F9DD /* BBLoaderUnetBy.m in Sources */,
+				C3DE706F1809BE1C0024F9DD /* BBLoaderDamavik.m in Sources */,
 				C3DE70081809B2F70024F9DD /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
-				C3C82B3B1808D4D600E2C1D6 /* BBLoaderDamavik.m in Sources */,
-				C3C82B441808D4D600E2C1D6 /* BBLoaderVelcom.m in Sources */,
 				C3C82B031808CE1500E2C1D6 /* BBBaseViewController.m in Sources */,
-				C3C82B3C1808D4D600E2C1D6 /* BBLoaderInfo.m in Sources */,
 				C3DE6FF81809B2F70024F9DD /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				C3C82B4C1808D59B00E2C1D6 /* IDPrimitiveHelper.m in Sources */,
 				C3DE6FAD1809B2E60024F9DD /* AFURLConnectionOperation.m in Sources */,
@@ -869,6 +938,8 @@
 				C3DE700C1809B2F70024F9DD /* MagicalRecord+Options.m in Sources */,
 				C3DE6FA81809B2E60024F9DD /* AFHTTPRequestOperation.m in Sources */,
 				C3DE6FA71809B2E60024F9DD /* AFHTTPClient.m in Sources */,
+				C3DE706D1809BE1C0024F9DD /* BBLoaderByFly.m in Sources */,
+				C3DE70751809BE1C0024F9DD /* BBLoaderTcm.m in Sources */,
 				C3DE70111809B2F70024F9DD /* XMLReader.m in Sources */,
 				C3DE6FAF1809B2E60024F9DD /* UIImageView+AFNetworking.m in Sources */,
 				C3DE6FFF1809B2F70024F9DD /* NSManagedObject+MagicalFinders.m in Sources */,
@@ -876,21 +947,20 @@
 				C3DE70021809B2F70024F9DD /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				C3DE6FF51809B2F70024F9DD /* iToast.m in Sources */,
 				C3DE70051809B2F70024F9DD /* NSManagedObjectContext+MagicalThreading.m in Sources */,
+				C3DE70711809BE1C0024F9DD /* BBLoaderLife.m in Sources */,
 				C3DE70011809B2F70024F9DD /* NSManagedObject+MagicalRequests.m in Sources */,
+				C3DE708D1809C13B0024F9DD /* Model.xcdatamodeld in Sources */,
 				C3C82B331808D4D600E2C1D6 /* AppContext.m in Sources */,
 				C3DE700A1809B2F70024F9DD /* MagicalRecord+ErrorHandling.m in Sources */,
 				C3DE6FFE1809B2F70024F9DD /* NSManagedObject+MagicalDataImport.m in Sources */,
 				C3C82B341808D4D600E2C1D6 /* AppGlobal.m in Sources */,
+				C3DE70721809BE1C0024F9DD /* BBLoaderMts.m in Sources */,
 				C3DE6FFB1809B2F70024F9DD /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				C3DE6FAC1809B2E60024F9DD /* AFPropertyListRequestOperation.m in Sources */,
 				C3DE6FF71809B2F70024F9DD /* NSAttributeDescription+MagicalDataImport.m in Sources */,
-				C3C82B3A1808D4D600E2C1D6 /* BBLoaderCosmosTV.m in Sources */,
 				C3DE6FA91809B2E60024F9DD /* AFImageRequestOperation.m in Sources */,
-				C3C82B3D1808D4D600E2C1D6 /* BBLoaderInfolan.m in Sources */,
 				C3DE6FFA1809B2F70024F9DD /* NSObject+MagicalDataImport.m in Sources */,
 				C3DE6FFD1809B2F70024F9DD /* NSManagedObject+MagicalAggregation.m in Sources */,
-				C3C82B391808D4D600E2C1D6 /* BBLoaderByFly.m in Sources */,
-				C3C82B401808D4D600E2C1D6 /* BBLoaderNetBerry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,6 +1091,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C3DE70841809C13B0024F9DD /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C3DE70851809C13B0024F9DD /* Model.xcdatamodel */,
+				C3DE70861809C13B0024F9DD /* Model2.xcdatamodel */,
+				C3DE70871809C13B0024F9DD /* Model3.xcdatamodel */,
+			);
+			currentVersion = C3DE70871809C13B0024F9DD /* Model3.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C312CD211808AB1F005F25D0 /* Project object */;
 }

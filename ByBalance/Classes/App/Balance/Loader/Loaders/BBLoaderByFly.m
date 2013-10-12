@@ -7,24 +7,16 @@
 //
 
 #import "BBLoaderByFly.h"
-#import "AFNetworking.h"
 
 @interface BBLoaderByFly ()
 
-@property (strong, readwrite) AFHTTPClient * httpClient;
+@property (nonatomic,strong) AFHTTPClient * httpClient;
 
 @end
 
 @implementation BBLoaderByFly
 
-#pragma mark - ObjectLife
-
-- (void) dealloc
-{
-    self.httpClient = nil;
-    
-    [super dealloc];
-}
+@synthesize httpClient;
 
 #pragma mark - Logic
 
@@ -40,8 +32,8 @@
     self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            account.username, @"mobnum",
-                            account.password, @"Password",
+                            self.account.username, @"mobnum",
+                            self.account.password, @"Password",
                             nil];
     //NSLog(@"%@", params);
     
@@ -101,12 +93,12 @@
             buf = [buf stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
             buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
             
-            loaderInfo.userBalance = buf;
+            self.loaderInfo.userBalance = buf;
         }
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = [self.loaderInfo.userBalance length] > 0;
 }
 
 @end

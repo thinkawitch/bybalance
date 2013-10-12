@@ -10,7 +10,7 @@
 
 @interface BBLoaderMts ()
 
-@property (strong, readwrite) NSString * paramViewState;
+@property (nonatomic,strong) NSString * paramViewState;
 
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
@@ -21,19 +21,12 @@
 
 @synthesize paramViewState;
 
-#pragma mark - ObjectLife
-
-- (void) dealloc
-{
-    self.paramViewState = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark - Logic
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -50,6 +43,8 @@
     self.paramViewState = nil;
     
     return request;
+     */
+    return nil;
 }
 
 
@@ -75,6 +70,7 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
@@ -106,6 +102,7 @@
     {
         [self doFinish];
     }
+     */
 }
 
 
@@ -137,7 +134,7 @@
         [self doFinish];
         return;
     }
-    
+    /*
     NSURL * url = [NSURL URLWithString:@"https://ihelper.mts.by/SelfCare/logon.aspx"];
     ASIFormDataRequest * request = [self requestWithURL:url];
     //[request setRequestMethod:@"POST"];
@@ -155,6 +152,7 @@
     
     //start request
     [request startAsynchronous];
+     */
 }
 
 - (void) onStep2:(NSString *)html
@@ -178,13 +176,13 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.incorrectLogin = YES;
+            self.loaderInfo.incorrectLogin = YES;
         }
     }
     
-    if (loaderInfo.incorrectLogin)
+    if (self.loaderInfo.incorrectLogin)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -195,7 +193,7 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userTitle = buf;
+            self.loaderInfo.userTitle = buf;
         }
     }
     
@@ -206,7 +204,7 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userPlan = buf;
+            self.loaderInfo.userPlan = buf;
         }
     }
     
@@ -217,11 +215,11 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
         }
     }
     
-    loaderInfo.extracted = [loaderInfo.userTitle length] > 0 && [loaderInfo.userPlan length] > 0 && [loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = [self.loaderInfo.userTitle length] > 0 && [self.loaderInfo.userPlan length] > 0 && [self.loaderInfo.userBalance length] > 0;
 }
 
 @end

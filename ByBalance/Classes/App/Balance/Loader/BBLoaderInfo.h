@@ -15,9 +15,9 @@
 
 @property (nonatomic,assign) BOOL incorrectLogin;
 @property (nonatomic,assign) BOOL extracted;
-@property (nonatomic,retain) NSString * userTitle;
-@property (nonatomic,retain) NSString * userPlan;
-@property (nonatomic,retain) NSString * userBalance;
+@property (nonatomic,strong) NSString * userTitle;
+@property (nonatomic,strong) NSString * userPlan;
+@property (nonatomic,strong) NSString * userBalance;
 
 - (NSString *) fullDescription;
 

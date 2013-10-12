@@ -7,7 +7,6 @@
 //
 
 #import "BBLoaderInfolan.h"
-#import "XMLReader.h"
 
 @implementation BBLoaderInfolan
 
@@ -16,6 +15,7 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -28,12 +28,15 @@
     [request setPostValue:account.password forKey:@"auth"];
     
     return request;
+     */
+    return nil;
 }
 
 #pragma mark - ASIHTTPRequestDelegate
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     //NSLog(@"responseEncoding %d", request.responseEncoding);
     NSString * html = nil;
@@ -48,6 +51,7 @@
     
     [self extractInfoFromHtml:html];
     [self doFinish];
+    */
 }
 
 #pragma mark - Logic
@@ -58,7 +62,7 @@
     
     if (!html)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -70,7 +74,7 @@
     //NSLog(@"%@", dict);
     if (error || !dict)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -79,7 +83,7 @@
     NSDictionary * nodeResp = [dict objectForKey:@"Response"];
     if (!nodeResp)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -88,37 +92,37 @@
     //has error
     if ([nodeResp objectForKey:@"Error"])
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSDictionary * nodeMain = [nodeResp objectForKey:@"Main"];
     if (!nodeMain)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSDictionary  * nodeBalance = [nodeMain objectForKey:@"Balance"];
     if (!nodeBalance)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSString  * textBalance = [nodeBalance objectForKey:@"text"];
     if (!textBalance)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     //NSLog(@"%@", textBalance);
     
-    loaderInfo.userBalance = textBalance;
+    self.loaderInfo.userBalance = textBalance;
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    loaderInfo.extracted = YES;
+    self.loaderInfo.extracted = YES;
 }
 
 @end

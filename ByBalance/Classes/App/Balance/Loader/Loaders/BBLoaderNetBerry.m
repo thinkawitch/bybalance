@@ -21,6 +21,7 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -41,6 +42,9 @@
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
     return request;
+     */
+    
+    return nil;
 }
 
 
@@ -48,6 +52,7 @@
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     
     NSString * step = [request.userInfo objectForKey:@"step"];
@@ -76,6 +81,7 @@
     {
         [self doFinish];
     }
+     */
 }
 
 #pragma mark - Logic
@@ -88,7 +94,7 @@
     //Ошибка при авторизации
     if ([html rangeOfString:@"Ошибка при авторизации"].location != NSNotFound)
     {
-        loaderInfo.incorrectLogin = YES;
+        self.loaderInfo.incorrectLogin = YES;
         [self doFinish];
         return;
     }
@@ -101,9 +107,10 @@
     }
     
     //https://user.nbr.by/bgbilling/webexecuter?action=ShowBalance&mid=contract
-    
+    /*
     NSURL * url = [NSURL URLWithString:@"https://user.nbr.by/bgbilling/webexecuter?action=ShowBalance&mid=contract"];
     ASIFormDataRequest * request = [self requestWithURL:url];
+    
     
     [request setValidatesSecureCertificate:NO];
     
@@ -114,6 +121,7 @@
                                                    forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
     [request startAsynchronous];
+     */
     
 }
 
@@ -128,6 +136,7 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
+    /*
     if (!html)
     {
         loaderInfo.extracted = NO;
@@ -163,6 +172,7 @@
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
     loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
+     */
 }
 
 @end

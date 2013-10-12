@@ -7,7 +7,6 @@
 //
 
 #import "BBBalanceChecker.h"
-#import "ASIFormDataRequest.h"
 
 
 @interface BBBalanceChecker ()
@@ -40,18 +39,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     if (queue)
     {
         [queue cancelAllOperations];
-        [queue release];
         queue = nil;
     }
     
     if (syncFlag1)
     {
-        [syncFlag1 release];
         syncFlag1 = nil;
     }
     if (syncFlag2)
     {
-        [syncFlag2 release];
         syncFlag2 = nil;
     }
     
@@ -72,59 +68,59 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     switch (type)
     {
         case kAccountMts:
-            loader = [[BBLoaderMts new] autorelease];
+            loader = [BBLoaderMts new];
             break;
             
         case kAccountBn:
-            loader = [[BBLoaderBn new] autorelease];
+            loader = [BBLoaderBn new];
             break;
             
         case kAccountVelcom:
-            loader = [[BBLoaderVelcom new] autorelease];
+            loader = [BBLoaderVelcom new] ;
             break;
             
         case kAccountLife:
-            loader = [[BBLoaderLife new] autorelease];
+            loader = [BBLoaderLife new];
             break;
             
         case kAccountTcm:
-            loader = [[BBLoaderTcm new] autorelease];
+            loader = [BBLoaderTcm new];
             break;
             
         case kAccountNiks:
-            loader = [[BBLoaderNiks new] autorelease];
+            loader = [BBLoaderNiks new];
             break;
             
         case kAccountDamavik:
         case kAccountSolo:
         case kAccountTeleset:
-            loader = [[BBLoaderDamavik new] autorelease];
-            [loader actAsDamavik];
+            loader = [BBLoaderDamavik new];
+            [(BBLoaderDamavik*)loader actAsDamavik];
             break;
             
         case kAccountAtlantTelecom:
-            loader = [[BBLoaderDamavik new] autorelease];
-            [loader actAsAtlantTelecom];
+            loader = [BBLoaderDamavik new];
+            [(BBLoaderDamavik*)loader actAsAtlantTelecom];
             break;
             
         case kAccountByFly:
-            loader = [[BBLoaderByFly new] autorelease];
+            loader = [BBLoaderByFly new];
             break;
             
         case kAccountNetBerry:
-            loader = [[BBLoaderNetBerry new] autorelease];
+            loader = [BBLoaderNetBerry new];
             break;
             
         case kAccountCosmosTv:
-            loader = [[BBLoaderCosmosTV new] autorelease];
+            loader = [BBLoaderCosmosTV new];
             break;
             
         case kAccountInfolan:
-            loader = [[BBLoaderInfolan new] autorelease];
+            loader = [BBLoaderInfolan new];
             break;
             
         case kAccountUnetBy:
-            loader = [[BBLoaderUnetBy new] autorelease];
+            loader = [BBLoaderUnetBy new];
             break;
     }
     

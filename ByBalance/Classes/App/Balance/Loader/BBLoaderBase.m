@@ -26,19 +26,12 @@
 	self = [super init];
 	if (self)
 	{
-        self.loaderInfo = [[BBLoaderInfo new] autorelease];
+        self.loaderInfo = [BBLoaderInfo new];
 	}
 	
 	return self;
 }
 
-- (void) dealloc
-{
-    self.account = nil;
-    self.loaderInfo = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark - NSOperation
 
@@ -53,6 +46,7 @@
     
     NSLog(@"%@.start %@ %@", [self class], account.type.name, account.username);
     
+    /*
     if (self.isAFNetworking)
     {
         [self markStart];
@@ -80,7 +74,7 @@
         //start request
         [request startAsynchronous];
     }
-    
+    */
     
 }
 
@@ -126,9 +120,10 @@
 
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) requestWithURL:(NSURL *)anUrl
+- (ASIFormDataRequest *) requestWithURL:(NSURL *)url
 {
-    ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL: anUrl];
+    /*
+    ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL: url];
     
     request.timeOutSeconds = 12.f;
     request.userAgentString = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0";
@@ -137,6 +132,9 @@
     //add some parameters, common for all requests
     
     return request;
+    */
+    
+    return nil;
 }
 
 - (ASIFormDataRequest *) prepareRequest

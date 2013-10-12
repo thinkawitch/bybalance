@@ -14,6 +14,7 @@
 
 - (ASIFormDataRequest *) prepareRequest
 {
+    /*
     //don't use other cookies
     [ASIHTTPRequest setSessionCookies:nil];
     
@@ -26,16 +27,21 @@
     [request setPostValue:account.password forKey:@"password"];
     
     return request;
+     */
+    
+    return nil;
 }
 
 #pragma mark - ASIHTTPRequestDelegate
 
 - (void) requestFinished:(ASIHTTPRequest *)request
 {
+    /*
     //NSLog(@"%@.requestFinished", [self class]);
     
     [self extractInfoFromHtml:request.responseString];
     [self doFinish];
+     */
 }
 
 #pragma mark - Logic
@@ -46,13 +52,13 @@
     
     if (!html)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     if ([html isEqualToString:@"ERROR"] || [html isEqualToString:@"FORBIDDEN"])
     {
-        loaderInfo.incorrectLogin = YES;
+        self.loaderInfo.incorrectLogin = YES;
         return;
     }
     
@@ -70,21 +76,21 @@
     NSArray *arr = [html componentsSeparatedByString:@";"];
     if (!arr || [arr count] <3)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     NSString * bal = [arr objectAtIndex:2];
     if (![APP_CONTEXT stringIsNumeric:bal])
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
-    loaderInfo.userBalance = bal;
+    self.loaderInfo.userBalance = bal;
     
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    loaderInfo.extracted = YES;
+    self.loaderInfo.extracted = YES;
 }
 
 @end
