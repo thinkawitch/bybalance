@@ -19,13 +19,12 @@
 @implementation AppContext
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
-
 @synthesize isOnline;
 
 //
 #pragma mark - Public
 //
-- (void) startContext
+- (void) start
 {
     //reachabilityWithHostName: api server 
 	reachability = [Reachability reachabilityWithHostName:@"google.com"];
@@ -47,9 +46,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 }
 
-- (void) stopContext
+- (void) stop
 {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     
     [MagicalRecord cleanUp];
@@ -126,7 +124,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
         if (updated) [self saveDatabase];
         
         SETTINGS.build = [NSNumber numberWithInt:41];
-        [SETTINGS saveData];
+        [SETTINGS save];
     }
     
     
@@ -146,7 +144,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
         if (updated) [self saveDatabase];
         
         SETTINGS.build = [NSNumber numberWithInt:49];
-        [SETTINGS saveData];
+        [SETTINGS save];
     }
 }
 
@@ -164,26 +162,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     return [self buttonFromName:@"btn-back.png"];
 }
 
-- (UIBarButtonItem *) menuButton
-{
-	UIImage * img = [UIImage imageNamed:@"shared_btn_menu.png"];
-	UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
-	[btn setImage:img forState:UIControlStateNormal];
-
-	return [[UIBarButtonItem alloc] initWithCustomView:btn];
-}
-
-- (UIBarButtonItem *) addIconButton;
-{
-	UIButton * btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-	return [[UIBarButtonItem alloc] initWithCustomView:btn];
-}
-
-- (UIBarButtonItem *) infoIconButton;
-{
-	UIButton * btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-	return [[UIBarButtonItem alloc] initWithCustomView:btn];
-}
 
 - (UIBarButtonItem *) buttonFromName:(NSString *) resourceName
 {
@@ -194,55 +172,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 	[btn setImage:img forState:UIControlStateNormal];
 	
 	return [[UIBarButtonItem alloc] initWithCustomView:btn];
-}
-
-- (UIBarButtonItem *) buttonWithTitle:(NSString *) anTitle
-{
-    //	NSAssert2( resourceName, @"%@ - Wrong resource name = %@", [self class], resourceName);
-	
-	UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-	btn.frame = CGRectMake(0, 0, 100, 44);
-	btn.autoresizingMask			= UIViewAutoresizingFlexibleWidth;
-    //	btn.contentVerticalAlignment	= UIControlContentVerticalAlignmentCenter;
-    //    btn.contentHorizontalAlignment	= UIControlContentHorizontalAlignmentCenter;
-    //	btn.adjustsImageWhenDisabled	= YES;
-    //    btn.adjustsImageWhenHighlighted	= YES;
-	
-	UIImage * img = [self stretchedImageNamed:@"shared_btn_blue.png" width:CGRectMake(0, 0, 7, 0)];
-	
-	[btn setTitle:anTitle forState:UIControlStateNormal];
-	[btn setBackgroundImage:img forState:UIControlStateNormal];
-    
-	CGRect rcTitle = [btn titleRectForContentRect:CGRectMake(0, 0, 100, 44)];
-	NSLog(@"rcTitle = %@, size = %@", NSStringFromCGRect(rcTitle), NSStringFromCGSize(img.size));
-	btn.frame = CGRectMake(0, 0, 100, img.size.height);
-	rcTitle = [btn titleRectForContentRect:CGRectMake(0, 0, 100, 44)];
-	NSLog(@"rcTitle = %@, size = %@", NSStringFromCGRect(rcTitle), NSStringFromCGSize(img.size));
-	
-	
-	return [[UIBarButtonItem alloc] initWithCustomView:btn];
-}
-
-- (UIImage *) stretchedImageNamed:(NSString *) anName width:(CGRect)anRect
-{
-	UIImage * imgResult = nil;
-	UIImage * imgSource = [UIImage imageNamed:anName];
-	
-	if( imgSource )
-	{
-#ifdef __IPHONE_5_0
-		if( [imgSource respondsToSelector:@selector(resizableImageWithCapInsets:)] )
-		{
-			imgResult = [imgSource resizableImageWithCapInsets:UIEdgeInsetsMake(0, anRect.size.width, 0, anRect.size.width)];
-		}
-		else // Support iOS version prior to the 5.0
-#endif
-		{
-			imgResult = [imgSource stretchableImageWithLeftCapWidth:anRect.size.width topCapHeight:0];
-		}
-	}
-	
-	return imgResult;
 }
 
 - (UILabel *) navBarLabel
@@ -345,14 +274,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 - (NSString *) basePath
 {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-}
-
-//
-- (BOOL) stringIsNumeric:(NSString *) str
-{
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    NSNumber *number = [formatter numberFromString:str];
-    return !!number; // If the string is not numeric, number will be nil
 }
 
 

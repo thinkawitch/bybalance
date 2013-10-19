@@ -19,7 +19,7 @@
 
 + (AppSettings *) sharedAppSettings;
 
-- (void) loadData;
-- (void) saveData;
+- (void) load;
+- (void) save;
 
 @end

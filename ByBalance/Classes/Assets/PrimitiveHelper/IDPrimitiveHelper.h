@@ -21,4 +21,6 @@
 - (NSInteger) integerValue:(id) aValue;
 - (CGFloat) floatValue:(id) aValue;
 
+- (BOOL) stringIsNumeric:(NSString *) str;
+
 @end

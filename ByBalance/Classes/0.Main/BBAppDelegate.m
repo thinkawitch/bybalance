@@ -14,8 +14,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [SETTINGS loadData];
-    [APP_CONTEXT startContext];
+    [SETTINGS load];
+    [APP_CONTEXT start];
     //[BALANCE_CHECKER start];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -60,6 +60,11 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    NSLog(@"applicationWillTerminate");
+    
+    [BALANCE_CHECKER stop];
+    [APP_CONTEXT stop];
+    [SETTINGS save];
 }
 
 @end

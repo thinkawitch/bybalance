@@ -93,4 +93,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(IDPrimitiveHelper, sharedIDPrimitiveHelper);
 	return 0.f;
 }
 
+//
+- (BOOL) stringIsNumeric:(NSString *) str
+{
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    NSNumber *number = [formatter numberFromString:str];
+    return !!number; // If the string is not numeric, number will be nil
+}
+
 @end

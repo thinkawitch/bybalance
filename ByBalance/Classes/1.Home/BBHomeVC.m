@@ -118,7 +118,7 @@
     
     
     //left button
-    UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"info"]; //[APP_CONTEXT infoIconButton];
+    UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"info"];
     [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
     //self.navigationItem.leftBarButtonItem = btnInfo;
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:spacer, btnInfo, nil]];

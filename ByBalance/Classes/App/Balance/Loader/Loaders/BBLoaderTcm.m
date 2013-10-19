@@ -81,7 +81,7 @@
     }
     
     NSString * bal = [arr objectAtIndex:2];
-    if (![APP_CONTEXT stringIsNumeric:bal])
+    if (![PRIMITIVE_HELPER stringIsNumeric:bal])
     {
         self.loaderInfo.extracted = NO;
         return;

@@ -56,7 +56,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 
 #pragma mark - Public
 
-- (void) loadData
+- (void) load
 {
 	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];	
 	
@@ -67,7 +67,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
     self.autoCheck = [defaults boolForKey:SB_OPT_KEY_AUTOCHECK];
 }
 
-- (void) saveData
+- (void) save
 {
 	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];	
 	

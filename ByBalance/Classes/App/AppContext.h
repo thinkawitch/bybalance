@@ -12,31 +12,25 @@
 {
     
 @private
-    
     //
 	// Reachability:
     BOOL				isOnline;
 	Reachability		* reachability;
 }
 
-@property (nonatomic, readwrite, assign) BOOL isOnline;
+@property (nonatomic, assign) BOOL isOnline;
 
 + (AppContext *) sharedAppContext;
 
 //
-- (void) startContext;
-- (void) stopContext;
+- (void) start;
+- (void) stop;
 //
 - (void) saveDatabase;
 
 // Helper - navigation bar:
 - (UIBarButtonItem *) backButton;
-- (UIBarButtonItem *) menuButton;
-- (UIBarButtonItem *) infoIconButton;
-- (UIBarButtonItem *) addIconButton;
 - (UIBarButtonItem *) buttonFromName:(NSString *) resourceName;
-- (UIBarButtonItem *) buttonWithTitle:(NSString *) anTitle;
-- (UIImage *) stretchedImageNamed:(NSString *) anName width:(CGRect)anRect;
 - (UILabel *) navBarLabel;
 - (UILabel *) toolBarLabel;
 
@@ -54,8 +48,6 @@
 //
 - (NSString *) basePath;
 
-//
-- (BOOL) stringIsNumeric:(NSString *) str;
 
 
 @end
