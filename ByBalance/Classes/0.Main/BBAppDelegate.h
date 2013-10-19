@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class BBViewController;
-
 @interface BBAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) UINavigationController *nc;
 
 @end

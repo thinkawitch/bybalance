@@ -1,9 +1,9 @@
 //
 //  BBMBalanceHistory.m
-//  ByBalance
+//  ByBalance2
 //
-//  Created by Admin on 06/10/2012.
-//  Copyright (c) 2012 sinkevitch.name. All rights reserved.
+//  Created by Andrew Sinkevitch on 10/12/13.
+//  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
 #import "BBMBalanceHistory.h"
@@ -14,8 +14,8 @@
 
 @dynamic balance;
 @dynamic date;
-@dynamic incorrectLogin;
 @dynamic extracted;
+@dynamic incorrectLogin;
 @dynamic account;
 
 @end

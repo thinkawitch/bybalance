@@ -7,29 +7,30 @@
 //
 
 #import "BBAppDelegate.h"
-#import "BBViewController.h"
+#import "BBHomeVC.h"
 
 @implementation BBAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    
-    /*
+    [SETTINGS loadData];
+    [APP_CONTEXT startContext];
+    //[BALANCE_CHECKER start];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.viewController = [[BBViewController alloc] initWithNibName:@"BBViewController" bundle:nil];
+    self.window.backgroundColor = [UIColor blackColor];
     
-    UINavigationController *nc = [[UINavigationController alloc] init];
-    [[nc pushViewController:self.viewController animated:NO];
-[nc
-    
-    //self.window.rootViewController = self.viewController;
-    self.window.rootViewController = nc;
-    
+    BBHomeVC * vc = NEWVCFROMNIB(BBHomeVC);
+    self.nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    //if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
+    //    self.nc.edgesForExtendedLayout = UIRectEdgeNone;
+    //}
+    self.nc.navigationBar.barStyle = UIBarStyleBlack;
+    self.nc.navigationBar.translucent = NO;
+    self.nc.navigationBar.backgroundColor = [UIColor blackColor];
+    self.window.rootViewController = self.nc;
     [self.window makeKeyAndVisible];
-*/
     
     return YES;
 }

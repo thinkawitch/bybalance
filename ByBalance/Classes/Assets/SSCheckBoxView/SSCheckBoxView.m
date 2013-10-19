@@ -63,11 +63,13 @@ static const CGFloat kHeight = 36.0f;
     UILabel *l = [[UILabel alloc] initWithFrame:labelFrame];
     l.textAlignment = UITextAlignmentLeft;
     l.backgroundColor = [UIColor clearColor];
-    l.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
-    l.textColor = RgbHex2UIColor(0x2E, 0x2E, 0x2E);
+    //l.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
+    l.font = [UIFont systemFontOfSize:17];
+    //l.textColor = RgbHex2UIColor(0x2E, 0x2E, 0x2E);
+    l.textColor = [UIColor colorWithRed:170.f/255.f green:170.f/255.f blue:170.f/255.f alpha:1];
     l.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    l.shadowColor = [UIColor whiteColor];
-    l.shadowOffset = CGSizeMake(0, 1);
+    //l.shadowColor = [UIColor whiteColor];
+    //l.shadowOffset = CGSizeMake(0, 1);
     [self addSubview:l];
     textLabel = l;
 
