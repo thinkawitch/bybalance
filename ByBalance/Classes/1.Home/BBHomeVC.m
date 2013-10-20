@@ -329,12 +329,7 @@
     if (!arr || [arr count] < 1) return @"ещё не обновлялся";
     
     BBMBalanceHistory * bh = [arr objectAtIndex:0];
-    
-    NSString * strDate = [NSDateFormatter localizedStringFromDate:bh.date 
-                                                        dateStyle:NSDateFormatterMediumStyle
-                                                        timeStyle:NSDateFormatterShortStyle];
-    
-    return [NSString stringWithFormat:@"обновлено %@", strDate];
+    return [NSString stringWithFormat:@"обновлено %@", [DATE_HELPER formatAsMonthDayTime:bh.date]];
 }
 
 

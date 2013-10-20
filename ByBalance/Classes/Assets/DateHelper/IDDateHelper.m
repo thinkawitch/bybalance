@@ -90,4 +90,47 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(IDDateHelper, sharedIDDateHelper);
     
 }
 
+//
+- (NSString *) formatAsMonthDay:(NSDate *)date
+{
+    [formatter setDateFormat:@"dd MMM"];
+    return [formatter stringFromDate:date];
+}
+
+- (NSString *) formatAsMonthDayTime:(NSDate *)date
+{
+    [formatter setDateFormat:@"dd MMM"];
+    
+    NSString * part1 = [formatter stringFromDate:date];
+    NSString * part2 = [NSDateFormatter localizedStringFromDate:date
+                                                      dateStyle:NSDateFormatterNoStyle
+                                                      timeStyle:NSDateFormatterShortStyle];
+    
+    return [NSString stringWithFormat:@"%@ %@", part1, part2];
+}
+
+- (NSString *) formatSmartAsDayOrTime:(NSDate *)date
+{
+    NSDate * now =[NSDate new];
+    
+    NSCalendar * calendar = [NSCalendar currentCalendar];
+    
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDateComponents * comp1 = [calendar components:unitFlags fromDate:now];
+    NSDateComponents * comp2 = [calendar components:unitFlags fromDate:date];
+    
+    BOOL sameDay = ([comp1 day] == [comp2 day] && [comp1 month] == [comp2 month] && [comp1 year]  == [comp2 year]);
+    
+    if (sameDay)
+    {
+        return [NSDateFormatter localizedStringFromDate:date
+                                              dateStyle:NSDateFormatterNoStyle
+                                              timeStyle:NSDateFormatterShortStyle];
+    }
+    else
+    {
+        return [self formatAsMonthDay:date];
+    }
+}
+
 @end

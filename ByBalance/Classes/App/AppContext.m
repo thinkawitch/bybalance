@@ -276,5 +276,4 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 }
 
-
 @end

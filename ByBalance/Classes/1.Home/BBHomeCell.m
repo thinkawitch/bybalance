@@ -22,10 +22,7 @@
     BBMBalanceHistory * bh = account.lastGoodBalance;
     if (bh)
     {
-        lblDate.text = [NSDateFormatter localizedStringFromDate:bh.date 
-                                                      dateStyle:NSDateFormatterMediumStyle
-                                                      timeStyle:NSDateFormatterNoStyle];
-        
+        lblDate.text = [DATE_HELPER formatSmartAsDayOrTime:bh.date];
         lblBalance.text = [NSNumberFormatter localizedStringFromNumber:bh.balance
                                                            numberStyle:kCFNumberFormatterDecimalStyle];
     }

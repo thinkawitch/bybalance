@@ -67,58 +67,10 @@
         [self doFinish];
         return;
     }
-    /*
-    NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/work.html"];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    [request setRequestMethod:@"POST"];
-    [request setPostFormat:ASIMultipartFormDataPostFormat];
-    [request addRequestHeader:@"Host" value:@"internet.velcom.by"];
-    [request addRequestHeader:@"Referer" value:@"https://internet.velcom.by/"];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
-    
-    NSString * s1 = [account.username substringToIndex:2];
-    NSString * s2 = [account.username substringFromIndex:2];
-    
-    [request setPostValue:self.sessionId forKey:@"sid3"];
-    [request setPostValue:ts forKey:@"user_input_timestamp"];
-    [request setPostValue:@"_next" forKey:@"user_input_0"];
-    [request setPostValue:@"" forKey:@"last_id"];
-    [request setPostValue:@"5" forKey:@"user_input_8"];
-    
-    [request setPostValue:s1 forKey:@"user_input_1"];
-    [request setPostValue:s2 forKey:@"user_input_2"];
-    [request setPostValue:account.password forKey:@"user_input_3"];    
-    [request setPostValue:@"2" forKey:@"user_input_9"];
-    [request setPostValue:@"0" forKey:@"user_input_10"];
-    
-    //start request
-    [request startAsynchronous];
-     */
     
     NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
     NSString * s1 = [self.account.username substringToIndex:2];
     NSString * s2 = [self.account.username substringFromIndex:2];
-    
-    
-    
-    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
-                             self.sessionId, @"sid3",
-                             ts, @"user_input_timestamp",
-                             @"_next", @"user_input_0",
-                             @"", @"last_id",
-                             @"5", @"user_input_8",
-                             s1, @"user_input_1",
-                             s2, @"user_input_2",
-                             self.account.password, @"user_input_3",
-                             @"2", @"user_input_9",
-                             @"0", @"user_input_10",
-                             nil];
-    
-    //NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:params constructingBodyWithBlock: nil];
     
     NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];

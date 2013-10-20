@@ -26,4 +26,8 @@
 
 - (NSString *) timeIntervalToPlayback:(NSTimeInterval) interval;
 
+//
+- (NSString *) formatAsMonthDay:(NSDate *)date;
+- (NSString *) formatAsMonthDayTime:(NSDate *)date;
+- (NSString *) formatSmartAsDayOrTime:(NSDate *)date;
 @end
