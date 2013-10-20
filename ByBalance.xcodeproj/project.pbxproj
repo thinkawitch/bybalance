@@ -134,13 +134,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C312CD291808AB1F005F25D0 /* ByBalance2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByBalance2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C312CD291808AB1F005F25D0 /* ByBalance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByBalance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C312CD2C1808AB1F005F25D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C312CD2E1808AB1F005F25D0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C312CD301808AB1F005F25D0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		C312CD341808AB1F005F25D0 /* ByBalance2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ByBalance2-Info.plist"; sourceTree = "<group>"; };
+		C312CD341808AB1F005F25D0 /* ByBalance-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ByBalance-Info.plist"; sourceTree = "<group>"; };
 		C312CD381808AB1F005F25D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C312CD3A1808AB1F005F25D0 /* ByBalance2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ByBalance2-Prefix.pch"; sourceTree = "<group>"; };
+		C312CD3A1808AB1F005F25D0 /* ByBalance-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ByBalance-Prefix.pch"; sourceTree = "<group>"; };
 		C312CD441808AB1F005F25D0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C33585EF1809D637001AB5D3 /* BBHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHomeCell.h; sourceTree = "<group>"; };
 		C33585F01809D637001AB5D3 /* BBHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHomeCell.m; sourceTree = "<group>"; };
@@ -394,7 +394,7 @@
 		C312CD2A1808AB1F005F25D0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C312CD291808AB1F005F25D0 /* ByBalance2.app */,
+				C312CD291808AB1F005F25D0 /* ByBalance.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -432,8 +432,8 @@
 			isa = PBXGroup;
 			children = (
 				C312CD381808AB1F005F25D0 /* main.m */,
-				C312CD341808AB1F005F25D0 /* ByBalance2-Info.plist */,
-				C312CD3A1808AB1F005F25D0 /* ByBalance2-Prefix.pch */,
+				C312CD341808AB1F005F25D0 /* ByBalance-Info.plist */,
+				C312CD3A1808AB1F005F25D0 /* ByBalance-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -955,9 +955,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C312CD281808AB1F005F25D0 /* ByBalance2 */ = {
+		C312CD281808AB1F005F25D0 /* ByBalance */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C312CD5B1808AB20005F25D0 /* Build configuration list for PBXNativeTarget "ByBalance2" */;
+			buildConfigurationList = C312CD5B1808AB20005F25D0 /* Build configuration list for PBXNativeTarget "ByBalance" */;
 			buildPhases = (
 				C312CD251808AB1F005F25D0 /* Sources */,
 				C312CD261808AB1F005F25D0 /* Frameworks */,
@@ -967,9 +967,9 @@
 			);
 			dependencies = (
 			);
-			name = ByBalance2;
+			name = ByBalance;
 			productName = ByBalance;
-			productReference = C312CD291808AB1F005F25D0 /* ByBalance2.app */;
+			productReference = C312CD291808AB1F005F25D0 /* ByBalance.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -987,7 +987,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C312CD241808AB1F005F25D0 /* Build configuration list for PBXProject "ByBalance2" */;
+			buildConfigurationList = C312CD241808AB1F005F25D0 /* Build configuration list for PBXProject "ByBalance" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1000,7 +1000,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C312CD281808AB1F005F25D0 /* ByBalance2 */,
+				C312CD281808AB1F005F25D0 /* ByBalance */,
 			);
 		};
 /* End PBXProject section */
@@ -1216,14 +1216,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ByBalance/ByBalance2-Prefix.pch";
-				INFOPLIST_FILE = "ByBalance/ByBalance2-Info.plist";
+				GCC_PREFIX_HEADER = "ByBalance/ByBalance-Prefix.pch";
+				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/administrator/Projects/ByBalance2/ByBalance/Classes/Assets/GoogleAnalytics,
 				);
-				PRODUCT_NAME = ByBalance2;
+				PRODUCT_NAME = ByBalance;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1235,14 +1235,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ByBalance/ByBalance2-Prefix.pch";
-				INFOPLIST_FILE = "ByBalance/ByBalance2-Info.plist";
+				GCC_PREFIX_HEADER = "ByBalance/ByBalance-Prefix.pch";
+				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/administrator/Projects/ByBalance2/ByBalance/Classes/Assets/GoogleAnalytics,
 				);
-				PRODUCT_NAME = ByBalance2;
+				PRODUCT_NAME = ByBalance;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1250,7 +1250,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C312CD241808AB1F005F25D0 /* Build configuration list for PBXProject "ByBalance2" */ = {
+		C312CD241808AB1F005F25D0 /* Build configuration list for PBXProject "ByBalance" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C312CD591808AB20005F25D0 /* Debug */,
@@ -1259,7 +1259,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C312CD5B1808AB20005F25D0 /* Build configuration list for PBXNativeTarget "ByBalance2" */ = {
+		C312CD5B1808AB20005F25D0 /* Build configuration list for PBXNativeTarget "ByBalance" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C312CD5C1808AB20005F25D0 /* Debug */,
