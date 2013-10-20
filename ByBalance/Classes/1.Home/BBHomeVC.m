@@ -11,6 +11,7 @@
 #import "BBHomeCell.h"
 #import "BBBalanceVC.h"
 #import "BBAboutVC.h"
+#import "RotationAwareNavigationController.h"
 
 @interface BBHomeVC ()
 
@@ -155,7 +156,7 @@
                                                                                 action:nil];
     UIBarButtonItem * bbiReorder = [[UIBarButtonItem alloc] initWithCustomView:btnReorder];
     
-    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiLabel, bbiSpacer2, bbiReorder, nil];
+    NSArray * items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiLabel, bbiSpacer2, bbiReorder, nil];
     [toolbar setItems:items];
 }
 
@@ -164,7 +165,7 @@
 - (IBAction) onNavButtonLeft:(id)sender
 {
     BBAboutVC * vc = NEWVCFROMNIB(BBAboutVC);
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+    UINavigationController * navController = [[RotationAwareNavigationController alloc] initWithRootViewController:vc];
     
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
     navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;

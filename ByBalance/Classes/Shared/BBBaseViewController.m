@@ -22,7 +22,6 @@
 {
 	[super viewDidLoad];
 	
-	//waitIndicator = (DSBezelActivityView *) [[DSBezelActivityView alloc] initForViewAsInstance:self.view withLabel:@"" width:1];
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self setupNavBar];
 }
@@ -34,27 +33,28 @@
     [super viewDidUnload];
 }
 
-/*
-- (void) dealloc
-{
-	[self cleanup];
-	
-	[super dealloc];
-}
- */
+#pragma mark - Autorotation
 
-
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//iOS 5
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation==UIInterfaceOrientationPortrait || interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (void) didReceiveMemoryWarning
+//iOS6
+- (BOOL)shouldAutorotate
 {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
 }
 
 

@@ -8,6 +8,7 @@
 
 #import "BBAppDelegate.h"
 #import "BBHomeVC.h"
+#import "RotationAwareNavigationController.h"
 
 @implementation BBAppDelegate
 
@@ -17,20 +18,6 @@
     [SETTINGS load];
     [APP_CONTEXT start];
     [BALANCE_CHECKER start];
-
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor blackColor];
-    
-    BBHomeVC * vc = NEWVCFROMNIB(BBHomeVC);
-    self.nc = [[UINavigationController alloc] initWithRootViewController:vc];
-    //if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
-    //    self.nc.edgesForExtendedLayout = UIRectEdgeNone;
-    //}
-    self.nc.navigationBar.barStyle = UIBarStyleBlack;
-    self.nc.navigationBar.translucent = NO;
-    self.nc.navigationBar.backgroundColor = [UIColor blackColor];
-    self.window.rootViewController = self.nc;
-    [self.window makeKeyAndVisible];
     
     //google analytics
     [GAI sharedInstance].trackUncaughtExceptions = YES;
@@ -40,6 +27,19 @@
 #endif
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-39554166-1"];
 
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor blackColor];
+    
+    BBHomeVC * vc = NEWVCFROMNIB(BBHomeVC);
+    self.nc = [[RotationAwareNavigationController alloc] initWithRootViewController:vc];
+    //if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
+    //    self.nc.edgesForExtendedLayout = UIRectEdgeNone;
+    //}
+    self.nc.navigationBar.barStyle = UIBarStyleBlack;
+    self.nc.navigationBar.translucent = NO;
+    self.nc.navigationBar.backgroundColor = [UIColor blackColor];
+    self.window.rootViewController = self.nc;
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
@@ -75,5 +75,18 @@
     [APP_CONTEXT stop];
     [SETTINGS save];
 }
+
+/*
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+    NSUInteger orientations = (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
+    
+    if(self.window.rootViewController){
+        UIViewController *presentedViewController = [[(UINavigationController *)self.window.rootViewController viewControllers] lastObject];
+        orientations = [presentedViewController supportedInterfaceOrientations];
+    }
+    
+    return orientations;
+}
+*/
 
 @end

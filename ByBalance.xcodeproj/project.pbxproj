@@ -28,6 +28,7 @@
 		C33586131809DDE6001AB5D3 /* BBMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586121809DDE6001AB5D3 /* BBMAccount.m */; };
 		C33586161809DDE7001AB5D3 /* BBMBalanceHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586151809DDE7001AB5D3 /* BBMBalanceHistory.m */; };
 		C33586191809DDE7001AB5D3 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586181809DDE7001AB5D3 /* BBMAccountType.m */; };
+		C390E05618148EE40011EA4D /* RotationAwareNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */; };
 		C3B23B651814563700A7243E /* BBLoaderDiallog.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B23B641814563700A7243E /* BBLoaderDiallog.m */; };
 		C3B23B6F1814715800A7243E /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B23B6D1814715800A7243E /* libGoogleAnalytics_debug.a */; };
 		C3B23B701814715800A7243E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B23B6E1814715800A7243E /* libGoogleAnalyticsServices.a */; };
@@ -169,6 +170,8 @@
 		C33586171809DDE7001AB5D3 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
 		C33586181809DDE7001AB5D3 /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
 		C38468E0181405690053CF41 /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
+		C390E05418148EE40011EA4D /* RotationAwareNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationAwareNavigationController.h; sourceTree = "<group>"; };
+		C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationAwareNavigationController.m; sourceTree = "<group>"; };
 		C3B23B631814563700A7243E /* BBLoaderDiallog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDiallog.h; sourceTree = "<group>"; };
 		C3B23B641814563700A7243E /* BBLoaderDiallog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDiallog.m; sourceTree = "<group>"; };
 		C3B23B671814715800A7243E /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
@@ -484,6 +487,15 @@
 			path = 4.About;
 			sourceTree = "<group>";
 		};
+		C390E05318148EE40011EA4D /* RotationAwareNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				C390E05418148EE40011EA4D /* RotationAwareNavigationController.h */,
+				C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */,
+			);
+			path = RotationAwareNavigationController;
+			sourceTree = "<group>";
+		};
 		C3B23B661814715800A7243E /* GoogleAnalytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -626,6 +638,7 @@
 				C3C82B481808D59B00E2C1D6 /* PrimitiveHelper */,
 				C3C82B4E1808D9D700E2C1D6 /* Reachability */,
 				C3DE6FEF1809B2F70024F9DD /* RegexOnNSString */,
+				C390E05318148EE40011EA4D /* RotationAwareNavigationController */,
 				C3DE70121809B5A30024F9DD /* SSCheckBoxView */,
 				C3DE6FF21809B2F70024F9DD /* XMLReader */,
 				C3C82B4D1808D69F00E2C1D6 /* SynthesizeSingleton.h */,
@@ -1092,6 +1105,7 @@
 				C3DE706F1809BE1C0024F9DD /* BBLoaderDamavik.m in Sources */,
 				C3DE70081809B2F70024F9DD /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				C3C82B031808CE1500E2C1D6 /* BBBaseViewController.m in Sources */,
+				C390E05618148EE40011EA4D /* RotationAwareNavigationController.m in Sources */,
 				C3DE6FF81809B2F70024F9DD /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				C33586061809D6BD001AB5D3 /* BBAccountFormVC.m in Sources */,
 				C3C82B4C1808D59B00E2C1D6 /* IDPrimitiveHelper.m in Sources */,
