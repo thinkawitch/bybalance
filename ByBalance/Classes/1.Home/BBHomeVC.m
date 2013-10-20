@@ -148,6 +148,11 @@
     vActivity.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
     vActivity.hidesWhenStopped = YES;
     
+    UIView * viewLB = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
+    [viewLB addSubview:vActivity];
+    vActivity.center = [viewLB convertPoint:viewLB.center fromView:viewLB.superview];
+    [viewLB addSubview:btnRefresh];
+    
     //status
     lblStatus = [APP_CONTEXT toolBarLabel];
     lblStatus.text = [self lastBalanceStatus];
@@ -160,18 +165,17 @@
     [btnReorder addTarget:self action:@selector(onBtnReorder:) forControlEvents:UIControlEventTouchUpInside];
 	
     //toolbar
-    UIBarButtonItem * bbiRefresh = [[UIBarButtonItem alloc] initWithCustomView:btnRefresh];
+    UIBarButtonItem * bbiRefresh = [[UIBarButtonItem alloc] initWithCustomView:viewLB];
     UIBarButtonItem * bbiSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                                                 target:nil
                                                                                 action:nil];
-    UIBarButtonItem * bbiActivity = [[UIBarButtonItem alloc] initWithCustomView:vActivity];
     UIBarButtonItem * bbiLabel = [[UIBarButtonItem alloc] initWithCustomView:lblStatus];
     UIBarButtonItem * bbiSpacer2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                                                 target:nil
                                                                                 action:nil];
     UIBarButtonItem * bbiReorder = [[UIBarButtonItem alloc] initWithCustomView:btnReorder];
     
-    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiActivity, bbiLabel, bbiSpacer2, bbiReorder, nil];
+    NSArray *items = [[NSArray alloc] initWithObjects:bbiRefresh, bbiSpacer, bbiLabel, bbiSpacer2, bbiReorder, nil];
     [toolbar setItems:items];
 }
 
@@ -235,6 +239,7 @@
     {
         [BALANCE_CHECKER addItem:account];
     }
+    
 }
 
 - (void) onBtnReorder:(id)sender
@@ -270,6 +275,7 @@
 {
     NSLog(@"BBHomeVC.balanceCheckStarted");
     
+    btnRefresh.hidden = YES;
     [vActivity startAnimating];
     
     lblStatus.text = @"обновление началось";
@@ -296,6 +302,7 @@
     NSLog(@"BBHomeVC.balanceCheckStopped");
     
     [vActivity stopAnimating];
+    btnRefresh.hidden = NO;
     
     lblStatus.text = [self lastBalanceStatus];
     [lblStatus sizeToFit];
