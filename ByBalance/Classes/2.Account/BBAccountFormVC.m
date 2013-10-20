@@ -63,7 +63,7 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    //[[[GAI sharedInstance] defaultTracker] sendView:@"Настройки доступа"];
+    self.screenName = @"Настройки доступа";
 }
 
 - (void) cleanup
@@ -152,7 +152,7 @@
     }
     
     
-    //id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
     if (editMode)
     {
@@ -167,12 +167,10 @@
         
         [APP_CONTEXT showToastWithText:@"Аккаунт обновлён"];
         
-        /*
-        [tracker sendEventWithCategory:@"account"
-                            withAction:@"account_update"
-                             withLabel:[NSString stringWithFormat:@"%@", account.type.name]
-                             withValue:nil];
-         */
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"account"
+                                                              action:@"account_update"
+                                                               label:[NSString stringWithFormat:@"%@", account.type.name]
+                                                               value:nil] build]];
     }
     else
     {
@@ -189,12 +187,11 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
         
         [APP_CONTEXT showToastWithText:@"Новый аккаунт добавлен"];
-        /*
-        [tracker sendEventWithCategory:@"account"
-                            withAction:@"account_create"
-                             withLabel:[NSString stringWithFormat:@"%@", accountType.name]
-                             withValue:nil];
-         */
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"account"
+                                                              action:@"account_create"
+                                                               label:[NSString stringWithFormat:@"%@", account.type.name]
+                                                               value:nil] build]];
     }
 }
 

@@ -33,7 +33,7 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    //[[[GAI sharedInstance] defaultTracker] sendView:@"Список компаний"];
+    self.screenName = @"Список компаний";
 }
 
 #pragma mark - Setup

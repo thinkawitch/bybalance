@@ -70,14 +70,14 @@ typedef enum
 {
     [super viewDidAppear:animated];
     
+    self.screenName = @"Баланс";
+    
     if (needUpdateScreen)
     {
         [self updateScreen];
         
         needUpdateScreen = NO;
     }
-    
-    //[[[GAI sharedInstance] defaultTracker] sendView:@"Баланс"];
 }
 
 #pragma mark - Setup
@@ -266,12 +266,12 @@ typedef enum
     {    
         if (buttonIndex == 1)
         {
-            /*
-            [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"account"
-                                                              withAction:@"account_delete"
-                                                               withLabel:[NSString stringWithFormat:@"%@", account.type.name]
-                                                               withValue:nil];
-            */
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"account"
+                                                                  action:@"account_delete"
+                                                                   label:[NSString stringWithFormat:@"%@", account.type.name]
+                                                                   value:nil] build]];
+            
             [account deleteEntity];
             [APP_CONTEXT saveDatabase];
             

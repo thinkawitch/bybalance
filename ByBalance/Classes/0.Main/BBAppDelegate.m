@@ -32,6 +32,15 @@
     self.window.rootViewController = self.nc;
     [self.window makeKeyAndVisible];
     
+    //google analytics
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 30;
+#ifdef DEBUG
+    [[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
+#endif
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-39554166-1"];
+
+    
     return YES;
 }
 							

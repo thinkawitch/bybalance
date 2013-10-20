@@ -8,7 +8,7 @@
 
 @class MBProgressHUD;
 
-@interface BBBaseViewController : UIViewController <UIAlertViewDelegate>
+@interface BBBaseViewController : GAITrackedViewController <UIAlertViewDelegate>
 {
     
 @protected

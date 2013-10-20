@@ -29,6 +29,9 @@
 		C33586161809DDE7001AB5D3 /* BBMBalanceHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586151809DDE7001AB5D3 /* BBMBalanceHistory.m */; };
 		C33586191809DDE7001AB5D3 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586181809DDE7001AB5D3 /* BBMAccountType.m */; };
 		C3B23B651814563700A7243E /* BBLoaderDiallog.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B23B641814563700A7243E /* BBLoaderDiallog.m */; };
+		C3B23B6F1814715800A7243E /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B23B6D1814715800A7243E /* libGoogleAnalytics_debug.a */; };
+		C3B23B701814715800A7243E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B23B6E1814715800A7243E /* libGoogleAnalyticsServices.a */; };
+		C3B23B721814736900A7243E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B23B711814736900A7243E /* libz.dylib */; };
 		C3C1DA421809FBC400180AFA /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA321809FBC400180AFA /* add.png */; };
 		C3C1DA431809FBC400180AFA /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA331809FBC400180AFA /* add@2x.png */; };
 		C3C1DA441809FBC400180AFA /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA341809FBC400180AFA /* arrow_left.png */; };
@@ -168,6 +171,15 @@
 		C38468E0181405690053CF41 /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
 		C3B23B631814563700A7243E /* BBLoaderDiallog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDiallog.h; sourceTree = "<group>"; };
 		C3B23B641814563700A7243E /* BBLoaderDiallog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDiallog.m; sourceTree = "<group>"; };
+		C3B23B671814715800A7243E /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		C3B23B681814715800A7243E /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		C3B23B691814715800A7243E /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		C3B23B6A1814715800A7243E /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		C3B23B6B1814715800A7243E /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		C3B23B6C1814715800A7243E /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		C3B23B6D1814715800A7243E /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
+		C3B23B6E1814715800A7243E /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		C3B23B711814736900A7243E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C3C1DA321809FBC400180AFA /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		C3C1DA331809FBC400180AFA /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		C3C1DA341809FBC400180AFA /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_left.png; sourceTree = "<group>"; };
@@ -361,6 +373,9 @@
 				C312CD2F1808AB1F005F25D0 /* CoreGraphics.framework in Frameworks */,
 				C312CD311808AB1F005F25D0 /* UIKit.framework in Frameworks */,
 				C312CD2D1808AB1F005F25D0 /* Foundation.framework in Frameworks */,
+				C3B23B721814736900A7243E /* libz.dylib in Frameworks */,
+				C3B23B701814715800A7243E /* libGoogleAnalyticsServices.a in Frameworks */,
+				C3B23B6F1814715800A7243E /* libGoogleAnalytics_debug.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +402,7 @@
 		C312CD2B1808AB1F005F25D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C3B23B711814736900A7243E /* libz.dylib */,
 				C3DE6F891809B2270024F9DD /* AddressBook.framework */,
 				C3DE6F8A1809B2270024F9DD /* AddressBookUI.framework */,
 				C3DE6F911809B2360024F9DD /* CoreData.framework */,
@@ -466,6 +482,21 @@
 				C33586051809D6BD001AB5D3 /* BBAboutVC.m */,
 			);
 			path = 4.About;
+			sourceTree = "<group>";
+		};
+		C3B23B661814715800A7243E /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				C3B23B671814715800A7243E /* GAI.h */,
+				C3B23B681814715800A7243E /* GAIDictionaryBuilder.h */,
+				C3B23B691814715800A7243E /* GAIFields.h */,
+				C3B23B6A1814715800A7243E /* GAILogger.h */,
+				C3B23B6B1814715800A7243E /* GAITrackedViewController.h */,
+				C3B23B6C1814715800A7243E /* GAITracker.h */,
+				C3B23B6D1814715800A7243E /* libGoogleAnalytics_debug.a */,
+				C3B23B6E1814715800A7243E /* libGoogleAnalyticsServices.a */,
+			);
+			path = GoogleAnalytics;
 			sourceTree = "<group>";
 		};
 		C3C1DA301809FBC400180AFA /* Icons */ = {
@@ -588,6 +619,7 @@
 				C3DE70461809B87E0024F9DD /* BBAsiTemp */,
 				C3DE6F931809B2E60024F9DD /* AFNetworking */,
 				C3C82B451808D59B00E2C1D6 /* DateHelper */,
+				C3B23B661814715800A7243E /* GoogleAnalytics */,
 				C3DE6FB01809B2F70024F9DD /* iToast */,
 				C3DE6FB31809B2F70024F9DD /* MagicalRecord */,
 				C3C82B051808D1AF00E2C1D6 /* MBProgressHUD */,
@@ -1187,6 +1219,10 @@
 				GCC_PREFIX_HEADER = "ByBalance/ByBalance2-Prefix.pch";
 				INFOPLIST_FILE = "ByBalance/ByBalance2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/administrator/Projects/ByBalance2/ByBalance/Classes/Assets/GoogleAnalytics,
+				);
 				PRODUCT_NAME = ByBalance2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1202,6 +1238,10 @@
 				GCC_PREFIX_HEADER = "ByBalance/ByBalance2-Prefix.pch";
 				INFOPLIST_FILE = "ByBalance/ByBalance2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/administrator/Projects/ByBalance2/ByBalance/Classes/Assets/GoogleAnalytics,
+				);
 				PRODUCT_NAME = ByBalance2;
 				WRAPPER_EXTENSION = app;
 			};

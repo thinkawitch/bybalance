@@ -61,29 +61,10 @@
     
     self.accounts = nil;
     
-    if (btnRefresh)
-    {
-        //[btnRefresh release];
-        btnRefresh = nil;
-    }
-    
-    if (lblStatus)
-    {
-        //[lblStatus release];
-        lblStatus = nil;
-    }
-    
-    if (vActivity)
-    {
-        //[vActivity release];
-        vActivity = nil;
-    }
-    
-    if (btnReorder)
-    {
-        //[btnReorder release];
-        btnReorder = nil;
-    }
+    if (btnRefresh) btnRefresh = nil;
+    if (lblStatus) lblStatus = nil;
+    if (vActivity) vActivity = nil;
+    if (btnReorder) btnReorder = nil;
     
     [super cleanup];
 }
@@ -92,15 +73,14 @@
 {
     [super viewDidAppear:animated];
     
+    self.screenName = @"Главный экран";
+    
     if (needUpdateScreen)
     {
         [self loadAccounts];
         needUpdateScreen = NO;
         [self toggleSplashMode];
     }
-    
-    //[[[GAI sharedInstance] defaultTracker] sendView:@"Главный экран"];
-    
 }
 
 
