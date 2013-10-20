@@ -2,7 +2,7 @@
 //  BBLoaderLife.m
 //  ByBalance
 //
-//  Created by Admin on 17.11.12.
+//  Created by Andrew Sinkevitch on 17.11.12.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
@@ -12,43 +12,33 @@
 
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
+    [self clearCookies:@"https://issa.life.com.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa.life.com.by/"]];
+    [self setDefaultsForHttpClient];
     
-    NSString * loginUrl = @"https://issa.life.com.by/";
+    NSString * s1 = [self.account.username substringToIndex:2];
+    NSString * s2 = [self.account.username substringFromIndex:2];
     
-    NSURL * url = [NSURL URLWithString:loginUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             s1, @"Code",
+                             self.account.password, @"Password",
+                             s2, @"Phone",
+                             nil];
     
-    NSString * s1 = [account.username substringToIndex:2];
-    NSString * s2 = [account.username substringFromIndex:2];
+    [self.httpClient postPath:@"/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self extractInfoFromHtml:operation.responseString];
+        [self doFinish];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
     
-    [request addRequestHeader:@"Referer" value:loginUrl];
-    [request setPostValue:s1 forKey:@"Code"];
-    [request setPostValue:account.password forKey:@"Password"];
-    [request setPostValue:s2 forKey:@"Phone"];
-    
-    return request;
-     */
-    return nil;
 }
 
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    [self extractInfoFromHtml:request.responseString];
-    [self doFinish];
-     */
-}
-
-#pragma mark - Logic
 
 - (void) extractInfoFromHtml:(NSString *)html
 {

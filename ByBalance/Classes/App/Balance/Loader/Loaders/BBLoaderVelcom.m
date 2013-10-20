@@ -2,7 +2,7 @@
 //  BBLoaderVelcom.m
 //  ByBalance
 //
-//  Created by Admin on 22/09/2012.
+//  Created by Andrew Sinkevitch on 22/09/2012.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
@@ -23,75 +23,23 @@
 
 @synthesize sessionId;
 
-
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
+    [self clearCookies:@"https://internet.velcom.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://internet.velcom.by/"]];
+    [self setDefaultsForHttpClient];
     
-    NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/"];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    [request setRequestMethod:@"GET"];
-    [request addRequestHeader:@"Host" value:@"internet.velcom.by"];
-    [request addRequestHeader:@"Referer" value:@"http://www.velcom.by/"];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    self.sessionId = nil;
-    
-    return request;
-    */
-    
-    return nil;
-}
-
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    NSString * step = [request.userInfo objectForKey:@"step"];
-    
-    //NSLog(@"responseEncoding %d", request.responseEncoding);
-    
-    NSString * html = nil;
-    if (request.responseEncoding == NSISOLatin1StringEncoding)
-    {
-        html = [[[NSString alloc] initWithData:request.responseData encoding:NSWindowsCP1251StringEncoding] autorelease];
-    }
-    else
-    {
-        html = request.responseString;
-    }
-    
-    
-    if ([step isEqualToString:@"1"])
-    {
-        [self onStep1:html];
-    }
-    else if ([step isEqualToString:@"2"])
-    {
-        [self onStep2:html];
-    }
-    else if ([step isEqualToString:@"3"])
-    {
-        [self onStep3:html];
-    }
-    else
-    {
+    [self.httpClient getPath:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep1:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         [self doFinish];
-    }
-     */
+    }];
 }
-
-#pragma mark - Logic
 
 - (void) onStep1:(NSString *)html
 {
@@ -150,6 +98,52 @@
     //start request
     [request startAsynchronous];
      */
+    
+    NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
+    NSString * s1 = [self.account.username substringToIndex:2];
+    NSString * s2 = [self.account.username substringFromIndex:2];
+    
+    
+    
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             self.sessionId, @"sid3",
+                             ts, @"user_input_timestamp",
+                             @"_next", @"user_input_0",
+                             @"", @"last_id",
+                             @"5", @"user_input_8",
+                             s1, @"user_input_1",
+                             s2, @"user_input_2",
+                             self.account.password, @"user_input_3",
+                             @"2", @"user_input_9",
+                             @"0", @"user_input_10",
+                             nil];
+    
+    //NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:params constructingBodyWithBlock: nil];
+    
+    NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+        [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
+        [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
+        [formData appendPartWithFormData:[@"_next" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
+        [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"last_id"];
+        [formData appendPartWithFormData:[@"5" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_8"];
+        [formData appendPartWithFormData:[s1 dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_1"];
+        [formData appendPartWithFormData:[s2 dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_2"];
+        [formData appendPartWithFormData:[self.account.password dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_3"];
+        [formData appendPartWithFormData:[@"2" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_9"];
+        [formData appendPartWithFormData:[@"0" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_10"];
+    }];
+
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+         [self onStep2:operation.responseString];
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         [self doFinish];
+     }];
+    
+    [self.httpClient enqueueHTTPRequestOperation:operation];
 }
 
 - (void) onStep2:(NSString *)html
@@ -181,27 +175,28 @@
         [self doFinish];
         return;
     }
-    /*
-    NSURL * url = [NSURL URLWithString:@"https://internet.velcom.by/work.html"];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    [request setRequestMethod:@"POST"];
-    [request setPostFormat:ASIMultipartFormDataPostFormat];
-    [request addRequestHeader:@"Host" value:@"internet.velcom.by"];
-    [request addRequestHeader:@"Referer" value:@"https://internet.velcom.by/work.html"];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"3", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
     NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
     
-    [request setPostValue:self.sessionId forKey:@"sid3"];
-    [request setPostValue:ts forKey:@"user_input_timestamp"];
-    [request setPostValue:menuMarker forKey:@"user_input_0"];
-    [request setPostValue:@"" forKey:@"last_id"];
+    NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+        [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
+        [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
+        [formData appendPartWithFormData:[menuMarker dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
+        [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"last_id"];
+    }];
     
-    //start request
-    [request startAsynchronous];
-     */
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+         [self onStep3:operation.responseString];
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         [self doFinish];
+     }];
+    
+    [self.httpClient enqueueHTTPRequestOperation:operation];
 }
 
 
@@ -209,6 +204,7 @@
 {
     //NSLog(@"BBLoaderVelcom.onStep3");
     //NSLog(@"%@", html);
+    
     [self extractInfoFromHtml:html];
     [self doFinish];
 }

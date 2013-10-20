@@ -2,7 +2,7 @@
 //  BBBalanceInfo.h
 //  ByBalance
 //
-//  Created by Admin on 18.08.13.
+//  Created by Andrew Sinkevitch on 18.08.13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 

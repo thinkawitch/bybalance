@@ -15,76 +15,33 @@
 
 @end
 
+
 @implementation BBLoaderNetBerry
 
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
+    [self clearCookies:@"https://user.nbr.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://user.nbr.by/"]];
+    [self setDefaultsForHttpClient];
+    self.httpClient.allowsInvalidSSLCertificate = YES;
     
-    NSURL * url = [NSURL URLWithString:@"https://user.nbr.by/bgbilling/webexecuter"];
-    ASIFormDataRequest * request = [self requestWithURL:url];
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             @"0", @"midAuth",
+                             self.account.username, @"user",
+                             self.account.password, @"pswd",
+                             nil];
     
-    [request setRequestMethod:@"GET"];
-    [request addRequestHeader:@"Host" value:@"user.nbr.by"];
-    [request addRequestHeader:@"Referer" value:@"https://user.nbr.by/bgbilling/webexecuter"];
-    
-    [request setValidatesSecureCertificate:NO];
-    
-    [request addPostValue:@"0" forKey:@"midAuth"];
-    [request addPostValue:account.username forKey:@"user"];
-    [request addPostValue:account.password forKey:@"pswd"];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    return request;
-     */
-    
-    return nil;
-}
-
-
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    NSString * step = [request.userInfo objectForKey:@"step"];
-    
-    //NSLog(@"responseEncoding %d", request.responseEncoding);
-    
-    NSString * html = nil;
-    if (request.responseEncoding == NSISOLatin1StringEncoding)
-    {
-        html = [[[NSString alloc] initWithData:request.responseData encoding:NSWindowsCP1251StringEncoding] autorelease];
-    }
-    else
-    {
-        html = request.responseString;
-    }
-    
-    if ([step isEqualToString:@"1"])
-    {
-        [self onStep1:html];
-    }
-    else if ([step isEqualToString:@"2"])
-    {
-        [self onStep2:html];
-    }
-    else
-    {
+    [self.httpClient postPath:@"/bgbilling/webexecuter" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep1:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         [self doFinish];
-    }
-     */
+    }];
 }
-
-#pragma mark - Logic
 
 - (void) onStep1:(NSString *)html
 {
@@ -107,21 +64,15 @@
     }
     
     //https://user.nbr.by/bgbilling/webexecuter?action=ShowBalance&mid=contract
-    /*
-    NSURL * url = [NSURL URLWithString:@"https://user.nbr.by/bgbilling/webexecuter?action=ShowBalance&mid=contract"];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    
-    [request setValidatesSecureCertificate:NO];
-    
-    [request addRequestHeader:@"Host" value:@"user.nbr.by"];
-    [request addRequestHeader:@"Referer" value:@"https://user.nbr.by/bgbilling/webexecuter"];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    [request startAsynchronous];
-     */
+
+    [self.httpClient getPath:@"/bgbilling/webexecuter?action=ShowBalance&mid=contract" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep2:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
     
 }
 
@@ -136,18 +87,18 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    /*
+
     if (!html)
     {
-        loaderInfo.extracted = NO;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
     //incorrect login/pass
     if ([html rangeOfString:@"Ошибка при авторизации"].location != NSNotFound)
     {
-        loaderInfo.incorrectLogin = YES;
-        loaderInfo.extracted = NO;
+        self.loaderInfo.incorrectLogin = YES;
+        self.loaderInfo.extracted = NO;
         return;
     }
     
@@ -165,14 +116,13 @@
         {
             buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
             NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
-            loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
+            self.loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
             
         }
     }
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    //NSLog(@"balance: %@", self.loaderInfo.userBalance);
     
-    loaderInfo.extracted = [loaderInfo.userBalance length] > 0;
-     */
+    self.loaderInfo.extracted = [self.loaderInfo.userBalance length] > 0;
 }
 
 @end

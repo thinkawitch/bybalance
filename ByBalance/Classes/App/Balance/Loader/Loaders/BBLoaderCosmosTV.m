@@ -16,66 +16,34 @@
 
 @end
 
+
 @implementation BBLoaderCosmosTV
 
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
+    [self clearCookies:@"http://cosmostv.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://cosmostv.by/"]];
+    [self setDefaultsForHttpClient];
+    [self.httpClient setDefaultHeader:@"Referer" value:@"http://cosmostv.by/"];
     
-    NSURL * url = [NSURL URLWithString:@"http://cosmostv.by/subscribers/login/?process"];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    [request addRequestHeader:@"Referer" value:@"http://cosmostv.by/"];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            self.account.username, @"login",
+                            self.account.password, @"password",
+                            @"1", @"doit!",
+                            @"1", @"ajax",
+                            nil];
     
-    [request addPostValue:account.username forKey:@"login"];
-    [request addPostValue:account.password forKey:@"password"];
-    [request addPostValue:@"1" forKey:@"doit!"];
-    [request addPostValue:@"1" forKey:@"ajax"];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    return request;
-     */
-    return nil;
-}
-
-
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    NSString * step = [request.userInfo objectForKey:@"step"];
-    NSString * html = request.responseString;
-    
-    
-    if ([step isEqualToString:@"1"])
-    {
-        [self onStep1:html];
-    }
-    else if ([step isEqualToString:@"2"])
-    {
-        [self onStep2:html];
-    }
-    else if ([step isEqualToString:@"3"])
-    {
-        [self onStep3:html];
-    }
-    else
-    {
+    [self.httpClient postPath:@"/subscribers/login/?process" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep1:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         [self doFinish];
-    }
-     */
+    }];
 }
-
-
-#pragma mark - Logic
 
 - (void) onStep1:(NSString *)html
 {
@@ -104,14 +72,16 @@
         [self doFinish];
         return;
     }
-    /*
-    NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://cosmostv.by%@", redirect]];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
     
-    [request startAsynchronous];
-    */
+    NSString * path = [NSString stringWithFormat:@"http://cosmostv.by%@", redirect];
+    [self.httpClient getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep2:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
 }
 
 - (void) onStep2:(NSString *)html
@@ -121,7 +91,6 @@
     
     //showServices(this, "101932108", "41263"
     //http://cosmostv.by/json/subscribers/account/cabinet/?contract=101932108
-    
     
     NSArray * arr = nil;
     NSString * buf = nil;
@@ -137,23 +106,24 @@
             
         }
     }
-    /*
-    if (num)
-    {
-        NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://cosmostv.by/json/subscribers/account/cabinet/?contract=%@", num]];
-        ASIFormDataRequest * request = [self requestWithURL:url];
-        
-        request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"3", nil]
-                                                       forKeys:[NSArray arrayWithObjects:@"step", nil]];
-        
-        [request startAsynchronous];
-    }
-    else
+    
+    if (!num)
     {
         [self doFinish];
+        return;
     }
-     */
     
+
+    NSString * path = [NSString stringWithFormat:@"http://cosmostv.by/json/subscribers/account/cabinet/?contract=%@", num];
+    [self.httpClient getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep3:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
+
 }
 
 - (void) onStep3:(NSString *)html

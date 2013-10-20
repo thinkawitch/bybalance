@@ -17,96 +17,28 @@
 
 @end
 
+
 @implementation BBLoaderMts
 
 @synthesize paramViewState;
 
-
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
+    [self clearCookies:@"https://ihelper.mts.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://ihelper.mts.by/"]];
+    [self setDefaultsForHttpClient];
     
-    NSURL * url = [NSURL URLWithString:@"https://ihelper.mts.by/SelfCare/"];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    [request setRequestMethod:@"GET"];
-    [request addRequestHeader:@"Host" value:@"ihelper.mts.by"];
-    [request addRequestHeader:@"Referer" value:@"https://ihelper.mts.by/SelfCare/"];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    self.paramViewState = nil;
-    
-    return request;
-     */
-    return nil;
-}
-
-
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void)requestStarted:(ASIHTTPRequest *)request
-{
-    //NSLog(@"%@.requestStarted", [self class]);
-    //NSLog(@"url: %@", request.url);
-    
-    /*
-     for (NSString * name in request.requestHeaders)
-     {
-     NSLog(@"[header] %@: %@", name, [request.requestHeaders objectForKey:name]);
-     }
-     
-     for (NSString * name in request.requestCookies)
-     {
-     NSLog(@"[cookie] %@", name);
-     }
-     */
-}
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    NSString * step = [request.userInfo objectForKey:@"step"];
-    
-    //NSLog(@"responseEncoding %d", request.responseEncoding);
-    
-    NSString * html = nil;
-    if (request.responseEncoding == NSISOLatin1StringEncoding)
-    {
-        html = [[[NSString alloc] initWithData:request.responseData encoding:NSWindowsCP1251StringEncoding] autorelease];
-    }
-    else
-    {
-        html = request.responseString;
-    }
-    
-    //NSLog(@"%@", html);
-    
-    
-    if ([step isEqualToString:@"1"])
-    {
-        [self onStep1:html];
-    }
-    else if ([step isEqualToString:@"2"])
-    {
-        [self onStep2:html];
-    }
-    else
-    {
+    [self.httpClient getPath:@"/SelfCare/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep1:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         [self doFinish];
-    }
-     */
+    }];
 }
-
-
-#pragma mark - Logic
 
 - (void) onStep1:(NSString *)html
 {
@@ -134,25 +66,22 @@
         [self doFinish];
         return;
     }
-    /*
-    NSURL * url = [NSURL URLWithString:@"https://ihelper.mts.by/SelfCare/logon.aspx"];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    //[request setRequestMethod:@"POST"];
-    //[request setPostFormat:ASIMultipartFormDataPostFormat];
-    [request addRequestHeader:@"Host" value:@"ihelper.mts.by"];
-    [request addRequestHeader:@"Referer" value:@"https://ihelper.mts.by/SelfCare/"];
+
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             self.paramViewState, @"__VIEWSTATE",
+                             self.account.username, @"ctl00$MainContent$tbPhoneNumber",
+                             self.account.password, @"ctl00$MainContent$tbPassword",
+                             @"Войти", @"ctl00$MainContent$btnEnter",
+                             nil];
     
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    [request setPostValue:self.paramViewState forKey:@"__VIEWSTATE"];
-    [request setPostValue:account.username forKey:@"ctl00$MainContent$tbPhoneNumber"];
-    [request setPostValue:account.password forKey:@"ctl00$MainContent$tbPassword"];
-    [request setPostValue:@"Войти" forKey:@"ctl00$MainContent$btnEnter"];
-    
-    //start request
-    [request startAsynchronous];
-     */
+    [self.httpClient postPath:@"/SelfCare/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep2:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
 }
 
 - (void) onStep2:(NSString *)html

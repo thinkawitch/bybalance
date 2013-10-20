@@ -46,36 +46,9 @@
     
     NSLog(@"%@.start %@ %@", [self class], account.type.name, account.username);
     
-    /*
-    if (self.isAFNetworking)
-    {
-        [self markStart];
-        
-        //notify about progress
-        [self performSelectorOnMainThread:@selector(notifyAboutUpdatingAccount) withObject:nil waitUntilDone:YES];
-        
-        //start request
-        [self startAFNetworking];
-    }
-    else
-    {
-        ASIFormDataRequest * request = [self prepareRequest];
-        if (!request)
-        {
-            [self markDone];
-            return;
-        }
-        
-        [self markStart];
-        
-        //notify about progress
-        [self performSelectorOnMainThread:@selector(notifyAboutUpdatingAccount) withObject:nil waitUntilDone:YES];
-        
-        //start request
-        [request startAsynchronous];
-    }
-    */
-    
+    [self markStart];
+    [self performSelectorOnMainThread:@selector(notifyAboutUpdatingAccount) withObject:nil waitUntilDone:YES];
+    [self startLoader];
 }
 
 - (BOOL) isConcurrent
@@ -120,36 +93,24 @@
 
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) requestWithURL:(NSURL *)url
-{
-    /*
-    ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL: url];
-    
-    request.timeOutSeconds = 12.f;
-    request.userAgentString = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0";
-    request.delegate = self;
-    
-    //add some parameters, common for all requests
-    
-    return request;
-    */
-    
-    return nil;
-}
-
-- (ASIFormDataRequest *) prepareRequest
-{
-    return nil;
-}
-
-- (BOOL) isAFNetworking
-{
-    return NO;
-}
-
-- (void) startAFNetworking
+- (void) startLoader
 {
     //base, do nothing
+}
+
+- (void) clearCookies:(NSString *)url
+{
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:url]];
+    for (NSHTTPCookie *cookie in cookies)
+    {
+        //NSLog(@"__cookie: %@", cookie);
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+}
+
+- (void) setDefaultsForHttpClient
+{
+    [self.httpClient setDefaultHeader:@"User-Agent" value:@"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0"];
 }
 
 - (void) extractInfoFromHtml:(NSString *)html
@@ -172,27 +133,6 @@
     [self markDone];
 }
 
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void)requestStarted:(ASIHTTPRequest *)request
-{
-    //NSLog(@"%@.requestStarted", [self class]);
-    //NSLog(@"url: %@", request.url);
-}
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    //NSLog(@"%@.requestFinished", [self class]);
-    //NSLog(@"%@", request.responseString);
-}
-
-- (void) requestFailed:(ASIHTTPRequest *)request
-{
-    //NSLog(@"%@.requestFailed" , [self class]);
-    //NSLog(@"%@", [request error]);
-    
-    [self doFinish];
-}
 
 
 #pragma mark - Private

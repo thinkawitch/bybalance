@@ -164,6 +164,7 @@
 		C33586151809DDE7001AB5D3 /* BBMBalanceHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMBalanceHistory.m; sourceTree = "<group>"; };
 		C33586171809DDE7001AB5D3 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
 		C33586181809DDE7001AB5D3 /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
+		C38468E0181405690053CF41 /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
 		C3C1DA321809FBC400180AFA /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		C3C1DA331809FBC400180AFA /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		C3C1DA341809FBC400180AFA /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_left.png; sourceTree = "<group>"; };
@@ -316,7 +317,6 @@
 		C3DE70561809BE1C0024F9DD /* BBLoaderCosmosTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderCosmosTV.m; sourceTree = "<group>"; };
 		C3DE70571809BE1C0024F9DD /* BBLoaderDamavik.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDamavik.h; sourceTree = "<group>"; };
 		C3DE70581809BE1C0024F9DD /* BBLoaderDamavik.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDamavik.m; sourceTree = "<group>"; };
-		C3DE70591809BE1C0024F9DD /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
 		C3DE705A1809BE1C0024F9DD /* BBLoaderInfolan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderInfolan.h; sourceTree = "<group>"; };
 		C3DE705B1809BE1C0024F9DD /* BBLoaderInfolan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderInfolan.m; sourceTree = "<group>"; };
 		C3DE705C1809BE1C0024F9DD /* BBLoaderLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderLife.h; sourceTree = "<group>"; };
@@ -857,6 +857,7 @@
 			isa = PBXGroup;
 			children = (
 				C3DE70501809BE1C0024F9DD /* Loaders */,
+				C38468E0181405690053CF41 /* BBLoaderDelegate.h */,
 				C3DE704B1809BE1C0024F9DD /* BBAllLoaders.h */,
 				C3DE704E1809BE1C0024F9DD /* BBLoaderInfo.h */,
 				C3DE704F1809BE1C0024F9DD /* BBLoaderInfo.m */,
@@ -877,7 +878,6 @@
 				C3DE70561809BE1C0024F9DD /* BBLoaderCosmosTV.m */,
 				C3DE70571809BE1C0024F9DD /* BBLoaderDamavik.h */,
 				C3DE70581809BE1C0024F9DD /* BBLoaderDamavik.m */,
-				C3DE70591809BE1C0024F9DD /* BBLoaderDelegate.h */,
 				C3DE705A1809BE1C0024F9DD /* BBLoaderInfolan.h */,
 				C3DE705B1809BE1C0024F9DD /* BBLoaderInfolan.m */,
 				C3DE705C1809BE1C0024F9DD /* BBLoaderLife.h */,

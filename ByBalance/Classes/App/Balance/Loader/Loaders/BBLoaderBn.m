@@ -2,15 +2,43 @@
 //  BBLoaderBn.m
 //  ByBalance
 //
-//  Created by Admin on 22/09/2012.
+//  Created by Andrew Sinkevitch on 22/09/2012.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
 #import "BBLoaderBn.h"
 
+@interface BBLoaderBn ()
+@end
+
+
 @implementation BBLoaderBn
 
 #pragma mark - Logic
+
+- (void) startLoader
+{
+    [self clearCookies:@"http://ui.bn.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://ui.bn.by/"]];
+    [self setDefaultsForHttpClient];
+    
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            self.account.username, @"login",
+                            self.account.password, @"passwd",
+                            nil];
+    
+    [self.httpClient postPath:@"/index.php?mode=login&locale=ru" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self extractInfoFromHtml:operation.responseString];
+        [self doFinish];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+        //NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+        [self doFinish];
+    }];
+    
+}
 
 - (ASIFormDataRequest *) prepareRequest
 {
@@ -31,18 +59,6 @@
      */
     
     return nil;
-}
-
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    [self extractInfoFromHtml:request.responseString];
-    [self doFinish];
-     */
 }
 
 #pragma mark - Logic

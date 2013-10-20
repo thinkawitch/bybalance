@@ -2,7 +2,7 @@
 //  BBLoaderTcm.m
 //  ByBalance
 //
-//  Created by Admin on 16.01.13.
+//  Created by Andrew Sinkevitch on 16.01.13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
@@ -12,39 +12,28 @@
 
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
+    [self clearCookies:@"https://tcm.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://tcm.by/"]];
+    [self setDefaultsForHttpClient];
     
-    NSString * loginUrl = @"https://tcm.by/info.php";
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             self.account.username, @"login",
+                             self.account.password, @"password",
+                             nil];
     
-    NSURL * url = [NSURL URLWithString:loginUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    [request setPostValue:account.username forKey:@"login"];
-    [request setPostValue:account.password forKey:@"password"];
-    
-    return request;
-     */
-    
-    return nil;
+    [self.httpClient postPath:@"/info.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *text = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        [self extractInfoFromHtml:text];
+        [self doFinish];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
 }
-
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    [self extractInfoFromHtml:request.responseString];
-    [self doFinish];
-     */
-}
-
-#pragma mark - Logic
 
 - (void) extractInfoFromHtml:(NSString *)html
 {

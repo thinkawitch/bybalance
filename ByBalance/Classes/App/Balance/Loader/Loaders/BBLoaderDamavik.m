@@ -18,6 +18,7 @@
 
 @end
 
+
 @implementation BBLoaderDamavik
 
 #pragma mark - Logic
@@ -34,63 +35,24 @@
     isAtlant = YES;
 }
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
-    
-    NSString * loginUrl = self.baseUrl;
-    
-    NSURL * url = [NSURL URLWithString:loginUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    return request;
-     */
-    
-    return nil;
-}
+    [self clearCookies:self.baseUrl];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:self.baseUrl]];
+    [self setDefaultsForHttpClient];
 
-
-#pragma mark - ASIHTTPRequestDelegate
-
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    NSString * html = html = request.responseString;
-    NSString * step = [request.userInfo objectForKey:@"step"];
-    
-    if ([step isEqualToString:@"1"])
-    {
-        [self onStep1:html];
-    }
-    else if ([step isEqualToString:@"2"])
-    {
-        [self onStep2:html];
-    }
-    else if ([step isEqualToString:@"3"])
-    {
-        [self onStep3:html];
-    }
-    else
-    {
+    [self.httpClient getPath:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep1:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         [self doFinish];
-    }
-     */
+    }];
 }
-
-
-#pragma mark - Logic
 
 - (void) onStep1:(NSString *)html
 {
-    /*
     //NSLog(@"BBLoaderDamavik.onStep1");
     //NSLog(@"%@", html);
     
@@ -119,56 +81,58 @@
     }
     
     //load captcha image to get cookies
+    NSString * captchaUrl = [NSString stringWithFormat:@"/img/_cap/items/%@", imgName];
     
-    //NSString * captchaUrl = @"https://issa.damavik.by/img/_cap/items/";
-    NSString * captchaUrl = [NSString stringWithFormat:@"%@img/_cap/items/", self.baseUrl];
-    captchaUrl = [captchaUrl stringByAppendingString:imgName];
-    
-    NSURL * url = [NSURL URLWithString:captchaUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    //start request
-    [request startAsynchronous];
-     */
+    [self.httpClient getPath:captchaUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        [self onStep2:nil];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
 }
 
 - (void) onStep2:(NSString *)html
 {
-    /*
     //NSLog(@"BBLoaderDamavik.onStep2");
     
-    NSString * loginUrl = self.baseUrl;
-    NSString * formAction = [NSString stringWithFormat:@"%@about", self.baseUrl];
-    
-    NSURL * url = [NSURL URLWithString:loginUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
+    if (!isAtlant && !isDamavik)
+    {
+        [self doFinish];
+        return;
+    }
+
+    NSString *formAction = [NSString stringWithFormat:@"%@about", self.baseUrl];
+    NSDictionary *params = nil;
+
     if (isDamavik)
     {
-        [request setPostValue:@"login" forKey:@"action__n18"];
-        //[request setPostValue:@"https://issa.damavik.by/about" forKey:@"form_action_true"];
-        [request setPostValue:formAction forKey:@"form_action_true"];
-        [request setPostValue:account.username forKey:@"login__n18"];
-        [request setPostValue:account.password forKey:@"password__n18"];
+        params = [NSDictionary dictionaryWithObjectsAndKeys:
+                  @"login", @"action__n18",
+                  formAction, @"form_action_true",
+                  self.account.username, @"login__n18",
+                  self.account.password, @"password__n18",
+                  nil];
     }
-    if (isAtlant)
+    else if (isAtlant)
     {
-        [request setPostValue:@"login" forKey:@"action__n28"];
-        [request setPostValue:formAction forKey:@"form_action_true"];
-        [request setPostValue:account.username forKey:@"login__n28"];
-        [request setPostValue:account.password forKey:@"password__n28"];
+        params = [NSDictionary dictionaryWithObjectsAndKeys:
+                  @"login", @"action__n28",
+                  formAction, @"form_action_true",
+                  self.account.username, @"login__n28",
+                  self.account.password, @"password__n28",
+                  nil];
     }
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"3", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    //start request
-    [request startAsynchronous];
-     
-    */
+
+    [self.httpClient postPath:self.baseUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep3:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
 }
 
 - (void) onStep3:(NSString *)html

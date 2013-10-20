@@ -2,13 +2,13 @@
 //  BBLoaderUnetBy.m
 //  ByBalance
 //
-//  Created by Admin on 14.07.13.
+//  Created by Andrew Sinkevitch on 14.07.13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
 #import "BBLoaderUnetBy.h"
 
-#define UNET_KEY @"dce5ff68a9094f749cd73cfc794cdd45"
+NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
 
 @interface BBLoaderUnetBy()
 
@@ -22,69 +22,28 @@
 
 @implementation BBLoaderUnetBy
 
-@synthesize  sessionId;
+@synthesize sessionId;
 
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
+    [self clearCookies:@"https://my.unet.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://my.unet.by/"]];
+    [self setDefaultsForHttpClient];
     
     NSString * loginUrl = [NSString stringWithFormat:@"https://my.unet.by/api/login?api_key=%@&login=%@&pass=%@",
-                                                    UNET_KEY, account.username, account.password];
+                           kUnetKey, self.account.username, self.account.password];
     
-    NSURL * url = [NSURL URLWithString:loginUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    return request;
-     */
-    
-    return nil;
-}
-
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    NSString * step = [request.userInfo objectForKey:@"step"];
-    
-    //NSLog(@"responseEncoding %d", request.responseEncoding);
-    
-    NSString * html = nil;
-    if (request.responseEncoding == NSISOLatin1StringEncoding)
-    {
-        html = [[[NSString alloc] initWithData:request.responseData encoding:NSUTF8StringEncoding] autorelease];
-    }
-    else
-    {
-        html = request.responseString;
-    }
-    
-    if ([step isEqualToString:@"1"])
-    {
-        [self onStep1:html];
-    }
-    else if ([step isEqualToString:@"2"])
-    {
-        [self onStep2:html];
-    }
-    else
-    {
+    [self.httpClient getPath:loginUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep1:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         [self doFinish];
-    }
-     */
+    }];
 }
-
-
-#pragma mark - Logic
 
 - (void) onStep1:(NSString *)html
 {
@@ -126,19 +85,18 @@
     
     self.sessionId = session;
     //NSLog(@"session: %@", self.sessionId);
-    /*
-    NSString * infoUrl = [NSString stringWithFormat:@"https://my.unet.by/api/info?api_key=%@&sid=%@", UNET_KEY, self.sessionId];
     
+    NSString * infoUrl = [NSString stringWithFormat:@"https://my.unet.by/api/info?api_key=%@&sid=%@", kUnetKey, self.sessionId];
     
-    NSURL * url = [NSURL URLWithString:infoUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
-    
-    request.userInfo = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"2", nil]
-                                                   forKeys:[NSArray arrayWithObjects:@"step", nil]];
-    
-    //start request
-    [request startAsynchronous];
-     */
+    [self.httpClient getPath:infoUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *text = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        [self onStep2:text];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
 }
 
 - (void) onStep2:(NSString *)html
@@ -149,7 +107,6 @@
     [self extractInfoFromHtml:html];
     [self doFinish];
 }
-
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
@@ -171,7 +128,6 @@
         self.loaderInfo.extracted = NO;
         return;
     }
-    
     
     NSDictionary * nodeResp = [dict objectForKey:@"res"];
     if (!nodeResp)
@@ -202,7 +158,7 @@
     }
     
     self.loaderInfo.userBalance = textBalance;
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    //NSLog(@"balance: %@", self.loaderInfo.userBalance);
     
     self.loaderInfo.extracted = YES;
 }

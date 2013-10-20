@@ -2,7 +2,7 @@
 //  BBAboutCell.h
 //  ByBalance
 //
-//  Created by Admin on 02.06.13.
+//  Created by Andrew Sinkevitch on 02.06.13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 

@@ -12,42 +12,32 @@
 
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
+    [self clearCookies:@"https://user.niks.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://user.niks.by/"]];
+    [self setDefaultsForHttpClient];
     
-    NSString * loginUrl = @"https://user.niks.by/Login.aspx";
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             @"dDwtOTM5ODc5MjcyOztsPExvZ2luSW1nQnRuOz4+LWAmSvmShzbE7AkSAWCVT7wVAJo=", @"__VIEWSTATE",
+                             self.account.username, @"LoginTxt",
+                             self.account.password, @"PasswordTxt",
+                             @"37", @"LoginImgBtn.x",
+                             @"12", @"LoginImgBtn.y",
+                             nil];
     
-    NSURL * url = [NSURL URLWithString:loginUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
+    [self.httpClient postPath:@"/Login.aspx" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self extractInfoFromHtml:operation.responseString];
+        [self doFinish];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
     
-    [request setPostValue:@"dDwtOTM5ODc5MjcyOztsPExvZ2luSW1nQnRuOz4+LWAmSvmShzbE7AkSAWCVT7wVAJo=" forKey:@"__VIEWSTATE"];
-    [request setPostValue:account.username forKey:@"LoginTxt"];
-    [request setPostValue:account.password forKey:@"PasswordTxt"];
-    [request setPostValue:@"37" forKey:@"LoginImgBtn.x"];
-    [request setPostValue:@"12" forKey:@"LoginImgBtn.y"];
-
-    return request;
-     */
-    
-    return nil;
 }
 
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    
-    [self extractInfoFromHtml:request.responseString];
-    [self doFinish];
-     */
-}
-
-#pragma mark - Logic
 
 - (void) extractInfoFromHtml:(NSString *)html
 {

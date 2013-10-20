@@ -42,17 +42,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         queue = nil;
     }
     
-    if (syncFlag1)
-    {
-        syncFlag1 = nil;
-    }
-    if (syncFlag2)
-    {
-        syncFlag2 = nil;
-    }
-    
-    [APP_CONTEXT saveDatabase];
-    
+    if (syncFlag1) syncFlag1 = nil;
+    if (syncFlag2) syncFlag2 = nil;
 }
 
 - (void) addItem:(BBMAccount *) account
@@ -76,7 +67,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
             break;
             
         case kAccountVelcom:
-            loader = [BBLoaderVelcom new] ;
+            loader = [BBLoaderVelcom new];
             break;
             
         case kAccountLife:

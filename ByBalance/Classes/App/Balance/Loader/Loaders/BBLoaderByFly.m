@@ -9,43 +9,29 @@
 #import "BBLoaderByFly.h"
 
 @interface BBLoaderByFly ()
-
-@property (nonatomic,strong) AFHTTPClient * httpClient;
-
 @end
+
 
 @implementation BBLoaderByFly
 
-@synthesize httpClient;
-
 #pragma mark - Logic
 
-- (BOOL) isAFNetworking
+- (void) startLoader
 {
-    return YES;
-}
-
-- (void) startAFNetworking
-{
-    NSURL *url = [NSURL URLWithString:@"https://issa.beltelecom.by/"];
-    
-    self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    [self clearCookies:@"https://issa.beltelecom.by/cgi-bin/cgi.exe"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa.beltelecom.by/"]];
+    [self setDefaultsForHttpClient];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             self.account.username, @"mobnum",
                             self.account.password, @"Password",
                             nil];
     //NSLog(@"%@", params);
-    
-    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:@"https://issa.beltelecom.by/cgi-bin/cgi.exe"]];
-    for (NSHTTPCookie *cookie in cookies)
-    {
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-    }
-    
+  
     [self.httpClient postPath:@"/cgi-bin/cgi.exe?function=is_login" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *response1 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
+        //NSString * response1 = operation.responseString;
         //NSLog(@"Response1:\n%@", response1);
         
         //cgi.exe?function=is_account
@@ -58,6 +44,7 @@
             [self.httpClient getPath:@"/cgi-bin/cgi.exe?function=is_account" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 NSString *response2 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
+                //NSString * response2 = operation.responseString;
                 //NSLog(@"Response2:\n%@", response2);
                 
                 [self extractInfoFromHtml:response2];
@@ -71,7 +58,6 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        //NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
         [self doFinish];
     }];
 }

@@ -40,6 +40,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     //
     iToastSettings * ts = [iToastSettings getSharedSettings];
     ts.duration = 3000;
+    ts.useShadow = NO;
     
     //
     //[ASIHTTPRequest setShouldUpdateNetworkActivityIndicator:YES];
@@ -50,6 +51,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     
+    [self saveDatabase];
     [MagicalRecord cleanUp];
     
 	[reachability stopNotifier];
@@ -58,7 +60,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 
 - (void) setupDatabase
 {
-    //[ActiveRecordHelpers setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"version1.sqlite"];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"version1.sqlite"];
     
     //test cascade delete
@@ -150,7 +151,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 
 - (void) saveDatabase
 {
-    //[[NSManagedObjectContext defaultContext] save];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 

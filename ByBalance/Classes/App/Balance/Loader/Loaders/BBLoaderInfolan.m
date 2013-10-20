@@ -2,7 +2,7 @@
 //  BBLoaderInfolan.m
 //  ByBalance
 //
-//  Created by Admin on 02.06.13.
+//  Created by Andrew Sinkevitch on 02.06.13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
@@ -13,48 +13,29 @@
 
 #pragma mark - Logic
 
-- (ASIFormDataRequest *) prepareRequest
+- (void) startLoader
 {
-    /*
-    //don't use other cookies
-    [ASIHTTPRequest setSessionCookies:nil];
+    [self clearCookies:@"http://balance.infolan.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://balance.infolan.by/"]];
+    [self setDefaultsForHttpClient];
     
-    NSString * loginUrl = @"http://balance.infolan.by/balance_by.php";
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             self.account.username, @"id",
+                             self.account.password, @"auth",
+                             nil];
     
-    NSURL * url = [NSURL URLWithString:loginUrl];
-    ASIFormDataRequest * request = [self requestWithURL:url];
+    [self.httpClient postPath:@"/balance_by.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *text = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        [self extractInfoFromHtml:text];
+        [self doFinish];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self doFinish];
+    }];
     
-    [request setPostValue:account.username forKey:@"id"];
-    [request setPostValue:account.password forKey:@"auth"];
-    
-    return request;
-     */
-    return nil;
 }
-
-#pragma mark - ASIHTTPRequestDelegate
-
-- (void) requestFinished:(ASIHTTPRequest *)request
-{
-    /*
-    //NSLog(@"%@.requestFinished", [self class]);
-    //NSLog(@"responseEncoding %d", request.responseEncoding);
-    NSString * html = nil;
-    if (request.responseEncoding == NSISOLatin1StringEncoding)
-    {
-        html = [[[NSString alloc] initWithData:request.responseData encoding:NSUTF8StringEncoding] autorelease];
-    }
-    else
-    {
-        html = request.responseString;
-    }
-    
-    [self extractInfoFromHtml:html];
-    [self doFinish];
-    */
-}
-
-#pragma mark - Logic
 
 - (void) extractInfoFromHtml:(NSString *)html
 {

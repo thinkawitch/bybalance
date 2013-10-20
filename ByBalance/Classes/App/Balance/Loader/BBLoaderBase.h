@@ -7,11 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "ASIHTTPRequestDelegate.h"
-//#import "ASIFormDataRequest.h"
-#import "BBAsiTemp.h"
 
-@interface BBLoaderBase : NSOperation <ASIHTTPRequestDelegate>
+@interface BBLoaderBase : NSOperation
 {
     BOOL loaderExecuting;
     BOOL loaderFinished;
@@ -20,8 +17,7 @@
 @property (nonatomic,strong) BBMAccount * account;
 @property (nonatomic,strong) BBLoaderInfo * loaderInfo;
 @property (nonatomic,assign) id <BBLoaderDelegate> delegate;
-
-
+@property (nonatomic,strong) AFHTTPClient * httpClient;
 
 // NSOperation
 - (void) start;
@@ -33,15 +29,11 @@
 - (void) markStop;
 - (void) markDone;
 
-//
-- (ASIFormDataRequest *) requestWithURL:(NSURL *)url;
-- (ASIFormDataRequest *) prepareRequest;
-
-//
-- (BOOL) isAFNetworking;
-- (void) startAFNetworking;
-
-//
+// BalanceLoader
+- (void) startLoader;
+- (void) clearCookies:(NSString *)url;
+- (void) setDefaultsForHttpClient;
 - (void) extractInfoFromHtml:(NSString *)html;
 - (void) doFinish;
+
 @end

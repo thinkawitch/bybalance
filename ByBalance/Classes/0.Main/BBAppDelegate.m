@@ -16,7 +16,7 @@
 {
     [SETTINGS load];
     [APP_CONTEXT start];
-    //[BALANCE_CHECKER start];
+    [BALANCE_CHECKER start];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor blackColor];

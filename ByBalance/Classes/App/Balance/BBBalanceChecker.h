@@ -26,9 +26,6 @@
 - (BOOL) isBusy;
 - (void) stop;
 //
-
 - (void) addItem:(BBMAccount *) account;
-
-
 
 @end
