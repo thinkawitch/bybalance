@@ -44,12 +44,11 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <string key="text">В этой версии поддерживаются:
-МТС, Velcom, Life :)
+МТС, Velcom, Life :), Diallog,
 Деловая сеть (iDom),  TCM, НИКС,
 Шпаркі Дамавік, Соло, Телесеть,
 NetBerry, Космос ТВ, ByFly,
-Домашняя сеть (infolan.by), UNET.BY,
-diallog.</string>
+Домашняя сеть (infolan.by), UNET.BY.</string>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
