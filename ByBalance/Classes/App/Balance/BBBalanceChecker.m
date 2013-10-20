@@ -113,6 +113,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         case kAccountUnetBy:
             loader = [BBLoaderUnetBy new];
             break;
+            
+        case kAccountDiallog:
+            loader = [BBLoaderDiallog new];
+            break;
     }
     
     if (!loader)

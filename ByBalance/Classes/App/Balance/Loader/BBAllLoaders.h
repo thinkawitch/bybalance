@@ -21,3 +21,4 @@
 #import "BBLoaderCosmosTV.h"
 #import "BBLoaderInfolan.h"
 #import "BBLoaderUnetBy.h"
+#import "BBLoaderDiallog.h"

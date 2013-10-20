@@ -122,7 +122,7 @@
     }
     
     NSInteger type = [accountType.id integerValue];
-    BOOL isPhone = (type == kAccountMts || type == kAccountVelcom || type == kAccountLife);
+    BOOL isPhone = (type == kAccountMts || type == kAccountVelcom || type == kAccountLife || type == kAccountDiallog);
     
     if (isPhone)
     {
@@ -218,7 +218,7 @@
 {
     NSInteger type = [accountType.id integerValue];
     cellPhone = NO;
-    if (type == kAccountMts || type == kAccountVelcom || type == kAccountLife)
+    if (type == kAccountMts || type == kAccountVelcom || type == kAccountLife || type == kAccountDiallog)
     {
         cellPhone = YES;
     }
@@ -232,6 +232,7 @@
         tfUsername.frame = CGRectMake(85, 54, 162, 31);
         tfUsername.keyboardType = UIKeyboardTypeNumberPad;
         btnContacts.hidden = NO;
+        
         
     }
     else

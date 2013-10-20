@@ -25,7 +25,6 @@
     [self clearCookies:@"https://user.nbr.by/"];
     self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://user.nbr.by/"]];
     [self setDefaultsForHttpClient];
-    self.httpClient.allowsInvalidSSLCertificate = YES;
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                              @"0", @"midAuth",

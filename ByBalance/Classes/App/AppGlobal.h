@@ -32,6 +32,7 @@ typedef enum
     kAccountAtlantTelecom,
     kAccountInfolan,
     kAccountUnetBy,
+    kAccountDiallog,
 	//----------------------
 	kAccountsCount
 	

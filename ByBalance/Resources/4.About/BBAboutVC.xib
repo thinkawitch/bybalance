@@ -40,7 +40,7 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="11">
-                    <rect key="frame" x="16" y="127" width="288" height="131"/>
+                    <rect key="frame" x="16" y="127" width="288" height="150"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <string key="text">В этой версии поддерживаются:
@@ -48,7 +48,8 @@
 Деловая сеть (iDom),  TCM, НИКС,
 Шпаркі Дамавік, Соло, Телесеть,
 NetBerry, Космос ТВ, ByFly,
-Домашняя сеть (infolan.by), UNET.BY</string>
+Домашняя сеть (infolan.by), UNET.BY,
+diallog.</string>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

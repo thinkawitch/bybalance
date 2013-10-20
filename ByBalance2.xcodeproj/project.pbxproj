@@ -28,6 +28,7 @@
 		C33586131809DDE6001AB5D3 /* BBMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586121809DDE6001AB5D3 /* BBMAccount.m */; };
 		C33586161809DDE7001AB5D3 /* BBMBalanceHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586151809DDE7001AB5D3 /* BBMBalanceHistory.m */; };
 		C33586191809DDE7001AB5D3 /* BBMAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586181809DDE7001AB5D3 /* BBMAccountType.m */; };
+		C3B23B651814563700A7243E /* BBLoaderDiallog.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B23B641814563700A7243E /* BBLoaderDiallog.m */; };
 		C3C1DA421809FBC400180AFA /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA321809FBC400180AFA /* add.png */; };
 		C3C1DA431809FBC400180AFA /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA331809FBC400180AFA /* add@2x.png */; };
 		C3C1DA441809FBC400180AFA /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA341809FBC400180AFA /* arrow_left.png */; };
@@ -165,6 +166,8 @@
 		C33586171809DDE7001AB5D3 /* BBMAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMAccountType.h; sourceTree = "<group>"; };
 		C33586181809DDE7001AB5D3 /* BBMAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMAccountType.m; sourceTree = "<group>"; };
 		C38468E0181405690053CF41 /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
+		C3B23B631814563700A7243E /* BBLoaderDiallog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDiallog.h; sourceTree = "<group>"; };
+		C3B23B641814563700A7243E /* BBLoaderDiallog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDiallog.m; sourceTree = "<group>"; };
 		C3C1DA321809FBC400180AFA /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		C3C1DA331809FBC400180AFA /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		C3C1DA341809FBC400180AFA /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_left.png; sourceTree = "<group>"; };
@@ -878,6 +881,8 @@
 				C3DE70561809BE1C0024F9DD /* BBLoaderCosmosTV.m */,
 				C3DE70571809BE1C0024F9DD /* BBLoaderDamavik.h */,
 				C3DE70581809BE1C0024F9DD /* BBLoaderDamavik.m */,
+				C3B23B631814563700A7243E /* BBLoaderDiallog.h */,
+				C3B23B641814563700A7243E /* BBLoaderDiallog.m */,
 				C3DE705A1809BE1C0024F9DD /* BBLoaderInfolan.h */,
 				C3DE705B1809BE1C0024F9DD /* BBLoaderInfolan.m */,
 				C3DE705C1809BE1C0024F9DD /* BBLoaderLife.h */,
@@ -1034,6 +1039,7 @@
 				C3DE6FF91809B2F70024F9DD /* NSNumber+MagicalDataImport.m in Sources */,
 				C3DE70001809B2F70024F9DD /* NSManagedObject+MagicalRecord.m in Sources */,
 				C3DE70071809B2F70024F9DD /* NSPersistentStore+MagicalRecord.m in Sources */,
+				C3B23B651814563700A7243E /* BBLoaderDiallog.m in Sources */,
 				C3DE6FAA1809B2E60024F9DD /* AFJSONRequestOperation.m in Sources */,
 				C3DE70771809BE1C0024F9DD /* BBLoaderVelcom.m in Sources */,
 				C3DE70041809B2F70024F9DD /* NSManagedObjectContext+MagicalSaves.m in Sources */,
