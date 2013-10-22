@@ -70,14 +70,16 @@ typedef enum
 {
     [super viewDidAppear:animated];
     
-    self.screenName = @"Баланс";
-    
     if (needUpdateScreen)
     {
         [self updateScreen];
         
         needUpdateScreen = NO;
     }
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Баланс"];
+    [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
 }
 
 #pragma mark - Setup

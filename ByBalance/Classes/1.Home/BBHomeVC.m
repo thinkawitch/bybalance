@@ -73,15 +73,17 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    self.screenName = @"Главный экран";
-    
+
     if (needUpdateScreen)
     {
         [self loadAccounts];
         needUpdateScreen = NO;
         [self toggleSplashMode];
     }
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Главный экран"];
+    [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
 }
 
 

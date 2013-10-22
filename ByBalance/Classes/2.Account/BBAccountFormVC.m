@@ -63,7 +63,10 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.screenName = @"Настройки доступа";
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Настройки доступа"];
+    [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
 }
 
 - (void) cleanup

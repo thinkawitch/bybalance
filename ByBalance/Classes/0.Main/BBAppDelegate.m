@@ -30,6 +30,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor blackColor];
     
+    application.statusBarHidden = NO;
+    
     BBHomeVC * vc = NEWVCFROMNIB(BBHomeVC);
     self.nc = [[RotationAwareNavigationController alloc] initWithRootViewController:vc];
     //if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {

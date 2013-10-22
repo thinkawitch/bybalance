@@ -39,7 +39,10 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.screenName = @"Справка";
+
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Справка"];
+    [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
 }
 
 #pragma mark - Setup
