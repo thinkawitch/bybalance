@@ -83,7 +83,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
                            @"Космос ТВ", [NSNumber numberWithInt:kAccountCosmosTv],
                            @"Домашняя сеть", [NSNumber numberWithInt:kAccountInfolan],
                            @"UNET.BY", [NSNumber numberWithInt:kAccountUnetBy],
-                           @"Diallog", [NSNumber numberWithInt:kAccountDiallog],
+                           @"БелCел", [NSNumber numberWithInt:kAccountDiallog],
+                           @"Anitex", [NSNumber numberWithInt:kAccountAnitex],
                            nil];
     
     BBMAccountType * item = nil;

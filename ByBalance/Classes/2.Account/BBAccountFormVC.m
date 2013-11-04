@@ -267,7 +267,7 @@
     {
         if (type == kAccountBn || type == kAccountDamavik || type == kAccountSolo || type == kAccountTeleset || type == kAccountAtlantTelecom) return @"Номер счёта";
         if (type == kAccountByFly || type == kAccountNetBerry || type == kAccountInfolan) return @"Номер договора";
-        if (type == kAccountTcm || type == kAccountNiks || type == kAccountCosmosTv || type == kAccountUnetBy) return @"Логин";
+        if (type == kAccountTcm || type == kAccountNiks || type == kAccountCosmosTv || type == kAccountUnetBy || type == kAccountAnitex) return @"Логин";
     }
     
     return @"";

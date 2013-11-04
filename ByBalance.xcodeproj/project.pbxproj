@@ -1235,7 +1235,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/administrator/Projects/ByBalance2/ByBalance/Classes/Assets/GoogleAnalytics,
+					/Users/administrator/Projects/ByBalance/ByBalance/Classes/Assets/GoogleAnalytics,
 				);
 				PRODUCT_NAME = ByBalance;
 				WRAPPER_EXTENSION = app;
@@ -1254,7 +1254,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/administrator/Projects/ByBalance2/ByBalance/Classes/Assets/GoogleAnalytics,
+					/Users/administrator/Projects/ByBalance/ByBalance/Classes/Assets/GoogleAnalytics,
 				);
 				PRODUCT_NAME = ByBalance;
 				WRAPPER_EXTENSION = app;
