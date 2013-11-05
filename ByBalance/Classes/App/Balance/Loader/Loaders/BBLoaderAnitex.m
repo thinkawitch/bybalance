@@ -91,11 +91,11 @@
         self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
     }
     
-    NSLog(@"packages: %@", self.loaderInfo.userPackages);
-    NSLog(@"megabytes: %@", self.loaderInfo.userMegabytes);
-    NSLog(@"days: %@", self.loaderInfo.userDays);
-    NSLog(@"credit: %@", self.loaderInfo.userCredit);
-    NSLog(@"ostatok: %@", self.loaderInfo.userBalance);
+    //NSLog(@"packages: %@", self.loaderInfo.userPackages);
+    //NSLog(@"megabytes: %@", self.loaderInfo.userMegabytes);
+    //NSLog(@"days: %@", self.loaderInfo.userDays);
+    //NSLog(@"credit: %@", self.loaderInfo.userCredit);
+    //NSLog(@"ostatok: %@", self.loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;
 }
