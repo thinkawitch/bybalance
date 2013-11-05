@@ -1,8 +1,8 @@
 //
 //  BBMBalanceHistory.h
-//  ByBalance2
+//  ByBalance
 //
-//  Created by Andrew Sinkevitch on 10/12/13.
+//  Created by Andrew Sinkevitch on 11/5/13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
@@ -15,8 +15,14 @@
 
 @property (nonatomic, retain) NSDecimalNumber * balance;
 @property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSDecimalNumber * days;
 @property (nonatomic, retain) NSNumber * extracted;
 @property (nonatomic, retain) NSNumber * incorrectLogin;
+@property (nonatomic, retain) NSDecimalNumber * megabytes;
+@property (nonatomic, retain) NSNumber * minutes;
+@property (nonatomic, retain) NSNumber * packages;
+@property (nonatomic, retain) NSNumber * sms;
+@property (nonatomic, retain) NSDecimalNumber * credit;
 @property (nonatomic, retain) BBMAccount *account;
 
 @end

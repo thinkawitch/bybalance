@@ -12,6 +12,8 @@
 
 - (NSString *) nameLabel;
 - (BBMBalanceHistory *) lastGoodBalance;
+- (NSString *) lastGoodBalanceDate;
+- (NSString *) lastGoodBalanceValue;
 + (NSNumber *) nextOrder;
 
 @end

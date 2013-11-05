@@ -21,12 +21,14 @@
 
 @property (nonatomic,strong) NSDecimalNumber * userBalance;
 
-@property (nonatomic,strong) NSNumber * userMegabytes;
+@property (nonatomic,strong) NSNumber * userPackages;
+@property (nonatomic,strong) NSDecimalNumber * userMegabytes;
+@property (nonatomic,strong) NSDecimalNumber * userDays;
+@property (nonatomic,strong) NSDecimalNumber * userCredit;
+
 @property (nonatomic,strong) NSNumber * userMinutes;
 @property (nonatomic,strong) NSNumber * userSms;
 
-@property (nonatomic,strong) NSNumber * userPackages;
-@property (nonatomic,strong) NSNumber * userDays;
 
 - (NSString *) fullDescription;
 

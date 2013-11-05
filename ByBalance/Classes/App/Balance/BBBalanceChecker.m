@@ -158,10 +158,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         //save history
         BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
         bh.date = [NSDate date];
-        bh.balance = loaderInfo.userBalance;
+        bh.account = account;
         bh.extracted = [NSNumber numberWithBool:loaderInfo.extracted];
         bh.incorrectLogin = [NSNumber numberWithBool:loaderInfo.incorrectLogin];
-        bh.account = account;
+        bh.balance = loaderInfo.userBalance;
+        bh.packages = loaderInfo.userPackages;
+        bh.megabytes = loaderInfo.userMegabytes;
+        bh.days = loaderInfo.userDays;
+        bh.credit = loaderInfo.userCredit;
+        bh.minutes = loaderInfo.userMinutes;
+        bh.sms = loaderInfo.userSms;
         
         [APP_CONTEXT saveDatabase];
         

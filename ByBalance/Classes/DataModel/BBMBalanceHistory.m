@@ -1,8 +1,8 @@
 //
 //  BBMBalanceHistory.m
-//  ByBalance2
+//  ByBalance
 //
-//  Created by Andrew Sinkevitch on 10/12/13.
+//  Created by Andrew Sinkevitch on 11/5/13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
@@ -14,8 +14,14 @@
 
 @dynamic balance;
 @dynamic date;
+@dynamic days;
 @dynamic extracted;
 @dynamic incorrectLogin;
+@dynamic megabytes;
+@dynamic minutes;
+@dynamic packages;
+@dynamic sms;
+@dynamic credit;
 @dynamic account;
 
 @end

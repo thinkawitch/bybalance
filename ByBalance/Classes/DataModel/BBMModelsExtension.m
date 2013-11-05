@@ -26,6 +26,36 @@
                                            ascending:NO];
 }
 
+- (NSString *) lastGoodBalanceDate
+{
+    BBMBalanceHistory * bh = [self lastGoodBalance];
+    if (!bh) return @"";
+    
+    return [DATE_HELPER formatSmartAsDayOrTime:bh.date];
+}
+
+- (NSString *) lastGoodBalanceValue
+{
+    BBMBalanceHistory * bh = [self lastGoodBalance];
+    if (!bh) return @"не обновлялся";
+    
+    if ([self.type.id intValue] == kAccountAnitex)
+    {
+        if ([bh.balance floatValue] != 0.0f)
+        {
+            return [NSNumberFormatter localizedStringFromNumber:bh.balance numberStyle:NSNumberFormatterDecimalStyle];
+        }
+        else
+        {
+            return[NSNumberFormatter localizedStringFromNumber:bh.megabytes numberStyle:NSNumberFormatterDecimalStyle];
+        }
+    }
+    else
+    {
+        return [NSNumberFormatter localizedStringFromNumber:bh.balance numberStyle:NSNumberFormatterDecimalStyle];
+    }
+}
+
 + (NSNumber *) nextOrder
 {
     NSInteger next = 1;

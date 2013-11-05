@@ -12,12 +12,10 @@
 {
     
 @private
-    IBOutlet UIView  * vPanel1;
     IBOutlet UILabel * lblDate;
     IBOutlet UILabel * lblMegabytes;
+    IBOutlet UILabel * lblDays;
     IBOutlet UILabel * lblCredit;
-    
-    IBOutlet UIView * vPanel2;
     
 }
 @end

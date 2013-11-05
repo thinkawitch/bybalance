@@ -10,11 +10,9 @@
 
 @implementation BBHistoryCommonCell
 
-//@synthesize history;
-
 - (void) setupWithHistory:(BBMBalanceHistory *) history
 {
-    //self.history = aHistory;
+    [super setupWithHistory:history];
     
 
     lblDate.text = [NSDateFormatter localizedStringFromDate:history.date 

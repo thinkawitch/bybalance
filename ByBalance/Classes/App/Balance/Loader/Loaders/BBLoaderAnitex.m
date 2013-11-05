@@ -42,7 +42,7 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    NSLog(@"%@", html);
+    //NSLog(@"%@", html);
     
     //incorrect login/pass
     self.loaderInfo.incorrectLogin = ([html rangeOfString:@"Ошибка авторизации"].location != NSNotFound);
@@ -56,49 +56,48 @@
     NSArray * arr = nil;
     BOOL extracted = NO;
     
-    //type 1
-    NSInteger packages = 0;
-    CGFloat megabytes = 0;
-    CGFloat days = 0;
-    
-    
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Неактивированных пакетов</td>\\s*<td>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        packages = [buf integerValue];
+        self.loaderInfo.userPackages = [PRIMITIVE_HELPER numberIntegerValue:buf];
     }
     
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий пакет, осталось МегаБайт</td>\\s*<td>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         extracted = YES;
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        megabytes = [buf floatValue];
+        self.loaderInfo.userMegabytes = [self decimalNumberFromString:[arr objectAtIndex:0]];
     }
     
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий пакет, осталось суток</td>\\s*<td>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         extracted = YES;
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        days = [buf floatValue];
+        self.loaderInfo.userDays = [self decimalNumberFromString:[arr objectAtIndex:0]];
     }
     
-    NSLog(@"packages: %d", packages);
-    NSLog(@"megabytes: %f", megabytes);
-    NSLog(@"days: %f", days);
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Кредит</td>\\s*<td>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        extracted = YES;
+        self.loaderInfo.userCredit = [self decimalNumberFromString:[arr objectAtIndex:0]];
+    }
     
-    //type 2
-
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Остаток</td>\\s*<td>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        extracted = YES;
+        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
+    }
     
-    
+    NSLog(@"packages: %@", self.loaderInfo.userPackages);
+    NSLog(@"megabytes: %@", self.loaderInfo.userMegabytes);
+    NSLog(@"days: %@", self.loaderInfo.userDays);
+    NSLog(@"credit: %@", self.loaderInfo.userCredit);
+    NSLog(@"ostatok: %@", self.loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;
-    
-    self.loaderInfo.userPackages = [NSNumber numberWithInt:packages];
-    self.loaderInfo.userMegabytes = [NSNumber numberWithFloat:megabytes];
-    self.loaderInfo.userDays = [NSNumber numberWithFloat:days];
 }
 
 @end

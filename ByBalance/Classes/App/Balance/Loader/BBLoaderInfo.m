@@ -18,12 +18,14 @@
 
 @synthesize userBalance;
 
+@synthesize userPackages;
 @synthesize userMegabytes;
+@synthesize userDays;
+@synthesize userCredit;
+
 @synthesize userMinutes;
 @synthesize userSms;
 
-@synthesize userPackages;
-@synthesize userDays;
 
 #pragma mark - ObjectLife
 
@@ -38,14 +40,15 @@
         self.userTitle = @"";
         self.userPlan = @"";
         
-        self.userBalance = [NSDecimalNumber decimalNumberWithString:@"0"];
-        
-        self.userMegabytes = [NSNumber numberWithInt:0];
-        self.userMinutes = [NSNumber numberWithInt:0];
-        self.userSms = [NSNumber numberWithInt:0];
+        self.userBalance = [[NSDecimalNumber alloc] initWithInt:0];
         
         self.userPackages = [NSNumber numberWithInt:0];
-        self.userDays = [NSNumber numberWithInt:0];
+        self.userMegabytes = [[NSDecimalNumber alloc] initWithInt:0];
+        self.userDays = [[NSDecimalNumber alloc] initWithInt:0];
+        self.userCredit = [[NSDecimalNumber alloc] initWithInt:0];
+        
+        self.userMinutes = [NSNumber numberWithInt:0];
+        self.userSms = [NSNumber numberWithInt:0];
 	}
 	
 	return self;

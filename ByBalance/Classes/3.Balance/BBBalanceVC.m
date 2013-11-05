@@ -202,18 +202,8 @@ typedef enum
     lblType.text = account.type.name;
     lblName.text = account.nameLabel;
     
-    BBMBalanceHistory * bh = account.lastGoodBalance;
-    if (bh)
-    {
-        lblDate.text = [DATE_HELPER formatSmartAsDayOrTime:bh.date];
-        lblBalance.text = [NSNumberFormatter localizedStringFromNumber:bh.balance
-                                                           numberStyle:kCFNumberFormatterDecimalStyle];
-    }
-    else 
-    {
-        lblDate.text = @"";
-        lblBalance.text = @"не обновлялся";
-    }
+    lblDate.text = [account lastGoodBalanceDate];
+    lblBalance.text = [account lastGoodBalanceValue];
     
     
     NSPredicate * predicate = [NSPredicate predicateWithFormat:@"account=%@", self.account];
