@@ -13,6 +13,10 @@
 		C312CD311808AB1F005F25D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD301808AB1F005F25D0 /* UIKit.framework */; };
 		C312CD391808AB1F005F25D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C312CD381808AB1F005F25D0 /* main.m */; };
 		C312CD451808AB1F005F25D0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312CD441808AB1F005F25D0 /* Images.xcassets */; };
+		C32283581829775200D924DA /* BBHistoryAnitexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C32283551829775200D924DA /* BBHistoryAnitexCell.m */; };
+		C32283591829775200D924DA /* BBHistoryCommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C32283571829775200D924DA /* BBHistoryCommonCell.m */; };
+		C322835C1829778B00D924DA /* BBHistoryBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C322835B1829778B00D924DA /* BBHistoryBaseCell.m */; };
+		C322835F18297A4500D924DA /* BBHistoryAnitexCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C322835E18297A4500D924DA /* BBHistoryAnitexCell.xib */; };
 		C33585EC1809D0FB001AB5D3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DE708E1809CA640024F9DD /* SystemConfiguration.framework */; };
 		C33585ED1809D106001AB5D3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E28A281809CF38003679C2 /* MobileCoreServices.framework */; };
 		C33585F31809D637001AB5D3 /* BBHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C33585F01809D637001AB5D3 /* BBHomeCell.m */; };
@@ -20,7 +24,6 @@
 		C33586061809D6BD001AB5D3 /* BBAccountFormVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C33585F71809D6BD001AB5D3 /* BBAccountFormVC.m */; };
 		C33586071809D6BD001AB5D3 /* BBAccountTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C33585F91809D6BD001AB5D3 /* BBAccountTypeCell.m */; };
 		C33586081809D6BD001AB5D3 /* BBSelectAccountTypeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C33585FB1809D6BD001AB5D3 /* BBSelectAccountTypeVC.m */; };
-		C33586091809D6BD001AB5D3 /* BBBalanceHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C33585FE1809D6BD001AB5D3 /* BBBalanceHistoryCell.m */; };
 		C335860A1809D6BD001AB5D3 /* BBBalanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586001809D6BD001AB5D3 /* BBBalanceVC.m */; };
 		C335860B1809D6BD001AB5D3 /* BBAboutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586031809D6BD001AB5D3 /* BBAboutCell.m */; };
 		C335860C1809D6BD001AB5D3 /* BBAboutVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586051809D6BD001AB5D3 /* BBAboutVC.m */; };
@@ -53,7 +56,7 @@
 		C3C1DA5C1809FCF300180AFA /* BBAccountFormVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA531809FCF300180AFA /* BBAccountFormVC.xib */; };
 		C3C1DA5D1809FCF300180AFA /* BBAccountTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA541809FCF300180AFA /* BBAccountTypeCell.xib */; };
 		C3C1DA5E1809FCF300180AFA /* BBSelectAccountTypeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA551809FCF300180AFA /* BBSelectAccountTypeVC.xib */; };
-		C3C1DA5F1809FCF300180AFA /* BBBalanceHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA571809FCF300180AFA /* BBBalanceHistoryCell.xib */; };
+		C3C1DA5F1809FCF300180AFA /* BBHistoryCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA571809FCF300180AFA /* BBHistoryCommonCell.xib */; };
 		C3C1DA601809FCF300180AFA /* BBBalanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA581809FCF300180AFA /* BBBalanceVC.xib */; };
 		C3C1DA611809FCF300180AFA /* BBAboutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA5A1809FCF300180AFA /* BBAboutCell.xib */; };
 		C3C1DA621809FCF300180AFA /* BBAboutVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA5B1809FCF300180AFA /* BBAboutVC.xib */; };
@@ -145,6 +148,14 @@
 		C312CD381808AB1F005F25D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C312CD3A1808AB1F005F25D0 /* ByBalance-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ByBalance-Prefix.pch"; sourceTree = "<group>"; };
 		C312CD441808AB1F005F25D0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C32283541829775200D924DA /* BBHistoryAnitexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHistoryAnitexCell.h; sourceTree = "<group>"; };
+		C32283551829775200D924DA /* BBHistoryAnitexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHistoryAnitexCell.m; sourceTree = "<group>"; };
+		C32283561829775200D924DA /* BBHistoryCommonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHistoryCommonCell.h; sourceTree = "<group>"; };
+		C32283571829775200D924DA /* BBHistoryCommonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHistoryCommonCell.m; sourceTree = "<group>"; };
+		C322835A1829778B00D924DA /* BBHistoryBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHistoryBaseCell.h; sourceTree = "<group>"; };
+		C322835B1829778B00D924DA /* BBHistoryBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHistoryBaseCell.m; sourceTree = "<group>"; };
+		C322835D1829790B00D924DA /* BBHistoryAllCells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBHistoryAllCells.h; sourceTree = "<group>"; };
+		C322835E18297A4500D924DA /* BBHistoryAnitexCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBHistoryAnitexCell.xib; sourceTree = "<group>"; };
 		C33585EF1809D637001AB5D3 /* BBHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHomeCell.h; sourceTree = "<group>"; };
 		C33585F01809D637001AB5D3 /* BBHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHomeCell.m; sourceTree = "<group>"; };
 		C33585F11809D637001AB5D3 /* BBHomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHomeVC.h; sourceTree = "<group>"; };
@@ -155,8 +166,6 @@
 		C33585F91809D6BD001AB5D3 /* BBAccountTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAccountTypeCell.m; sourceTree = "<group>"; };
 		C33585FA1809D6BD001AB5D3 /* BBSelectAccountTypeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSelectAccountTypeVC.h; sourceTree = "<group>"; };
 		C33585FB1809D6BD001AB5D3 /* BBSelectAccountTypeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSelectAccountTypeVC.m; sourceTree = "<group>"; };
-		C33585FD1809D6BD001AB5D3 /* BBBalanceHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceHistoryCell.h; sourceTree = "<group>"; };
-		C33585FE1809D6BD001AB5D3 /* BBBalanceHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBalanceHistoryCell.m; sourceTree = "<group>"; };
 		C33585FF1809D6BD001AB5D3 /* BBBalanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBalanceVC.h; sourceTree = "<group>"; };
 		C33586001809D6BD001AB5D3 /* BBBalanceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBalanceVC.m; sourceTree = "<group>"; };
 		C33586021809D6BD001AB5D3 /* BBAboutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAboutCell.h; sourceTree = "<group>"; };
@@ -204,7 +213,7 @@
 		C3C1DA531809FCF300180AFA /* BBAccountFormVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAccountFormVC.xib; sourceTree = "<group>"; };
 		C3C1DA541809FCF300180AFA /* BBAccountTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAccountTypeCell.xib; sourceTree = "<group>"; };
 		C3C1DA551809FCF300180AFA /* BBSelectAccountTypeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBSelectAccountTypeVC.xib; sourceTree = "<group>"; };
-		C3C1DA571809FCF300180AFA /* BBBalanceHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBBalanceHistoryCell.xib; sourceTree = "<group>"; };
+		C3C1DA571809FCF300180AFA /* BBHistoryCommonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBHistoryCommonCell.xib; sourceTree = "<group>"; };
 		C3C1DA581809FCF300180AFA /* BBBalanceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBBalanceVC.xib; sourceTree = "<group>"; };
 		C3C1DA5A1809FCF300180AFA /* BBAboutCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAboutCell.xib; sourceTree = "<group>"; };
 		C3C1DA5B1809FCF300180AFA /* BBAboutVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAboutVC.xib; sourceTree = "<group>"; };
@@ -441,6 +450,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C32283531829775200D924DA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C322835D1829790B00D924DA /* BBHistoryAllCells.h */,
+				C322835A1829778B00D924DA /* BBHistoryBaseCell.h */,
+				C322835B1829778B00D924DA /* BBHistoryBaseCell.m */,
+				C32283561829775200D924DA /* BBHistoryCommonCell.h */,
+				C32283571829775200D924DA /* BBHistoryCommonCell.m */,
+				C32283541829775200D924DA /* BBHistoryAnitexCell.h */,
+				C32283551829775200D924DA /* BBHistoryAnitexCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		C33585EE1809D637001AB5D3 /* 1.Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,8 +491,7 @@
 		C33585FC1809D6BD001AB5D3 /* 3.Balance */ = {
 			isa = PBXGroup;
 			children = (
-				C33585FD1809D6BD001AB5D3 /* BBBalanceHistoryCell.h */,
-				C33585FE1809D6BD001AB5D3 /* BBBalanceHistoryCell.m */,
+				C32283531829775200D924DA /* Cells */,
 				C33585FF1809D6BD001AB5D3 /* BBBalanceVC.h */,
 				C33586001809D6BD001AB5D3 /* BBBalanceVC.m */,
 			);
@@ -555,8 +577,9 @@
 		C3C1DA561809FCF300180AFA /* 3.Balance */ = {
 			isa = PBXGroup;
 			children = (
-				C3C1DA571809FCF300180AFA /* BBBalanceHistoryCell.xib */,
 				C3C1DA581809FCF300180AFA /* BBBalanceVC.xib */,
+				C3C1DA571809FCF300180AFA /* BBHistoryCommonCell.xib */,
+				C322835E18297A4500D924DA /* BBHistoryAnitexCell.xib */,
 			);
 			path = 3.Balance;
 			sourceTree = "<group>";
@@ -1016,7 +1039,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3C1DA4A1809FBC400180AFA /* edit.png in Resources */,
-				C3C1DA5F1809FCF300180AFA /* BBBalanceHistoryCell.xib in Resources */,
+				C3C1DA5F1809FCF300180AFA /* BBHistoryCommonCell.xib in Resources */,
 				C3C1DA421809FBC400180AFA /* add.png in Resources */,
 				C3DE70401809B5A30024F9DD /* cb_mono_on@2x.png in Resources */,
 				C3C1DA431809FBC400180AFA /* add@2x.png in Resources */,
@@ -1029,6 +1052,7 @@
 				C3C1DA501809FBC400180AFA /* reorder.png in Resources */,
 				C3C1DA5D1809FCF300180AFA /* BBAccountTypeCell.xib in Resources */,
 				C3C1DA611809FCF300180AFA /* BBAboutCell.xib in Resources */,
+				C322835F18297A4500D924DA /* BBHistoryAnitexCell.xib in Resources */,
 				C3C1DA491809FBC400180AFA /* delete@2x.png in Resources */,
 				C3C1DA481809FBC400180AFA /* delete.png in Resources */,
 				C312CD451808AB1F005F25D0 /* Images.xcassets in Resources */,
@@ -1055,6 +1079,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C32283581829775200D924DA /* BBHistoryAnitexCell.m in Sources */,
 				C3DE70731809BE1C0024F9DD /* BBLoaderNetBerry.m in Sources */,
 				C3DE700E1809B2F70024F9DD /* MagicalRecord+ShorthandSupport.m in Sources */,
 				C3C82B511808D9D700E2C1D6 /* Reachability.m in Sources */,
@@ -1066,7 +1091,6 @@
 				C3C82AB01808AEC200E2C1D6 /* BBAppDelegate.m in Sources */,
 				C3C82B351808D4D600E2C1D6 /* AppSettings.m in Sources */,
 				C33586191809DDE7001AB5D3 /* BBMAccountType.m in Sources */,
-				C33586091809D6BD001AB5D3 /* BBBalanceHistoryCell.m in Sources */,
 				C3DE70061809B2F70024F9DD /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				C3DE706A1809BE1C0024F9DD /* BBLoaderBase.m in Sources */,
 				C3DE706B1809BE1C0024F9DD /* BBLoaderInfo.m in Sources */,
@@ -1082,6 +1106,7 @@
 				C3C82B081808D1AF00E2C1D6 /* MBProgressHUD.m in Sources */,
 				C3DE70031809B2F70024F9DD /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				C3DE708B1809C13B0024F9DD /* BBMModelsExtension.m in Sources */,
+				C322835C1829778B00D924DA /* BBHistoryBaseCell.m in Sources */,
 				C3DE70101809B2F70024F9DD /* NSString+PDRegex.m in Sources */,
 				C3DE6FAB1809B2E60024F9DD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C3DE700F1809B2F70024F9DD /* MagicalRecord.m in Sources */,
@@ -1095,6 +1120,7 @@
 				C3DE70761809BE1C0024F9DD /* BBLoaderUnetBy.m in Sources */,
 				C3DE706F1809BE1C0024F9DD /* BBLoaderDamavik.m in Sources */,
 				C3DE70081809B2F70024F9DD /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
+				C32283591829775200D924DA /* BBHistoryCommonCell.m in Sources */,
 				C3C82B031808CE1500E2C1D6 /* BBBaseViewController.m in Sources */,
 				C390E05618148EE40011EA4D /* RotationAwareNavigationController.m in Sources */,
 				C3DE6FF81809B2F70024F9DD /* NSEntityDescription+MagicalDataImport.m in Sources */,

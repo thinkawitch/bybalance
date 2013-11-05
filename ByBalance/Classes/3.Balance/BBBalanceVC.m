@@ -8,7 +8,7 @@
 
 #import "BBBalanceVC.h"
 #import "BBAccountFormVC.h"
-#import "BBBalanceHistoryCell.h"
+#import "BBHistoryAllCells.h"
 
 
 typedef enum
@@ -308,22 +308,27 @@ typedef enum
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellId = @"BBBalanceHistoryCellID";
+    static NSString * cellId1 = @"BBHistoryCommonCellID";
+    static NSString * cellId2 = @"BBHistoryAnitexCellID";
+    
+    static NSString * nib1 = @"BBHistoryCommonCell";
+    static NSString * nib2 = @"BBHistoryAnitexCell";
+    
+    NSString * cellId = [self.account.type.id integerValue] == kAccountAnitex ? cellId2 : cellId1;
+    NSString * nib = [self.account.type.id integerValue] == kAccountAnitex ? nib2 : nib1;
+    
     NSArray * nibs;
     
-    BBBalanceHistoryCell * cell = (BBBalanceHistoryCell*)[tblHistory dequeueReusableCellWithIdentifier:cellId];
+    BBHistoryBaseCell * cell = (BBHistoryBaseCell*)[tblHistory dequeueReusableCellWithIdentifier:cellId];
     if (!cell)
     {
-        nibs = [[NSBundle mainBundle] loadNibNamed:@"BBBalanceHistoryCell" owner:self options:nil];
+        nibs = [[NSBundle mainBundle] loadNibNamed:nib owner:self options:nil];
         cell = [nibs objectAtIndex:0];
     }
     
     BBMBalanceHistory * bh = [self.history objectAtIndex:indexPath.row];
-    
     [cell setupWithHistory:bh];
-    
     return cell;
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView
@@ -335,7 +340,7 @@ typedef enum
 
 - (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return kBalanceHistoryCellHeight;
+    return [self.account.type.id integerValue] == kAccountAnitex ? kHistoryCellHeight2 : kHistoryCellHeight1;
 }
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

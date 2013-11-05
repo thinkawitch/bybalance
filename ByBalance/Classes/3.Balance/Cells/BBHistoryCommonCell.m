@@ -1,20 +1,20 @@
 //
-//  BBBalanceHistoryCell.m
+//  BBHistoryCommonCell.m
 //  ByBalance
 //
 //  Created by Andrew Sinkevitch on 01/09/2012.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import "BBBalanceHistoryCell.h"
+#import "BBHistoryCommonCell.h"
 
-@implementation BBBalanceHistoryCell
+@implementation BBHistoryCommonCell
 
-@synthesize history;
+//@synthesize history;
 
-- (void) setupWithHistory:(BBMBalanceHistory *) aHistory;
+- (void) setupWithHistory:(BBMBalanceHistory *) history
 {
-    self.history = aHistory;
+    //self.history = aHistory;
     
 
     lblDate.text = [NSDateFormatter localizedStringFromDate:history.date 

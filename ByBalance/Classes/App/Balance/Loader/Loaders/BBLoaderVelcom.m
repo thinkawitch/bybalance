@@ -158,7 +158,6 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    NSString * buf = nil;
     NSArray * arr = nil;
     
     NSString * menuMarker = @"";
