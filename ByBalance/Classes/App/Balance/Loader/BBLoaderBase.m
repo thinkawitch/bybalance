@@ -139,9 +139,7 @@
 - (NSDecimalNumber *) decimalNumberFromString:(id)value
 {
     NSString  * buf = [PRIMITIVE_HELPER trimmedString:value];
-    //buf = [buf stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
-    //buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-    buf = [buf stringByReplacingRegexPattern:@"[^0-9.,]" withString:@""];
+    buf = [buf stringByReplacingRegexPattern:@"[^0-9.,\\-]" withString:@""];
     return [NSDecimalNumber decimalNumberWithString:buf];
 }
 
