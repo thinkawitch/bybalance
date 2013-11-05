@@ -13,6 +13,7 @@
 + (IDPrimitiveHelper *) sharedIDPrimitiveHelper;
 
 - (NSString *) stringValue:(id) aValue;
+- (NSString *) trimmedString:(id) value;
 
 - (NSNumber *) numberIntegerValue:(id) aValue;
 - (NSNumber *) numberFloatValue:(id) aValue;

@@ -15,9 +15,18 @@
 
 @property (nonatomic,assign) BOOL incorrectLogin;
 @property (nonatomic,assign) BOOL extracted;
+
 @property (nonatomic,strong) NSString * userTitle;
 @property (nonatomic,strong) NSString * userPlan;
-@property (nonatomic,strong) NSString * userBalance;
+
+@property (nonatomic,strong) NSDecimalNumber * userBalance;
+
+@property (nonatomic,strong) NSNumber * userMegabytes;
+@property (nonatomic,strong) NSNumber * userMinutes;
+@property (nonatomic,strong) NSNumber * userSms;
+
+@property (nonatomic,strong) NSNumber * userPackages;
+@property (nonatomic,strong) NSNumber * userDays;
 
 - (NSString *) fullDescription;
 

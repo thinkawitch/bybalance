@@ -117,6 +117,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         case kAccountDiallog:
             loader = [BBLoaderDiallog new];
             break;
+            
+        case kAccountAnitex:
+            loader = [BBLoaderAnitex new];
+            break;
     }
     
     if (!loader)
@@ -154,7 +158,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         //save history
         BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
         bh.date = [NSDate date];
-        bh.balance = [NSDecimalNumber decimalNumberWithString: loaderInfo.userBalance];
+        bh.balance = loaderInfo.userBalance;
         bh.extracted = [NSNumber numberWithBool:loaderInfo.extracted];
         bh.incorrectLogin = [NSNumber numberWithBool:loaderInfo.incorrectLogin];
         bh.account = account;

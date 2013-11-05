@@ -21,6 +21,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(IDPrimitiveHelper, sharedIDPrimitiveHelper);
 	return @"";
 }
 
+- (NSString *) trimmedString:(id) value
+{
+    if (![value isKindOfClass:[NSString class]]) return @"";
+    
+    return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
 - (NSNumber *) numberIntegerValue:(id) aValue
 {
     if ([aValue isKindOfClass:[NSNumber class]])

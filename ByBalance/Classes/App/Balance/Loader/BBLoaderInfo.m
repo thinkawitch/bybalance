@@ -12,9 +12,18 @@
 
 @synthesize incorrectLogin;
 @synthesize extracted;
+
 @synthesize userTitle;
 @synthesize userPlan;
+
 @synthesize userBalance;
+
+@synthesize userMegabytes;
+@synthesize userMinutes;
+@synthesize userSms;
+
+@synthesize userPackages;
+@synthesize userDays;
 
 #pragma mark - ObjectLife
 
@@ -25,9 +34,18 @@
 	{
         self.incorrectLogin = NO;
 		self.extracted = NO;
+        
         self.userTitle = @"";
         self.userPlan = @"";
-        self.userBalance = @"";
+        
+        self.userBalance = [NSDecimalNumber decimalNumberWithString:@"0"];
+        
+        self.userMegabytes = [NSNumber numberWithInt:0];
+        self.userMinutes = [NSNumber numberWithInt:0];
+        self.userSms = [NSNumber numberWithInt:0];
+        
+        self.userPackages = [NSNumber numberWithInt:0];
+        self.userDays = [NSNumber numberWithInt:0];
 	}
 	
 	return self;
@@ -37,7 +55,7 @@
 
 - (NSString *) fullDescription
 {
-    return [NSString stringWithFormat:@"[%d/%d] %@ / %@ / %@", extracted, incorrectLogin, userTitle, userPlan, userBalance];
+    return [NSString stringWithFormat:@"[%d/%d] %@", extracted, incorrectLogin, userBalance];
 }
 
 @end

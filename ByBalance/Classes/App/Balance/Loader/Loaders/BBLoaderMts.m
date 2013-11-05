@@ -97,6 +97,7 @@
 {
     NSString * buf = nil;
     NSArray * arr = nil;
+    BOOL extracted = NO;
     
     //incorrect login/pass
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class=\"logon-result-block\">(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
@@ -141,14 +142,14 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<span id=\"customer-info-balance\"><strong>(.+)</strong>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-        }
+        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
+        buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
+        self.loaderInfo.userBalance = num;
+        extracted = YES;
     }
     
-    self.loaderInfo.extracted = [self.loaderInfo.userTitle length] > 0 && [self.loaderInfo.userPlan length] > 0 && [self.loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = extracted;
 }
 
 @end

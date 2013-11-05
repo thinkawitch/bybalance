@@ -165,6 +165,7 @@
     
     NSString * buf = nil;
     NSArray * arr = nil;
+    BOOL extracted = NO;
     
     //userTitle - absent
     
@@ -177,15 +178,15 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Состояние счета</td>\\s+<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-        }
+        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
+        buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
+        self.loaderInfo.userBalance = num;
+        extracted = YES;
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    self.loaderInfo.extracted = [self.loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = extracted;
 }
 
 @end

@@ -221,6 +221,8 @@
     }
     //NSLog(@"userPlan: %@", loaderInfo.userPlan);
     
+    NSString * balance = nil;
+    
     //balance 1
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
@@ -228,11 +230,12 @@
         buf = [arr objectAtIndex:0];
         if (nil != buf && [buf length] > 0)
         {
-            self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            //self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+            balance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
         }
     }
     
-    if (!self.loaderInfo.userBalance || [self.loaderInfo.userBalance length] < 1)
+    if (!balance || [balance length] < 1)
     {
         //balance 2
         arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -241,12 +244,13 @@
             buf = [arr objectAtIndex:0];
             if (nil != buf && [buf length] > 0)
             {
-                self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+                //self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+                balance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
             }
         }
     }
     
-    if (!self.loaderInfo.userBalance || [self.loaderInfo.userBalance length] < 1)
+    if (!balance || [balance length] < 1)
     {
         //balance 3
         arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -255,13 +259,17 @@
             buf = [arr objectAtIndex:0];
             if (nil != buf && [buf length] > 0)
             {
-                self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+                //self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+                balance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
             }
         }
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    self.loaderInfo.extracted = [self.loaderInfo.userPlan length] > 0 && [self.loaderInfo.userBalance length] > 0;
+    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:balance];
+    self.loaderInfo.userBalance = num;
+    
+    self.loaderInfo.extracted = [self.loaderInfo.userPlan length] > 0 && [balance length] > 0;
 }
 
 @end

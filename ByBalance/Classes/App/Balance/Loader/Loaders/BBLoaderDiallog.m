@@ -60,6 +60,7 @@
 {
     NSString * buf = nil;
     NSArray * arr = nil;
+    BOOL extracted = NO;
     
     //NSLog(@"%@", html);
     
@@ -67,18 +68,17 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Актуальный баланс:</td>\\s*<td class=light width=\"50%\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            buf = [buf stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
-            buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-            
-            self.loaderInfo.userBalance = buf;
-        }
+        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
+        buf = [buf stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
+        buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
+        //self.loaderInfo.userBalance = buf;
+        self.loaderInfo.userBalance = num;
+        extracted = YES;
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    self.loaderInfo.extracted = [self.loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = extracted;
 }
 
 @end

@@ -103,6 +103,7 @@
     
     NSString * buf = nil;
     NSArray * arr = nil;
+    BOOL extracted = NO;
     
     //balance
     // <th>Исходящий остаток на конец месяца</th><td>22 539.06</td>
@@ -110,18 +111,17 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Исходящий остаток на конец месяца</th>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-            NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
-            self.loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
-            
-        }
+        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
+        buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
+        //self.loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
+        self.loaderInfo.userBalance = num;
+        extracted = YES;
+        
     }
     //NSLog(@"balance: %@", self.loaderInfo.userBalance);
     
-    self.loaderInfo.extracted = [self.loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = extracted;
 }
 
 @end

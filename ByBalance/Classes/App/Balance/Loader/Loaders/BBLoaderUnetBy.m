@@ -157,7 +157,9 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
         return;
     }
     
-    self.loaderInfo.userBalance = textBalance;
+    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:textBalance];
+    self.loaderInfo.userBalance = num;
+    //self.loaderInfo.userBalance = textBalance;
     //NSLog(@"balance: %@", self.loaderInfo.userBalance);
     
     self.loaderInfo.extracted = YES;

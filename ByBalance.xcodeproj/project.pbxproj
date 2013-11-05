@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		452959BD18292CB0002D92FF /* BBLoaderAnitex.m in Sources */ = {isa = PBXBuildFile; fileRef = 452959BC18292CB0002D92FF /* BBLoaderAnitex.m */; };
 		C312CD2D1808AB1F005F25D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD2C1808AB1F005F25D0 /* Foundation.framework */; };
 		C312CD2F1808AB1F005F25D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD2E1808AB1F005F25D0 /* CoreGraphics.framework */; };
 		C312CD311808AB1F005F25D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD301808AB1F005F25D0 /* UIKit.framework */; };
@@ -115,7 +116,6 @@
 		C3DE70401809B5A30024F9DD /* cb_mono_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE70271809B5A30024F9DD /* cb_mono_on@2x.png */; };
 		C3DE70411809B5A30024F9DD /* UIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE702A1809B5A30024F9DD /* UIHelpers.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3DE70421809B5A30024F9DD /* SSCheckBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE702C1809B5A30024F9DD /* SSCheckBoxView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C3DE70491809B87E0024F9DD /* BBAsiTemp.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70481809B87E0024F9DD /* BBAsiTemp.m */; };
 		C3DE706A1809BE1C0024F9DD /* BBLoaderBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE704D1809BE1C0024F9DD /* BBLoaderBase.m */; };
 		C3DE706B1809BE1C0024F9DD /* BBLoaderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE704F1809BE1C0024F9DD /* BBLoaderInfo.m */; };
 		C3DE706C1809BE1C0024F9DD /* BBLoaderBn.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE70521809BE1C0024F9DD /* BBLoaderBn.m */; };
@@ -135,6 +135,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		452959BB18292CB0002D92FF /* BBLoaderAnitex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderAnitex.h; sourceTree = "<group>"; };
+		452959BC18292CB0002D92FF /* BBLoaderAnitex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderAnitex.m; sourceTree = "<group>"; };
 		C312CD291808AB1F005F25D0 /* ByBalance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByBalance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C312CD2C1808AB1F005F25D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C312CD2E1808AB1F005F25D0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -320,8 +322,6 @@
 		C3DE702A1809B5A30024F9DD /* UIHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelpers.m; sourceTree = "<group>"; };
 		C3DE702B1809B5A30024F9DD /* SSCheckBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCheckBoxView.h; sourceTree = "<group>"; };
 		C3DE702C1809B5A30024F9DD /* SSCheckBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCheckBoxView.m; sourceTree = "<group>"; };
-		C3DE70471809B87E0024F9DD /* BBAsiTemp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAsiTemp.h; sourceTree = "<group>"; };
-		C3DE70481809B87E0024F9DD /* BBAsiTemp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAsiTemp.m; sourceTree = "<group>"; };
 		C3DE704B1809BE1C0024F9DD /* BBAllLoaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAllLoaders.h; sourceTree = "<group>"; };
 		C3DE704C1809BE1C0024F9DD /* BBLoaderBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderBase.h; sourceTree = "<group>"; };
 		C3DE704D1809BE1C0024F9DD /* BBLoaderBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderBase.m; sourceTree = "<group>"; };
@@ -628,7 +628,6 @@
 		C3C82B041808D1AF00E2C1D6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				C3DE70461809B87E0024F9DD /* BBAsiTemp */,
 				C3DE6F931809B2E60024F9DD /* AFNetworking */,
 				C3C82B451808D59B00E2C1D6 /* DateHelper */,
 				C3B23B661814715800A7243E /* GoogleAnalytics */,
@@ -892,25 +891,16 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		C3DE70461809B87E0024F9DD /* BBAsiTemp */ = {
-			isa = PBXGroup;
-			children = (
-				C3DE70471809B87E0024F9DD /* BBAsiTemp.h */,
-				C3DE70481809B87E0024F9DD /* BBAsiTemp.m */,
-			);
-			path = BBAsiTemp;
-			sourceTree = "<group>";
-		};
 		C3DE704A1809BE1C0024F9DD /* Loader */ = {
 			isa = PBXGroup;
 			children = (
 				C3DE70501809BE1C0024F9DD /* Loaders */,
-				C38468E0181405690053CF41 /* BBLoaderDelegate.h */,
 				C3DE704B1809BE1C0024F9DD /* BBAllLoaders.h */,
-				C3DE704E1809BE1C0024F9DD /* BBLoaderInfo.h */,
-				C3DE704F1809BE1C0024F9DD /* BBLoaderInfo.m */,
 				C3DE704C1809BE1C0024F9DD /* BBLoaderBase.h */,
 				C3DE704D1809BE1C0024F9DD /* BBLoaderBase.m */,
+				C38468E0181405690053CF41 /* BBLoaderDelegate.h */,
+				C3DE704E1809BE1C0024F9DD /* BBLoaderInfo.h */,
+				C3DE704F1809BE1C0024F9DD /* BBLoaderInfo.m */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -918,6 +908,8 @@
 		C3DE70501809BE1C0024F9DD /* Loaders */ = {
 			isa = PBXGroup;
 			children = (
+				452959BB18292CB0002D92FF /* BBLoaderAnitex.h */,
+				452959BC18292CB0002D92FF /* BBLoaderAnitex.m */,
 				C3DE70511809BE1C0024F9DD /* BBLoaderBn.h */,
 				C3DE70521809BE1C0024F9DD /* BBLoaderBn.m */,
 				C3DE70531809BE1C0024F9DD /* BBLoaderByFly.h */,
@@ -1071,7 +1063,6 @@
 				C3DE70091809B2F70024F9DD /* MagicalRecord+Actions.m in Sources */,
 				C3DE70701809BE1C0024F9DD /* BBLoaderInfolan.m in Sources */,
 				C33586131809DDE6001AB5D3 /* BBMAccount.m in Sources */,
-				C3DE70491809B87E0024F9DD /* BBAsiTemp.m in Sources */,
 				C3C82AB01808AEC200E2C1D6 /* BBAppDelegate.m in Sources */,
 				C3C82B351808D4D600E2C1D6 /* AppSettings.m in Sources */,
 				C33586191809DDE7001AB5D3 /* BBMAccountType.m in Sources */,
@@ -1117,6 +1108,7 @@
 				C3DE700C1809B2F70024F9DD /* MagicalRecord+Options.m in Sources */,
 				C3DE6FA81809B2E60024F9DD /* AFHTTPRequestOperation.m in Sources */,
 				C3DE6FA71809B2E60024F9DD /* AFHTTPClient.m in Sources */,
+				452959BD18292CB0002D92FF /* BBLoaderAnitex.m in Sources */,
 				C3DE706D1809BE1C0024F9DD /* BBLoaderByFly.m in Sources */,
 				C3DE70751809BE1C0024F9DD /* BBLoaderTcm.m in Sources */,
 				C33586161809DDE7001AB5D3 /* BBMBalanceHistory.m in Sources */,
@@ -1236,6 +1228,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/administrator/Projects/ByBalance/ByBalance/Classes/Assets/GoogleAnalytics,
+					/Users/andrewsinkevitch/Projects/ByBalance/ByBalance/Classes/Assets/GoogleAnalytics,
 				);
 				PRODUCT_NAME = ByBalance;
 				WRAPPER_EXTENSION = app;
@@ -1255,6 +1248,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/administrator/Projects/ByBalance/ByBalance/Classes/Assets/GoogleAnalytics,
+					/Users/andrewsinkevitch/Projects/ByBalance/ByBalance/Classes/Assets/GoogleAnalytics,
 				);
 				PRODUCT_NAME = ByBalance;
 				WRAPPER_EXTENSION = app;

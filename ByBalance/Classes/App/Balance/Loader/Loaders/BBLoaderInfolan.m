@@ -100,7 +100,9 @@
     
     //NSLog(@"%@", textBalance);
     
-    self.loaderInfo.userBalance = textBalance;
+    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:textBalance];
+    //self.loaderInfo.userBalance = textBalance;
+    self.loaderInfo.userBalance = num;
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
     self.loaderInfo.extracted = YES;

@@ -75,7 +75,9 @@
         self.loaderInfo.extracted = NO;
         return;
     }
-    self.loaderInfo.userBalance = bal;
+    
+    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:bal];
+    self.loaderInfo.userBalance = num;
     
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     

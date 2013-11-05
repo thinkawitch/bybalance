@@ -178,9 +178,10 @@
     }
     
     NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:pbalance];
-    self.loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
+    //self.loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
+    self.loaderInfo.userBalance = num;
     
-    self.loaderInfo.extracted = [self.loaderInfo.userBalance length] > 0;
+    self.loaderInfo.extracted = YES;
 }
 
 @end
