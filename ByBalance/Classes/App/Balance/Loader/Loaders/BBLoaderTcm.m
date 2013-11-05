@@ -38,12 +38,7 @@
 - (void) extractInfoFromHtml:(NSString *)html
 {
     //NSLog(@"%@", html);
-    
-    if (!html)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!html) return;
     
     if ([html isEqualToString:@"ERROR"] || [html isEqualToString:@"FORBIDDEN"])
     {
@@ -63,21 +58,12 @@
      */
     
     NSArray *arr = [html componentsSeparatedByString:@";"];
-    if (!arr || [arr count] <3)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!arr || [arr count] < 3) return;
     
     NSString * bal = [arr objectAtIndex:2];
-    if (![PRIMITIVE_HELPER stringIsNumeric:bal])
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (![PRIMITIVE_HELPER stringIsNumeric:bal]) return;
     
-    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:bal];
-    self.loaderInfo.userBalance = num;
+    self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:bal];
     
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     

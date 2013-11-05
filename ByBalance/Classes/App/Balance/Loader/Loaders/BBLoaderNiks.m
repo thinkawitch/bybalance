@@ -42,23 +42,13 @@
 - (void) extractInfoFromHtml:(NSString *)html
 {
     //NSLog(@"%@", html);
-    
-    if (!html)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!html) return;
     
     //incorrect login/pass
     self.loaderInfo.incorrectLogin = ([html rangeOfString:@"id=\"MessageLabel\""].location != NSNotFound);
     //NSLog(@"incorrectLogin: %d", incorrectLogin);
-    if (self.loaderInfo.incorrectLogin)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (self.loaderInfo.incorrectLogin) return;
     
-    NSString * buf = nil;
     NSArray * arr = nil;
     BOOL extracted = NO;
     
@@ -66,11 +56,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Имя:</td>\\s+<td class=\"bgTableGray2\" width=\"50%\" align=\"left\">([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userTitle = buf;
-        }
+        self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     //NSLog(@"userTitle: %@", loaderInfo.userTitle);
     
@@ -78,11 +64,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:</td>\\s*<td class=\"bgTableGray2\" width=\"50%\" align=\"left\">\\s*<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\">\\s*<tr>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userPlan = buf;
-        }
+        self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     //NSLog(@"userPlan: %@", loaderInfo.userPlan);
     
@@ -93,15 +75,8 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Баланс:</td>\\s*<td class=\"bgTableWhite2\" width=\"50%\" align=\"left\">\\s*<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\">\\s*<tr>\\s*<td nowrap><font color=red><b>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
-        self.loaderInfo.userBalance = num;
+        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
-        //if (nil != buf && [buf length] > 0)
-        //{
-        //    self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-        //}
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     

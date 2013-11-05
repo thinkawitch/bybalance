@@ -77,8 +77,8 @@
 
 - (void) onStep2:(NSString *)html
 {
-    //NSLog(@"BBLoaderNetBerry.onStep2");
-    //NSLog(@"%@", html);
+    NSLog(@"BBLoaderNetBerry.onStep2");
+    NSLog(@"%@", html);
     
     [self extractInfoFromHtml:html];
     [self doFinish];
@@ -86,39 +86,50 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-
-    if (!html)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!html) return;
     
     //incorrect login/pass
     if ([html rangeOfString:@"Ошибка при авторизации"].location != NSNotFound)
     {
         self.loaderInfo.incorrectLogin = YES;
-        self.loaderInfo.extracted = NO;
         return;
     }
     
-    NSString * buf = nil;
     NSArray * arr = nil;
     BOOL extracted = NO;
     
     //balance
-    // <th>Исходящий остаток на конец месяца</th><td>22 539.06</td>
+    
+    NSDecimalNumber * balanceOnMonthStart = nil;
+    NSDecimalNumber * balanceOnMonthEnd = nil;
+    NSDecimalNumber * balanceTotal = nil;
+    
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Входящий остаток на начало месяца</th>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        balanceOnMonthStart = [self decimalNumberFromString:[arr objectAtIndex:0]];
+        extracted = YES;
+    }
     
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Исходящий остаток на конец месяца</th>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
-        //self.loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
-        self.loaderInfo.userBalance = num;
+        balanceOnMonthEnd = [self decimalNumberFromString:[arr objectAtIndex:0]];
+        extracted = YES;
+    }
+    
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Остаток средств</th>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        balanceTotal = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
         
     }
+    
+    if (nil != balanceTotal) self.loaderInfo.userBalance = balanceTotal;
+    else if (nil != balanceOnMonthEnd) self.loaderInfo.userBalance = balanceOnMonthEnd;
+    else if (nil != balanceOnMonthStart) self.loaderInfo.userBalance = balanceOnMonthStart;
+    
     //NSLog(@"balance: %@", self.loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;

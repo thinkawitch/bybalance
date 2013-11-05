@@ -46,18 +46,13 @@
     //NSLog(@"BBLoaderVelcom.onStep1");
     //NSLog(@"%@", html);
     
-    NSString * buf = nil;
     NSArray * arr = nil;
     
     //try to detect session
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"name=\"sid3\" value=\"([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.sessionId = buf;
-        }
+        self.sessionId = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     
     //NSLog(@"sessionId: %@", self.sessionId);
@@ -189,11 +184,7 @@
         self.loaderInfo.incorrectLogin = ([html rangeOfString:@"INFO_Error_caption"].location != NSNotFound);
         //NSLog(@"incorrectLogin: %d", incorrectLogin);
         
-        if (self.loaderInfo.incorrectLogin)
-        {
-            self.loaderInfo.extracted = NO;
-            return;
-        }
+        if (self.loaderInfo.incorrectLogin) return;
     }
     
     
@@ -201,11 +192,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"ФИО:</td><td class=\"INFO\">([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userTitle = buf;
-        }
+        self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     //NSLog(@"userTitle: %@", loaderInfo.userTitle);
     
@@ -213,63 +200,46 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:\\s*</td><td class=\"INFO\"[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userPlan = buf;
-        }
+        self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     //NSLog(@"userPlan: %@", loaderInfo.userPlan);
     
-    NSString * balance = nil;
+    NSDecimalNumber * balance1 = nil;
+    NSDecimalNumber * balance2 = nil;
+    NSDecimalNumber * balance3 = nil;
     
     //balance 1
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            //self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-            balance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-        }
+        balance1 = [self decimalNumberFromString:[arr objectAtIndex:0]];
     }
     
-    if (!balance || [balance length] < 1)
+    if (nil == balance1)
     {
         //balance 2
         arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
         if (arr && [arr count] == 1)
         {
-            buf = [arr objectAtIndex:0];
-            if (nil != buf && [buf length] > 0)
-            {
-                //self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-                balance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-            }
+            balance2 = [self decimalNumberFromString:[arr objectAtIndex:0]];
         }
     }
     
-    if (!balance || [balance length] < 1)
+    if (nil == balance1 && nil == balance2)
     {
         //balance 3
         arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
         if (arr && [arr count] == 1)
         {
-            buf = [arr objectAtIndex:0];
-            if (nil != buf && [buf length] > 0)
-            {
-                //self.loaderInfo.userBalance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-                balance = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-            }
+            balance3 = [self decimalNumberFromString:[arr objectAtIndex:0]];
         }
     }
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
     
-    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:balance];
-    self.loaderInfo.userBalance = num;
+    if (nil != balance1) self.loaderInfo.userBalance = balance1;
+    else if (nil != balance2) self.loaderInfo.userBalance = balance2;
+    else if (nil != balance3) self.loaderInfo.userBalance = balance3;
     
-    self.loaderInfo.extracted = [self.loaderInfo.userPlan length] > 0 && [balance length] > 0;
+    self.loaderInfo.extracted = YES;
 }
 
 @end

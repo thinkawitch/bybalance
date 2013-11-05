@@ -45,18 +45,13 @@
     //NSLog(@"BBLoaderMts.onStep1");
     //NSLog(@"%@", html);
     
-    NSString * buf = nil;
     NSArray * arr = nil;
     
     //try to detect session
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"id=\"__VIEWSTATE\" value=\"([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.paramViewState = buf;
-        }
+        self.paramViewState = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     
     //NSLog(@"paramViewState: %@", self.paramViewState);
@@ -103,49 +98,33 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class=\"logon-result-block\">(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
+        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
+        if ([buf length] > 0)
         {
             self.loaderInfo.incorrectLogin = YES;
+            return;
         }
-    }
-    
-    if (self.loaderInfo.incorrectLogin)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
     }
     
     //userTitle
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<h3>(.+)</h3>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userTitle = buf;
-        }
+        self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     
     //userPlan
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план: <strong>(.+)</strong>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userPlan = buf;
-        }
+        self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     
     //balance
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<span id=\"customer-info-balance\"><strong>(.+)</strong>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
-        self.loaderInfo.userBalance = num;
+        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
     }
     

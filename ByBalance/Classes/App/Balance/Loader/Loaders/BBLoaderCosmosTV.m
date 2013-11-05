@@ -95,16 +95,12 @@
     NSArray * arr = nil;
     NSString * buf = nil;
     NSDecimalNumber * num = nil;
+    
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"showServices\\(this,\\s*\"([^\"]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-            num = [NSDecimalNumber decimalNumberWithString:buf];
-            
-        }
+        num = [self decimalNumberFromString:[arr objectAtIndex:0]];
     }
     
     if (!num)
@@ -137,49 +133,28 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    if (!html)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!html) return;
     
     NSString * jsonString = [NSString stringWithFormat:@"%@", html];
     NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError * jsonError = nil;
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&jsonError];
     
-    if (![jsonObject isKindOfClass:[NSDictionary class]])
-    {
-        //это не json
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    //это не json
+    if (![jsonObject isKindOfClass:[NSDictionary class]]) return;
+
     
     NSDictionary * dict = (NSDictionary *) jsonObject;
     NSArray * services = [dict objectForKey:@"services"];
-    if (!services || [services count] < 1)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!services || [services count] < 1) return;
     
     NSDictionary * service1 = [services objectAtIndex:0];
-    if (![service1 isKindOfClass:[NSDictionary class]])
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (![service1 isKindOfClass:[NSDictionary class]]) return;
     
     NSString * pbalance = [service1 objectForKey:@"pbalance"];
-    if (!pbalance)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!pbalance) return;
     
-    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:pbalance];
-    //self.loaderInfo.userBalance = [NSString stringWithFormat:@"%d", [num integerValue]];
-    self.loaderInfo.userBalance = num;
+    self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:pbalance];
     
     self.loaderInfo.extracted = YES;
 }

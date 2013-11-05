@@ -41,11 +41,7 @@
 {
     //NSLog(@"%@", html);
     
-    if (!html)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!html) return;
     
     NSError * error = nil;
     NSDictionary * dict = [XMLReader dictionaryForXMLString:html
@@ -53,56 +49,30 @@
                                                       error:&error];
     
     //NSLog(@"%@", dict);
-    if (error || !dict)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (error || !dict) return;
     
     
     //correct response
     NSDictionary * nodeResp = [dict objectForKey:@"Response"];
-    if (!nodeResp)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!nodeResp) return;
     
     //NSLog(@"%@", nodeResp);
     
     //has error
-    if ([nodeResp objectForKey:@"Error"])
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if ([nodeResp objectForKey:@"Error"]) return;
     
     NSDictionary * nodeMain = [nodeResp objectForKey:@"Main"];
-    if (!nodeMain)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!nodeMain) return;
     
     NSDictionary  * nodeBalance = [nodeMain objectForKey:@"Balance"];
-    if (!nodeBalance)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!nodeBalance) return;
     
     NSString  * textBalance = [nodeBalance objectForKey:@"text"];
-    if (!textBalance)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!textBalance) return;
+    
+    self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:textBalance];
     
     //NSLog(@"%@", textBalance);
-    
-    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:textBalance];
-    //self.loaderInfo.userBalance = textBalance;
-    self.loaderInfo.userBalance = num;
     //NSLog(@"balance: %@", loaderInfo.userBalance);
     
     self.loaderInfo.extracted = YES;

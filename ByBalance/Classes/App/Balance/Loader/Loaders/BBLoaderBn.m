@@ -51,18 +51,12 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class='alarma'>(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
+        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
+        if ([buf length] > 0)
         {
             self.loaderInfo.incorrectLogin = YES;
+            return;
         }
-    }
-    //NSLog(@"incorrectLogin: %d", loaderInfo.incorrectLogin);
-    
-    if (self.loaderInfo.incorrectLogin)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
     }
     
     //NSLog(@"%@", html);
@@ -71,11 +65,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Ф.И.О.:</td><td>([^<]+)</td></tr>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userTitle = buf;
-        }
+        self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     //NSLog(@"userTitle: %@", loaderInfo.userTitle);
     
@@ -83,11 +73,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Тариф:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userPlan = buf;
-        }
+        self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     //NSLog(@"userPlan: %@", loaderInfo.userPlan);
     
@@ -95,10 +81,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
-        self.loaderInfo.userBalance = num;
+        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);

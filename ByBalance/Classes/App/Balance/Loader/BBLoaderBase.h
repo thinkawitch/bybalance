@@ -36,4 +36,7 @@
 - (void) extractInfoFromHtml:(NSString *)html;
 - (void) doFinish;
 
+//utils
+- (NSDecimalNumber *) decimalNumberFromString:(id)value;
+
 @end

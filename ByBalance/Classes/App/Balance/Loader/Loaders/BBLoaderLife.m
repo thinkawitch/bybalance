@@ -41,7 +41,6 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    NSString * buf = nil;
     NSArray * arr = nil;
     BOOL extracted = NO;
     
@@ -54,11 +53,7 @@
         self.loaderInfo.incorrectLogin = ([html rangeOfString:@"errorMessage"].location != NSNotFound);
         //NSLog(@"incorrectLogin: %d", incorrectLogin);
         
-        if (self.loaderInfo.incorrectLogin)
-        {
-            self.loaderInfo.extracted = NO;
-            return;
-        }
+        if (self.loaderInfo.incorrectLogin) return;
     }
     
     
@@ -70,11 +65,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Фамилия:\\s*</div>\\s*<div>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userTitle = [buf stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        }
+        self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     //NSLog(@"userTitle: %@", loaderInfo.userTitle);
     
@@ -88,11 +79,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:\\s*</div>\\s*<div>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            self.loaderInfo.userPlan = [buf stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        }
+        self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     //NSLog(@"userPlan: %@", loaderInfo.userPlan);
     
@@ -108,10 +95,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий основной баланс: \\*\\s*</div>\\s*<div>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        buf = [buf stringByReplacingRegexPattern:@"[^0-9.,]" withString:@""];
-        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
-        self.loaderInfo.userBalance = num;
+        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
         
     }

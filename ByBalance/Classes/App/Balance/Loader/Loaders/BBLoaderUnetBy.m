@@ -111,11 +111,7 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
 - (void) extractInfoFromHtml:(NSString *)html
 {
     //NSLog(@"%@", html);
-    if (!html)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!html) return;
     
     NSError * error = nil;
     NSDictionary * dict = [XMLReader dictionaryForXMLString:html
@@ -123,42 +119,21 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
                                                       error:&error];
     
     //NSLog(@"%@", dict);
-    if (error || !dict)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (error || !dict) return;
     
     NSDictionary * nodeResp = [dict objectForKey:@"res"];
-    if (!nodeResp)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!nodeResp) return;
     
     NSDictionary * nodeTag = [nodeResp objectForKey:@"tag"];
-    if (!nodeTag)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!nodeTag) return;
     
     NSDictionary * nodeDeposit = [nodeTag objectForKey:@"deposit"];
-    if (!nodeDeposit)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!nodeDeposit) return;
     
     NSString * textBalance = [nodeDeposit objectForKey:@"text"];
-    if (!textBalance)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!textBalance) return;
     
-    NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:textBalance];
-    self.loaderInfo.userBalance = num;
+    self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:textBalance];
     //self.loaderInfo.userBalance = textBalance;
     //NSLog(@"balance: %@", self.loaderInfo.userBalance);
     

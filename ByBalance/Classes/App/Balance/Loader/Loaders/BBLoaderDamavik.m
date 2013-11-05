@@ -56,7 +56,6 @@
     //NSLog(@"BBLoaderDamavik.onStep1");
     //NSLog(@"%@", html);
     
-    NSString * buf = nil;
     NSArray * arr = nil;
     
     //search for captcha image
@@ -65,11 +64,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<img src=\"/img/_cap/items/([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [arr objectAtIndex:0];
-        if (nil != buf && [buf length] > 0)
-        {
-            imgName = buf;
-        }
+        imgName = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     
     //NSLog(@"imgName: %@", imgName);
@@ -148,22 +143,13 @@
 {
     //NSLog(@"%@", html);
     
-    if (!html)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (!html) return;
     
     //incorrect login/pass
     self.loaderInfo.incorrectLogin = ([html rangeOfString:@"<div class=\"redmsg mesg\"><div>Введенные данные неверны. Проверьте и повторите попытку.</div></div>"].location != NSNotFound);
     //NSLog(@"incorrectLogin: %d", loaderInfo.incorrectLogin);
-    if (self.loaderInfo.incorrectLogin)
-    {
-        self.loaderInfo.extracted = NO;
-        return;
-    }
+    if (self.loaderInfo.incorrectLogin) return;
     
-    NSString * buf = nil;
     NSArray * arr = nil;
     BOOL extracted = NO;
     
@@ -171,17 +157,11 @@
     
     //userPlan - absent
     
-    //test balance value
-    //html = [html stringByReplacingOccurrencesOfString:@"<td>0</td>" withString:@"<td>5224.55</td>"];
-    
     //balance
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Состояние счета</td>\\s+<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
-        self.loaderInfo.userBalance = num;
+        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);

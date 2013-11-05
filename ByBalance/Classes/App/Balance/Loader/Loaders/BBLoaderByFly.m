@@ -64,7 +64,6 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    NSString * buf = nil;
     NSArray * arr = nil;
     BOOL extracted = NO;
     
@@ -74,11 +73,7 @@
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Актуальный баланс:</td>\\s*<td class=light width=\"50%\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        buf = [buf stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
-        buf = [buf stringByReplacingOccurrencesOfString:@" " withString:@""];
-        NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:buf];
-        self.loaderInfo.userBalance = num;
+        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
     }
     //NSLog(@"balance: %@", loaderInfo.userBalance);
