@@ -11,6 +11,7 @@
 @interface BBMAccount (ByBalance)
 
 - (NSString *) nameLabel;
+- (BBMBalanceHistory *) lastBalance;
 - (BBMBalanceHistory *) lastGoodBalance;
 - (NSString *) lastGoodBalanceDate;
 - (NSString *) lastGoodBalanceValue;

@@ -14,11 +14,14 @@
 @private
     //
 	// Reachability:
-    BOOL				isOnline;
-	Reachability		* reachability;
+    BOOL isOnline;
+	Reachability * reachability;
+    //
+    BOOL doBgFetch;
 }
 
 @property (nonatomic, assign) BOOL isOnline;
+@property (nonatomic, assign) BOOL doBgFetch;
 
 + (AppContext *) sharedAppContext;
 
@@ -27,6 +30,7 @@
 - (void) stop;
 //
 - (void) saveDatabase;
+- (void) showAllAccounts;
 
 // Helper - navigation bar:
 - (UIBarButtonItem *) backButton;

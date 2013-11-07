@@ -77,8 +77,8 @@
 
 - (void) onStep2:(NSString *)html
 {
-    NSLog(@"BBLoaderNetBerry.onStep2");
-    NSLog(@"%@", html);
+    //NSLog(@"BBLoaderNetBerry.onStep2");
+    //NSLog(@"%@", html);
     
     [self extractInfoFromHtml:html];
     [self doFinish];

@@ -17,6 +17,7 @@
 {
     [SETTINGS load];
     [APP_CONTEXT start];
+    //[APP_CONTEXT showAllAccounts];
     [BALANCE_CHECKER start];
     
     //google analytics
@@ -42,6 +43,11 @@
     self.nc.navigationBar.backgroundColor = [UIColor blackColor];
     self.window.rootViewController = self.nc;
     [self.window makeKeyAndVisible];
+    
+    if (APP_CONTEXT.doBgFetch)
+    {
+        [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    }
     
     return YES;
 }
@@ -90,5 +96,89 @@
     return orientations;
 }
 */
+
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    
+    NSDate * date = [NSDate new];
+    NSLog(@"performFetchWithCompletionHandler: %@", [DATE_HELPER dateToMysqlDateTime:date]);
+    
+    if ([BALANCE_CHECKER isBusy])
+    {
+        //offline
+        NSLog(@"do check strated by user");
+        completionHandler(UIBackgroundFetchResultNoData);
+        return;
+    }
+    
+    if (![APP_CONTEXT isOnline])
+    {
+        //offline
+        NSLog(@"offline");
+        completionHandler(UIBackgroundFetchResultNoData);
+        return;
+    }
+    
+    NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
+    
+    BBMAccount * acc = nil;
+    BBMAccount * accToCheck = nil;
+    BBMBalanceHistory * bh = nil;
+    double limit = 60*20; // 20 mins
+    for (acc in [NSMutableArray arrayWithArray:[BBMAccount findAllSortedBy:@"order" ascending:YES]])
+    {
+        bh = [acc lastBalance];
+        if (!bh)
+        {
+            accToCheck = acc;
+            break;
+        }
+        
+        if (timeNow - [bh.date timeIntervalSinceReferenceDate] > limit)
+        {
+            accToCheck = acc;
+            break;
+        }
+    }
+    
+    if (!accToCheck)
+    {
+        //no accounts to check
+        NSLog(@"no accounts to check");
+        completionHandler(UIBackgroundFetchResultNoData);
+        return;
+    }
+    
+    [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
+    
+    
+    /*
+    BBMAccount * acc = [BBMAccount findFirstByAttribute:@"username" withValue:@"297527406"];
+    if (acc)
+    {
+        BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
+        bh.date = [NSDate date];
+        bh.account = acc;
+        bh.extracted = [NSNumber numberWithBool:YES];
+        bh.incorrectLogin = [NSNumber numberWithBool:NO];
+        bh.balance = [[NSDecimalNumber alloc] initWithInt:1];
+        bh.packages = [NSNumber numberWithInt:1];
+        bh.megabytes = [[NSDecimalNumber alloc] initWithInt:1];
+        bh.days = [[NSDecimalNumber alloc] initWithInt:1];
+        bh.credit = [[NSDecimalNumber alloc] initWithInt:1];
+        bh.minutes = [NSNumber numberWithInt:1];
+        bh.sms = [NSNumber numberWithInt:1];
+        
+        [APP_CONTEXT saveDatabase];
+        
+        completionHandler(UIBackgroundFetchResultNewData);
+    }
+    else
+    {
+        completionHandler(UIBackgroundFetchResultFailed);
+    }
+    */
+    
+}
 
 @end

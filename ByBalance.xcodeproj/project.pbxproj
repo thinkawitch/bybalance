@@ -1013,6 +1013,11 @@
 				TargetAttributes = {
 					C312CD281808AB1F005F25D0 = {
 						DevelopmentTeam = 7NNP7NAEX3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

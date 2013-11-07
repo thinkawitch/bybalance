@@ -16,6 +16,16 @@
     return [NSString stringWithString:self.username];
 }
 
+- (BBMBalanceHistory *) lastBalance
+{
+    if (!self.history) return nil;
+    
+    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"account=%@", self];
+    return [BBMBalanceHistory findFirstWithPredicate:predicate
+                                            sortedBy:@"date"
+                                           ascending:NO];
+}
+
 - (BBMBalanceHistory *) lastGoodBalance
 {
     if (!self.history) return nil;

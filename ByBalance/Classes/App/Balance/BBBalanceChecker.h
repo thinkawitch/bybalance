@@ -17,6 +17,18 @@
     NSObject * syncFlag1;
     NSObject * syncFlag2;
     NSOperationQueue * queue;
+    
+    
+    NSTimer * timer;
+    NSInteger bgTimeLimit;
+    BOOL bgUpdate;
+    CFTimeInterval startTime;
+    
+    void (^bgCompletionHandler)(UIBackgroundFetchResult);
+    //(void (^)(UIBackgroundFetchResult))completionHandler
+    
+    //(void(^)(Account *))handler;
+    //void (^completionHandler)(Account *someParameter);
 }
 
 + (BBBalanceChecker *) sharedBBBalanceChecker;
@@ -27,5 +39,6 @@
 - (void) stop;
 //
 - (void) addItem:(BBMAccount *) account;
+- (void) addBgItem:(BBMAccount *) account handler:(void (^)(UIBackgroundFetchResult))completionHandler;
 
 @end

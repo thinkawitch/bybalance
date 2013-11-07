@@ -20,10 +20,10 @@
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 @synthesize isOnline;
+@synthesize doBgFetch;
 
-//
 #pragma mark - Public
-//
+
 - (void) start
 {
     //reachabilityWithHostName: api server 
@@ -45,6 +45,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     //
     //[ASIHTTPRequest setShouldUpdateNetworkActivityIndicator:YES];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7"))
+    {
+        doBgFetch = YES;
+    }
 }
 
 - (void) stop
@@ -154,6 +159,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 - (void) saveDatabase
 {
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
+- (void) showAllAccounts
+{
+    BBMAccount * acc;
+    NSArray * all = [BBMAccount findAll];
+    for (acc in all)
+    {
+        NSLog(@"%@ %@ %@", acc.type.name, acc.username, acc.password);
+    }
 }
 
 //
