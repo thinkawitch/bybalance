@@ -98,10 +98,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         
     }
     
-    NSLog(@"%@", completionHandler);
-    
     bgCompletionHandler = [completionHandler copy];
-    NSLog(@"%@", bgCompletionHandler);
     
     loader.account = account;
     loader.delegate = self;

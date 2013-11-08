@@ -120,34 +120,70 @@
     }
     
     NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
+    NSTimeInterval timePassed = 0;
     
     BBMAccount * acc = nil;
-    BBMAccount * accToCheck = nil;
+    __block BBMAccount * accToCheck = nil;
     BBMBalanceHistory * bh = nil;
     double limit = 60*20; // 20 mins
-    for (acc in [NSMutableArray arrayWithArray:[BBMAccount findAllSortedBy:@"order" ascending:YES]])
+    
+    //all accounts that needs to be checked
+    NSMutableArray * toCheckAccounts = [[NSMutableArray alloc] initWithCapacity:20];
+    NSMutableArray * toCheckTimePassed = [[NSMutableArray alloc] initWithCapacity:20];
+    
+    for (acc in [BBMAccount findAllSortedBy:@"order" ascending:YES])
     {
         bh = [acc lastBalance];
-        if (!bh)
-        {
-            accToCheck = acc;
-            break;
-        }
         
-        if (timeNow - [bh.date timeIntervalSinceReferenceDate] > limit)
+        if (!bh) timePassed = limit + 1;
+        else timePassed = timeNow - [bh.date timeIntervalSinceReferenceDate];
+        
+        if (timePassed > limit)
         {
-            accToCheck = acc;
-            break;
+            [toCheckAccounts addObject:acc];
+            [toCheckTimePassed addObject:[NSNumber numberWithDouble:timePassed]];
         }
     }
     
-    if (!accToCheck)
+    if ([toCheckAccounts count] < 1)
     {
         //no accounts to check
         NSLog(@"no accounts to check");
         completionHandler(UIBackgroundFetchResultNoData);
         return;
     }
+    
+    //find account with longest time without check
+    __block float xmax = -MAXFLOAT;
+    //float xmin = MAXFLOAT;
+    
+    [toCheckTimePassed enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
+        float x = [object floatValue];
+        if (x > xmax)
+        {
+            accToCheck = [toCheckAccounts objectAtIndex:idx];
+            xmax = x;
+        }
+    }];
+    
+    /*
+    for (NSNumber * num in toCheckTimePassed)
+    {
+        float x = num.floatValue;
+        if (x < xmin) xmin = x;
+        if (x > xmax) xmax = x;
+    }
+     */
+    
+    
+    if (!accToCheck)
+    {
+        //no accounts to check
+        NSLog(@"accToCheck not found");
+        completionHandler(UIBackgroundFetchResultFailed);
+        return;
+    }
+    
     
     [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
     

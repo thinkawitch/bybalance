@@ -92,6 +92,17 @@
      7 500,00р.
      </div>
      */
+    
+    /*
+    html = @"<div>\
+    <div class=\"divBold\">\
+    Текущий основной баланс: *\
+    </div> \
+    <div> \
+    -97&nbsp;931,14р. \
+    </div> \
+    </div>";
+     */
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий основной баланс: \\*\\s*</div>\\s*<div>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
