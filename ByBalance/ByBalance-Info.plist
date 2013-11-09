@@ -41,5 +41,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+    <key>UIFileSharingEnabled</key>
+    <string>YES</string>
 </dict>
 </plist>
