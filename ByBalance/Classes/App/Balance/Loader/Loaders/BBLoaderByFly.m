@@ -26,13 +26,13 @@
                             self.account.username, @"mobnum",
                             self.account.password, @"Password",
                             nil];
-    //NSLog(@"%@", params);
+    //DDLogVerbose(@"%@", params);
   
     [self.httpClient postPath:@"/cgi-bin/cgi.exe?function=is_login" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *response1 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
         //NSString * response1 = operation.responseString;
-        //NSLog(@"Response1:\n%@", response1);
+        //DDLogVerbose(@"Response1:\n%@", response1);
         
         //cgi.exe?function=is_account
         if ([response1 rangeOfString:@"cgi.exe?function=is_account"].location == NSNotFound)
@@ -45,7 +45,7 @@
                 
                 NSString *response2 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
                 //NSString * response2 = operation.responseString;
-                //NSLog(@"Response2:\n%@", response2);
+                //DDLogVerbose(@"Response2:\n%@", response2);
                 
                 [self extractInfoFromHtml:response2];
                 [self doFinish];
@@ -67,7 +67,7 @@
     NSArray * arr = nil;
     BOOL extracted = NO;
     
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     
     //balance
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Актуальный баланс:</td>\\s*<td class=light width=\"50%\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -76,7 +76,7 @@
         self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
     }
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;
 }

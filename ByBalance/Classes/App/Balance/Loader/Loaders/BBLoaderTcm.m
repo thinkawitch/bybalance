@@ -37,7 +37,7 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     if (!html) return;
     
     if ([html isEqualToString:@"ERROR"] || [html isEqualToString:@"FORBIDDEN"])
@@ -65,7 +65,7 @@
     
     self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:bal];
     
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
     
     self.loaderInfo.extracted = YES;
 }

@@ -39,7 +39,7 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     
     if (!html) return;
     
@@ -48,7 +48,7 @@
                                                     options:XMLReaderOptionsProcessNamespaces
                                                       error:&error];
     
-    //NSLog(@"%@", dict);
+    //DDLogVerbose(@"%@", dict);
     if (error || !dict) return;
     
     
@@ -56,7 +56,7 @@
     NSDictionary * nodeResp = [dict objectForKey:@"Response"];
     if (!nodeResp) return;
     
-    //NSLog(@"%@", nodeResp);
+    //DDLogVerbose(@"%@", nodeResp);
     
     //has error
     if ([nodeResp objectForKey:@"Error"]) return;
@@ -72,8 +72,8 @@
     
     self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:textBalance];
     
-    //NSLog(@"%@", textBalance);
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    //DDLogVerbose(@"%@", textBalance);
+    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
     
     self.loaderInfo.extracted = YES;
 }

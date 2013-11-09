@@ -382,7 +382,7 @@
         ABMultiValueRef numbers = ABRecordCopyValue(person, property);
         NSString * targetNumber = CFBridgingRelease(ABMultiValueCopyValueAtIndex(numbers, ABMultiValueGetIndexForIdentifier(numbers, identifier)));
         
-        NSLog(@"%@", targetNumber);
+        DDLogInfo(@"%@", targetNumber);
        
         NSString * phone = [NSString stringWithFormat:@"%@", targetNumber];
         phone = [phone stringByReplacingOccurrencesOfString:@"[^0-9]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [phone length])];

@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		452959BD18292CB0002D92FF /* BBLoaderAnitex.m in Sources */ = {isa = PBXBuildFile; fileRef = 452959BC18292CB0002D92FF /* BBLoaderAnitex.m */; };
+		C30FA4BB182D51D800818116 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4AC182D51D800818116 /* DDAbstractDatabaseLogger.m */; };
+		C30FA4BC182D51D800818116 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4AE182D51D800818116 /* DDASLLogger.m */; };
+		C30FA4BD182D51D800818116 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B0182D51D800818116 /* DDFileLogger.m */; };
+		C30FA4BE182D51D800818116 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B2182D51D800818116 /* DDLog.m */; };
+		C30FA4BF182D51D800818116 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B4182D51D800818116 /* DDTTYLogger.m */; };
+		C30FA4C0182D51D800818116 /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B7182D51D800818116 /* ContextFilterLogFormatter.m */; };
+		C30FA4C1182D51D800818116 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B9182D51D800818116 /* DispatchQueueLogFormatter.m */; };
+		C30FA4C2182D51D800818116 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C30FA4BA182D51D800818116 /* README.txt */; };
 		C312CD2D1808AB1F005F25D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD2C1808AB1F005F25D0 /* Foundation.framework */; };
 		C312CD2F1808AB1F005F25D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD2E1808AB1F005F25D0 /* CoreGraphics.framework */; };
 		C312CD311808AB1F005F25D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD301808AB1F005F25D0 /* UIKit.framework */; };
@@ -140,6 +148,21 @@
 /* Begin PBXFileReference section */
 		452959BB18292CB0002D92FF /* BBLoaderAnitex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderAnitex.h; sourceTree = "<group>"; };
 		452959BC18292CB0002D92FF /* BBLoaderAnitex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderAnitex.m; sourceTree = "<group>"; };
+		C30FA4AB182D51D800818116 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		C30FA4AC182D51D800818116 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		C30FA4AD182D51D800818116 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		C30FA4AE182D51D800818116 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		C30FA4AF182D51D800818116 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		C30FA4B0182D51D800818116 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		C30FA4B1182D51D800818116 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		C30FA4B2182D51D800818116 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		C30FA4B3182D51D800818116 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		C30FA4B4182D51D800818116 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		C30FA4B6182D51D800818116 /* ContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		C30FA4B7182D51D800818116 /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		C30FA4B8182D51D800818116 /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		C30FA4B9182D51D800818116 /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		C30FA4BA182D51D800818116 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		C312CD291808AB1F005F25D0 /* ByBalance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByBalance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C312CD2C1808AB1F005F25D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C312CD2E1808AB1F005F25D0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -395,6 +418,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C30FA4AA182D51D800818116 /* Lumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				C30FA4AB182D51D800818116 /* DDAbstractDatabaseLogger.h */,
+				C30FA4AC182D51D800818116 /* DDAbstractDatabaseLogger.m */,
+				C30FA4AD182D51D800818116 /* DDASLLogger.h */,
+				C30FA4AE182D51D800818116 /* DDASLLogger.m */,
+				C30FA4AF182D51D800818116 /* DDFileLogger.h */,
+				C30FA4B0182D51D800818116 /* DDFileLogger.m */,
+				C30FA4B1182D51D800818116 /* DDLog.h */,
+				C30FA4B2182D51D800818116 /* DDLog.m */,
+				C30FA4B3182D51D800818116 /* DDTTYLogger.h */,
+				C30FA4B4182D51D800818116 /* DDTTYLogger.m */,
+				C30FA4B5182D51D800818116 /* Extensions */,
+			);
+			path = Lumberjack;
+			sourceTree = "<group>";
+		};
+		C30FA4B5182D51D800818116 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C30FA4B6182D51D800818116 /* ContextFilterLogFormatter.h */,
+				C30FA4B7182D51D800818116 /* ContextFilterLogFormatter.m */,
+				C30FA4B8182D51D800818116 /* DispatchQueueLogFormatter.h */,
+				C30FA4B9182D51D800818116 /* DispatchQueueLogFormatter.m */,
+				C30FA4BA182D51D800818116 /* README.txt */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C312CD201808AB1F005F25D0 = {
 			isa = PBXGroup;
 			children = (
@@ -652,6 +705,7 @@
 		C3C82B041808D1AF00E2C1D6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C30FA4AA182D51D800818116 /* Lumberjack */,
 				C3DE6F931809B2E60024F9DD /* AFNetworking */,
 				C3C82B451808D59B00E2C1D6 /* DateHelper */,
 				C3B23B661814715800A7243E /* GoogleAnalytics */,
@@ -1050,6 +1104,7 @@
 				C3DE70401809B5A30024F9DD /* cb_mono_on@2x.png in Resources */,
 				C3C1DA431809FBC400180AFA /* add@2x.png in Resources */,
 				C3DE703E1809B5A30024F9DD /* cb_mono_off@2x.png in Resources */,
+				C30FA4C2182D51D800818116 /* README.txt in Resources */,
 				C335860F1809DA1A001AB5D3 /* BBHomeCell.xib in Resources */,
 				C3C1DA4D1809FBC400180AFA /* info@2x.png in Resources */,
 				C3C1DA5E1809FCF300180AFA /* BBSelectAccountTypeVC.xib in Resources */,
@@ -1089,6 +1144,7 @@
 				C3DE70731809BE1C0024F9DD /* BBLoaderNetBerry.m in Sources */,
 				C3DE700E1809B2F70024F9DD /* MagicalRecord+ShorthandSupport.m in Sources */,
 				C3C82B511808D9D700E2C1D6 /* Reachability.m in Sources */,
+				C30FA4C1182D51D800818116 /* DispatchQueueLogFormatter.m in Sources */,
 				C3C82B361808D4D600E2C1D6 /* BBBalanceChecker.m in Sources */,
 				C3DE706E1809BE1C0024F9DD /* BBLoaderCosmosTV.m in Sources */,
 				C3DE70091809B2F70024F9DD /* MagicalRecord+Actions.m in Sources */,
@@ -1110,11 +1166,13 @@
 				C3C82B081808D1AF00E2C1D6 /* MBProgressHUD.m in Sources */,
 				C313E37B182989030007BF6E /* BBMAccountType.m in Sources */,
 				C3DE70031809B2F70024F9DD /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				C30FA4BD182D51D800818116 /* DDFileLogger.m in Sources */,
 				C3DE708B1809C13B0024F9DD /* BBMModelsExtension.m in Sources */,
 				C322835C1829778B00D924DA /* BBHistoryBaseCell.m in Sources */,
 				C3DE70101809B2F70024F9DD /* NSString+PDRegex.m in Sources */,
 				C3DE6FAB1809B2E60024F9DD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C3DE700F1809B2F70024F9DD /* MagicalRecord.m in Sources */,
+				C30FA4BC182D51D800818116 /* DDASLLogger.m in Sources */,
 				C3DE70741809BE1C0024F9DD /* BBLoaderNiks.m in Sources */,
 				C33586081809D6BD001AB5D3 /* BBSelectAccountTypeVC.m in Sources */,
 				C3DE70411809B5A30024F9DD /* UIHelpers.m in Sources */,
@@ -1134,14 +1192,18 @@
 				C3C82B4C1808D59B00E2C1D6 /* IDPrimitiveHelper.m in Sources */,
 				C3DE6FAD1809B2E60024F9DD /* AFURLConnectionOperation.m in Sources */,
 				C3DE700B1809B2F70024F9DD /* MagicalRecord+iCloud.m in Sources */,
+				C30FA4BB182D51D800818116 /* DDAbstractDatabaseLogger.m in Sources */,
 				C3DE70421809B5A30024F9DD /* SSCheckBoxView.m in Sources */,
+				C30FA4C0182D51D800818116 /* ContextFilterLogFormatter.m in Sources */,
 				C3DE6FFC1809B2F70024F9DD /* NSString+MagicalDataImport.m in Sources */,
 				C335860A1809D6BD001AB5D3 /* BBBalanceVC.m in Sources */,
 				C3DE700C1809B2F70024F9DD /* MagicalRecord+Options.m in Sources */,
 				C3DE6FA81809B2E60024F9DD /* AFHTTPRequestOperation.m in Sources */,
+				C30FA4BF182D51D800818116 /* DDTTYLogger.m in Sources */,
 				C3DE6FA71809B2E60024F9DD /* AFHTTPClient.m in Sources */,
 				452959BD18292CB0002D92FF /* BBLoaderAnitex.m in Sources */,
 				C3DE706D1809BE1C0024F9DD /* BBLoaderByFly.m in Sources */,
+				C30FA4BE182D51D800818116 /* DDLog.m in Sources */,
 				C3DE70751809BE1C0024F9DD /* BBLoaderTcm.m in Sources */,
 				C3DE70111809B2F70024F9DD /* XMLReader.m in Sources */,
 				C3DE6FAF1809B2E60024F9DD /* UIImageView+AFNetworking.m in Sources */,

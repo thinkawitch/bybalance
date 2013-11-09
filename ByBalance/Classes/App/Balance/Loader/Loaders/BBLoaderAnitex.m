@@ -33,7 +33,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+        DDLogError(@"[HTTPClient Error]: %@", error.localizedDescription);
         [self doFinish];
     }];
     
@@ -42,7 +42,7 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     
     //incorrect login/pass
     self.loaderInfo.incorrectLogin = ([html rangeOfString:@"Ошибка авторизации"].location != NSNotFound);
@@ -91,11 +91,11 @@
         self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
     }
     
-    //NSLog(@"packages: %@", self.loaderInfo.userPackages);
-    //NSLog(@"megabytes: %@", self.loaderInfo.userMegabytes);
-    //NSLog(@"days: %@", self.loaderInfo.userDays);
-    //NSLog(@"credit: %@", self.loaderInfo.userCredit);
-    //NSLog(@"ostatok: %@", self.loaderInfo.userBalance);
+    //DDLogVerbose(@"packages: %@", self.loaderInfo.userPackages);
+    //DDLogVerbose(@"megabytes: %@", self.loaderInfo.userMegabytes);
+    //DDLogVerbose(@"days: %@", self.loaderInfo.userDays);
+    //DDLogVerbose(@"credit: %@", self.loaderInfo.userCredit);
+    //DDLogVerbose(@"ostatok: %@", self.loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;
 }

@@ -182,7 +182,7 @@ typedef enum
 
 - (void) balanceChecked:(NSNotification *)notification
 {
-    NSLog(@"BBBalanceVC.balanceChecked");
+    DDLogVerbose(@"BBBalanceVC.balanceChecked");
     
     BBMAccount * updatedAcc = [[notification userInfo] objectForKey:kDictKeyAccount];
     if (!updatedAcc) return;
@@ -190,7 +190,7 @@ typedef enum
     if ([updatedAcc.type.id integerValue] == [self.account.type.id integerValue] &&
         updatedAcc.username == self.account.username)
     {
-        NSLog(@"account matches");
+        DDLogVerbose(@"account matches");
         [self updateScreen];
     }
 }

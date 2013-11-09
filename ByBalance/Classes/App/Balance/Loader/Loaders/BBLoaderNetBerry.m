@@ -44,8 +44,8 @@
 
 - (void) onStep1:(NSString *)html
 {
-    //NSLog(@"BBLoaderNetBerry.onStep1");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderNetBerry.onStep1");
+    //DDLogVerbose(@"%@", html);
     
     //Ошибка при авторизации
     if ([html rangeOfString:@"Ошибка при авторизации"].location != NSNotFound)
@@ -77,8 +77,8 @@
 
 - (void) onStep2:(NSString *)html
 {
-    //NSLog(@"BBLoaderNetBerry.onStep2");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderNetBerry.onStep2");
+    //DDLogVerbose(@"%@", html);
     
     [self extractInfoFromHtml:html];
     [self doFinish];
@@ -130,7 +130,7 @@
     else if (nil != balanceOnMonthEnd) self.loaderInfo.userBalance = balanceOnMonthEnd;
     else if (nil != balanceOnMonthStart) self.loaderInfo.userBalance = balanceOnMonthStart;
     
-    //NSLog(@"balance: %@", self.loaderInfo.userBalance);
+    //DDLogVerbose(@"balance: %@", self.loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;
 }

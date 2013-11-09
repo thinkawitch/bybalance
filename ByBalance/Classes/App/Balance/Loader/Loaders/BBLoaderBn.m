@@ -34,7 +34,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
-        //NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+        DDLogError(@"[HTTPClient Error]: %@", error.localizedDescription);
         [self doFinish];
     }];
     
@@ -59,7 +59,7 @@
         }
     }
     
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     
     //userTitle
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Ф.И.О.:</td><td>([^<]+)</td></tr>" caseInsensitive:YES treatAsOneLine:NO];
@@ -67,7 +67,7 @@
     {
         self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    //NSLog(@"userTitle: %@", loaderInfo.userTitle);
+    //DDLogVerbose(@"userTitle: %@", loaderInfo.userTitle);
     
     //userPlan
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Тариф:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -75,7 +75,7 @@
     {
         self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    //NSLog(@"userPlan: %@", loaderInfo.userPlan);
+    //DDLogVerbose(@"userPlan: %@", loaderInfo.userPlan);
     
     //balance
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -84,7 +84,7 @@
         self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
     }
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;
 }

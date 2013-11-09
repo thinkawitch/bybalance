@@ -19,7 +19,6 @@
 @implementation AppContext
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
-@synthesize isOnline;
 @synthesize doBgFetch;
 
 #pragma mark - Public
@@ -27,12 +26,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 - (void) start
 {
     //reachabilityWithHostName: api server 
-	reachability = [Reachability reachabilityWithHostName:@"google.com"];
+	reachability = [Reachability reachabilityWithHostName:@"www.google.com"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 	[reachability startNotifier];
     
     //consider we have internet by default, because we need some time to check if connection is real
-    self.isOnline = YES;
+    isOnline = NO;
+    isOnlineWifi = NO;
+    isOnlineCellular = NO;
     
     //
     [self setupDatabase];
@@ -62,6 +63,42 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 	[reachability stopNotifier];
 	reachability = nil;
 }
+
+#pragma mark - Reachability
+
+- (BOOL) isOnline
+{
+    return isOnline;
+}
+
+- (BOOL) isOnlineWifi
+{
+    return isOnlineWifi;
+}
+
+- (BOOL) isOnlineCellular
+{
+    return isOnlineCellular;
+}
+
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    NetworkStatus ns = [reachability currentReachabilityStatus];
+    if (ns == NotReachable)
+    {
+        isOnline = NO;
+        isOnlineWifi = NO;
+        isOnlineCellular = NO;
+    }
+    else
+    {
+        isOnline = YES;
+        isOnlineWifi = (ns == ReachableViaWiFi);
+        isOnlineCellular = (ns == ReachableViaWWAN);
+    }
+    DDLogInfo(@"reachabilityChanged: isOnline:%d isOnlineWifi:%d isOnlineCellular:%d", isOnline, isOnlineWifi, isOnlineCellular);
+}
+
 
 - (void) setupDatabase
 {
@@ -98,7 +135,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     for (NSNumber * key in conf)
     {
         name = [conf objectForKey:key];
-        //NSLog(@"%@ = %@", key, name);
+        //DDLogInfo(@"%@ = %@", key, name);
         item = [BBMAccountType findFirstByAttribute:@"id" withValue:key];
         
         if (item) continue;
@@ -112,7 +149,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     if (added) [self saveDatabase];
     
     NSInteger build = [SETTINGS.build integerValue];
-    NSLog(@"build in settings: %d", build);
+    DDLogInfo(@"build in settings: %d", build);
     
     BOOL updated = NO;
     BBMAccount * acc;
@@ -120,7 +157,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     //added labels v1.4
     if (build < 41)
     {
-        NSLog(@"adding field: label");
+        DDLogInfo(@"adding field: label");
         for (acc in [BBMAccount findAll])
         {
             if (!acc.label)
@@ -139,7 +176,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     //added order v1.5
     if (build < 49)
     {
-        NSLog(@"adding field: order");
+        DDLogInfo(@"adding field: order");
         updated = NO;
         for (acc in [BBMAccount findAll])
         {
@@ -167,7 +204,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     NSArray * all = [BBMAccount findAll];
     for (acc in all)
     {
-        NSLog(@"%@ %@ %@", acc.type.name, acc.username, acc.password);
+        DDLogVerbose(@"%@ %@ %@", acc.type.name, acc.username, acc.password);
     }
 }
 
@@ -224,14 +261,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     [button setTitleColor:[UIColor colorWithRed:220.f/255.f green:220.f/255.f blue:220.f/255.f alpha:1] forState:UIControlStateNormal];
 }
 
-//
-#pragma mark - Reachability
-//
-- (void) reachabilityChanged:(NSNotification *)note
-{
-    NSLog(@"reachabilityChanged:%@", note);
-	self.isOnline = !([reachability currentReachabilityStatus] == NotReachable);
-}
 
 //
 #pragma mark - UIAlertView variations:

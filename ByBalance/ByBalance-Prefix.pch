@@ -25,6 +25,11 @@
     #define MR_SHORTHAND
     #import "CoreData+MagicalRecord.h"
     //
+    #import "DDLog.h"
+    #import "DDTTYLogger.h"
+    #import "DDASLLogger.h"
+    #import "DDFileLogger.h"
+    //
     //
     #import "AppGlobal.h"
     #import "MacrosAndDefines.h"
@@ -36,4 +41,10 @@
     #import "GAIDictionaryBuilder.h"
     #import "GAIFields.h"
     //
+#endif
+
+#ifdef DEBUG
+    static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+    static const int ddLogLevel = LOG_LEVEL_ERROR;
 #endif

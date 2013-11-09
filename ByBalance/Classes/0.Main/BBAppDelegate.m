@@ -15,6 +15,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //logger
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+    [[DDTTYLogger sharedInstance] setForegroundColor:[UIColor grayColor] backgroundColor:nil forFlag:LOG_FLAG_VERBOSE];
+    
+    //NSString *docsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    //DDLogFileManagerDefault * lfm = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:docsDirectory];
+    //DDFileLogger * fileLogger = [[DDFileLogger alloc] initWithLogFileManager:lfm];
+    DDFileLogger * fileLogger = [[DDFileLogger alloc] init];
+    fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+    [DDLog addLogger:fileLogger];
+    
+    
     [SETTINGS load];
     [APP_CONTEXT start];
     //[APP_CONTEXT showAllAccounts];
@@ -77,7 +92,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    NSLog(@"applicationWillTerminate");
+    DDLogInfo(@"applicationWillTerminate");
     
     [BALANCE_CHECKER stop];
     [APP_CONTEXT stop];
@@ -101,12 +116,12 @@
 {
     
     NSDate * date = [NSDate new];
-    NSLog(@"performFetchWithCompletionHandler: %@", [DATE_HELPER dateToMysqlDateTime:date]);
+    DDLogInfo(@"performFetchWithCompletionHandler: %@", [DATE_HELPER dateToMysqlDateTime:date]);
     
     if ([BALANCE_CHECKER isBusy])
     {
         //offline
-        NSLog(@"do check strated by user");
+        DDLogInfo(@"bgFetch - check already started by user");
         completionHandler(UIBackgroundFetchResultNoData);
         return;
     }
@@ -114,7 +129,7 @@
     if (![APP_CONTEXT isOnline])
     {
         //offline
-        NSLog(@"offline");
+        DDLogInfo(@"bgFetch - offline");
         completionHandler(UIBackgroundFetchResultNoData);
         return;
     }
@@ -148,7 +163,7 @@
     if ([toCheckAccounts count] < 1)
     {
         //no accounts to check
-        NSLog(@"no accounts to check");
+        DDLogInfo(@"bgFetch - no accounts to check");
         completionHandler(UIBackgroundFetchResultNoData);
         return;
     }
@@ -179,42 +194,13 @@
     if (!accToCheck)
     {
         //no accounts to check
-        NSLog(@"accToCheck not found");
+        DDLogInfo(@"bgFetch - accToCheck not found");
         completionHandler(UIBackgroundFetchResultFailed);
         return;
     }
     
     
     [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
-    
-    
-    /*
-    BBMAccount * acc = [BBMAccount findFirstByAttribute:@"username" withValue:@"297527406"];
-    if (acc)
-    {
-        BBMBalanceHistory * bh = [BBMBalanceHistory createEntity];
-        bh.date = [NSDate date];
-        bh.account = acc;
-        bh.extracted = [NSNumber numberWithBool:YES];
-        bh.incorrectLogin = [NSNumber numberWithBool:NO];
-        bh.balance = [[NSDecimalNumber alloc] initWithInt:1];
-        bh.packages = [NSNumber numberWithInt:1];
-        bh.megabytes = [[NSDecimalNumber alloc] initWithInt:1];
-        bh.days = [[NSDecimalNumber alloc] initWithInt:1];
-        bh.credit = [[NSDecimalNumber alloc] initWithInt:1];
-        bh.minutes = [NSNumber numberWithInt:1];
-        bh.sms = [NSNumber numberWithInt:1];
-        
-        [APP_CONTEXT saveDatabase];
-        
-        completionHandler(UIBackgroundFetchResultNewData);
-    }
-    else
-    {
-        completionHandler(UIBackgroundFetchResultFailed);
-    }
-    */
-    
 }
 
 @end

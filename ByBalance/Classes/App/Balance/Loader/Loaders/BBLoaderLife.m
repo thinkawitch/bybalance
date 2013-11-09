@@ -44,14 +44,14 @@
     NSArray * arr = nil;
     BOOL extracted = NO;
     
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     
     BOOL loggedIn = ([html rangeOfString:@"/Account.aspx/Logoff"].location != NSNotFound);
     if (!loggedIn)
     {
         //incorrect login/pass
         self.loaderInfo.incorrectLogin = ([html rangeOfString:@"errorMessage"].location != NSNotFound);
-        //NSLog(@"incorrectLogin: %d", incorrectLogin);
+        //DDLogVerbose(@"incorrectLogin: %d", incorrectLogin);
         
         if (self.loaderInfo.incorrectLogin) return;
     }
@@ -67,7 +67,7 @@
     {
         self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    //NSLog(@"userTitle: %@", loaderInfo.userTitle);
+    //DDLogVerbose(@"userTitle: %@", loaderInfo.userTitle);
     
     //userPlan
     /*
@@ -81,7 +81,7 @@
     {
         self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    //NSLog(@"userPlan: %@", loaderInfo.userPlan);
+    //DDLogVerbose(@"userPlan: %@", loaderInfo.userPlan);
     
     //balance
     /*
@@ -110,7 +110,7 @@
         extracted = YES;
         
     }
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;
 }

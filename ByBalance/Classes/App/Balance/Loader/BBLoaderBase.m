@@ -44,7 +44,7 @@
         return;
     }
     
-    NSLog(@"%@.start %@ %@", [self class], account.type.name, account.username);
+    DDLogVerbose(@"%@.start %@ %@", [self class], account.type.name, account.username);
     
     [self markStart];
     [self performSelectorOnMainThread:@selector(notifyAboutUpdatingAccount) withObject:nil waitUntilDone:YES];
@@ -103,7 +103,7 @@
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:url]];
     for (NSHTTPCookie *cookie in cookies)
     {
-        //NSLog(@"__cookie: %@", cookie);
+        //DDLogVerbose(@"__cookie: %@", cookie);
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
     }
 }
@@ -129,7 +129,7 @@
         [self.delegate balanceLoaderDone:info];
     }
     
-    NSLog(@"%@ %@", self.account.type.name, [self.loaderInfo fullDescription]);
+    DDLogVerbose(@"%@ %@", self.account.type.name, [self.loaderInfo fullDescription]);
     
     [self markDone];
 }

@@ -43,8 +43,8 @@
 
 - (void) onStep1:(NSString *)html
 {
-    //NSLog(@"BBLoaderVelcom.onStep1");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderVelcom.onStep1");
+    //DDLogVerbose(@"%@", html);
     
     NSArray * arr = nil;
     
@@ -55,7 +55,7 @@
         self.sessionId = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     
-    //NSLog(@"sessionId: %@", self.sessionId);
+    //DDLogVerbose(@"sessionId: %@", self.sessionId);
     
     if (!self.sessionId)
     {
@@ -95,8 +95,8 @@
 
 - (void) onStep2:(NSString *)html
 {
-    //NSLog(@"BBLoaderVelcom.onStep2");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderVelcom.onStep2");
+    //DDLogVerbose(@"%@", html);
     
     NSString * menuMarker = @"";
     NSString * menuMarker1 = @"_root/USER_INFO";
@@ -149,8 +149,8 @@
 
 - (void) onStep3:(NSString *)html
 {
-    //NSLog(@"BBLoaderVelcom.onStep3");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderVelcom.onStep3");
+    //DDLogVerbose(@"%@", html);
     
     [self extractInfoFromHtml:html];
     [self doFinish];
@@ -181,7 +181,7 @@
     {
         //incorrect login/pass
         self.loaderInfo.incorrectLogin = ([html rangeOfString:@"INFO_Error_caption"].location != NSNotFound);
-        //NSLog(@"incorrectLogin: %d", incorrectLogin);
+        //DDLogVerbose(@"incorrectLogin: %d", incorrectLogin);
         
         if (self.loaderInfo.incorrectLogin) return;
     }
@@ -193,7 +193,7 @@
     {
         self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    //NSLog(@"userTitle: %@", loaderInfo.userTitle);
+    //DDLogVerbose(@"userTitle: %@", loaderInfo.userTitle);
     
     //userPlan
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:\\s*</td><td class=\"INFO\"[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -201,7 +201,7 @@
     {
         self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    //NSLog(@"userPlan: %@", loaderInfo.userPlan);
+    //DDLogVerbose(@"userPlan: %@", loaderInfo.userPlan);
     
     NSDecimalNumber * balance1 = nil;
     NSDecimalNumber * balance2 = nil;

@@ -60,15 +60,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 
 - (void) addItem:(BBMAccount *) account
 {
-    NSLog(@"BBBalanceChecker.addItem");
-    NSLog(@"adding: %@", account.username);
+    DDLogVerbose(@"BBBalanceChecker.addItem");
+    DDLogVerbose(@"adding: %@", account.username);
     
     //new way
     BBLoaderBase * loader = [self loaderForAccount:account];
     
     if (!loader)
     {
-        NSLog(@"loader not created");
+        DDLogError(@"loader not created");
         return;
     }
     
@@ -86,14 +86,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 
 - (void) addBgItem:(BBMAccount *)account handler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    NSLog(@"BBBalanceChecker.addBgItem");
-    NSLog(@"adding: %@", account.username);
+    DDLogVerbose(@"BBBalanceChecker.addBgItem");
+    DDLogVerbose(@"adding: %@", account.username);
     
     BBLoaderBase * loader = [self loaderForAccount:account];
     
     if (!loader)
     {
-        NSLog(@"loader not created");
+        DDLogError(@"loader not created");
         return;
         
     }
@@ -120,7 +120,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 {
     @synchronized (syncFlag1)
 	{
-        NSLog(@"balanceLoaderDone");
+        DDLogVerbose(@"balanceLoaderDone");
         
         BBMAccount * account = [info objectForKey:kDictKeyAccount];
         BBLoaderInfo * loaderInfo = [info objectForKey:kDictKeyLoaderInfo];
@@ -259,14 +259,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     
     if (elapsedTime < bgTimeLimit) return;
     
-    NSLog(@"time passed: %f, stopping current check", elapsedTime);
+    DDLogVerbose(@"time passed: %f, stopping current check", elapsedTime);
     
     [self onBgUpdateEnd:NO];
 }
 
 - (void) onBgUpdateEnd:(BOOL)updated
 {
-    NSLog(@"BBBalanceChecker.bgUpdated: %d", updated);
+    DDLogVerbose(@"BBBalanceChecker.bgUpdated: %d", updated);
     
     [self stop];
     [self start];
@@ -277,7 +277,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     {
         if (bgCompletionHandler)
         {
-            NSLog(@"normal update");
+            DDLogVerbose(@"normal update");
             bgCompletionHandler(UIBackgroundFetchResultNewData);
         }
     }
@@ -285,7 +285,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     {
         if (bgCompletionHandler)
         {
-            NSLog(@"no enough time to complete");
+            DDLogVerbose(@"no enough time to complete");
             bgCompletionHandler(UIBackgroundFetchResultNoData);
         }
     }

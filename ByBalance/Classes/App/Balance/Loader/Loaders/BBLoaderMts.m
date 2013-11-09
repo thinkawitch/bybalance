@@ -42,8 +42,8 @@
 
 - (void) onStep1:(NSString *)html
 {
-    //NSLog(@"BBLoaderMts.onStep1");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderMts.onStep1");
+    //DDLogVerbose(@"%@", html);
     
     NSArray * arr = nil;
     
@@ -54,7 +54,7 @@
         self.paramViewState = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     
-    //NSLog(@"paramViewState: %@", self.paramViewState);
+    //DDLogVerbose(@"paramViewState: %@", self.paramViewState);
     
     if (!self.paramViewState)
     {
@@ -81,8 +81,8 @@
 
 - (void) onStep2:(NSString *)html
 {
-    //NSLog(@"BBLoaderMts.onStep2");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderMts.onStep2");
+    //DDLogVerbose(@"%@", html);
     
     [self extractInfoFromHtml:html];
     [self doFinish];

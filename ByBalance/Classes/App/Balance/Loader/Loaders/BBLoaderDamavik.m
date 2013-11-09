@@ -53,8 +53,8 @@
 
 - (void) onStep1:(NSString *)html
 {
-    //NSLog(@"BBLoaderDamavik.onStep1");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderDamavik.onStep1");
+    //DDLogVerbose(@"%@", html);
     
     NSArray * arr = nil;
     
@@ -67,7 +67,7 @@
         imgName = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     
-    //NSLog(@"imgName: %@", imgName);
+    //DDLogVerbose(@"imgName: %@", imgName);
     
     if (!imgName)
     {
@@ -90,7 +90,7 @@
 
 - (void) onStep2:(NSString *)html
 {
-    //NSLog(@"BBLoaderDamavik.onStep2");
+    //DDLogVerbose(@"BBLoaderDamavik.onStep2");
     
     if (!isAtlant && !isDamavik)
     {
@@ -132,8 +132,8 @@
 
 - (void) onStep3:(NSString *)html
 {
-    //NSLog(@"BBLoaderDamavik.onStep3");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderDamavik.onStep3");
+    //DDLogVerbose(@"%@", html);
     
     [self extractInfoFromHtml:html];
     [self doFinish];
@@ -141,13 +141,13 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     
     if (!html) return;
     
     //incorrect login/pass
     self.loaderInfo.incorrectLogin = ([html rangeOfString:@"<div class=\"redmsg mesg\"><div>Введенные данные неверны. Проверьте и повторите попытку.</div></div>"].location != NSNotFound);
-    //NSLog(@"incorrectLogin: %d", loaderInfo.incorrectLogin);
+    //DDLogVerbose(@"incorrectLogin: %d", loaderInfo.incorrectLogin);
     if (self.loaderInfo.incorrectLogin) return;
     
     NSArray * arr = nil;
@@ -164,7 +164,7 @@
         self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
     }
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;
 }

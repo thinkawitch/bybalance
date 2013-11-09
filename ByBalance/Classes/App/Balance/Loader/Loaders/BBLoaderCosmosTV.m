@@ -47,8 +47,8 @@
 
 - (void) onStep1:(NSString *)html
 {
-    //NSLog(@"BBLoaderCosmosTV.onStep1");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderCosmosTV.onStep1");
+    //DDLogVerbose(@"%@", html);
     
     NSString * jsonString = [NSString stringWithFormat:@"%@", html];
     NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
@@ -86,8 +86,8 @@
 
 - (void) onStep2:(NSString *)html
 {
-    //NSLog(@"BBLoaderCosmosTV.onStep2");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderCosmosTV.onStep2");
+    //DDLogVerbose(@"%@", html);
     
     //showServices(this, "101932108", "41263"
     //http://cosmostv.by/json/subscribers/account/cabinet/?contract=101932108
@@ -124,8 +124,8 @@
 
 - (void) onStep3:(NSString *)html
 {
-    //NSLog(@"BBLoaderCosmosTV.onStep3");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderCosmosTV.onStep3");
+    //DDLogVerbose(@"%@", html);
     
     [self extractInfoFromHtml:html];
     [self doFinish];

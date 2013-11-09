@@ -256,7 +256,7 @@
 
 - (void) balanceCheckStarted:(NSNotification *)notification
 {
-    NSLog(@"BBHomeVC.balanceCheckStarted");
+    DDLogVerbose(@"BBHomeVC.balanceCheckStarted");
     
     btnRefresh.hidden = YES;
     [vActivity startAnimating];
@@ -267,12 +267,12 @@
 
 - (void) balanceCheckProgress:(NSNotification *)notification
 {
-    NSLog(@"BBHomeVC.balanceCheckProgress");
+    DDLogVerbose(@"BBHomeVC.balanceCheckProgress");
     
     BBMAccount * account = [[notification userInfo] objectForKey:kDictKeyAccount];
     if (account)
     {
-        NSLog(@"обновляю %@ %@", account.username, account.nameLabel);
+        DDLogVerbose(@"обновляю %@ %@", account.username, account.nameLabel);
         lblStatus.text = [NSString stringWithFormat:@"обновляю %@", account.nameLabel];
         [lblStatus sizeToFit];
     }
@@ -282,7 +282,7 @@
 
 - (void) balanceCheckStopped:(NSNotification *)notification
 {
-    NSLog(@"BBHomeVC.balanceCheckStopped");
+    DDLogVerbose(@"BBHomeVC.balanceCheckStopped");
     
     [vActivity stopAnimating];
     btnRefresh.hidden = NO;

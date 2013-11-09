@@ -47,15 +47,15 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
 
 - (void) onStep1:(NSString *)html
 {
-    //NSLog(@"BBLoaderUnetBy.onStep1");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderUnetBy.onStep1");
+    //DDLogVerbose(@"%@", html);
     
     NSError * error = nil;
     NSDictionary * dict = [XMLReader dictionaryForXMLString:html
                                                     options:XMLReaderOptionsProcessNamespaces
                                                       error:&error];
     
-    //NSLog(@"%@", dict);
+    //DDLogVerbose(@"%@", dict);
     if (error || !dict)
     {
         [self doFinish];
@@ -84,7 +84,7 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
     }
     
     self.sessionId = session;
-    //NSLog(@"session: %@", self.sessionId);
+    //DDLogVerbose(@"session: %@", self.sessionId);
     
     NSString * infoUrl = [NSString stringWithFormat:@"https://my.unet.by/api/info?api_key=%@&sid=%@", kUnetKey, self.sessionId];
     
@@ -101,8 +101,8 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
 
 - (void) onStep2:(NSString *)html
 {
-    //NSLog(@"BBLoaderUnetBy.onStep2");
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"BBLoaderUnetBy.onStep2");
+    //DDLogVerbose(@"%@", html);
     
     [self extractInfoFromHtml:html];
     [self doFinish];
@@ -110,7 +110,7 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     if (!html) return;
     
     NSError * error = nil;
@@ -118,7 +118,7 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
                                                     options:XMLReaderOptionsProcessNamespaces
                                                       error:&error];
     
-    //NSLog(@"%@", dict);
+    //DDLogVerbose(@"%@", dict);
     if (error || !dict) return;
     
     NSDictionary * nodeResp = [dict objectForKey:@"res"];
@@ -135,7 +135,7 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
     
     self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:textBalance];
     //self.loaderInfo.userBalance = textBalance;
-    //NSLog(@"balance: %@", self.loaderInfo.userBalance);
+    //DDLogVerbose(@"balance: %@", self.loaderInfo.userBalance);
     
     self.loaderInfo.extracted = YES;
 }

@@ -61,7 +61,7 @@
     NSArray * arr = nil;
     BOOL extracted = NO;
     
-    //NSLog(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     
     //balance
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Актуальный баланс:</td>\\s*<td class=light width=\"50%\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -70,7 +70,7 @@
         self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
     }
-    //NSLog(@"balance: %@", loaderInfo.userBalance);
+    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
     
     self.loaderInfo.extracted = extracted;
 }
