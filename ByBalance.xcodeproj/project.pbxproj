@@ -705,11 +705,11 @@
 		C3C82B041808D1AF00E2C1D6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				C30FA4AA182D51D800818116 /* Lumberjack */,
 				C3DE6F931809B2E60024F9DD /* AFNetworking */,
 				C3C82B451808D59B00E2C1D6 /* DateHelper */,
 				C3B23B661814715800A7243E /* GoogleAnalytics */,
 				C3DE6FB01809B2F70024F9DD /* iToast */,
+				C30FA4AA182D51D800818116 /* Lumberjack */,
 				C3DE6FB31809B2F70024F9DD /* MagicalRecord */,
 				C3C82B051808D1AF00E2C1D6 /* MBProgressHUD */,
 				C3C82B481808D59B00E2C1D6 /* PrimitiveHelper */,

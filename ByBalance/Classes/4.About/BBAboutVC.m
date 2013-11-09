@@ -51,7 +51,6 @@
 {
     [super setupNavBar];
     
-    
     //left button
     UIBarButtonItem * btnBack = [APP_CONTEXT buttonFromName:@"arrow_left"];
     [(UIButton *)btnBack.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
@@ -67,7 +66,7 @@
 
 - (IBAction) onNavButtonLeft:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) openBlog
@@ -133,11 +132,7 @@
             [cell setTitle:@"Сообщение автору"];
             break;
     }
-/*
-    BBMAccount * account = [self.accounts objectAtIndex:indexPath.row];
-    
-    [cell setupWithAccount:account];
-  */  
+
     return cell;
 }
 

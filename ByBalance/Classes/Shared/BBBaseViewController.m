@@ -33,6 +33,11 @@
     [super viewDidUnload];
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 #pragma mark - Autorotation
 
 //iOS 5
@@ -81,31 +86,17 @@
     //remove observers
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-	
-    /*
-	if (waitIndicator)
-	{
-		[self showWaitIndicator: NO];
-		[waitIndicator release];
-		waitIndicator = nil;
-	}
-     */
 }
 
 - (void) showWaitIndicator:(BOOL) aFlag
 {
 	if (aFlag)
 	{
-		//waitIndicator.activityLabel.text = @"";
-		//[self.view addSubview: waitIndicator];
-		//[waitIndicator animateShow];
-        
         [self.view addSubview: hud];
         [hud show:YES];
 	}
 	else
 	{
-		//if (waitIndicator.superview) [waitIndicator removeFromSuperview];
         if (hud.superview) [hud removeFromSuperview];
 	}
     
@@ -115,7 +106,6 @@
 
 - (void) setWaitTitle:(NSString *) newTitle
 {
-	//waitIndicator.activityLabel.text = newTitle;
     hud.labelText = newTitle;
 }
 

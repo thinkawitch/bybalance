@@ -91,7 +91,7 @@ typedef enum
     //left button
     UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"arrow_left"];
     [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = btnInfo;  
+    self.navigationItem.leftBarButtonItem = btnInfo;
     
     //title
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;

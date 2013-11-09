@@ -48,13 +48,12 @@
     //left button
     UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"arrow_left"];
     [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = btnInfo;    
+    self.navigationItem.leftBarButtonItem = btnInfo;
     
     //title
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
     titleView.text = @"Добавить аккаунт";
     [titleView sizeToFit];
-    
 }
 
 #pragma mark - Actions
@@ -120,7 +119,6 @@
     BBAccountFormVC * vc = NEWVCFROMNIB(BBAccountFormVC);
     vc.accountType = cell.accountType;
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 
 

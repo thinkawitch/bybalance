@@ -50,12 +50,14 @@
     
     BBHomeVC * vc = NEWVCFROMNIB(BBHomeVC);
     self.nc = [[RotationAwareNavigationController alloc] initWithRootViewController:vc];
-    //if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
-    //    self.nc.edgesForExtendedLayout = UIRectEdgeNone;
-    //}
     self.nc.navigationBar.barStyle = UIBarStyleBlack;
     self.nc.navigationBar.translucent = NO;
     self.nc.navigationBar.backgroundColor = [UIColor blackColor];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7"))
+    {
+        self.nc.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+    }
+    
     self.window.rootViewController = self.nc;
     [self.window makeKeyAndVisible];
     

@@ -167,15 +167,14 @@
 - (IBAction) onNavButtonLeft:(id)sender
 {
     BBAboutVC * vc = NEWVCFROMNIB(BBAboutVC);
-    UINavigationController * navController = [[RotationAwareNavigationController alloc] initWithRootViewController:vc];
     
+    UINavigationController * navController = [[RotationAwareNavigationController alloc] initWithRootViewController:vc];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
     navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     navController.navigationBar.barStyle = UIBarStyleBlackOpaque;
     navController.navigationBar.translucent = NO;
     
-    [self presentModalViewController:navController animated:YES];
-    //[self.navigationController pushViewController:vc animated:YES];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (IBAction) onNavButtonRight:(id)sender
