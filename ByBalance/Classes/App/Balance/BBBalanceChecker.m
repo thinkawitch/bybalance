@@ -13,9 +13,9 @@
 
 - (BBLoaderBase *)loaderForAccount:(BBMAccount *) account;
 
-- (void) startTimer;
-- (void) stopTimer;
-- (void) onTimerTick:(NSTimer *)timer;
+- (void) startBgFetchTimer;
+- (void) stopBgFetchTimer;
+- (void) onBgFetchTimerTick:(NSTimer *)timer;
 - (void) onBgUpdateEnd:(BOOL)updated;
 
 @end
@@ -44,7 +44,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 
 - (void) stop
 {
-    [self stopTimer];
+    [self stopBgFetchTimer];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -95,7 +95,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     {
         DDLogError(@"loader not created");
         return;
-        
     }
     
     bgCompletionHandler = [completionHandler copy];
@@ -107,7 +106,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     if (queue.operationCount < 1)
     {
         bgUpdate = YES;
-        [self startTimer];
+        [self startBgFetchTimer];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStart object:self userInfo:nil];
     }
     
@@ -232,19 +231,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     return loader;
 }
 
-- (void) startTimer
+- (void) startBgFetchTimer
 {
-    if (timer) [self stopTimer];
+    if (timer) [self stopBgFetchTimer];
     
     timer = [NSTimer scheduledTimerWithTimeInterval: 0.05f
                                              target: self
-                                           selector:@selector(onTimerTick:)
+                                           selector:@selector(onBgFetchTimerTick:)
                                            userInfo: nil
                                             repeats:YES];
     startTime = CACurrentMediaTime();
 }
 
-- (void) stopTimer
+- (void) stopBgFetchTimer
 {
     if (timer)
     {
@@ -253,7 +252,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     }
 }
 
-- (void) onTimerTick:(NSTimer *)timer
+- (void) onBgFetchTimerTick:(NSTimer *)timer
 {
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     

@@ -19,10 +19,10 @@
     BOOL isOnlineCellular;
 	Reachability * reachability;
     //
-    BOOL doBgFetch;
+    BOOL iOs7;
 }
 
-@property (nonatomic, assign) BOOL doBgFetch;
+
 
 + (AppContext *) sharedAppContext;
 
@@ -30,9 +30,13 @@
 - (void) start;
 - (void) stop;
 //
+- (void) startReachability;
+- (void) stopReachability;
 - (BOOL) isOnline;
 - (BOOL) isOnlineWifi;
 - (BOOL) isOnlineCellular;
+//
+- (BOOL) isIos7;
 //
 - (void) saveDatabase;
 - (void) showAllAccounts;

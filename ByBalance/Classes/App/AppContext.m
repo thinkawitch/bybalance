@@ -19,18 +19,12 @@
 @implementation AppContext
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
-@synthesize doBgFetch;
 
 #pragma mark - Public
 
 - (void) start
 {
-    //reachabilityWithHostName: api server 
-	reachability = [Reachability reachabilityWithHostName:@"www.google.com"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-	[reachability startNotifier];
-    
-    //consider we have internet by default, because we need some time to check if connection is real
+    //internet connection reachability
     isOnline = NO;
     isOnlineWifi = NO;
     isOnlineCellular = NO;
@@ -44,27 +38,41 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     ts.useShadow = NO;
     
     //
-    //[ASIHTTPRequest setShouldUpdateNetworkActivityIndicator:YES];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7"))
-    {
-        doBgFetch = YES;
-    }
+    iOs7 = (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7"));
 }
 
 - (void) stop
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    [self stopReachability];
     
     [self saveDatabase];
     [MagicalRecord cleanUp];
-    
-	[reachability stopNotifier];
-	reachability = nil;
 }
 
 #pragma mark - Reachability
+
+- (void) startReachability
+{
+    [self stopReachability];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    reachability = [Reachability reachabilityWithHostName:@"www.google.com"];
+	[reachability startNotifier];
+}
+
+- (void) stopReachability
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    
+    if (reachability)
+    {
+        [reachability stopNotifier];
+        reachability = nil;
+    }
+}
 
 - (BOOL) isOnline
 {
@@ -99,6 +107,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     DDLogInfo(@"reachabilityChanged: isOnline:%d isOnlineWifi:%d isOnlineCellular:%d", isOnline, isOnlineWifi, isOnlineCellular);
 }
 
+#pragma mark - Ios versions
+
+- (BOOL) isIos7
+{
+    return iOs7;
+}
 
 - (void) setupDatabase
 {
