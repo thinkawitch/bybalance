@@ -32,7 +32,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     syncFlag1 = [[NSObject alloc] init];
     syncFlag2 = [[NSObject alloc] init];
     
-    bgTimeLimit = 27;
+    bgTimeLimit = 24;
     bgUpdate = NO;
 }
 

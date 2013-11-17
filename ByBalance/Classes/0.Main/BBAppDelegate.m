@@ -177,6 +177,7 @@
     __block BBMAccount * accToCheck = nil;
     BBMBalanceHistory * bh = nil;
     double limit = 60*20; // 20 mins
+    double timeNeverChecked = 60*60*24*365;
     
     //all accounts that needs to be checked
     NSMutableArray * toCheckAccounts = [[NSMutableArray alloc] initWithCapacity:20];
@@ -186,7 +187,7 @@
     {
         bh = [acc lastBalance];
         
-        if (!bh) timePassed = limit + 1;
+        if (!bh) timePassed = timeNeverChecked;
         else timePassed = timeNow - [bh.date timeIntervalSinceReferenceDate];
         
         if (timePassed > limit)
@@ -237,17 +238,17 @@
     
     if ([APP_CONTEXT isOnline])
     {
-        DDLogInfo(@"bgFetch already is online");
+        DDLogInfo(@"bgFetch - already is online");
         [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
     }
     else
     {
         [APP_CONTEXT startReachability];
         DDLogInfo(@"bgFetch - add account to check with delay");
-        double delayInSeconds = 2.0;
+        double delayInSeconds = 5.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            DDLogInfo(@"bgFetch isOnline: %d", [APP_CONTEXT isOnline]);
+            DDLogInfo(@"bgFetch - isOnline: %d", [APP_CONTEXT isOnline]);
             if ([APP_CONTEXT isOnline])
             {
                 [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];

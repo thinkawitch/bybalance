@@ -57,7 +57,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 {
     [self stopReachability];
     
-    DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
+    //DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
@@ -67,7 +67,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 
 - (void) stopReachability
 {
-    DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
+    //DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     
