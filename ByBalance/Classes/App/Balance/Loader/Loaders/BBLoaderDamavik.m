@@ -47,6 +47,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        DDLogError(@"%@ step1 httpclient_error: %@", [self class], error.localizedDescription);
         [self doFinish];
     }];
 }
@@ -84,6 +85,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        DDLogError(@"%@ step2 httpclient_error: %@", [self class], error.localizedDescription);
         [self doFinish];
     }];
 }
@@ -126,6 +128,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        DDLogError(@"%@ step3 httpclient_error: %@", [self class], error.localizedDescription);
         [self doFinish];
     }];
 }

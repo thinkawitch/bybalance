@@ -27,23 +27,31 @@
     NSString * docsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     DDLogFileManagerDefault * lfm = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:docsDirectory];
     //delete all log files
-    /*
-    NSFileManager *fileMgr = [NSFileManager defaultManager];
-    for (NSString *logFile in [lfm unsortedLogFilePaths])
+    if (NO)
     {
-        [fileMgr removeItemAtPath:logFile error:NULL];
+        NSFileManager *fileMgr = [NSFileManager defaultManager];
+        for (NSString *logFile in [lfm unsortedLogFilePaths])
+        {
+            [fileMgr removeItemAtPath:logFile error:NULL];
+        }
     }
-     */
+    
     DDFileLogger * fileLogger = [[DDFileLogger alloc] initWithLogFileManager:lfm];
     //DDFileLogger * fileLogger = [[DDFileLogger alloc] init];
     fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
     fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
     [DDLog addLogger:fileLogger];
     
+    DDLogVerbose(@"--- app started ----------------------------------------------------");
+    if (application.applicationState == UIApplicationStateBackground)
+    {
+        DDLogVerbose(@"app started in background");
+    }
     
     [SETTINGS load];
     [APP_CONTEXT start];
     //[APP_CONTEXT showAllAccounts];
+    //[APP_CONTEXT clearAllHistory];
     [BALANCE_CHECKER start];
     
     
@@ -78,10 +86,7 @@
     {
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     }
-    if (application.applicationState == UIApplicationStateBackground)
-    {
-        DDLogVerbose(@"app started in background");
-    }
+    
     
     return YES;
 }
@@ -238,13 +243,19 @@
     else
     {
         [APP_CONTEXT startReachability];
+        DDLogInfo(@"bgFetch - add account to check with delay");
         double delayInSeconds = 2.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            DDLogInfo(@"bgFetch - add account to check with delay");
             DDLogInfo(@"bgFetch isOnline: %d", [APP_CONTEXT isOnline]);
-            [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
-            [APP_CONTEXT stopReachability];
+            if ([APP_CONTEXT isOnline])
+            {
+                [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
+            }
+            else
+            {
+                [APP_CONTEXT stopReachability];
+            }
         });
         //[self performSelector:@selector(ddd:) withObject:accToCheck afterDelay:1.f];
     }

@@ -33,6 +33,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        DDLogError(@"%@ httpclient_error: %@", [self class], error.localizedDescription);
         [self doFinish];
     }];
     

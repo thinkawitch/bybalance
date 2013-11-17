@@ -40,6 +40,7 @@
 //
 - (void) saveDatabase;
 - (void) showAllAccounts;
+- (void) clearAllHistory;
 //
 
 // Helper - navigation bar:

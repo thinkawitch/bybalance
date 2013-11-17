@@ -57,6 +57,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 {
     [self stopReachability];
     
+    DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
     reachability = [Reachability reachabilityWithHostName:@"www.google.com"];
@@ -65,6 +67,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 
 - (void) stopReachability
 {
+    DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     
     if (reachability)
@@ -72,6 +76,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
         [reachability stopNotifier];
         reachability = nil;
     }
+    
+    isOnline = NO;
+    isOnlineWifi = NO;
+    isOnlineCellular = NO;
 }
 
 - (BOOL) isOnline
@@ -220,6 +228,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     {
         DDLogVerbose(@"%@ %@ %@", acc.type.name, acc.username, acc.password);
     }
+}
+
+- (void) clearAllHistory
+{
+    DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
+    
+    BBMAccount * acc;
+    BBMBalanceHistory * bh;
+    
+    for (acc in [BBMAccount findAll])
+    {
+        for (bh in [acc history])
+        {
+            [bh deleteEntity];
+        }
+    }
+    
+    [APP_CONTEXT saveDatabase];
 }
 
 //

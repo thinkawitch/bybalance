@@ -8,7 +8,6 @@
 
 #import "BBBalanceChecker.h"
 
-
 @interface BBBalanceChecker ()
 
 - (BBLoaderBase *)loaderForAccount:(BBMAccount *) account;
@@ -33,7 +32,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     syncFlag1 = [[NSObject alloc] init];
     syncFlag2 = [[NSObject alloc] init];
     
-    bgTimeLimit = 28;
+    bgTimeLimit = 27;
     bgUpdate = NO;
 }
 
@@ -270,21 +269,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     [self stop];
     [self start];
     
-    bgUpdate = NO;
+    //bgfetch was in background
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) [APP_CONTEXT stopReachability];
     
-    if (updated)
+    if (bgCompletionHandler)
     {
-        if (bgCompletionHandler)
+        if (updated)
         {
-            DDLogVerbose(@"normal update");
+            DDLogVerbose(@"bgFetch - normal update end");
             bgCompletionHandler(UIBackgroundFetchResultNewData);
         }
-    }
-    else
-    {
-        if (bgCompletionHandler)
+        else
         {
-            DDLogVerbose(@"no enough time to complete");
+            DDLogVerbose(@"bgFetch - no enough time to complete");
             bgCompletionHandler(UIBackgroundFetchResultNoData);
         }
     }

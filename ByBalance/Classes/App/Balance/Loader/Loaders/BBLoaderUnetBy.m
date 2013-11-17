@@ -41,6 +41,7 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        DDLogError(@"%@ step1 httpclient_error: %@", [self class], error.localizedDescription);
         [self doFinish];
     }];
 }
@@ -95,6 +96,7 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        DDLogError(@"%@ step2 httpclient_error: %@", [self class], error.localizedDescription);
         [self doFinish];
     }];
 }
