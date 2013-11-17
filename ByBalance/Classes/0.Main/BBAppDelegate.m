@@ -11,6 +11,16 @@
 #import "RotationAwareNavigationController.h"
 
 @interface BBAppDelegate ()
+{
+    NSTimer * bgrTimer;
+    CFTimeInterval bgrStartTime;
+    
+    void (^bgFetchCompletionHandler)(UIBackgroundFetchResult);
+    BBMAccount * accToCheck;
+}
+- (void) startBgrTimer;
+- (void) stopBgrTimer;
+- (void) onBgrTimerTick:(NSTimer *)timer;
 @end
 
 @implementation BBAppDelegate
@@ -173,8 +183,11 @@
     NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
     NSTimeInterval timePassed = 0;
     
+    bgFetchCompletionHandler = [completionHandler copy];
+    
     BBMAccount * acc = nil;
-    __block BBMAccount * accToCheck = nil;
+    //__block BBMAccount * accToCheck = nil;
+    accToCheck = nil;
     BBMBalanceHistory * bh = nil;
     double limit = 60*20; // 20 mins
     double timeNeverChecked = 60*60*24*365;
@@ -243,7 +256,9 @@
     }
     else
     {
+        [self startBgrTimer];
         [APP_CONTEXT startReachability];
+        /*
         DDLogInfo(@"bgFetch - add account to check with delay");
         double delayInSeconds = 5.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -251,17 +266,68 @@
             DDLogInfo(@"bgFetch - isOnline: %d", [APP_CONTEXT isOnline]);
             if ([APP_CONTEXT isOnline])
             {
-                [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
+                if (![BALANCE_CHECKER isBusy])
+                {
+                    [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
+                }
             }
             else
             {
                 [APP_CONTEXT stopReachability];
             }
         });
+        */
         //[self performSelector:@selector(ddd:) withObject:accToCheck afterDelay:1.f];
     }
     
     
+}
+
+#pragma mark - background reachability timer
+
+- (void) startBgrTimer
+{
+    if (bgrTimer) [self stopBgrTimer];
+    
+    bgrTimer = [NSTimer scheduledTimerWithTimeInterval: 0.1f
+                                             target: self
+                                           selector:@selector(onBgrTimerTick:)
+                                           userInfo: nil
+                                            repeats:YES];
+    bgrStartTime = CACurrentMediaTime();
+}
+
+- (void) stopBgrTimer
+{
+    if (bgrTimer)
+    {
+        [bgrTimer invalidate];
+        bgrTimer = nil;
+    }
+}
+
+- (void) onBgrTimerTick:(NSTimer *)timer
+{
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - bgrStartTime;
+    
+    if (elapsedTime < kBgrTimelimit)
+    {
+        if ([APP_CONTEXT isOnline])
+        {
+            [self stopBgrTimer];
+            
+            if (![BALANCE_CHECKER isBusy])
+            {
+                [BALANCE_CHECKER addBgItem:accToCheck handler:bgFetchCompletionHandler];
+            }
+        }
+    }
+    else
+    {
+        [self stopBgrTimer];
+        [APP_CONTEXT stopReachability];
+        DDLogVerbose(@"bgFetch - background reachability timeout, still offline");
+    }
 }
 
 @end

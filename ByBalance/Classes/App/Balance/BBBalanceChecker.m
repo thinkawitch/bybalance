@@ -32,7 +32,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     syncFlag1 = [[NSObject alloc] init];
     syncFlag2 = [[NSObject alloc] init];
     
-    bgTimeLimit = 24;
     bgUpdate = NO;
 }
 
@@ -255,7 +254,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 {
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     
-    if (elapsedTime < bgTimeLimit) return;
+    if (elapsedTime < kBgBcTimelimit) return;
     
     DDLogVerbose(@"time passed: %f, stopping current check", elapsedTime);
     

@@ -13,11 +13,12 @@
     
 @private
     //
-	// Reachability:
+	// reachability:
     BOOL isOnline;
     BOOL isOnlineWifi;
     BOOL isOnlineCellular;
 	Reachability * reachability;
+    
     //
     BOOL iOs7;
 }

@@ -62,3 +62,9 @@ extern const CGFloat kHistoryCellHeight1;
 extern const CGFloat kHistoryCellHeight2;
 extern const CGFloat kAboutCellHeight;
 //
+
+#pragma mark - Time limits
+//
+extern const CGFloat kBgrTimelimit;
+extern const CGFloat kBgBcTimelimit;
+//

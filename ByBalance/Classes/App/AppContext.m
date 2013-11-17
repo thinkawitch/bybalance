@@ -65,6 +65,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 	[reachability startNotifier];
 }
 
+- (void) startBgReachability
+{
+    
+}
+
 - (void) stopReachability
 {
     //DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
@@ -112,7 +117,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
         isOnlineWifi = (ns == ReachableViaWiFi);
         isOnlineCellular = (ns == ReachableViaWWAN);
     }
-    DDLogInfo(@"reachabilityChanged: isOnline:%d isOnlineWifi:%d isOnlineCellular:%d", isOnline, isOnlineWifi, isOnlineCellular);
+    DDLogInfo(@"reachability isOnline:%d isOnlineWifi:%d isOnlineCellular:%d", isOnline, isOnlineWifi, isOnlineCellular);
 }
 
 #pragma mark - Ios versions

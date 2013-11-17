@@ -20,7 +20,6 @@
     
     
     NSTimer * timer;
-    NSInteger bgTimeLimit;
     BOOL bgUpdate;
     CFTimeInterval startTime;
     
