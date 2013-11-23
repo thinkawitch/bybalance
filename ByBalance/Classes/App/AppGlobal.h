@@ -6,6 +6,10 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
+#pragma mark - APN server
+//
+extern NSString * const kApnServerUrl;
+
 #pragma mark - Text and Messages
 //
 extern NSString * const kAppNoInternetAlertTitle;
@@ -65,6 +69,6 @@ extern const CGFloat kAboutCellHeight;
 
 #pragma mark - Time limits
 //
-extern const CGFloat kBgrTimelimit;
-extern const CGFloat kBgBcTimelimit;
+extern const CGFloat kBgrTimelimit; //background fetch request limit to establish internet connection
+extern const CGFloat kBgBcTimelimit; //background balance checker limit to get balances
 //

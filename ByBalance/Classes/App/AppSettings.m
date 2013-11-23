@@ -8,8 +8,8 @@
 
 //my keys
 #define OPT_DICT_SETTINGS   @"Settings"
-#define OPT_KEY_APP_ID      @"appId"
 #define OPT_KEY_BUILD       @"build"
+#define OPT_KEY_APN_TOKEN   @"apnToken"
 
 //settings bundle keys
 #define SB_OPT_KEY_VERSION      @"version"
@@ -19,9 +19,8 @@
 
 @implementation AppSettings
 
-@synthesize appId;
 @synthesize build;
-@synthesize autoCheck;
+@synthesize apnToken;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 
@@ -33,8 +32,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 	NSMutableDictionary *settingsDefaults = [NSMutableDictionary dictionary];	
 	
 	NSMutableDictionary *userDefaults = [NSMutableDictionary dictionary];
-    [userDefaults setObject:@"" forKey:OPT_KEY_APP_ID];
     [userDefaults setObject:[NSNumber numberWithInt:1] forKey:OPT_KEY_BUILD];
+    [userDefaults setObject:@"" forKey:OPT_KEY_APN_TOKEN];
 	
 	[settingsDefaults setObject:userDefaults forKey:OPT_DICT_SETTINGS];
 	
@@ -62,9 +61,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 	
 	NSMutableDictionary * userDefaults = [defaults objectForKey:OPT_DICT_SETTINGS];
     
-    self.appId = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:OPT_KEY_APP_ID]];
     self.build = [PRIMITIVE_HELPER numberIntegerValue:[userDefaults objectForKey:OPT_KEY_BUILD]];
-    self.autoCheck = [defaults boolForKey:SB_OPT_KEY_AUTOCHECK];
+    self.apnToken = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:OPT_KEY_APN_TOKEN]];
 }
 
 - (void) save
@@ -73,8 +71,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 	
 	NSMutableDictionary * userDefaults = [NSMutableDictionary dictionary];
 
-    [userDefaults setObject:appId?appId:@"" forKey:OPT_KEY_APP_ID];
-    [userDefaults setObject:build?build:@"" forKey:OPT_KEY_BUILD];
+    [userDefaults setObject:self.build forKey:OPT_KEY_BUILD];
+    [userDefaults setObject:self.apnToken forKey:OPT_KEY_APN_TOKEN];
 	
 	[defaults setObject:userDefaults forKey:OPT_DICT_SETTINGS];
     [defaults synchronize];

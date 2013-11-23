@@ -259,28 +259,7 @@
     {
         [self startBgrTimer];
         [APP_CONTEXT startReachability];
-        /*
-        DDLogInfo(@"bgFetch - add account to check with delay");
-        double delayInSeconds = 5.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            DDLogInfo(@"bgFetch - isOnline: %d", [APP_CONTEXT isOnline]);
-            if ([APP_CONTEXT isOnline])
-            {
-                if (![BALANCE_CHECKER isBusy])
-                {
-                    [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
-                }
-            }
-            else
-            {
-                [APP_CONTEXT stopReachability];
-            }
-        });
-        */
-        //[self performSelector:@selector(ddd:) withObject:accToCheck afterDelay:1.f];
     }
-    
     
 }
 
@@ -337,11 +316,73 @@
 	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     DDLogVerbose(@"New apn token: %@", newToken);
+    
+    SETTINGS.apnToken = @"";
+    [SETTINGS save];
+    
+    NSString * oldToken = [SETTINGS apnToken];
+    AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
+    
+    if ([oldToken isEqualToString:newToken] || [oldToken length] < 1)
+    {
+        //add token
+        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:newToken, @"token", nil];
+        
+        [httpClient postPath:@"add_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            SETTINGS.apnToken = newToken;
+            [SETTINGS save];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
+        }];
+    }
+    else if ([oldToken length] > 0)
+    {
+        //update token
+        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 oldToken, @"old_token",
+                                 newToken, @"new_token",
+                                 nil];
+        
+        [httpClient postPath:@"update_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            SETTINGS.apnToken = newToken;
+            [SETTINGS save];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
+        }];
+    }
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
 	DDLogVerbose(@"Failed to get token, error: %@", error);
+    
+    NSString * token = [SETTINGS apnToken];
+    
+    if ([token length] < 1) return;
+    
+    //remove token
+    
+    AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
+    
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:token, @"token", nil];
+    
+    [httpClient postPath:@"remove_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        SETTINGS.apnToken = @"";
+        [SETTINGS save];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
+    }];
+
+    
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler

@@ -8,6 +8,12 @@
 
 #import "AppGlobal.h"
 
+#pragma mark - APN server
+//
+NSString * const kApnServerUrl = @"http://km32238-06.keymachine.de/bybalance_apn/home/";
+
+
+
 #pragma mark - Text and Messages
 //
 NSString * const kAppNoInternetAlertTitle = @"";
@@ -46,5 +52,5 @@ CGFloat const kAboutCellHeight = 39.f + 1.f;
 #pragma mark - Time limits
 //
 const CGFloat kBgrTimelimit = 5.f;
-const CGFloat kBgBcTimelimit = 24.f;
+const CGFloat kBgBcTimelimit = 23.f;
 //

@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong) NSString * appId;
 @property (nonatomic, strong) NSNumber * build;
-@property (nonatomic, assign) BOOL autoCheck;
+@property (nonatomic, strong) NSString * apnToken;
 
 + (AppSettings *) sharedAppSettings;
 
