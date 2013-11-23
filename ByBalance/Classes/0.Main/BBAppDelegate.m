@@ -95,6 +95,7 @@
     if (APP_CONTEXT.isIos7)
     {
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeNewsstandContentAvailability];
     }
     
     
@@ -156,7 +157,7 @@
 }
 */
 
--(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+-(void)application:(UIApplication *)application OFF_performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     
     NSDate * date = [NSDate new];
@@ -328,6 +329,28 @@
         [APP_CONTEXT stopReachability];
         DDLogVerbose(@"bgFetch - background reachability timeout, still offline");
     }
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    NSString * newToken = [deviceToken description];
+	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    DDLogVerbose(@"New apn token: %@", newToken);
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	DDLogVerbose(@"Failed to get token, error: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSDate * date = [NSDate new];
+    DDLogInfo(@"didReceiveRemoteNotification fetchCompletionHandler: %@", [DATE_HELPER dateToMysqlDateTime:date]);
+    
+    
+    completionHandler(UIBackgroundFetchResultNoData);
 }
 
 @end
