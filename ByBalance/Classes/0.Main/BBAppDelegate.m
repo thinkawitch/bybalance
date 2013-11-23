@@ -317,9 +317,6 @@
 	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     DDLogVerbose(@"New apn token: %@", newToken);
     
-    SETTINGS.apnToken = @"";
-    [SETTINGS save];
-    
     NSString * oldToken = [SETTINGS apnToken];
     AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
     
