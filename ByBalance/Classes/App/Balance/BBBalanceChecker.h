@@ -38,6 +38,8 @@
 - (void) stop;
 //
 - (void) addItem:(BBMAccount *) account;
-- (void) addBgItem:(BBMAccount *) account handler:(void (^)(UIBackgroundFetchResult))completionHandler;
+- (void) setBgCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
+- (void) addBgItem:(BBMAccount *) account;
+
 
 @end

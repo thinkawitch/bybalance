@@ -17,6 +17,7 @@
     
     void (^bgFetchCompletionHandler)(UIBackgroundFetchResult);
     BBMAccount * accToCheck;
+    NSArray * toCheckAccountsInBg;
 }
 - (void) startBgrTimer;
 - (void) stopBgrTimer;
@@ -165,7 +166,6 @@
     
     if ([BALANCE_CHECKER isBusy])
     {
-        //offline
         DDLogInfo(@"bgFetch - check already started by user");
         completionHandler(UIBackgroundFetchResultNoData);
         return;
@@ -253,7 +253,8 @@
     if ([APP_CONTEXT isOnline])
     {
         DDLogInfo(@"bgFetch - already is online");
-        [BALANCE_CHECKER addBgItem:accToCheck handler:completionHandler];
+        [BALANCE_CHECKER setBgCompletionHandler:completionHandler];
+        [BALANCE_CHECKER addBgItem:accToCheck];
     }
     else
     {
@@ -298,7 +299,11 @@
             
             if (![BALANCE_CHECKER isBusy])
             {
-                [BALANCE_CHECKER addBgItem:accToCheck handler:bgFetchCompletionHandler];
+                [BALANCE_CHECKER setBgCompletionHandler:bgFetchCompletionHandler];
+                for (BBMAccount * oneAcc in toCheckAccountsInBg)
+                {
+                    [BALANCE_CHECKER addBgItem:oneAcc];
+                }
             }
         }
     }
@@ -387,8 +392,82 @@
     NSDate * date = [NSDate new];
     DDLogInfo(@"didReceiveRemoteNotification fetchCompletionHandler: %@", [DATE_HELPER dateToMysqlDateTime:date]);
     
+    if ([BALANCE_CHECKER isBusy])
+    {
+        DDLogInfo(@"apn_bgFetch - check already started by user");
+        completionHandler(UIBackgroundFetchResultNoData);
+        return;
+    }
     
-    completionHandler(UIBackgroundFetchResultNoData);
+    NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
+    NSTimeInterval timePassed = 0;
+    
+    bgFetchCompletionHandler = [completionHandler copy];
+    
+    BBMAccount * acc = nil;
+    toCheckAccountsInBg = nil;
+    BBMBalanceHistory * bh = nil;
+    double limit = 60*60*4; // 4 hours
+    double timeNeverChecked = 60*60*24*365;
+    
+    //all accounts that needs to be checked
+    NSMutableArray * toCheckAccounts = [[NSMutableArray alloc] initWithCapacity:20];
+    
+    for (acc in [BBMAccount findAllSortedBy:@"order" ascending:YES])
+    {
+        bh = [acc lastBalance];
+        
+        if (!bh) timePassed = timeNeverChecked;
+        else timePassed = timeNow - [bh.date timeIntervalSinceReferenceDate];
+        
+        if (timePassed > limit)
+        {
+            [toCheckAccounts addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:acc, [NSNumber numberWithDouble:timePassed], nil]
+                                                                   forKeys:[NSArray arrayWithObjects:@"account", @"timePassed", nil]]];
+        }
+    }
+    
+    NSInteger toCheckCount = [toCheckAccounts count];
+    if (toCheckCount < 1)
+    {
+        //no accounts to check
+        DDLogInfo(@"apn_bgFetch - no accounts to check");
+        completionHandler(UIBackgroundFetchResultNoData);
+        return;
+    }
+    
+    [toCheckAccounts sortUsingComparator: ^(id lhs, id rhs) {
+        NSNumber * n1 = ((NSDictionary*) lhs)[@"timePassed"];
+        NSNumber * n2 = ((NSDictionary*) rhs)[@"timePassed"];
+        if (n1.doubleValue > n2.doubleValue) return NSOrderedAscending;
+        if (n1.doubleValue < n2.doubleValue) return NSOrderedDescending;
+        return NSOrderedSame;
+    }];
+    
+    NSInteger lim = (toCheckCount >= 3) ? 3 : toCheckCount;
+    //[toCheckAccounts subarrayWithRange: NSMakeRange(0, lim)];
+    NSMutableArray * limitedList = [[NSMutableArray alloc] initWithCapacity:lim];
+    for (int i=0; i<lim; i++) {
+        NSDictionary * dic = [toCheckAccounts objectAtIndex:i];
+        [limitedList addObject:[dic objectForKey:@"account"]];
+    }
+    
+    toCheckAccountsInBg = limitedList;
+    
+    if ([APP_CONTEXT isOnline])
+    {
+        DDLogInfo(@"apn_bgFetch - already is online");
+        [BALANCE_CHECKER setBgCompletionHandler:completionHandler];
+        for (BBMAccount * oneAcc in toCheckAccountsInBg)
+        {
+            [BALANCE_CHECKER addBgItem:oneAcc];
+        }
+    }
+    else
+    {
+        [self startBgrTimer];
+        [APP_CONTEXT startReachability];
+    }
 }
 
 @end

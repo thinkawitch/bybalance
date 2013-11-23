@@ -82,7 +82,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     [queue addOperation:loader];
 }
 
-- (void) addBgItem:(BBMAccount *)account handler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void) setBgCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    bgCompletionHandler = [completionHandler copy];
+}
+
+- (void) addBgItem:(BBMAccount *)account
 {
     DDLogVerbose(@"BBBalanceChecker.addBgItem");
     DDLogVerbose(@"adding: %@", account.username);
@@ -94,8 +99,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         DDLogError(@"loader not created");
         return;
     }
-    
-    bgCompletionHandler = [completionHandler copy];
     
     loader.account = account;
     loader.delegate = self;
