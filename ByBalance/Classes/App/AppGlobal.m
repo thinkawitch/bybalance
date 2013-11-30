@@ -12,6 +12,11 @@
 //
 NSString * const kApnServerUrl = @"http://km32238-06.keymachine.de/bybalance_apn/home/";
 
+#ifdef DEBUG
+NSString * const kApnServerEnv = @"dev";
+#else
+NSString * const kApnServerEnv = @"prod";
+#endif
 
 
 #pragma mark - Text and Messages

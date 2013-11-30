@@ -9,6 +9,7 @@
 #pragma mark - APN server
 //
 extern NSString * const kApnServerUrl;
+extern NSString * const kApnServerEnv;
 
 #pragma mark - Text and Messages
 //
@@ -42,6 +43,21 @@ typedef enum
 	kAccountsCount
 	
 } kAccounts;
+
+
+#pragma mark - Periodic checks
+//
+typedef enum
+{
+	kPeriodicCheckManual = 0,
+	kPeriodicCheckOnStart,
+	kPeriodicCheck1,
+    kPeriodicCheck2,
+	//----------------------
+	kPeriodicChecksCount
+	
+} kPeriodicChecks;
+
 
 #pragma mark - Dictionary keys
 //

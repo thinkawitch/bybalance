@@ -37,5 +37,7 @@
 - (void) balanceCheckProgress:(NSNotification *)notification;
 - (void) balanceChecked:(NSNotification *)notification;
 - (void) balanceCheckStopped:(NSNotification *)notification;
+//
+- (UIViewController *) backViewController;
 
 @end

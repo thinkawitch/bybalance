@@ -149,5 +149,16 @@
     //queue stopped
 }
 
+- (UIViewController *) backViewController
+{
+    NSArray * stack = self.navigationController.viewControllers;
+    
+    for (int i=stack.count-1; i > 0; --i)
+        if (stack[i] == self)
+            return stack[i-1];
+    
+    return nil;
+}
+
 
 @end

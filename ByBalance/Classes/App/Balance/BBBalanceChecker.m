@@ -291,4 +291,25 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     bgCompletionHandler = nil;
 }
 
+- (NSArray *) checkPeriodTypes
+{
+    //array indexes must match kCheckTypes enum
+    
+    static NSArray * checkTypes;
+    
+    if (!checkTypes)
+    {
+        if ([APP_CONTEXT isIos7])
+        {
+            checkTypes = [NSArray arrayWithObjects:@"Вручную", @"При запуске", @"Каждые 2 часа", @"Каждые 4 часа", @"Каждые 8 часов", nil];
+        }
+        else
+        {
+            checkTypes = [NSArray arrayWithObjects:@"Вручную", @"При запуске", nil];
+        }
+    }
+    
+    return checkTypes;
+}
+
 @end

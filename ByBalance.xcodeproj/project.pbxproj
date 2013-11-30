@@ -13,8 +13,6 @@
 		C30FA4BD182D51D800818116 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B0182D51D800818116 /* DDFileLogger.m */; };
 		C30FA4BE182D51D800818116 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B2182D51D800818116 /* DDLog.m */; };
 		C30FA4BF182D51D800818116 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B4182D51D800818116 /* DDTTYLogger.m */; };
-		C30FA4C0182D51D800818116 /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B7182D51D800818116 /* ContextFilterLogFormatter.m */; };
-		C30FA4C1182D51D800818116 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B9182D51D800818116 /* DispatchQueueLogFormatter.m */; };
 		C30FA4C2182D51D800818116 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C30FA4BA182D51D800818116 /* README.txt */; };
 		C312CD2D1808AB1F005F25D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD2C1808AB1F005F25D0 /* Foundation.framework */; };
 		C312CD2F1808AB1F005F25D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD2E1808AB1F005F25D0 /* CoreGraphics.framework */; };
@@ -40,6 +38,10 @@
 		C335860C1809D6BD001AB5D3 /* BBAboutVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C33586051809D6BD001AB5D3 /* BBAboutVC.m */; };
 		C335860F1809DA1A001AB5D3 /* BBHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C335860D1809DA1A001AB5D3 /* BBHomeCell.xib */; };
 		C33586101809DA1A001AB5D3 /* BBHomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C335860E1809DA1A001AB5D3 /* BBHomeVC.xib */; };
+		C3544A3E184A444D00217456 /* BBSelectCheckPeriodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C3544A3D184A444D00217456 /* BBSelectCheckPeriodVC.m */; };
+		C3544A41184A47E400217456 /* BBCheckPeriodTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3544A40184A47E400217456 /* BBCheckPeriodTypeCell.m */; };
+		C3544A43184A493000217456 /* BBCheckPeriodTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3544A42184A493000217456 /* BBCheckPeriodTypeCell.xib */; };
+		C3544A45184A4B4A00217456 /* BBSelectCheckPeriodVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3544A44184A4B4A00217456 /* BBSelectCheckPeriodVC.xib */; };
 		C390E05618148EE40011EA4D /* RotationAwareNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */; };
 		C3B23B651814563700A7243E /* BBLoaderDiallog.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B23B641814563700A7243E /* BBLoaderDiallog.m */; };
 		C3B23B6F1814715800A7243E /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B23B6D1814715800A7243E /* libGoogleAnalytics_debug.a */; };
@@ -204,9 +206,16 @@
 		C33586051809D6BD001AB5D3 /* BBAboutVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAboutVC.m; sourceTree = "<group>"; };
 		C335860D1809DA1A001AB5D3 /* BBHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBHomeCell.xib; sourceTree = "<group>"; };
 		C335860E1809DA1A001AB5D3 /* BBHomeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBHomeVC.xib; sourceTree = "<group>"; };
+		C3544A3C184A444D00217456 /* BBSelectCheckPeriodVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSelectCheckPeriodVC.h; sourceTree = "<group>"; };
+		C3544A3D184A444D00217456 /* BBSelectCheckPeriodVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSelectCheckPeriodVC.m; sourceTree = "<group>"; };
+		C3544A3F184A47E400217456 /* BBCheckPeriodTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCheckPeriodTypeCell.h; sourceTree = "<group>"; };
+		C3544A40184A47E400217456 /* BBCheckPeriodTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCheckPeriodTypeCell.m; sourceTree = "<group>"; };
+		C3544A42184A493000217456 /* BBCheckPeriodTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBCheckPeriodTypeCell.xib; sourceTree = "<group>"; };
+		C3544A44184A4B4A00217456 /* BBSelectCheckPeriodVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBSelectCheckPeriodVC.xib; sourceTree = "<group>"; };
 		C38468E0181405690053CF41 /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
 		C390E05418148EE40011EA4D /* RotationAwareNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationAwareNavigationController.h; sourceTree = "<group>"; };
 		C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationAwareNavigationController.m; sourceTree = "<group>"; };
+		C3A211F11841853D005A2883 /* Model5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model5.xcdatamodel; sourceTree = "<group>"; };
 		C3B23B631814563700A7243E /* BBLoaderDiallog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDiallog.h; sourceTree = "<group>"; };
 		C3B23B641814563700A7243E /* BBLoaderDiallog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDiallog.m; sourceTree = "<group>"; };
 		C3B23B671814715800A7243E /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
@@ -534,10 +543,14 @@
 			children = (
 				C33585F61809D6BD001AB5D3 /* BBAccountFormVC.h */,
 				C33585F71809D6BD001AB5D3 /* BBAccountFormVC.m */,
-				C33585F81809D6BD001AB5D3 /* BBAccountTypeCell.h */,
-				C33585F91809D6BD001AB5D3 /* BBAccountTypeCell.m */,
 				C33585FA1809D6BD001AB5D3 /* BBSelectAccountTypeVC.h */,
 				C33585FB1809D6BD001AB5D3 /* BBSelectAccountTypeVC.m */,
+				C33585F81809D6BD001AB5D3 /* BBAccountTypeCell.h */,
+				C33585F91809D6BD001AB5D3 /* BBAccountTypeCell.m */,
+				C3544A3C184A444D00217456 /* BBSelectCheckPeriodVC.h */,
+				C3544A3D184A444D00217456 /* BBSelectCheckPeriodVC.m */,
+				C3544A3F184A47E400217456 /* BBCheckPeriodTypeCell.h */,
+				C3544A40184A47E400217456 /* BBCheckPeriodTypeCell.m */,
 			);
 			path = 2.Account;
 			sourceTree = "<group>";
@@ -622,8 +635,10 @@
 			isa = PBXGroup;
 			children = (
 				C3C1DA531809FCF300180AFA /* BBAccountFormVC.xib */,
-				C3C1DA541809FCF300180AFA /* BBAccountTypeCell.xib */,
 				C3C1DA551809FCF300180AFA /* BBSelectAccountTypeVC.xib */,
+				C3C1DA541809FCF300180AFA /* BBAccountTypeCell.xib */,
+				C3544A44184A4B4A00217456 /* BBSelectCheckPeriodVC.xib */,
+				C3544A42184A493000217456 /* BBCheckPeriodTypeCell.xib */,
 			);
 			path = 2.Account;
 			sourceTree = "<group>";
@@ -1114,8 +1129,10 @@
 				C3C1DA5D1809FCF300180AFA /* BBAccountTypeCell.xib in Resources */,
 				C3C1DA611809FCF300180AFA /* BBAboutCell.xib in Resources */,
 				C322835F18297A4500D924DA /* BBHistoryAnitexCell.xib in Resources */,
+				C3544A45184A4B4A00217456 /* BBSelectCheckPeriodVC.xib in Resources */,
 				C3C1DA491809FBC400180AFA /* delete@2x.png in Resources */,
 				C3C1DA481809FBC400180AFA /* delete.png in Resources */,
+				C3544A43184A493000217456 /* BBCheckPeriodTypeCell.xib in Resources */,
 				C312CD451808AB1F005F25D0 /* Images.xcassets in Resources */,
 				C3C1DA4C1809FBC400180AFA /* info.png in Resources */,
 				C3C1DA4E1809FBC400180AFA /* refresh.png in Resources */,
@@ -1144,7 +1161,6 @@
 				C3DE70731809BE1C0024F9DD /* BBLoaderNetBerry.m in Sources */,
 				C3DE700E1809B2F70024F9DD /* MagicalRecord+ShorthandSupport.m in Sources */,
 				C3C82B511808D9D700E2C1D6 /* Reachability.m in Sources */,
-				C30FA4C1182D51D800818116 /* DispatchQueueLogFormatter.m in Sources */,
 				C3C82B361808D4D600E2C1D6 /* BBBalanceChecker.m in Sources */,
 				C3DE706E1809BE1C0024F9DD /* BBLoaderCosmosTV.m in Sources */,
 				C3DE70091809B2F70024F9DD /* MagicalRecord+Actions.m in Sources */,
@@ -1157,6 +1173,7 @@
 				C33586071809D6BD001AB5D3 /* BBAccountTypeCell.m in Sources */,
 				C3DE700D1809B2F70024F9DD /* MagicalRecord+Setup.m in Sources */,
 				C3DE6FF91809B2F70024F9DD /* NSNumber+MagicalDataImport.m in Sources */,
+				C3544A41184A47E400217456 /* BBCheckPeriodTypeCell.m in Sources */,
 				C3DE70001809B2F70024F9DD /* NSManagedObject+MagicalRecord.m in Sources */,
 				C3DE70071809B2F70024F9DD /* NSPersistentStore+MagicalRecord.m in Sources */,
 				C3B23B651814563700A7243E /* BBLoaderDiallog.m in Sources */,
@@ -1194,10 +1211,10 @@
 				C3DE700B1809B2F70024F9DD /* MagicalRecord+iCloud.m in Sources */,
 				C30FA4BB182D51D800818116 /* DDAbstractDatabaseLogger.m in Sources */,
 				C3DE70421809B5A30024F9DD /* SSCheckBoxView.m in Sources */,
-				C30FA4C0182D51D800818116 /* ContextFilterLogFormatter.m in Sources */,
 				C3DE6FFC1809B2F70024F9DD /* NSString+MagicalDataImport.m in Sources */,
 				C335860A1809D6BD001AB5D3 /* BBBalanceVC.m in Sources */,
 				C3DE700C1809B2F70024F9DD /* MagicalRecord+Options.m in Sources */,
+				C3544A3E184A444D00217456 /* BBSelectCheckPeriodVC.m in Sources */,
 				C3DE6FA81809B2E60024F9DD /* AFHTTPRequestOperation.m in Sources */,
 				C30FA4BF182D51D800818116 /* DDTTYLogger.m in Sources */,
 				C3DE6FA71809B2E60024F9DD /* AFHTTPClient.m in Sources */,
@@ -1374,12 +1391,13 @@
 		C3DE70841809C13B0024F9DD /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C3A211F11841853D005A2883 /* Model5.xcdatamodel */,
 				C3228360182981E300D924DA /* Model4.xcdatamodel */,
 				C3DE70851809C13B0024F9DD /* Model.xcdatamodel */,
 				C3DE70861809C13B0024F9DD /* Model2.xcdatamodel */,
 				C3DE70871809C13B0024F9DD /* Model3.xcdatamodel */,
 			);
-			currentVersion = C3228360182981E300D924DA /* Model4.xcdatamodel */;
+			currentVersion = C3A211F11841853D005A2883 /* Model5.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

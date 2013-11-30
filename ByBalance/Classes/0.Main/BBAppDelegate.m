@@ -35,8 +35,6 @@
     [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
     [[DDTTYLogger sharedInstance] setForegroundColor:[UIColor grayColor] backgroundColor:nil forFlag:LOG_FLAG_VERBOSE];
     
-    [DDTTYLogger sharedInstance] set
-    
     NSString * docsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     DDLogFileManagerDefault * lfm = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:docsDirectory];
     //delete all log files
@@ -100,7 +98,6 @@
         //[[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNewsstandContentAvailability];
     }
-    
     
     return YES;
 }
@@ -330,7 +327,7 @@
     if ([oldToken isEqualToString:newToken] || [oldToken length] < 1)
     {
         //add token
-        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:newToken, @"token", nil];
+        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:newToken, @"token", kApnServerEnv, @"env", nil];
         
         [httpClient postPath:@"add_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
@@ -348,6 +345,7 @@
         NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                                  oldToken, @"old_token",
                                  newToken, @"new_token",
+                                 kApnServerEnv, @"env",
                                  nil];
         
         [httpClient postPath:@"update_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -374,7 +372,7 @@
     
     AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
     
-    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:token, @"token", nil];
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:token, @"token", kApnServerEnv, @"env", nil];
     
     [httpClient postPath:@"remove_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -385,8 +383,6 @@
         
         DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
     }];
-
-    
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
@@ -446,7 +442,7 @@
         return NSOrderedSame;
     }];
     
-    NSInteger lim = (toCheckCount >= 3) ? 3 : toCheckCount;
+    NSInteger lim = (toCheckCount >= 4) ? 4 : toCheckCount;
     //[toCheckAccounts subarrayWithRange: NSMakeRange(0, lim)];
     NSMutableArray * limitedList = [[NSMutableArray alloc] initWithCapacity:lim];
     for (int i=0; i<lim; i++) {

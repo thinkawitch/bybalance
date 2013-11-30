@@ -8,6 +8,7 @@
 
 #import "BBAccountFormVC.h"
 #import "SSCheckBoxView.h"
+#import "BBSelectCheckPeriodVC.h"
 
 @interface BBAccountFormVC ()
 {
@@ -21,7 +22,8 @@
 - (void) keyboardDidHide:(NSNotification *)notification;
 - (void) moveFormUp;
 - (void) placeFormNormal;
-
+- (void) updateCheckPeriodTitle;
+- (void) openSelectCheckPeriod;
 
 @end
 
@@ -31,10 +33,19 @@
 @synthesize editMode;
 @synthesize account;
 @synthesize cellPhone;
+@synthesize currPeriodicCheck;
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
-    if (editMode) self.accountType = self.account.type;
+    if (editMode)
+    {
+        self.accountType = self.account.type;
+        currPeriodicCheck = [self.account.periodicCheck intValue];
+    }
+    else
+    {
+        currPeriodicCheck = kPeriodicCheckManual;
+    }
     
     [super viewDidLoad];
     
@@ -53,7 +64,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)viewDidUnload
+- (void) viewDidUnload
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -63,6 +74,8 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [self updateCheckPeriodTitle];
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Настройки доступа"];
@@ -161,6 +174,7 @@
         account.username = tfUsername.text;
         account.password = tfPassword.text;
         account.label = tfLabel.text;
+        account.periodicCheck = [NSNumber numberWithInt:currPeriodicCheck];
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
@@ -182,6 +196,7 @@
         newAccount.password = tfPassword.text;
         newAccount.label = tfLabel.text;
         newAccount.order = [BBMAccount nextOrder];
+        newAccount.periodicCheck = [NSNumber numberWithInt:currPeriodicCheck];
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
@@ -252,6 +267,13 @@
         
         [btnAdd setTitle:@"Сохранить" forState:UIControlStateNormal];
     }
+    
+    [self updateCheckPeriodTitle];
+}
+
+- (void) updateCheckPeriodTitle
+{
+    tfCheckType.text = [[BALANCE_CHECKER checkPeriodTypes] objectAtIndex:currPeriodicCheck];
 }
 
 - (NSString *) loginTitle
@@ -284,7 +306,7 @@
     return @"Пароль";
 }
 
-- (void)displayPersonPhone:(ABRecordRef)person
+- (void) displayPersonPhone:(ABRecordRef)person
 {
     //NSString * name = ABRecordCopyValue(person, kABPersonFirstNameProperty);
     //self.firstName.text = name;
@@ -345,6 +367,14 @@
     [UIView commitAnimations];
 }
 
+- (void) openSelectCheckPeriod
+{
+    BBSelectCheckPeriodVC * vc = NEWVCFROMNIB(BBSelectCheckPeriodVC);
+    vc.currPeriodicCheck = currPeriodicCheck;
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    //[self presentViewController:vc animated:YES completion:nil];
+}
 
 #pragma mark - UITextFieldDelegate
 
@@ -352,6 +382,16 @@
 {
     [textField resignFirstResponder];
     return NO;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == tfCheckType)
+    {
+        [self openSelectCheckPeriod];
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - ABPeoplePickerNavigationControllerDelegate
@@ -405,8 +445,5 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 {
     return NO;
 }
-
-
-
 
 @end

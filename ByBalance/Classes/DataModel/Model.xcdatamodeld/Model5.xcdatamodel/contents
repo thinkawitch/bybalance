@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="12F45" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BBMAccount" representedClassName="BBMAccount" syncable="YES">
+        <attribute name="balanceLimit" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="password" attributeType="String" syncable="YES"/>
+        <attribute name="periodicCheck" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="username" attributeType="String" syncable="YES"/>
+        <relationship name="history" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BBMBalanceHistory" inverseName="account" inverseEntity="BBMBalanceHistory" syncable="YES"/>
+        <relationship name="type" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BBMAccountType" inverseName="accounts" inverseEntity="BBMAccountType" syncable="YES"/>
+    </entity>
+    <entity name="BBMAccountType" representedClassName="BBMAccountType" syncable="YES">
+        <attribute name="id" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BBMAccount" inverseName="type" inverseEntity="BBMAccount" syncable="YES"/>
+    </entity>
+    <entity name="BBMBalanceHistory" representedClassName="BBMBalanceHistory" syncable="YES">
+        <attribute name="balance" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="credit" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="date" attributeType="Date" syncable="YES"/>
+        <attribute name="days" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="extracted" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="incorrectLogin" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="megabytes" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="minutes" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="packages" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sms" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="account" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BBMAccount" inverseName="history" inverseEntity="BBMAccount" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BBMAccount" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="BBMAccountType" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="BBMBalanceHistory" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

@@ -2,7 +2,7 @@
 //  BBMAccount.h
 //  ByBalance
 //
-//  Created by Andrew Sinkevitch on 11/5/13.
+//  Created by Andrew Sinkevitch on 11/24/13.
 //  Copyright (c) 2013 sinkevitch.name. All rights reserved.
 //
 
@@ -17,6 +17,8 @@
 @property (nonatomic, retain) NSNumber * order;
 @property (nonatomic, retain) NSString * password;
 @property (nonatomic, retain) NSString * username;
+@property (nonatomic, retain) NSNumber * periodicCheck;
+@property (nonatomic, retain) NSDecimalNumber * balanceLimit;
 @property (nonatomic, retain) NSSet *history;
 @property (nonatomic, retain) BBMAccountType *type;
 @end

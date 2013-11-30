@@ -22,6 +22,7 @@
     IBOutlet UITextField * tfUsername;
     IBOutlet UITextField * tfPassword;
     IBOutlet UITextField * tfLabel;
+    IBOutlet UITextField * tfCheckType;
     IBOutlet UIButton * btnAdd;
     IBOutlet UIButton * btnContacts;
     
@@ -36,6 +37,7 @@
 @property (assign, nonatomic) BOOL editMode;
 @property (strong, nonatomic) BBMAccount * account;
 @property (assign, nonatomic) BOOL cellPhone;
+@property (assign, nonatomic) NSInteger currPeriodicCheck;
 
 - (IBAction) add:(id) sender;
 - (IBAction) hideKeyboard:(id) sender;
