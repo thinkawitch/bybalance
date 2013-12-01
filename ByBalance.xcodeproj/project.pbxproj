@@ -42,6 +42,8 @@
 		C3544A41184A47E400217456 /* BBCheckPeriodTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3544A40184A47E400217456 /* BBCheckPeriodTypeCell.m */; };
 		C3544A43184A493000217456 /* BBCheckPeriodTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3544A42184A493000217456 /* BBCheckPeriodTypeCell.xib */; };
 		C3544A45184A4B4A00217456 /* BBSelectCheckPeriodVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3544A44184A4B4A00217456 /* BBSelectCheckPeriodVC.xib */; };
+		C3878F2A184B9566008FB289 /* arrow2_right.png in Resources */ = {isa = PBXBuildFile; fileRef = C3878F28184B9566008FB289 /* arrow2_right.png */; };
+		C3878F2B184B9566008FB289 /* arrow2_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3878F29184B9566008FB289 /* arrow2_right@2x.png */; };
 		C390E05618148EE40011EA4D /* RotationAwareNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */; };
 		C3B23B651814563700A7243E /* BBLoaderDiallog.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B23B641814563700A7243E /* BBLoaderDiallog.m */; };
 		C3B23B6F1814715800A7243E /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B23B6D1814715800A7243E /* libGoogleAnalytics_debug.a */; };
@@ -213,6 +215,8 @@
 		C3544A42184A493000217456 /* BBCheckPeriodTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBCheckPeriodTypeCell.xib; sourceTree = "<group>"; };
 		C3544A44184A4B4A00217456 /* BBSelectCheckPeriodVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBSelectCheckPeriodVC.xib; sourceTree = "<group>"; };
 		C38468E0181405690053CF41 /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
+		C3878F28184B9566008FB289 /* arrow2_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow2_right.png; sourceTree = "<group>"; };
+		C3878F29184B9566008FB289 /* arrow2_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow2_right@2x.png"; sourceTree = "<group>"; };
 		C390E05418148EE40011EA4D /* RotationAwareNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationAwareNavigationController.h; sourceTree = "<group>"; };
 		C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationAwareNavigationController.m; sourceTree = "<group>"; };
 		C3A211F11841853D005A2883 /* Model5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model5.xcdatamodel; sourceTree = "<group>"; };
@@ -615,6 +619,8 @@
 				C3C1DA331809FBC400180AFA /* add@2x.png */,
 				C3C1DA341809FBC400180AFA /* arrow_left.png */,
 				C3C1DA351809FBC400180AFA /* arrow_left@2x.png */,
+				C3878F28184B9566008FB289 /* arrow2_right.png */,
+				C3878F29184B9566008FB289 /* arrow2_right@2x.png */,
 				C3C1DA361809FBC400180AFA /* contacts.png */,
 				C3C1DA371809FBC400180AFA /* contacts@2x.png */,
 				C3C1DA381809FBC400180AFA /* delete.png */,
@@ -1119,6 +1125,7 @@
 				C3DE70401809B5A30024F9DD /* cb_mono_on@2x.png in Resources */,
 				C3C1DA431809FBC400180AFA /* add@2x.png in Resources */,
 				C3DE703E1809B5A30024F9DD /* cb_mono_off@2x.png in Resources */,
+				C3878F2B184B9566008FB289 /* arrow2_right@2x.png in Resources */,
 				C30FA4C2182D51D800818116 /* README.txt in Resources */,
 				C335860F1809DA1A001AB5D3 /* BBHomeCell.xib in Resources */,
 				C3C1DA4D1809FBC400180AFA /* info@2x.png in Resources */,
@@ -1132,6 +1139,7 @@
 				C3544A45184A4B4A00217456 /* BBSelectCheckPeriodVC.xib in Resources */,
 				C3C1DA491809FBC400180AFA /* delete@2x.png in Resources */,
 				C3C1DA481809FBC400180AFA /* delete.png in Resources */,
+				C3878F2A184B9566008FB289 /* arrow2_right.png in Resources */,
 				C3544A43184A493000217456 /* BBCheckPeriodTypeCell.xib in Resources */,
 				C312CD451808AB1F005F25D0 /* Images.xcassets in Resources */,
 				C3C1DA4C1809FBC400180AFA /* info.png in Resources */,

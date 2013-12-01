@@ -14,14 +14,22 @@
 {
     NSTimer * bgrTimer;
     CFTimeInterval bgrStartTime;
-    
     void (^bgFetchCompletionHandler)(UIBackgroundFetchResult);
-    BBMAccount * accToCheck;
     NSArray * toCheckAccountsInBg;
+    
+    NSTimer * appOpenTimer;
+    CFTimeInterval appOpenStartTime;
+    NSArray * toCheckAccountsOnStart;
 }
-- (void) startBgrTimer;
+
+- (void) startBgrTimer; //timer to wait for background reachability to establish internet connection
 - (void) stopBgrTimer;
 - (void) onBgrTimerTick:(NSTimer *)timer;
+
+- (void) startAppOpenTimer; //timer to wait for ready internet connection
+- (void) stopAppOpenTimer;
+- (void) onAppOpenTimerTick:(NSTimer *)timer;
+
 @end
 
 @implementation BBAppDelegate
@@ -95,7 +103,6 @@
     
     if (APP_CONTEXT.isIos7)
     {
-        //[[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNewsstandContentAvailability];
     }
     
@@ -109,6 +116,7 @@
     
     DDLogVerbose(@"applicationWillResignActive");
     [APP_CONTEXT stopReachability];
+    [self stopAppOpenTimer];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -132,6 +140,17 @@
     
     DDLogVerbose(@"applicationDidBecomeActive");
     [APP_CONTEXT startReachability];
+    toCheckAccountsOnStart = nil;
+    
+    toCheckAccountsOnStart = [BALANCE_CHECKER accountsToCheckOnStart];
+    if ([toCheckAccountsOnStart count] < 1)
+    {
+        //no accounts to check
+        DDLogInfo(@"checkOnStart - no accounts to check");
+        return;
+    }
+    
+    [self startAppOpenTimer];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -144,126 +163,57 @@
     [SETTINGS save];
 }
 
-/*
-- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
-    NSUInteger orientations = (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
-    
-    if(self.window.rootViewController){
-        UIViewController *presentedViewController = [[(UINavigationController *)self.window.rootViewController viewControllers] lastObject];
-        orientations = [presentedViewController supportedInterfaceOrientations];
-    }
-    
-    return orientations;
-}
-*/
+#pragma mark - App open reachability timer
 
--(void)application:(UIApplication *)application OFF_performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void) startAppOpenTimer
 {
+    if (appOpenTimer) [self stopAppOpenTimer];
     
-    NSDate * date = [NSDate new];
-    DDLogInfo(@"performFetchWithCompletionHandler: %@", [DATE_HELPER dateToMysqlDateTime:date]);
-    
-    if ([BALANCE_CHECKER isBusy])
+    appOpenTimer = [NSTimer scheduledTimerWithTimeInterval: 0.1f
+                                                target: self
+                                              selector:@selector(onAppOpenTimerTick:)
+                                              userInfo: nil
+                                               repeats:YES];
+    appOpenStartTime = CACurrentMediaTime();
+}
+
+- (void) stopAppOpenTimer
+{
+    if (appOpenTimer)
     {
-        DDLogInfo(@"bgFetch - check already started by user");
-        completionHandler(UIBackgroundFetchResultNoData);
-        return;
+        [appOpenTimer invalidate];
+        appOpenTimer = nil;
     }
+}
+
+- (void) onAppOpenTimerTick:(NSTimer *)timer
+{
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - appOpenStartTime;
     
-    /*
-    if (![APP_CONTEXT isOnline])
+    if (elapsedTime < kAppOpenTimelimit)
     {
-        //offline
-        DDLogInfo(@"bgFetch - offline");
-        completionHandler(UIBackgroundFetchResultNoData);
-        return;
-    }
-     */
-    
-    NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
-    NSTimeInterval timePassed = 0;
-    
-    bgFetchCompletionHandler = [completionHandler copy];
-    
-    BBMAccount * acc = nil;
-    //__block BBMAccount * accToCheck = nil;
-    accToCheck = nil;
-    BBMBalanceHistory * bh = nil;
-    double limit = 60*20; // 20 mins
-    double timeNeverChecked = 60*60*24*365;
-    
-    //all accounts that needs to be checked
-    NSMutableArray * toCheckAccounts = [[NSMutableArray alloc] initWithCapacity:20];
-    NSMutableArray * toCheckTimePassed = [[NSMutableArray alloc] initWithCapacity:20];
-    
-    for (acc in [BBMAccount findAllSortedBy:@"order" ascending:YES])
-    {
-        bh = [acc lastBalance];
-        
-        if (!bh) timePassed = timeNeverChecked;
-        else timePassed = timeNow - [bh.date timeIntervalSinceReferenceDate];
-        
-        if (timePassed > limit)
+        if ([APP_CONTEXT isOnline])
         {
-            [toCheckAccounts addObject:acc];
-            [toCheckTimePassed addObject:[NSNumber numberWithDouble:timePassed]];
+            [self stopAppOpenTimer];
+            
+            if (![BALANCE_CHECKER isBusy])
+            {
+                DDLogInfo(@"checkOnStart - do check");
+                for (BBMAccount * oneAcc in toCheckAccountsOnStart)
+                {
+                    [BALANCE_CHECKER addItem:oneAcc];
+                }
+            }
         }
-    }
-    
-    if ([toCheckAccounts count] < 1)
-    {
-        //no accounts to check
-        DDLogInfo(@"bgFetch - no accounts to check");
-        completionHandler(UIBackgroundFetchResultNoData);
-        return;
-    }
-    
-    //find account with longest time without check
-    __block float xmax = -MAXFLOAT;
-    //float xmin = MAXFLOAT;
-    
-    [toCheckTimePassed enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
-        float x = [object floatValue];
-        if (x > xmax)
-        {
-            accToCheck = [toCheckAccounts objectAtIndex:idx];
-            xmax = x;
-        }
-    }];
-    
-    /*
-    for (NSNumber * num in toCheckTimePassed)
-    {
-        float x = num.floatValue;
-        if (x < xmin) xmin = x;
-        if (x > xmax) xmax = x;
-    }
-     */
-    
-    
-    if (!accToCheck)
-    {
-        //no accounts to check
-        DDLogInfo(@"bgFetch - accToCheck not found");
-        completionHandler(UIBackgroundFetchResultFailed);
-        return;
-    }
-    
-    if ([APP_CONTEXT isOnline])
-    {
-        DDLogInfo(@"bgFetch - already is online");
-        [BALANCE_CHECKER setBgCompletionHandler:completionHandler];
-        [BALANCE_CHECKER addBgItem:accToCheck];
     }
     else
     {
-        [self startBgrTimer];
-        [APP_CONTEXT startReachability];
+        [self stopAppOpenTimer];
+        DDLogVerbose(@"checkOnStart - reachability timeout, still offline");
     }
-    
 }
 
-#pragma mark - background reachability timer
+#pragma mark - Background reachability timer
 
 - (void) startBgrTimer
 {
@@ -320,74 +270,20 @@
 	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     DDLogVerbose(@"New apn token: %@", newToken);
-    
-    NSString * oldToken = [SETTINGS apnToken];
-    AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
-    
-    if ([oldToken isEqualToString:newToken] || [oldToken length] < 1)
-    {
-        //add token
-        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:newToken, @"token", kApnServerEnv, @"env", nil];
-        
-        [httpClient postPath:@"add_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            SETTINGS.apnToken = newToken;
-            [SETTINGS save];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
-        }];
-    }
-    else if ([oldToken length] > 0)
-    {
-        //update token
-        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 oldToken, @"old_token",
-                                 newToken, @"new_token",
-                                 kApnServerEnv, @"env",
-                                 nil];
-        
-        [httpClient postPath:@"update_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            SETTINGS.apnToken = newToken;
-            [SETTINGS save];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
-        }];
-    }
+    [BALANCE_CHECKER serverAddToken:newToken];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-	DDLogVerbose(@"Failed to get token, error: %@", error);
-    
-    NSString * token = [SETTINGS apnToken];
-    
-    if ([token length] < 1) return;
-    
-    //remove token
-    
-    AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
-    
-    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:token, @"token", kApnServerEnv, @"env", nil];
-    
-    [httpClient postPath:@"remove_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        SETTINGS.apnToken = @"";
-        [SETTINGS save];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
-    }];
+	DDLogError(@"Failed to get token, error: %@", error);
+    [BALANCE_CHECKER serverRemoveToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     NSDate * date = [NSDate new];
+    bgFetchCompletionHandler = nil;
+    toCheckAccountsInBg = nil;
     DDLogInfo(@"didReceiveRemoteNotification fetchCompletionHandler: %@", [DATE_HELPER dateToMysqlDateTime:date]);
     
     if ([BALANCE_CHECKER isBusy])
@@ -397,36 +293,8 @@
         return;
     }
     
-    NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
-    NSTimeInterval timePassed = 0;
-    
-    bgFetchCompletionHandler = [completionHandler copy];
-    
-    BBMAccount * acc = nil;
-    toCheckAccountsInBg = nil;
-    BBMBalanceHistory * bh = nil;
-    double limit = 60*60*4; // 4 hours
-    double timeNeverChecked = 60*60*24*365;
-    
-    //all accounts that needs to be checked
-    NSMutableArray * toCheckAccounts = [[NSMutableArray alloc] initWithCapacity:20];
-    
-    for (acc in [BBMAccount findAllSortedBy:@"order" ascending:YES])
-    {
-        bh = [acc lastBalance];
-        
-        if (!bh) timePassed = timeNeverChecked;
-        else timePassed = timeNow - [bh.date timeIntervalSinceReferenceDate];
-        
-        if (timePassed > limit)
-        {
-            [toCheckAccounts addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:acc, [NSNumber numberWithDouble:timePassed], nil]
-                                                                   forKeys:[NSArray arrayWithObjects:@"account", @"timePassed", nil]]];
-        }
-    }
-    
-    NSInteger toCheckCount = [toCheckAccounts count];
-    if (toCheckCount < 1)
+    NSArray * toCheckAccounts = [BALANCE_CHECKER accountsToCheckInBg];
+    if ([toCheckAccounts count] < 1)
     {
         //no accounts to check
         DDLogInfo(@"apn_bgFetch - no accounts to check");
@@ -434,23 +302,8 @@
         return;
     }
     
-    [toCheckAccounts sortUsingComparator: ^(id lhs, id rhs) {
-        NSNumber * n1 = ((NSDictionary*) lhs)[@"timePassed"];
-        NSNumber * n2 = ((NSDictionary*) rhs)[@"timePassed"];
-        if (n1.doubleValue > n2.doubleValue) return NSOrderedAscending;
-        if (n1.doubleValue < n2.doubleValue) return NSOrderedDescending;
-        return NSOrderedSame;
-    }];
-    
-    NSInteger lim = (toCheckCount >= 4) ? 4 : toCheckCount;
-    //[toCheckAccounts subarrayWithRange: NSMakeRange(0, lim)];
-    NSMutableArray * limitedList = [[NSMutableArray alloc] initWithCapacity:lim];
-    for (int i=0; i<lim; i++) {
-        NSDictionary * dic = [toCheckAccounts objectAtIndex:i];
-        [limitedList addObject:[dic objectForKey:@"account"]];
-    }
-    
-    toCheckAccountsInBg = limitedList;
+    bgFetchCompletionHandler = [completionHandler copy];
+    toCheckAccountsInBg = toCheckAccounts;
     
     if ([APP_CONTEXT isOnline])
     {

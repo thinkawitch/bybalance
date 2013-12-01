@@ -117,7 +117,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
         isOnlineWifi = (ns == ReachableViaWiFi);
         isOnlineCellular = (ns == ReachableViaWWAN);
     }
-    DDLogInfo(@"reachability isOnline:%d isOnlineWifi:%d isOnlineCellular:%d", isOnline, isOnlineWifi, isOnlineCellular);
+    DDLogInfo(@"reachability isOnline:%d wifi:%d cellular:%d", isOnline, isOnlineWifi, isOnlineCellular);
 }
 
 #pragma mark - Ios versions

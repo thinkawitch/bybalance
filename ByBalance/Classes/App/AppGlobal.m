@@ -52,10 +52,12 @@ CGFloat const kAccountTypeCellHeight = 73.f + 1.f;
 CGFloat const kHistoryCellHeight1 = 30.f + 1.f;
 CGFloat const kHistoryCellHeight2 = 48.f + 1.f;
 CGFloat const kAboutCellHeight = 39.f + 1.f;
+CGFloat const kCheckPeriodTypeCellHeight = 53.f;
 //
 
 #pragma mark - Time limits
 //
 const CGFloat kBgrTimelimit = 5.f;
 const CGFloat kBgBcTimelimit = 23.f;
+const CGFloat kAppOpenTimelimit = 3.f;
 //

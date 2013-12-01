@@ -17,6 +17,8 @@
 - (void) onBgFetchTimerTick:(NSTimer *)timer;
 - (void) onBgUpdateEnd:(BOOL)updated;
 
+- (double) timeForCheckPeriodType:(NSInteger)periodType;
+
 @end
 
 
@@ -284,7 +286,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         else
         {
             DDLogVerbose(@"bgFetch - no enough time to complete");
-            bgCompletionHandler(UIBackgroundFetchResultNoData);
+            bgCompletionHandler(UIBackgroundFetchResultNewData);
         }
     }
     
@@ -301,7 +303,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     {
         if ([APP_CONTEXT isIos7])
         {
-            checkTypes = [NSArray arrayWithObjects:@"Вручную", @"При запуске", @"Каждые 2 часа", @"Каждые 4 часа", @"Каждые 8 часов", nil];
+            checkTypes = [NSArray arrayWithObjects:@"Вручную", @"При запуске", @"Каждые 2 часа", @"Каждые 4 часа", @"Каждые 8 часов", @"Раз в сутки", nil];
         }
         else
         {
@@ -310,6 +312,172 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     }
     
     return checkTypes;
+}
+
+- (double) timeForCheckPeriodType:(NSInteger)periodType
+{
+    switch (periodType)
+    {
+        case kPeriodicCheckManual: return 0;
+        case kPeriodicCheckOnStart: return 0;
+        case kPeriodicCheck2h: return 60*60*2;
+        case kPeriodicCheck4h: return 60*60*4;
+        case kPeriodicCheck8h: return 60*60*8;
+        case kPeriodicCheck1d: return 60*60*24;
+        default: return 0;
+    }
+}
+
+- (NSArray *) accountsToCheckInBg
+{
+    NSDate * date = [NSDate new];
+    NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
+    NSTimeInterval timePassed = 0;
+    
+    double limit = 0;
+    double timeNeverChecked = 60*60*24*365;
+
+    BBMAccount * acc = nil;
+    BBMBalanceHistory * bh = nil;
+    
+    //all accounts that needs to be checked
+    NSMutableArray * toCheckAccounts = [[NSMutableArray alloc] initWithCapacity:20];
+    
+    for (acc in [BBMAccount findAllSortedBy:@"order" ascending:YES])
+    {
+        bh = [acc lastBalance];
+        
+        if (!bh) timePassed = timeNeverChecked;
+        else timePassed = timeNow - [bh.date timeIntervalSinceReferenceDate];
+        
+        limit = [self timeForCheckPeriodType:[acc.periodicCheck integerValue]];
+        
+        if (limit > 0 && timePassed > limit)
+        {
+            [toCheckAccounts addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:acc, [NSNumber numberWithDouble:timePassed], nil]
+                                                                   forKeys:[NSArray arrayWithObjects:@"account", @"timePassed", nil]]];
+        }
+    }
+    
+    NSInteger toCheckCount = [toCheckAccounts count];
+    if (toCheckCount < 1) return nil;
+    
+    //sort by timePassed desc
+    [toCheckAccounts sortUsingComparator: ^(id lhs, id rhs) {
+        NSNumber * n1 = ((NSDictionary*) lhs)[@"timePassed"];
+        NSNumber * n2 = ((NSDictionary*) rhs)[@"timePassed"];
+        if (n1.doubleValue > n2.doubleValue) return NSOrderedAscending;
+        if (n1.doubleValue < n2.doubleValue) return NSOrderedDescending;
+        return NSOrderedSame;
+    }];
+    
+    NSInteger lim = (toCheckCount >= 4) ? 4 : toCheckCount;
+    NSMutableArray * limitedList = [[NSMutableArray alloc] initWithCapacity:lim];
+    for (int i=0; i<lim; i++)
+    {
+        NSDictionary * dic = [toCheckAccounts objectAtIndex:i];
+        [limitedList addObject:[dic objectForKey:@"account"]];
+    }
+    
+    return limitedList;
+}
+
+- (NSArray *) accountsToCheckOnStart
+{
+    NSDate * date = [NSDate new];
+    NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
+    NSTimeInterval timePassed = 0;
+    
+    double limit = 60*30; //30 mins
+    double timeNeverChecked = 60*60*24*365;
+    
+    BBMAccount * acc = nil;
+    BBMBalanceHistory * bh = nil;
+    
+    //all accounts that needs to be checked
+    NSMutableArray * toCheckAccounts = [[NSMutableArray alloc] initWithCapacity:20];
+    
+    for (acc in [BBMAccount findAllSortedBy:@"order" ascending:YES])
+    {
+        bh = [acc lastBalance];
+        
+        //skip others
+        if ([acc.periodicCheck integerValue] != kPeriodicCheckOnStart) continue;
+        
+        if (!bh) timePassed = timeNeverChecked;
+        else timePassed = timeNow - [bh.date timeIntervalSinceReferenceDate];
+        
+        if (timePassed > limit) [toCheckAccounts addObject:acc];
+    }
+    
+    return toCheckAccounts;
+}
+
+#pragma mark - Server 
+
+- (void) serverAddToken:(NSString *)token
+{
+    NSString * newToken = token;
+    NSString * oldToken = [SETTINGS apnToken];
+    AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
+    
+    if ([oldToken isEqualToString:newToken] || [oldToken length] < 1)
+    {
+        //add token
+        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:newToken, @"token", kApnServerEnv, @"env", nil];
+        
+        [httpClient postPath:@"add_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            SETTINGS.apnToken = newToken;
+            [SETTINGS save];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
+        }];
+    }
+    else if ([oldToken length] > 0)
+    {
+        //update token
+        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 oldToken, @"old_token",
+                                 newToken, @"new_token",
+                                 kApnServerEnv, @"env",
+                                 nil];
+        
+        [httpClient postPath:@"update_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            SETTINGS.apnToken = newToken;
+            [SETTINGS save];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
+        }];
+    }
+}
+
+- (void) serverRemoveToken
+{
+    NSString * token = [SETTINGS apnToken];
+    
+    if ([token length] < 1) return;
+    
+    //remove token
+    
+    AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
+    
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:token, @"token", kApnServerEnv, @"env", nil];
+    
+    [httpClient postPath:@"remove_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        SETTINGS.apnToken = @"";
+        [SETTINGS save];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
+    }];
 }
 
 @end

@@ -37,6 +37,11 @@
 - (void) addBgItem:(BBMAccount *) account;
 //
 - (NSArray *) checkPeriodTypes;
+- (NSArray *) accountsToCheckOnStart;
+- (NSArray *) accountsToCheckInBg;
+//
+- (void) serverAddToken:(NSString *)token;
+- (void) serverRemoveToken;
 
 
 @end

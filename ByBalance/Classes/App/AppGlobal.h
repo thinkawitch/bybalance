@@ -51,8 +51,10 @@ typedef enum
 {
 	kPeriodicCheckManual = 0,
 	kPeriodicCheckOnStart,
-	kPeriodicCheck1,
-    kPeriodicCheck2,
+	kPeriodicCheck2h,
+    kPeriodicCheck4h,
+    kPeriodicCheck8h,
+    kPeriodicCheck1d,
 	//----------------------
 	kPeriodicChecksCount
 	
@@ -81,10 +83,12 @@ extern const CGFloat kAccountTypeCellHeight;
 extern const CGFloat kHistoryCellHeight1;
 extern const CGFloat kHistoryCellHeight2;
 extern const CGFloat kAboutCellHeight;
+extern const CGFloat kCheckPeriodTypeCellHeight;
 //
 
 #pragma mark - Time limits
 //
 extern const CGFloat kBgrTimelimit; //background fetch request limit to establish internet connection
 extern const CGFloat kBgBcTimelimit; //background balance checker limit to get balances
+extern const CGFloat kAppOpenTimelimit; //app open limit to wait for ready internet connection
 //

@@ -94,7 +94,7 @@
 
 - (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return kAccountTypeCellHeight;
+    return kCheckPeriodTypeCellHeight;
 }
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

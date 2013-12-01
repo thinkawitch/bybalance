@@ -118,7 +118,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="0gP-rV-bXX">
-                    <rect key="frame" x="34" y="279" width="251" height="31"/>
+                    <rect key="frame" x="34" y="278" width="251" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <textInputTraits key="textInputTraits"/>
@@ -141,6 +141,10 @@
                         <action selector="openContacts:" destination="-1" eventType="touchUpInside" id="31"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow2_right.png" id="mNn-w8-KF9">
+                    <rect key="frame" x="258" y="282" width="24" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -148,6 +152,7 @@
         </view>
     </objects>
     <resources>
+        <image name="arrow2_right.png" width="24" height="24"/>
         <image name="contacts.png" width="31" height="32"/>
     </resources>
 </document>
