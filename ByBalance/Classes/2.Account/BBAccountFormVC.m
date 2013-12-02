@@ -53,7 +53,7 @@
     
     [APP_CONTEXT makeRedButton:btnAdd];
     
-    SSCheckBoxView *cbv = [[SSCheckBoxView alloc] initWithFrame:CGRectMake(178, 96, 110, 30)
+    SSCheckBoxView * cbv = [[SSCheckBoxView alloc] initWithFrame:CGRectMake(178, 79, 110, 30)
                                                           style:kSSCheckBoxViewStyleMono
                                                         checked:NO];
     [cbv setText:@"показать"];
@@ -175,6 +175,7 @@
         account.password = tfPassword.text;
         account.label = tfLabel.text;
         account.periodicCheck = [NSNumber numberWithInt:currPeriodicCheck];
+        account.balanceLimit = [PRIMITIVE_HELPER numberDecimalValue:tfBalanceLimit.text];
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
@@ -197,6 +198,9 @@
         newAccount.label = tfLabel.text;
         newAccount.order = [BBMAccount nextOrder];
         newAccount.periodicCheck = [NSNumber numberWithInt:currPeriodicCheck];
+        
+        newAccount.balanceLimit = [PRIMITIVE_HELPER numberDecimalValue:tfBalanceLimit.text];
+        
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
@@ -243,7 +247,7 @@
     if (cellPhone)
     {
         lblUsernamePrefix.hidden = NO;
-        tfUsername.frame = CGRectMake(85, 54, 162, 31);
+        tfUsername.frame = CGRectMake(85, 40, 162, 31);
         tfUsername.keyboardType = UIKeyboardTypeNumberPad;
         btnContacts.hidden = NO;
         
@@ -252,7 +256,7 @@
     else
     {
         lblUsernamePrefix.hidden = YES;
-        tfUsername.frame = CGRectMake(35, 54, 251, 31);
+        tfUsername.frame = CGRectMake(35, 40, 251, 31);
         if (type == kAccountBn) tfUsername.keyboardType = UIKeyboardTypeNumberPad;
         else if (type == kAccountByFly || type == kAccountDamavik || type == kAccountSolo || type == kAccountTeleset || type == kAccountAtlantTelecom) tfUsername.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         else tfUsername.keyboardType = UIKeyboardTypeDefault;
@@ -264,6 +268,7 @@
         tfUsername.text = account.username;
         tfPassword.text = account.password;
         tfLabel.text = account.label;
+        tfBalanceLimit.text  = [account.balanceLimit floatValue] > 0.0f ? [account.balanceLimit stringValue] : @"";
         
         [btnAdd setTitle:@"Сохранить" forState:UIControlStateNormal];
     }
@@ -332,7 +337,7 @@
 
 - (void) keyboardDidShow:(NSNotification *)notification
 {
-    if ([tfLabel isFirstResponder]) [self moveFormUp];
+    [self moveFormUp];
 }
 
 - (void) keyboardDidHide:(NSNotification *)notification
@@ -342,12 +347,17 @@
 
 - (void) moveFormUp
 {
+    CGFloat y = 0;
+    if ([tfLabel isFirstResponder]) y = -50;
+    else if ([tfBalanceLimit isFirstResponder]) y = -158;
+    else return;
+    
     //[self.view setFrame:CGRectMake(0, -50, 320, 416)];
     
     [UIView beginAnimations:@"moveFormUp" context:NULL];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     [UIView setAnimationDuration:0.3];
-    self.view.transform = CGAffineTransformMakeTranslation(0, -50);
+    self.view.transform = CGAffineTransformMakeTranslation(0, y);
     [UIView commitAnimations];
     
     isFormUp = YES;
@@ -357,7 +367,6 @@
 - (void) placeFormNormal
 {
     if (!isFormUp) return;
-    
     //[self.view setFrame:CGRectMake(0, 0, 320, 416)];
     
     [UIView beginAnimations:@"moveFormDown" context:NULL];

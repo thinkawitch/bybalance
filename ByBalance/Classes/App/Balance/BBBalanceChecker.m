@@ -320,10 +320,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     {
         case kPeriodicCheckManual: return 0;
         case kPeriodicCheckOnStart: return 0;
-        case kPeriodicCheck2h: return 60*60*2;
-        case kPeriodicCheck4h: return 60*60*4;
-        case kPeriodicCheck8h: return 60*60*8;
-        case kPeriodicCheck1d: return 60*60*24;
+        case kPeriodicCheck2h: return 60*60*2 - 2*60;  //2 minutes time difference
+        case kPeriodicCheck4h: return 60*60*4 - 2*60;
+        case kPeriodicCheck8h: return 60*60*8 - 2*60;
+        case kPeriodicCheck1d: return 60*60*24 - 2*60;
         default: return 0;
     }
 }

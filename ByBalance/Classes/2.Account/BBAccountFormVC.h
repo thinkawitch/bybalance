@@ -23,6 +23,7 @@
     IBOutlet UITextField * tfPassword;
     IBOutlet UITextField * tfLabel;
     IBOutlet UITextField * tfCheckType;
+    IBOutlet UITextField * tfBalanceLimit;
     IBOutlet UIButton * btnAdd;
     IBOutlet UIButton * btnContacts;
     

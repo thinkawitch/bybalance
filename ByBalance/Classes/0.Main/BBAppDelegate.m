@@ -106,9 +106,34 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNewsstandContentAvailability];
     }
     
+   
+
+    // Launched from push notification
+    NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (notification)
+    {
+        DDLogInfo(@"opened by local notification");
+        application.applicationIconBadgeNumber = 0;
+    }
+    else
+    {
+        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+        if (localNotif)
+        {
+            NSDate *fireTime = [[NSDate date] dateByAddingTimeInterval:10]; // adds 10 secs
+            localNotif.fireDate = fireTime;
+            localNotif.alertBody = @"New Message!";
+            localNotif.soundName = UILocalNotificationDefaultSoundName;
+            localNotif.applicationIconBadgeNumber = 1;
+            //[[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+            //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+        }
+    }
+    
+    
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -139,8 +164,9 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     DDLogVerbose(@"applicationDidBecomeActive");
+    
+    application.applicationIconBadgeNumber = 0;
     [APP_CONTEXT startReachability];
-    toCheckAccountsOnStart = nil;
     
     toCheckAccountsOnStart = [BALANCE_CHECKER accountsToCheckOnStart];
     if ([toCheckAccountsOnStart count] < 1)
@@ -262,6 +288,14 @@
         [APP_CONTEXT stopReachability];
         DDLogVerbose(@"bgFetch - background reachability timeout, still offline");
     }
+}
+
+- (void)application:(UIApplication*)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    //this code executes only if app is running in foreground
+    //do nothing
+    //DDLogVerbose(@"didReceiveLocalNotification");
+    //DDLogInfo(@"%@", notification);
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken

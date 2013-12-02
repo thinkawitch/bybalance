@@ -68,10 +68,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(IDPrimitiveHelper, sharedIDPrimitiveHelper);
 	{
 		if ([aValue length])
         {
-            return [NSDecimalNumber decimalNumberWithString:aValue];
+            NSDecimalNumber * num = [NSDecimalNumber decimalNumberWithString:aValue];
+            if (![num isEqualToNumber:[NSDecimalNumber notANumber]]) return num;
         }
 	}
-	return [NSDecimalNumber decimalNumberWithString:@"0"];
+	return [[NSDecimalNumber alloc] initWithInt:0];
 }
 
 - (NSInteger) integerValue:(id) aValue
