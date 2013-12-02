@@ -14,8 +14,8 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://issa.life.com.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa.life.com.by/"]];
+    [self clearCookies:@"https://issa2.life.com.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa2.life.com.by/"]];
     [self setDefaultsForHttpClient];
     
     NSString * s1 = [self.account.username substringToIndex:2];
