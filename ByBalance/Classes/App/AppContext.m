@@ -14,6 +14,7 @@
 @interface AppContext ()
 - (void) setupDatabase;
 - (void) reachabilityChanged:(NSNotification *)note;
+- (NSString *) numEnding:(NSInteger)num inArr:(NSArray *)arr;
 @end
 
 @implementation AppContext
@@ -365,6 +366,43 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 - (NSString *) basePath
 {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+}
+
+//
+- (NSString *) numEnding:(NSInteger)num inArr:(NSArray *)arr
+{
+    //(1, 4, 5)
+    int number = abs(num);
+    int mod1 = number % 100;
+    if (mod1 >= 11 && mod1 <= 19)
+    {
+        return [arr objectAtIndex:2];
+    }
+    else
+    {
+        int mod2 = mod1 % 10;
+        switch (mod2)
+        {
+            case 1: return [arr objectAtIndex:0];
+                
+            case 2:
+            case 3:
+            case 4: return [arr objectAtIndex:1];
+                
+            default: return [arr objectAtIndex:2];
+        }
+    }
+}
+- (NSString *) formatWordAccount:(NSInteger)num
+{
+    //1,4,5
+    return [self numEnding:num inArr:[NSArray arrayWithObjects:@"аккаунт", @"аккаунта", @"аккаунтов", nil]];
+}
+
+- (NSString *) formatWordExceeded:(NSInteger)num
+{
+    //1,4,5
+    return [self numEnding:num inArr:[NSArray arrayWithObjects:@"превысил", @"превысили", @"превысили", nil]];
 }
 
 @end

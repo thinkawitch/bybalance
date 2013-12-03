@@ -18,6 +18,7 @@
 - (void) onBgUpdateEnd:(BOOL)updated;
 
 - (double) timeForCheckPeriodType:(NSInteger)periodType;
+- (void) notifyAboutLimits;
 
 @end
 
@@ -149,6 +150,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         
         if (queue.operationCount <= 1)
         {
+            [self notifyAboutLimits];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStop object:self userInfo:nil];
             if (bgUpdate) [self onBgUpdateEnd:YES];
         }
@@ -330,7 +332,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 
 - (NSArray *) accountsToCheckInBg
 {
-    NSDate * date = [NSDate new];
+    NSDate * date = [NSDate date];
     NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
     NSTimeInterval timePassed = 0;
     
@@ -384,7 +386,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 
 - (NSArray *) accountsToCheckOnStart
 {
-    NSDate * date = [NSDate new];
+    NSDate * date = [NSDate date];
     NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
     NSTimeInterval timePassed = 0;
     
@@ -413,7 +415,61 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     return toCheckAccounts;
 }
 
-#pragma mark - Server 
+- (void) notifyAboutLimits
+{
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"balanceLimit > 0"];
+    NSArray * arr = [BBMAccount findAllSortedBy:@"order" ascending:YES withPredicate:pred];
+    if (!arr || [arr count] < 1) return;
+    
+    //items checked 1 min ago
+    NSDate * date = [[NSDate date] dateByAddingTimeInterval:-60];
+
+    NSMutableArray * list = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray * names = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    for (BBMAccount * acc in arr)
+    {
+        BBMBalanceHistory * h = [acc lastGoodBalance];
+        if (!h) continue;
+        
+        if ([h.date compare:date] == NSOrderedDescending && [acc.balanceLimit doubleValue] > [h.balance doubleValue])
+        {
+            [list addObject:acc];
+            [names addObject:acc.nameLabel];
+        }
+    }
+    
+    NSInteger count = [list count];
+    if (count < 1) return;
+    
+    NSString * alertBody = nil;
+    if (count > 3)
+    {
+        NSString * w1 = [APP_CONTEXT formatWordAccount:count];
+        NSString * w2 = [APP_CONTEXT formatWordExceeded:count];
+        alertBody = [NSString stringWithFormat:@"%d %@ %@ лимит", count, w1, w2];
+    }
+    else
+    {
+        NSString * w1 = [names componentsJoinedByString: @", "];
+        NSString * w2 = [APP_CONTEXT formatWordExceeded:count];
+        alertBody = [NSString stringWithFormat:@"%@ %@ лимит", w1, w2];
+    }
+        
+    UILocalNotification * localNotif = [[UILocalNotification alloc] init];
+    if (localNotif)
+    {
+        //NSDate * fireTime = [[NSDate date] dateByAddingTimeInterval:10]; // adds 10 secs
+        //localNotif.fireDate = fireTime;
+        localNotif.alertBody = alertBody;
+        localNotif.soundName = UILocalNotificationDefaultSoundName;
+        localNotif.applicationIconBadgeNumber = count;
+        //[[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+    }
+}
+
+#pragma mark - Server
 
 - (void) serverAddToken:(NSString *)token
 {

@@ -87,7 +87,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(IDDateHelper, sharedIDDateHelper);
     
     return [NSString stringWithFormat:@"", mins, secs];
      */
-    
 }
 
 //
@@ -111,7 +110,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(IDDateHelper, sharedIDDateHelper);
 
 - (NSString *) formatSmartAsDayOrTime:(NSDate *)date
 {
-    NSDate * now =[NSDate new];
+    NSDate * now =[NSDate date];
     
     NSCalendar * calendar = [NSCalendar currentCalendar];
     

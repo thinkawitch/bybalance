@@ -63,6 +63,9 @@
 
 //
 - (NSString *) basePath;
+//
+- (NSString *) formatWordAccount:(NSInteger)num;
+- (NSString *) formatWordExceeded:(NSInteger)num;
 
 @end
 

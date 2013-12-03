@@ -106,30 +106,13 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNewsstandContentAvailability];
     }
     
-   
-
     // Launched from push notification
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (notification)
     {
-        DDLogInfo(@"opened by local notification");
+        DDLogVerbose(@"opened by local notification");
         application.applicationIconBadgeNumber = 0;
     }
-    else
-    {
-        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-        if (localNotif)
-        {
-            NSDate *fireTime = [[NSDate date] dateByAddingTimeInterval:10]; // adds 10 secs
-            localNotif.fireDate = fireTime;
-            localNotif.alertBody = @"New Message!";
-            localNotif.soundName = UILocalNotificationDefaultSoundName;
-            localNotif.applicationIconBadgeNumber = 1;
-            //[[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-            //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
-        }
-    }
-    
     
     return YES;
 }
@@ -315,7 +298,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    NSDate * date = [NSDate new];
+    NSDate * date = [NSDate date];
     bgFetchCompletionHandler = nil;
     toCheckAccountsInBg = nil;
     DDLogInfo(@"didReceiveRemoteNotification fetchCompletionHandler: %@", [DATE_HELPER dateToMysqlDateTime:date]);

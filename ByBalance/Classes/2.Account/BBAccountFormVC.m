@@ -349,7 +349,7 @@
 {
     CGFloat y = 0;
     if ([tfLabel isFirstResponder]) y = -50;
-    else if ([tfBalanceLimit isFirstResponder]) y = -158;
+    else if ([tfBalanceLimit isFirstResponder]) y = -164;
     else return;
     
     //[self.view setFrame:CGRectMake(0, -50, 320, 416)];
@@ -378,9 +378,11 @@
 
 - (void) openSelectCheckPeriod
 {
+    [tfBalanceLimit resignFirstResponder];
+    [self placeFormNormal];
+    
     BBSelectCheckPeriodVC * vc = NEWVCFROMNIB(BBSelectCheckPeriodVC);
     vc.currPeriodicCheck = currPeriodicCheck;
-    
     [self.navigationController pushViewController:vc animated:YES];
     //[self presentViewController:vc animated:YES completion:nil];
 }
