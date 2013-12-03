@@ -200,11 +200,11 @@ typedef enum
 - (void) updateScreen
 {
     lblType.text = account.type.name;
-    lblName.text = account.nameLabel;
+    lblName.text = account.username;
+    lblLabel.text = account.label;
     
     lblDate.text = [account lastGoodBalanceDate];
     lblBalance.text = [account lastGoodBalanceValue];
-    
     
     NSPredicate * predicate = [NSPredicate predicateWithFormat:@"account=%@", self.account];
     self.history = [BBMBalanceHistory findAllSortedBy:@"date"
