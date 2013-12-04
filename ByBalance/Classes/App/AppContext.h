@@ -51,7 +51,12 @@
 - (UILabel *) toolBarLabel;
 
 // Styles
+- (UIColor *) colorRed;
+- (UIColor *) colorGrayLight;
+- (UIColor *) colorGrayMedium;
+- (UIColor *) colorGrayDark;
 - (void) makeRedButton:(UIButton *) button;
+- (UIView *)circleWithColor:(UIColor *)color radius:(int)radius;
 
 // UIAlertView variations:
 - (void) showAlertForNoInternet;

@@ -22,7 +22,7 @@
 {
     [super viewDidLoad];
     
-	[tblPeriodChecks setSeparatorColor:[UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1]];
+	[tblPeriodChecks setSeparatorColor:[APP_CONTEXT colorGrayMedium]];
 }
 
 - (void)viewDidUnload

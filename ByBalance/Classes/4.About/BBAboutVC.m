@@ -23,7 +23,7 @@
 {
     [super viewDidLoad];
     
-    [tblButtons setSeparatorColor:[UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1]];
+    [tblButtons setSeparatorColor:[APP_CONTEXT colorGrayMedium]];
     
     //lblVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     lblVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];

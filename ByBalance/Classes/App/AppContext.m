@@ -281,7 +281,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     label.font = [UIFont boldSystemFontOfSize:24.0f];
     label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
     label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+    label.textColor = [self colorRed];//[UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
     return label;
 }
 
@@ -292,21 +292,50 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     label.font = [UIFont boldSystemFontOfSize:14.0f];
     label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
     label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+    label.textColor = [self colorRed];//[UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
     return label;
 }
 
 #pragma mark - Styles
+
+- (UIColor *) colorRed
+{
+    return [UIColor colorWithRed:179.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+}
+
+- (UIColor *) colorGrayLight
+{
+    return [UIColor colorWithRed:170.f/255.f green:170.f/255.f blue:170.f/255.f alpha:1.f];
+}
+
+- (UIColor *) colorGrayMedium
+{
+    return [UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1.f];
+}
+
+- (UIColor *) colorGrayDark
+{
+    return [UIColor colorWithRed:85.f/255.f green:85.f/255.f blue:85.f/255.f alpha:1.f];
+}
 
 - (void) makeRedButton:(UIButton *) button
 {
     [[button layer] setCornerRadius:12.0f];
     //[[button layer] setBorderWidth:1.0f];
     //[[button layer] setBorderColor:[[UIColor blackColor] CGColor]];
-    [button setBackgroundColor:[UIColor colorWithRed:179.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f]];
+    //button.alpha = 0.8f;
+    [button setBackgroundColor:[self colorRed]];
     [button setTitleColor:[UIColor colorWithRed:220.f/255.f green:220.f/255.f blue:220.f/255.f alpha:1] forState:UIControlStateNormal];
 }
 
+- (UIView *)circleWithColor:(UIColor *)color radius:(int)radius
+{
+    UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 2 * radius, 2 * radius)];
+    circle.backgroundColor = color;
+    circle.layer.cornerRadius = radius;
+    circle.layer.masksToBounds = YES;
+    return circle;
+}
 
 //
 #pragma mark - UIAlertView variations:

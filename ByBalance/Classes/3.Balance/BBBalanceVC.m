@@ -40,7 +40,7 @@ typedef enum
 {
     [super viewDidLoad];
     
-    [tblHistory setSeparatorColor:[UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1]];
+    [tblHistory setSeparatorColor:[APP_CONTEXT colorGrayMedium]];
     
     historyStay = 5;
     
