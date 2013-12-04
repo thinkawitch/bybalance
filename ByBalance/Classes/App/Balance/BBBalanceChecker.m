@@ -390,8 +390,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     NSTimeInterval timeNow = [date timeIntervalSinceReferenceDate];
     NSTimeInterval timePassed = 0;
     
-    double limit = 60*30; //30 mins
+    double limit = 0;
+    double limitOnStart = 60*30; //30 mins
     double timeNeverChecked = 60*60*24*365;
+    NSInteger periodicCheckVal = 0;
     
     BBMAccount * acc = nil;
     BBMBalanceHistory * bh = nil;
@@ -402,12 +404,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     for (acc in [BBMAccount findAllSortedBy:@"order" ascending:YES])
     {
         bh = [acc lastBalance];
+        periodicCheckVal = [acc.periodicCheck integerValue];
         
         //skip others
-        if ([acc.periodicCheck integerValue] != kPeriodicCheckOnStart) continue;
+        if (periodicCheckVal == kPeriodicCheckManual) continue;
         
         if (!bh) timePassed = timeNeverChecked;
         else timePassed = timeNow - [bh.date timeIntervalSinceReferenceDate];
+        
+        if (periodicCheckVal == kPeriodicCheckOnStart) limit = limitOnStart;
+        else limit = [self timeForCheckPeriodType:periodicCheckVal] + 3*60;
         
         if (timePassed > limit) [toCheckAccounts addObject:acc];
     }
