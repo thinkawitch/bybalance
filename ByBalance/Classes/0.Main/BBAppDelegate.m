@@ -105,6 +105,10 @@
     {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeNewsstandContentAvailability];
     }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound];
+    }
     
     // Launched from push notification
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
@@ -279,10 +283,13 @@
     //do nothing
     //DDLogVerbose(@"didReceiveLocalNotification");
     //DDLogInfo(@"%@", notification);
+    [APP_CONTEXT showToastWithText:notification.alertBody];
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
+    if (!APP_CONTEXT.isIos7) return;
+    
     NSString * newToken = [deviceToken description];
 	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -292,6 +299,8 @@
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
+    if (!APP_CONTEXT.isIos7) return;
+    
 	DDLogError(@"Failed to get token, error: %@", error);
     [BALANCE_CHECKER serverRemoveToken];
 }
