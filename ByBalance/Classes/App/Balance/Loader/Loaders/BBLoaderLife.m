@@ -8,14 +8,18 @@
 
 #import "BBLoaderLife.h"
 
+@interface BBLoaderLife ()
+
+@end
+
 @implementation BBLoaderLife
 
 #pragma mark - Logic
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://issa2.life.com.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa2.life.com.by/"]];
+    [self clearCookies:@"https://issa.life.com.by/"];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa.life.com.by/"]];
     [self setDefaultsForHttpClient];
     
     NSString * s1 = [self.account.username substringToIndex:2];
@@ -34,10 +38,26 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        DDLogError(@"%@ httpclient_error: %@", [self class], error.localizedDescription);
-        [self doFinish];
+        //DDLogError(@"%@ httpclient_error: %@", [self class], error.localizedDescription);
+        //[self doFinish];
+        
+        [self clearCookies:@"https://issa2.life.com.by/"];
+        self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa2.life.com.by/"]];
+        [self setDefaultsForHttpClient];
+        
+        [self.httpClient postPath:@"/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            [self extractInfoFromHtml:operation.responseString];
+            [self doFinish];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            DDLogError(@"%@ httpclient_error: %@", [self class], error.localizedDescription);
+            [self doFinish];
+        }];
     }];
 }
+
 
 
 - (void) extractInfoFromHtml:(NSString *)html
