@@ -446,26 +446,25 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     if (count > 3)
     {
         NSString * w1 = [APP_CONTEXT formatWordAccount:count];
-        NSString * w2 = [APP_CONTEXT formatWordExceeded:count];
+        NSString * w2 = [APP_CONTEXT formatWordCrossed:count];
         alertBody = [NSString stringWithFormat:@"%d %@ %@ лимит", count, w1, w2];
     }
     else
     {
         NSString * w1 = [names componentsJoinedByString: @", "];
-        NSString * w2 = [APP_CONTEXT formatWordExceeded:count];
+        NSString * w2 = [APP_CONTEXT formatWordCrossed:count];
         alertBody = [NSString stringWithFormat:@"%@ %@ лимит", w1, w2];
     }
         
     UILocalNotification * localNotif = [[UILocalNotification alloc] init];
     if (localNotif)
     {
-        //NSDate * fireTime = [[NSDate date] dateByAddingTimeInterval:10]; // adds 10 secs
-        //localNotif.fireDate = fireTime;
+        localNotif.fireDate = [[NSDate date] dateByAddingTimeInterval:2];
         localNotif.alertBody = alertBody;
         localNotif.soundName = UILocalNotificationDefaultSoundName;
         localNotif.applicationIconBadgeNumber = count;
-        //[[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+        //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
     }
 }
 

@@ -399,10 +399,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     return [self numEnding:num inArr:[NSArray arrayWithObjects:@"аккаунт", @"аккаунта", @"аккаунтов", nil]];
 }
 
-- (NSString *) formatWordExceeded:(NSInteger)num
+- (NSString *) formatWordCrossed:(NSInteger)num
 {
     //1,4,5
-    return [self numEnding:num inArr:[NSArray arrayWithObjects:@"превысил", @"превысили", @"превысили", nil]];
+    return [self numEnding:num inArr:[NSArray arrayWithObjects:@"пересёк", @"пересекли", @"пересекли", nil]];
 }
 
 @end
