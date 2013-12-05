@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		452959BD18292CB0002D92FF /* BBLoaderAnitex.m in Sources */ = {isa = PBXBuildFile; fileRef = 452959BC18292CB0002D92FF /* BBLoaderAnitex.m */; };
+		45CD8D341850713A00F62968 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD8D331850713A00F62968 /* UIImage+Color.m */; };
 		C30FA4BB182D51D800818116 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4AC182D51D800818116 /* DDAbstractDatabaseLogger.m */; };
 		C30FA4BC182D51D800818116 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4AE182D51D800818116 /* DDASLLogger.m */; };
 		C30FA4BD182D51D800818116 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B0182D51D800818116 /* DDFileLogger.m */; };
@@ -152,6 +153,8 @@
 /* Begin PBXFileReference section */
 		452959BB18292CB0002D92FF /* BBLoaderAnitex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderAnitex.h; sourceTree = "<group>"; };
 		452959BC18292CB0002D92FF /* BBLoaderAnitex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderAnitex.m; sourceTree = "<group>"; };
+		45CD8D321850713A00F62968 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		45CD8D331850713A00F62968 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		C30FA4AB182D51D800818116 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		C30FA4AC182D51D800818116 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
 		C30FA4AD182D51D800818116 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
@@ -431,6 +434,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45CD8D311850713A00F62968 /* UIImage+Color */ = {
+			isa = PBXGroup;
+			children = (
+				45CD8D321850713A00F62968 /* UIImage+Color.h */,
+				45CD8D331850713A00F62968 /* UIImage+Color.m */,
+			);
+			path = "UIImage+Color";
+			sourceTree = "<group>";
+		};
 		C30FA4AA182D51D800818116 /* Lumberjack */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,6 +750,7 @@
 				C3DE6FEF1809B2F70024F9DD /* RegexOnNSString */,
 				C390E05318148EE40011EA4D /* RotationAwareNavigationController */,
 				C3DE70121809B5A30024F9DD /* SSCheckBoxView */,
+				45CD8D311850713A00F62968 /* UIImage+Color */,
 				C3DE6FF21809B2F70024F9DD /* XMLReader */,
 				C3C82B4D1808D69F00E2C1D6 /* SynthesizeSingleton.h */,
 			);
@@ -1238,6 +1251,7 @@
 				C3DE6FF51809B2F70024F9DD /* iToast.m in Sources */,
 				C33585F41809D637001AB5D3 /* BBHomeVC.m in Sources */,
 				C3DE70051809B2F70024F9DD /* NSManagedObjectContext+MagicalThreading.m in Sources */,
+				45CD8D341850713A00F62968 /* UIImage+Color.m in Sources */,
 				C3DE70711809BE1C0024F9DD /* BBLoaderLife.m in Sources */,
 				C3DE70011809B2F70024F9DD /* NSManagedObject+MagicalRequests.m in Sources */,
 				C3DE708D1809C13B0024F9DD /* Model.xcdatamodeld in Sources */,

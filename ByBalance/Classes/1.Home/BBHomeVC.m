@@ -121,7 +121,7 @@
 - (void) setupToolbar
 {
     //refresh
-    UIImage * img = [UIImage imageNamed:@"refresh"];
+    UIImage * img = [APP_CONTEXT imageColored:@"refresh"];
 	btnRefresh = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
 	[btnRefresh setImage:img forState:UIControlStateNormal];
     [btnRefresh addTarget:self action:@selector(update:) forControlEvents:UIControlEventTouchUpInside];
@@ -142,7 +142,7 @@
     [lblStatus sizeToFit];
     
     //reorder
-    UIImage * img2 = [UIImage imageNamed:@"reorder"];
+    UIImage * img2 = [APP_CONTEXT imageColored:@"reorder"];
 	btnReorder = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img2.size.width, img2.size.height)];
 	[btnReorder setImage:img2 forState:UIControlStateNormal];
     [btnReorder addTarget:self action:@selector(onBtnReorder:) forControlEvents:UIControlEventTouchUpInside];

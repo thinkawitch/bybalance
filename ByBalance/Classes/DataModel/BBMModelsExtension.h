@@ -16,5 +16,6 @@
 - (NSString *) lastGoodBalanceDate;
 - (NSString *) lastGoodBalanceValue;
 + (NSNumber *) nextOrder;
+- (BOOL) balanceLimitCrossed;
 
 @end

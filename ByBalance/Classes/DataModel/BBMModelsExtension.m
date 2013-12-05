@@ -78,4 +78,16 @@
     return [NSNumber numberWithInt:next];
 }
 
+- (BOOL) balanceLimitCrossed
+{
+    double balanceLimit = [self.balanceLimit doubleValue];
+    if (balanceLimit <= 0) return NO;
+    
+    BBMBalanceHistory * h = [self lastGoodBalance];
+    if (!h) return NO;
+    
+    double balance = [h.balance doubleValue];
+    return (balanceLimit > balance);
+}
+
 @end

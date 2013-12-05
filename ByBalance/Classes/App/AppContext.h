@@ -55,7 +55,9 @@
 - (UIColor *) colorGrayLight;
 - (UIColor *) colorGrayMedium;
 - (UIColor *) colorGrayDark;
+- (UIImage *) imageColored:(NSString *)resourceName;
 - (void) makeRedButton:(UIButton *) button;
+- (CGFloat) labelTextWidth:(UILabel *)label;
 - (UIView *)circleWithColor:(UIColor *)color radius:(int)radius;
 
 // UIAlertView variations:

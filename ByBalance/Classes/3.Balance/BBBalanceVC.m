@@ -23,6 +23,7 @@ typedef enum
 @interface BBBalanceVC ()
 
 @property (strong, nonatomic) NSArray * history;
+@property (strong,nonatomic) UIView * vCircle;
 
 - (void) onBtnEdit:(id)sender;
 - (void) onBtnDelete:(id)sender;
@@ -35,6 +36,7 @@ typedef enum
 
 @synthesize account;
 @synthesize history;
+@synthesize vCircle;
 
 - (void)viewDidLoad
 {
@@ -225,6 +227,26 @@ typedef enum
         [tblHistory reloadData];
         lblHistory.hidden = NO;
         btnClear.hidden = ([history count] <= historyStay);
+    }
+    
+    
+    if ([account balanceLimitCrossed])
+    {
+        if (!self.vCircle)
+        {
+            self.vCircle = [APP_CONTEXT circleWithColor:[APP_CONTEXT colorRed] radius:5];
+            [self.view addSubview:vCircle];
+        }
+        
+        CGFloat textWidth = [APP_CONTEXT labelTextWidth:lblBalance];
+        CGFloat circleX = lblBalance.frame.origin.x + lblBalance.frame.size.width - textWidth - vCircle.frame.size.width - 3;
+        CGFloat circleY = lblBalance.frame.origin.y + (lblBalance.frame.size.height - vCircle.frame.size.height)/2;
+        vCircle.frame = CGRectMake(circleX, circleY, vCircle.frame.size.width, vCircle.frame.size.height);
+    }
+    else
+    {
+        [self.vCircle removeFromSuperview];
+        self.vCircle = nil;
     }
 }
 

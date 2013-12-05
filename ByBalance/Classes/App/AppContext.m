@@ -6,10 +6,11 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "AppContext.h"
 #import "Reachability.h"
 #import "iToast.h"
-#import <QuartzCore/QuartzCore.h>
+#import "UIImage+Color.h"
 
 @interface AppContext ()
 - (void) setupDatabase;
@@ -262,12 +263,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     return [self buttonFromName:@"btn-back.png"];
 }
 
-
 - (UIBarButtonItem *) buttonFromName:(NSString *) resourceName
 {
-	NSAssert2( resourceName, @"%@ - Wrong resource name = %@", [self class], resourceName);
+	NSAssert2(resourceName, @"%@ - Wrong resource name = %@", [self class], resourceName);
     
-	UIImage * img = [UIImage imageNamed:resourceName];
+	UIImage * img = [self imageColored:resourceName];
 	UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height)];
 	[btn setImage:img forState:UIControlStateNormal];
 	
@@ -292,7 +292,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     label.font = [UIFont boldSystemFontOfSize:14.0f];
     label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
     label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [self colorRed];//[UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+    label.textColor = [self colorRed];
     return label;
 }
 
@@ -300,7 +300,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 
 - (UIColor *) colorRed
 {
-    return [UIColor colorWithRed:179.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+    return [UIColor colorWithRed:179.f/255.f green:0.f/255.f blue:0.f/255.f alpha:1.f];
 }
 
 - (UIColor *) colorGrayLight
@@ -318,6 +318,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     return [UIColor colorWithRed:85.f/255.f green:85.f/255.f blue:85.f/255.f alpha:1.f];
 }
 
+- (UIImage *) imageColored:(NSString *)resourceName
+{
+    return [[UIImage imageNamed:resourceName] changeColor:[self colorRed]];
+}
+
 - (void) makeRedButton:(UIButton *) button
 {
     [[button layer] setCornerRadius:12.0f];
@@ -326,6 +331,26 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     //button.alpha = 0.8f;
     [button setBackgroundColor:[self colorRed]];
     [button setTitleColor:[UIColor colorWithRed:220.f/255.f green:220.f/255.f blue:220.f/255.f alpha:1] forState:UIControlStateNormal];
+}
+
+- (CGFloat) labelTextWidth:(UILabel *)label
+{
+    if (APP_CONTEXT.isIos7)
+    {
+        CGRect expectedLabelSize = [label.text boundingRectWithSize:label.frame.size
+                                                            options:(NSStringDrawingTruncatesLastVisibleLine)
+                                                         attributes:@{NSFontAttributeName:label.font}
+                                                            context:nil];
+        
+        return expectedLabelSize.size.width;
+    }
+    else
+    {
+        CGSize expectedLabelSize = [label.text sizeWithFont:label.font
+                                          constrainedToSize:label.frame.size
+                                              lineBreakMode:label.lineBreakMode];
+        return expectedLabelSize.width;
+    }
 }
 
 - (UIView *)circleWithColor:(UIColor *)color radius:(int)radius

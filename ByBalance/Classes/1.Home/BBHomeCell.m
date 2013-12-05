@@ -10,7 +10,6 @@
 
 @interface BBHomeCell ()
 @property (strong,nonatomic) UIView * vCircle;
-- (CGFloat) labelTextWidth:(UILabel *)label;
 @end
 
 @implementation BBHomeCell
@@ -29,58 +28,27 @@
     lblDate.text = [account lastGoodBalanceDate];
     lblBalance.text = [account lastGoodBalanceValue];
     
-    BBMBalanceHistory * h = [account lastGoodBalance];
-    
-    if ([account.balanceLimit doubleValue] > 0 && [account.balanceLimit doubleValue] > [h.balance doubleValue])
+    if ([account balanceLimitCrossed])
     {
         if (!self.vCircle)
         {
-            self.vCircle = [APP_CONTEXT circleWithColor:[APP_CONTEXT colorRed] radius:7];
+            self.vCircle = [APP_CONTEXT circleWithColor:[APP_CONTEXT colorRed] radius:3];
             [self.contentView addSubview:vCircle];
         }
         
-        CGFloat textWidth = [self labelTextWidth:lblBalance];
-        CGFloat circleX = lblBalance.frame.origin.x + lblBalance.frame.size.width - textWidth - 17;
-        vCircle.frame = CGRectMake(circleX, 42.5f, vCircle.frame.size.width, vCircle.frame.size.height);
+        CGFloat textWidth = [APP_CONTEXT labelTextWidth:lblBalance];
+        CGFloat circleX = lblBalance.frame.origin.x + lblBalance.frame.size.width - textWidth - vCircle.frame.size.width - 3;
+        CGFloat circleY = lblBalance.frame.origin.y + (lblBalance.frame.size.height - vCircle.frame.size.height)/2;
+        vCircle.frame = CGRectMake(circleX, circleY, vCircle.frame.size.width, vCircle.frame.size.height);
+        
+        //lblBalance.textColor = [APP_CONTEXT colorRed];
     }
     else
     {
         [self.vCircle removeFromSuperview];
         self.vCircle = nil;
-    }
-}
-
-- (CGFloat) labelTextWidth:(UILabel *)label
-{
-    
-    //return [label.text sizeWithFont:[UIFont systemFontOfSize:17 ]].width;
-    
-    if (APP_CONTEXT.isIos7)
-    {
-        /*
-        CGRect expectedLabelSize = [label.text boundingRectWithSize:label.frame.size
-                                                            options:NSStringDrawingTruncatesLastVisibleLine
-                                                         attributes:@{
-                                                                      NSFontAttributeName: label.font.familyName
-                                                                      }
-                                                            context:nil];
         
-        
-        CGSize maximumLabelSize = CGSizeMake(310, CGFLOAT_MAX);
-         */
-        CGRect expectedLabelSize = [label.text boundingRectWithSize:label.frame.size
-                                                 options:(NSStringDrawingTruncatesLastVisibleLine)
-                                              attributes:@{NSFontAttributeName:label.font}
-                                                 context:nil];
-        
-        return expectedLabelSize.size.width;
-    }
-    else
-    {
-        CGSize expectedLabelSize = [label.text sizeWithFont:label.font
-                                          constrainedToSize:label.frame.size
-                                              lineBreakMode:label.lineBreakMode];
-        return expectedLabelSize.width;
+        //lblBalance.textColor = [APP_CONTEXT colorGrayLight];
     }
 }
 
