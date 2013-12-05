@@ -115,7 +115,7 @@
     if (notification)
     {
         DDLogVerbose(@"opened by local notification");
-        application.applicationIconBadgeNumber = 0;
+        //application.applicationIconBadgeNumber = 0;
     }
     
     return YES;
@@ -182,10 +182,10 @@
 {
     if (appOpenTimer) [self stopAppOpenTimer];
     
-    appOpenTimer = [NSTimer scheduledTimerWithTimeInterval: 0.1f
-                                                target: self
+    appOpenTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
+                                                target:self
                                               selector:@selector(onAppOpenTimerTick:)
-                                              userInfo: nil
+                                              userInfo:nil
                                                repeats:YES];
     appOpenStartTime = CACurrentMediaTime();
 }
