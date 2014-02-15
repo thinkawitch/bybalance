@@ -25,7 +25,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(IDPrimitiveHelper, sharedIDPrimitiveHelper);
 {
     if (![value isKindOfClass:[NSString class]]) return @"";
     
-    return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 - (NSNumber *) numberIntegerValue:(id) aValue
