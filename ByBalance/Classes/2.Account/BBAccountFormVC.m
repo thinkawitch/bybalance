@@ -211,7 +211,7 @@
         
         [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"account"
                                                               action:@"account_create"
-                                                               label:[NSString stringWithFormat:@"%@", account.type.name]
+                                                               label:[NSString stringWithFormat:@"%@", newAccount.type.name]
                                                                value:nil] build]];
     }
 }
