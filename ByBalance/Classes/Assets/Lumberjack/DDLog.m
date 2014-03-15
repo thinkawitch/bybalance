@@ -14,10 +14,10 @@
  * Welcome to Cocoa Lumberjack!
  * 
  * The project page has a wealth of documentation if you have any questions.
- * https://github.com/robbiehanson/CocoaLumberjack
+ * https://github.com/CocoaLumberjack/CocoaLumberjack
  * 
  * If you're new to the project you may wish to read the "Getting Started" wiki.
- * https://github.com/robbiehanson/CocoaLumberjack/wiki/GettingStarted
+ * https://github.com/CocoaLumberjack/CocoaLumberjack/wiki/GettingStarted
  * 
 **/
 
@@ -77,6 +77,7 @@ static void *const GlobalLoggingQueueIdentityKey = (void *)&GlobalLoggingQueueId
 + (void)lt_addLogger:(id <DDLogger>)logger logLevel:(int)logLevel;
 + (void)lt_removeLogger:(id <DDLogger>)logger;
 + (void)lt_removeAllLoggers;
++ (NSArray *)lt_allLoggers;
 + (void)lt_log:(DDLogMessage *)logMessage;
 + (void)lt_flush;
 
@@ -153,13 +154,28 @@ static unsigned int numProcessors;
     #if TARGET_OS_IPHONE
         NSString *notificationName = @"UIApplicationWillTerminateNotification";
     #else
-        NSString *notificationName = @"NSApplicationWillTerminateNotification";
+        NSString *notificationName = nil;
+
+        if (NSClassFromString(@"NSApplication"))
+        {
+            notificationName = @"NSApplicationWillTerminateNotification";
+        }
+        else
+        {
+            // If there is no NSApp -> we are running Command Line Tool app.
+            // In this case terminate notification wouldn't be fired, so we use workaround.
+            atexit_b(^{
+                [self applicationWillTerminate:nil];
+            });
+        }
     #endif
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationWillTerminate:)
-                                                     name:notificationName
-                                                   object:nil];
+        if (notificationName) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(applicationWillTerminate:)
+                                                         name:notificationName
+                                                       object:nil];
+        }
     }
 }
 
@@ -215,6 +231,17 @@ static unsigned int numProcessors;
         
         [self lt_removeAllLoggers];
     }});
+}
+
++ (NSArray *)allLoggers
+{
+    __block NSArray *theLoggers;
+
+    dispatch_sync(loggingQueue, ^{ @autoreleasepool {
+        theLoggers = [self lt_allLoggers];
+    }});
+
+    return theLoggers;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -512,13 +539,13 @@ static unsigned int numProcessors;
 #pragma mark Logging Thread
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * This method should only be run on the logging thread/queue.
-**/
 + (void)lt_addLogger:(id <DDLogger>)logger logLevel:(int)logLevel
 {
     // Add to loggers array.
     // Need to create loggerQueue if loggerNode doesn't provide one.
+
+    NSAssert(dispatch_get_specific(GlobalLoggingQueueIdentityKey),
+            @"This method should only be run on the logging thread/queue");
     
     dispatch_queue_t loggerQueue = NULL;
     
@@ -555,12 +582,12 @@ static unsigned int numProcessors;
     }
 }
 
-/**
- * This method should only be run on the logging thread/queue.
-**/
 + (void)lt_removeLogger:(id <DDLogger>)logger
 {
     // Find associated loggerNode in list of added loggers
+
+    NSAssert(dispatch_get_specific(GlobalLoggingQueueIdentityKey),
+            @"This method should only be run on the logging thread/queue");
     
     DDLoggerNode *loggerNode = nil;
     
@@ -594,13 +621,13 @@ static unsigned int numProcessors;
     [loggers removeObject:loggerNode];
 }
 
-/**
- * This method should only be run on the logging thread/queue.
-**/
 + (void)lt_removeAllLoggers
 {
     // Notify all loggers
     
+    NSAssert(dispatch_get_specific(GlobalLoggingQueueIdentityKey),
+            @"This method should only be run on the logging thread/queue");
+
     for (DDLoggerNode *loggerNode in loggers)
     {
         if ([loggerNode->logger respondsToSelector:@selector(willRemoveLogger)])
@@ -617,12 +644,27 @@ static unsigned int numProcessors;
     [loggers removeAllObjects];
 }
 
-/**
- * This method should only be run on the logging thread/queue.
-**/
++ (NSArray *)lt_allLoggers
+{
+    NSAssert(dispatch_get_specific(GlobalLoggingQueueIdentityKey),
+            @"This method should only be run on the logging thread/queue");
+
+    NSMutableArray *theLoggers = [NSMutableArray new];
+
+    for (DDLoggerNode *loggerNode in loggers)
+    {
+        [theLoggers addObject:loggerNode->logger];
+    }
+
+    return [theLoggers copy];
+}
+
 + (void)lt_log:(DDLogMessage *)logMessage
 {
     // Execute the given log message on each of our loggers.
+
+    NSAssert(dispatch_get_specific(GlobalLoggingQueueIdentityKey),
+            @"This method should only be run on the logging thread/queue");
     
     if (numProcessors > 1)
     {
@@ -637,7 +679,7 @@ static unsigned int numProcessors;
         {
             // skip the loggers that shouldn't write this message based on the logLevel
 
-            if (logMessage->logFlag > loggerNode.logLevel)
+            if (!(logMessage->logFlag & loggerNode.logLevel))
                 continue;
 
             dispatch_group_async(loggingGroup, loggerNode->loggerQueue, ^{ @autoreleasepool {
@@ -657,7 +699,7 @@ static unsigned int numProcessors;
         {
             // skip the loggers that shouldn't write this message based on the logLevel
             
-            if (logMessage->logFlag > loggerNode.logLevel)
+            if (!(logMessage->logFlag & loggerNode.logLevel))
                 continue;
 
             dispatch_sync(loggerNode->loggerQueue, ^{ @autoreleasepool {
@@ -685,15 +727,15 @@ static unsigned int numProcessors;
     dispatch_semaphore_signal(queueSemaphore);
 }
 
-/**
- * This method should only be run on the background logging thread.
-**/
 + (void)lt_flush
 {
     // All log statements issued before the flush method was invoked have now been executed.
     // 
     // Now we need to propogate the flush request to any loggers that implement the flush method.
     // This is designed for loggers that buffer IO.
+
+    NSAssert(dispatch_get_specific(GlobalLoggingQueueIdentityKey),
+            @"This method should only be run on the logging thread/queue");
         
     for (DDLoggerNode *loggerNode in loggers)
     {
@@ -888,9 +930,12 @@ static char *dd_str_copy(const char *str)
         #ifdef DISPATCH_CURRENT_QUEUE_LABEL
         if (
             #if TARGET_OS_IPHONE
-                floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_0
+                #ifndef NSFoundationVersionNumber_iOS_6_1
+                #define NSFoundationVersionNumber_iOS_6_1 993.00
+                #endif
+                floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1 // iOS 7+ (> iOS 6.1)
             #else
-                [[NSApplication sharedApplication] respondsToSelector:@selector(occlusionState)] // No nice way to check for OS X 10.9+
+                [NSTimer instancesRespondToSelector:@selector(tolerance)] // OS X 10.9+
             #endif
             ) {
             queueLabel = dd_str_copy(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL));
@@ -902,9 +947,12 @@ static char *dd_str_copy(const char *str)
         //    dispatch_get_current_queue(void); __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_10_6,__MAC_10_9,__IPHONE_4_0,__IPHONE_6_0)
         if (!gotLabel &&
         #if TARGET_OS_IPHONE
-            floor(NSFoundationVersionNumber) < NSFoundationVersionNumber_iOS_6_0
+            #ifndef NSFoundationVersionNumber_iOS_6_0
+            #define NSFoundationVersionNumber_iOS_6_0 993.00
+            #endif
+            floor(NSFoundationVersionNumber) < NSFoundationVersionNumber_iOS_6_0 // < iOS 6.0
         #else
-            ![[NSApplication sharedApplication] respondsToSelector:@selector(occlusionState)] // < OS X 10.9
+            ![NSTimer instancesRespondToSelector:@selector(tolerance)] // < OS X 10.9
         #endif
             ) {
             #pragma clang diagnostic push
@@ -918,7 +966,7 @@ static char *dd_str_copy(const char *str)
         
         // c) Give up
         if (!gotLabel) {
-            queueLabel = dd_str_copy("");
+            queueLabel = dd_str_copy(""); // iOS 6.x only
         }
         
         threadName = [[NSThread currentThread] name];
