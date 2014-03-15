@@ -75,7 +75,7 @@
     self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa.life.com.by/"]];
     [self setDefaultsForHttpClient];
     
-    [self.httpClient getPath:@"/ru/login/?next=/ru/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient getPath:@"/ru/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
         
@@ -125,7 +125,7 @@
                              s2, @"msisdn",
                              self.account.password, @"super_password",
                              @"true", @"form",
-                             @"/ru/", @"next",
+                             @"/", @"next",
                              nil];
     
 
