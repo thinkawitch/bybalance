@@ -124,7 +124,7 @@
 		C3DE700E1809B2F70024F9DD /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FEA1809B2F70024F9DD /* MagicalRecord+ShorthandSupport.m */; };
 		C3DE700F1809B2F70024F9DD /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FEC1809B2F70024F9DD /* MagicalRecord.m */; };
 		C3DE70101809B2F70024F9DD /* NSString+PDRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FF11809B2F70024F9DD /* NSString+PDRegex.m */; };
-		C3DE70111809B2F70024F9DD /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FF41809B2F70024F9DD /* XMLReader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3DE70111809B2F70024F9DD /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6FF41809B2F70024F9DD /* XMLReader.m */; };
 		C3DE703D1809B5A30024F9DD /* cb_mono_off.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE70241809B5A30024F9DD /* cb_mono_off.png */; };
 		C3DE703E1809B5A30024F9DD /* cb_mono_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE70251809B5A30024F9DD /* cb_mono_off@2x.png */; };
 		C3DE703F1809B5A30024F9DD /* cb_mono_on.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE70261809B5A30024F9DD /* cb_mono_on.png */; };

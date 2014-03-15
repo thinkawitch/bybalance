@@ -56,29 +56,35 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
                                                     options:XMLReaderOptionsProcessNamespaces
                                                       error:&error];
     
-    //DDLogVerbose(@"%@", dict);
     if (error || !dict)
     {
         [self doFinish];
         return;
     }
     
-    NSDictionary * nodeResp = [dict objectForKey:@"res"];
-    if (!nodeResp)
+    NSDictionary * nodeRes = [dict objectForKey:@"res"];
+    if (!nodeRes)
     {
         [self doFinish];
         return;
     }
     
-    nodeResp = [nodeResp objectForKey:@"tag"];
-    if (!nodeResp)
+    NSDictionary * nodeTag = [nodeRes objectForKey:@"tag"];
+    if (!nodeTag)
     {
         [self doFinish];
         return;
     }
     
-    NSString  * session = [nodeResp objectForKey:@"session"];
-    if (!session || [session length] < 1)
+    NSDictionary * nodeSession = [nodeTag objectForKey:@"session"];
+    if (!nodeSession)
+    {
+        [self doFinish];
+        return;
+    }
+
+    NSString  * session = [nodeSession objectForKey:@"text"];
+    if (!session || ![session isKindOfClass:[NSString class]] || [session length] < 1)
     {
         [self doFinish];
         return;
