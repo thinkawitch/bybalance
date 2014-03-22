@@ -166,11 +166,11 @@ typedef enum
     
     alertMode = kAlertModeClearHistory;
     
-    NSString * msg = [NSString stringWithFormat:@"Будут оставлены последние %d записей. Очистить историю?", historyStay];
+    NSString * msg = [NSString stringWithFormat:@"Будут оставлены последние %ld записей. Очистить историю?", (long)historyStay];
     
     [APP_CONTEXT showAlertWithTitle:@"" 
                             andText:msg 
-                        andDelegate:self 
+                        andDelegate:self
                    andButtonsTitles:[NSArray arrayWithObjects:@"Нет", @"Да", nil]];
 }
 
@@ -303,7 +303,7 @@ typedef enum
         {
             [self clearHistory];
             
-            NSString * msg = [NSString stringWithFormat:@"История очищена. Оставлены последние %d записей.", historyStay];
+            NSString * msg = [NSString stringWithFormat:@"История очищена. Оставлены последние %ld записей.", (long)historyStay];
             [APP_CONTEXT showToastWithText:msg]; 
         }
     }

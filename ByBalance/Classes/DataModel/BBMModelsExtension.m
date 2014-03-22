@@ -75,7 +75,7 @@
         next = [last.order integerValue] + 1;
     }
     
-    return [NSNumber numberWithInt:next];
+    return [NSNumber numberWithInteger:next];
 }
 
 - (BOOL) balanceLimitCrossed

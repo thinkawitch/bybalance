@@ -83,7 +83,7 @@
         cell = [nibs objectAtIndex:0];
     }
     
-    NSNumber * atId  = [NSNumber numberWithInt:indexPath.row + 1];
+    NSNumber * atId  = [NSNumber numberWithInteger:indexPath.row + 1];
     BBMAccountType * at = [BBMAccountType findFirstByAttribute:@"id" withValue:atId];
     
     if (at)

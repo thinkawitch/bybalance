@@ -174,7 +174,7 @@
         account.username = tfUsername.text;
         account.password = tfPassword.text;
         account.label = tfLabel.text;
-        account.periodicCheck = [NSNumber numberWithInt:currPeriodicCheck];
+        account.periodicCheck = [NSNumber numberWithInteger:currPeriodicCheck];
         account.balanceLimit = [PRIMITIVE_HELPER numberDecimalValue:tfBalanceLimit.text];
         [APP_CONTEXT saveDatabase];
         
@@ -197,7 +197,7 @@
         newAccount.password = tfPassword.text;
         newAccount.label = tfLabel.text;
         newAccount.order = [BBMAccount nextOrder];
-        newAccount.periodicCheck = [NSNumber numberWithInt:currPeriodicCheck];
+        newAccount.periodicCheck = [NSNumber numberWithInteger:currPeriodicCheck];
         
         newAccount.balanceLimit = [PRIMITIVE_HELPER numberDecimalValue:tfBalanceLimit.text];
         

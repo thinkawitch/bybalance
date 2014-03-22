@@ -178,7 +178,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     if (added) [self saveDatabase];
     
     NSInteger build = [SETTINGS.build integerValue];
-    DDLogInfo(@"build in settings: %d", build);
+    DDLogInfo(@"build in settings: %ld", (long)build);
     
     BOOL updated = NO;
     BBMAccount * acc;

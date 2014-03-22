@@ -453,7 +453,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     {
         NSString * w1 = [APP_CONTEXT formatWordAccount:count];
         NSString * w2 = [APP_CONTEXT formatWordCrossed:count];
-        alertBody = [NSString stringWithFormat:@"%d %@ %@ лимит", count, w1, w2];
+        alertBody = [NSString stringWithFormat:@"%ld %@ %@ лимит", (long)count, w1, w2];
     }
     else
     {
