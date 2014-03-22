@@ -11,7 +11,7 @@
 #import "BBHomeCell.h"
 #import "BBBalanceVC.h"
 #import "BBAboutVC.h"
-#import "RotationAwareNavigationController.h"
+#import "BBNavigationController.h"
 
 @interface BBHomeVC ()
 
@@ -168,7 +168,7 @@
 {
     BBAboutVC * vc = NEWVCFROMNIB(BBAboutVC);
     
-    UINavigationController * navController = [[RotationAwareNavigationController alloc] initWithRootViewController:vc];
+    UINavigationController * navController = [[BBNavigationController alloc] initWithRootViewController:vc];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
     navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     navController.navigationBar.barStyle = UIBarStyleBlackOpaque;

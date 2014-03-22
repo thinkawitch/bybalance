@@ -1,5 +1,5 @@
 //
-//  RotationAwareNavigationController.h
+//  BBNavigationController.h
 //  ByBalance
 //
 //  Created by Andrew Sinkevitch on 10/21/13.
@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RotationAwareNavigationController : UINavigationController
+@interface BBNavigationController : UINavigationController <UINavigationControllerDelegate>
 
 @end

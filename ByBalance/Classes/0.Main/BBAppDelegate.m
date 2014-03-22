@@ -8,7 +8,7 @@
 
 #import "BBAppDelegate.h"
 #import "BBHomeVC.h"
-#import "RotationAwareNavigationController.h"
+#import "BBNavigationController.h"
 
 @interface BBAppDelegate ()
 {
@@ -88,14 +88,14 @@
     application.statusBarHidden = NO;
     
     BBHomeVC * vc = NEWVCFROMNIB(BBHomeVC);
-    self.nc = [[RotationAwareNavigationController alloc] initWithRootViewController:vc];
+    self.nc = [[BBNavigationController alloc] initWithRootViewController:vc];
     self.nc.navigationBar.barStyle = UIBarStyleBlack;
     self.nc.navigationBar.translucent = NO;
     self.nc.navigationBar.backgroundColor = [UIColor blackColor];
     if (APP_CONTEXT.isIos7)
     {
-        //self.nc.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
-        //does bugs
+        self.nc.delegate = (id<UINavigationControllerDelegate>)self.nc;
+        self.nc.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
     }
     
     self.window.rootViewController = self.nc;

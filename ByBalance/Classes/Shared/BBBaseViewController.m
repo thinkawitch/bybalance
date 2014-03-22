@@ -24,6 +24,7 @@
 	
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self setupNavBar];
+    
 }
 
 - (void) viewDidUnload
@@ -36,6 +37,8 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    
 }
 
 #pragma mark - Autorotation

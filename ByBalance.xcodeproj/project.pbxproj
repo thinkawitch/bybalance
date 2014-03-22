@@ -47,7 +47,6 @@
 		C3824FD318D4E853002AC0A3 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3824FD018D4E853002AC0A3 /* DDMultiFormatter.m */; };
 		C3878F2A184B9566008FB289 /* arrow2_right.png in Resources */ = {isa = PBXBuildFile; fileRef = C3878F28184B9566008FB289 /* arrow2_right.png */; };
 		C3878F2B184B9566008FB289 /* arrow2_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3878F29184B9566008FB289 /* arrow2_right@2x.png */; };
-		C390E05618148EE40011EA4D /* RotationAwareNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */; };
 		C3B23B651814563700A7243E /* BBLoaderDiallog.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B23B641814563700A7243E /* BBLoaderDiallog.m */; };
 		C3B23B701814715800A7243E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B23B6E1814715800A7243E /* libGoogleAnalyticsServices.a */; };
 		C3B23B721814736900A7243E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B23B711814736900A7243E /* libz.dylib */; };
@@ -74,6 +73,7 @@
 		C3C1DA601809FCF300180AFA /* BBBalanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA581809FCF300180AFA /* BBBalanceVC.xib */; };
 		C3C1DA611809FCF300180AFA /* BBAboutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA5A1809FCF300180AFA /* BBAboutCell.xib */; };
 		C3C1DA621809FCF300180AFA /* BBAboutVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C1DA5B1809FCF300180AFA /* BBAboutVC.xib */; };
+		C3C6C5E618DE1F1D00C8B9D7 /* BBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C6C5E518DE1F1D00C8B9D7 /* BBNavigationController.m */; };
 		C3C82AB01808AEC200E2C1D6 /* BBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82AAC1808AEC100E2C1D6 /* BBAppDelegate.m */; };
 		C3C82B031808CE1500E2C1D6 /* BBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B021808CE1500E2C1D6 /* BBBaseViewController.m */; };
 		C3C82B081808D1AF00E2C1D6 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B071808D1AF00E2C1D6 /* MBProgressHUD.m */; };
@@ -223,8 +223,6 @@
 		C38468E0181405690053CF41 /* BBLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDelegate.h; sourceTree = "<group>"; };
 		C3878F28184B9566008FB289 /* arrow2_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow2_right.png; sourceTree = "<group>"; };
 		C3878F29184B9566008FB289 /* arrow2_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow2_right@2x.png"; sourceTree = "<group>"; };
-		C390E05418148EE40011EA4D /* RotationAwareNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationAwareNavigationController.h; sourceTree = "<group>"; };
-		C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationAwareNavigationController.m; sourceTree = "<group>"; };
 		C3A211F11841853D005A2883 /* Model5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model5.xcdatamodel; sourceTree = "<group>"; };
 		C3B23B631814563700A7243E /* BBLoaderDiallog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderDiallog.h; sourceTree = "<group>"; };
 		C3B23B641814563700A7243E /* BBLoaderDiallog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderDiallog.m; sourceTree = "<group>"; };
@@ -259,6 +257,8 @@
 		C3C1DA581809FCF300180AFA /* BBBalanceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBBalanceVC.xib; sourceTree = "<group>"; };
 		C3C1DA5A1809FCF300180AFA /* BBAboutCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAboutCell.xib; sourceTree = "<group>"; };
 		C3C1DA5B1809FCF300180AFA /* BBAboutVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBAboutVC.xib; sourceTree = "<group>"; };
+		C3C6C5E418DE1F1D00C8B9D7 /* BBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBNavigationController.h; sourceTree = "<group>"; };
+		C3C6C5E518DE1F1D00C8B9D7 /* BBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBNavigationController.m; sourceTree = "<group>"; };
 		C3C82AAB1808AEC100E2C1D6 /* BBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAppDelegate.h; sourceTree = "<group>"; };
 		C3C82AAC1808AEC100E2C1D6 /* BBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAppDelegate.m; sourceTree = "<group>"; };
 		C3C82B011808CE1500E2C1D6 /* BBBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBaseViewController.h; sourceTree = "<group>"; };
@@ -595,15 +595,6 @@
 			path = 4.About;
 			sourceTree = "<group>";
 		};
-		C390E05318148EE40011EA4D /* RotationAwareNavigationController */ = {
-			isa = PBXGroup;
-			children = (
-				C390E05418148EE40011EA4D /* RotationAwareNavigationController.h */,
-				C390E05518148EE40011EA4D /* RotationAwareNavigationController.m */,
-			);
-			path = RotationAwareNavigationController;
-			sourceTree = "<group>";
-		};
 		C3B23B661814715800A7243E /* GoogleAnalytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -731,6 +722,8 @@
 		C3C82B001808CE1500E2C1D6 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C3C6C5E418DE1F1D00C8B9D7 /* BBNavigationController.h */,
+				C3C6C5E518DE1F1D00C8B9D7 /* BBNavigationController.m */,
 				C3C82B011808CE1500E2C1D6 /* BBBaseViewController.h */,
 				C3C82B021808CE1500E2C1D6 /* BBBaseViewController.m */,
 			);
@@ -750,7 +743,6 @@
 				C3C82B481808D59B00E2C1D6 /* PrimitiveHelper */,
 				C3C82B4E1808D9D700E2C1D6 /* Reachability */,
 				C3DE6FEF1809B2F70024F9DD /* RegexOnNSString */,
-				C390E05318148EE40011EA4D /* RotationAwareNavigationController */,
 				C3DE70121809B5A30024F9DD /* SSCheckBoxView */,
 				45CD8D311850713A00F62968 /* UIImage+Color */,
 				C3DE6FF21809B2F70024F9DD /* XMLReader */,
@@ -1204,6 +1196,7 @@
 				C3DE70771809BE1C0024F9DD /* BBLoaderVelcom.m in Sources */,
 				C3DE70041809B2F70024F9DD /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				C3C82B081808D1AF00E2C1D6 /* MBProgressHUD.m in Sources */,
+				C3C6C5E618DE1F1D00C8B9D7 /* BBNavigationController.m in Sources */,
 				C313E37B182989030007BF6E /* BBMAccountType.m in Sources */,
 				C3DE70031809B2F70024F9DD /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				C30FA4BD182D51D800818116 /* DDFileLogger.m in Sources */,
@@ -1226,7 +1219,6 @@
 				C32283591829775200D924DA /* BBHistoryCommonCell.m in Sources */,
 				C3C82B031808CE1500E2C1D6 /* BBBaseViewController.m in Sources */,
 				C313E378182989020007BF6E /* BBMAccount.m in Sources */,
-				C390E05618148EE40011EA4D /* RotationAwareNavigationController.m in Sources */,
 				C3DE6FF81809B2F70024F9DD /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				C33586061809D6BD001AB5D3 /* BBAccountFormVC.m in Sources */,
 				C3C82B4C1808D59B00E2C1D6 /* IDPrimitiveHelper.m in Sources */,
