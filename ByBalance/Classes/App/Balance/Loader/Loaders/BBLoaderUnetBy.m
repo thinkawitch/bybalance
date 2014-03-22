@@ -82,8 +82,19 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
         [self doFinish];
         return;
     }
-
-    NSString  * session = [nodeSession objectForKey:@"text"];
+    
+    
+    NSString  * session = nil;
+    
+    if ([nodeSession isKindOfClass:[NSString class]])
+    {
+        session = (NSString*)nodeSession;
+    }
+    else if ([nodeSession isKindOfClass:[NSDictionary class]])
+    {
+        session = [nodeSession objectForKey:@"text"];
+    }
+    
     if (!session || ![session isKindOfClass:[NSString class]] || [session length] < 1)
     {
         [self doFinish];
@@ -138,8 +149,22 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
     NSDictionary * nodeDeposit = [nodeTag objectForKey:@"deposit"];
     if (!nodeDeposit) return;
     
-    NSString * textBalance = [nodeDeposit objectForKey:@"text"];
-    if (!textBalance) return;
+    NSString * textBalance = nil;
+    
+    if ([nodeDeposit isKindOfClass:[NSString class]])
+    {
+        textBalance = (NSString*)nodeDeposit;
+    }
+    else if ([nodeDeposit isKindOfClass:[NSDictionary class]])
+    {
+        textBalance = [nodeDeposit objectForKey:@"text"];
+    }
+    
+    if (!textBalance || ![textBalance isKindOfClass:[NSString class]] || [textBalance length] < 1)
+    {
+        [self doFinish];
+        return;
+    }
     
     self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:textBalance];
     //self.loaderInfo.userBalance = textBalance;

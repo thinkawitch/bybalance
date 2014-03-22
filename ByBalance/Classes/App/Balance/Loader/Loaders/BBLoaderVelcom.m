@@ -66,19 +66,21 @@
     
     NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
     NSString * s1 = [self.account.username substringToIndex:2];
+    s1 = [NSString stringWithFormat:@"375%@", s1];
     NSString * s2 = [self.account.username substringFromIndex:2];
+    
     
     NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
         [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
         [formData appendPartWithFormData:[@"_next" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
         [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"last_id"];
-        [formData appendPartWithFormData:[@"5" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_8"];
+        //[formData appendPartWithFormData:[@"5" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_8"];
         [formData appendPartWithFormData:[s1 dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_1"];
         [formData appendPartWithFormData:[s2 dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_2"];
         [formData appendPartWithFormData:[self.account.password dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_3"];
-        [formData appendPartWithFormData:[@"2" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_9"];
-        [formData appendPartWithFormData:[@"0" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_10"];
+        //[formData appendPartWithFormData:[@"2" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_9"];
+        //[formData appendPartWithFormData:[@"0" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_10"];
     }];
 
     
@@ -104,6 +106,7 @@
     NSString * menuMarker = @"";
     NSString * menuMarker1 = @"_root/USER_INFO";
     NSString * menuMarker2 = @"_root/MENU0";
+    NSString * menuMarker3 = @"_root/PERSONAL_INFO";
     
     BOOL loggedIn = false;
     //check if we logged in
@@ -115,6 +118,11 @@
     else if ([html rangeOfString:menuMarker2].location != NSNotFound)
     {
         menuMarker = menuMarker2;
+        loggedIn = YES;
+    }
+    else if ([html rangeOfString:menuMarker3].location != NSNotFound)
+    {
+        menuMarker = menuMarker3;
         loggedIn = YES;
     }
 
@@ -133,6 +141,7 @@
         [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
         [formData appendPartWithFormData:[menuMarker dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
         [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"last_id"];
+        [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_1"];
     }];
     
     
@@ -167,6 +176,7 @@
     NSString * menuMarker = @"";
     NSString * menuMarker1 = @"_root/USER_INFO";
     NSString * menuMarker2 = @"_root/MENU0";
+    NSString * menuMarker3 = @"_root/PERSONAL_INFO";
     
     BOOL loggedIn = false;
     //check if we logged in
@@ -178,6 +188,11 @@
     else if ([html rangeOfString:menuMarker2].location != NSNotFound)
     {
         menuMarker = menuMarker2;
+        loggedIn = YES;
+    }
+    else if ([html rangeOfString:menuMarker3].location != NSNotFound)
+    {
+        menuMarker = menuMarker3;
         loggedIn = YES;
     }
     
@@ -210,6 +225,7 @@
     NSDecimalNumber * balance1 = nil;
     NSDecimalNumber * balance2 = nil;
     NSDecimalNumber * balance3 = nil;
+    NSDecimalNumber * balance4 = nil;
     
     //balance 1
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -238,9 +254,20 @@
         }
     }
     
+    if (nil == balance1 && nil == balance2 && nil == balance3)
+    {
+        //balance 4
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class=\"info\" id=\"BALANCE\" colspan=\"2\"><span>\\s*([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+        if (arr && [arr count] == 1)
+        {
+            balance4 = [self decimalNumberFromString:[arr objectAtIndex:0]];
+        }
+    }
+    
     if (nil != balance1) self.loaderInfo.userBalance = balance1;
     else if (nil != balance2) self.loaderInfo.userBalance = balance2;
     else if (nil != balance3) self.loaderInfo.userBalance = balance3;
+    else if (nil != balance4) self.loaderInfo.userBalance = balance4;
     
     self.loaderInfo.extracted = YES;
 }
