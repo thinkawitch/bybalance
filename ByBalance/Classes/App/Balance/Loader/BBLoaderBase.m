@@ -110,7 +110,7 @@
 
 - (void) setDefaultsForHttpClient
 {
-    [self.httpClient setDefaultHeader:@"User-Agent" value:@"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0"];
+    [self.httpClient setDefaultHeader:@"User-Agent" value:@"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0"];
     self.httpClient.allowsInvalidSSLCertificate = YES;
 }
 

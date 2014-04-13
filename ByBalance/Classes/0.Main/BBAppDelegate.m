@@ -118,6 +118,37 @@
         //application.applicationIconBadgeNumber = 0;
     }
     
+    
+    /*
+    //test velcom
+    NSString * velcom = [NSString stringWithContentsOfFile:@"/Users/administrator/Documents/velcom.txt"
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:NULL];
+    NSArray * arr = nil;
+    NSDecimalNumber * balance = nil;
+    NSArray * balanceMarkers = [NSArray arrayWithObjects:
+                                //@"Текущий баланс:</td><td class=\"INFO\">([^<]+)",
+                                //@"Баланс:</td><td class=\"INFO\">([^<]+)",
+                                //@"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)",
+                                //@"<td class=\"info\" id=\"BALANCE\" colspan=\"2\"><span>\\s*([^<]+)",
+                                @"<td[^>]*id=\"BALANCE\"[^>]*><span>\\s*([^<]+)",
+                                nil];
+    NSLog(@"velcom");
+    int c = 0;
+    for (NSString * bm in balanceMarkers)
+    {
+        arr = [velcom stringsByExtractingGroupsUsingRegexPattern:bm caseInsensitive:YES treatAsOneLine:NO];
+        if (arr && [arr count] == 1)
+        {
+            NSLog(@"%d:%@", c, [arr objectAtIndex:0]);
+        }
+        c++;
+    }
+    
+    //DDLogVerbose(@"%@", velcom);
+     */
+    
+    
     return YES;
 }
 

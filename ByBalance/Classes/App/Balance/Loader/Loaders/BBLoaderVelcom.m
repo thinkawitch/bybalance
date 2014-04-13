@@ -11,10 +11,13 @@
 @interface BBLoaderVelcom ()
 
 @property (nonatomic,strong) NSString * sessionId;
+@property (nonatomic,assign) BOOL loggedIn;
+@property (nonatomic,strong) NSString * menuMarker;
 
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
 - (void) onStep3:(NSString *)html;
+- (void) checkIfLoggedInHtml:(NSString *) html;
 
 @end
 
@@ -30,6 +33,9 @@
     [self clearCookies:@"https://internet.velcom.by/"];
     self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://internet.velcom.by/"]];
     [self setDefaultsForHttpClient];
+    
+    self.loggedIn = NO;
+    self.menuMarker = @"";
     
     [self.httpClient getPath:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -103,30 +109,9 @@
     //DDLogVerbose(@"BBLoaderVelcom.onStep2");
     //DDLogVerbose(@"%@", html);
     
-    NSString * menuMarker = @"";
-    NSString * menuMarker1 = @"_root/USER_INFO";
-    NSString * menuMarker2 = @"_root/MENU0";
-    NSString * menuMarker3 = @"_root/PERSONAL_INFO";
-    
-    BOOL loggedIn = false;
-    //check if we logged in
-    if ([html rangeOfString:menuMarker1].location != NSNotFound)
-    {
-        menuMarker = menuMarker1;
-        loggedIn = YES;
-    }
-    else if ([html rangeOfString:menuMarker2].location != NSNotFound)
-    {
-        menuMarker = menuMarker2;
-        loggedIn = YES;
-    }
-    else if ([html rangeOfString:menuMarker3].location != NSNotFound)
-    {
-        menuMarker = menuMarker3;
-        loggedIn = YES;
-    }
+    [self checkIfLoggedInHtml:html];
 
-    if (!loggedIn)
+    if (!self.loggedIn)
     {
         //maybe login problem
         self.loaderInfo.incorrectLogin = YES;
@@ -139,7 +124,7 @@
     NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
         [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
-        [formData appendPartWithFormData:[menuMarker dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
+        [formData appendPartWithFormData:[self.menuMarker dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
         [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"last_id"];
         [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_1"];
     }];
@@ -173,30 +158,9 @@
 {
     NSArray * arr = nil;
     
-    NSString * menuMarker = @"";
-    NSString * menuMarker1 = @"_root/USER_INFO";
-    NSString * menuMarker2 = @"_root/MENU0";
-    NSString * menuMarker3 = @"_root/PERSONAL_INFO";
+    [self checkIfLoggedInHtml:html];
     
-    BOOL loggedIn = false;
-    //check if we logged in
-    if ([html rangeOfString:menuMarker1].location != NSNotFound)
-    {
-        menuMarker = menuMarker1;
-        loggedIn = YES;
-    }
-    else if ([html rangeOfString:menuMarker2].location != NSNotFound)
-    {
-        menuMarker = menuMarker2;
-        loggedIn = YES;
-    }
-    else if ([html rangeOfString:menuMarker3].location != NSNotFound)
-    {
-        menuMarker = menuMarker3;
-        loggedIn = YES;
-    }
-    
-    if (!loggedIn)
+    if (!self.loggedIn)
     {
         //incorrect login/pass
         self.loaderInfo.incorrectLogin = ([html rangeOfString:@"INFO_Error_caption"].location != NSNotFound);
@@ -207,69 +171,57 @@
     
     
     //userTitle
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"ФИО:</td><td class=\"INFO\">([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td[^>]*id=\"NAME\"[^>]*><span>\\s*([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    //DDLogVerbose(@"userTitle: %@", loaderInfo.userTitle);
+    DDLogVerbose(@"userTitle: %@", self.loaderInfo.userTitle);
     
     //userPlan
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Тарифный план:\\s*</td><td class=\"INFO\"[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td[^>]*id=\"TPLAN\"[^>]*><span>\\s*([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    //DDLogVerbose(@"userPlan: %@", loaderInfo.userPlan);
+    DDLogVerbose(@"userPlan: %@", self.loaderInfo.userPlan);
     
-    NSDecimalNumber * balance1 = nil;
-    NSDecimalNumber * balance2 = nil;
-    NSDecimalNumber * balance3 = nil;
-    NSDecimalNumber * balance4 = nil;
+    NSDecimalNumber * balance = nil;
+    NSArray * balanceMarkers = [NSArray arrayWithObjects:
+                                @"Текущий баланс:</td><td class=\"INFO\">([^<]+)",
+                                @"Баланс:</td><td class=\"INFO\">([^<]+)",
+                                @"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)",
+                                @"<td[^>]*id=\"BALANCE\"[^>]*><span>\\s*([^<]+)",
+                                nil];
     
-    //balance 1
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
+    for (NSString * bm in balanceMarkers)
     {
-        balance1 = [self decimalNumberFromString:[arr objectAtIndex:0]];
-    }
-    
-    if (nil == balance1)
-    {
-        //balance 2
-        arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Баланс:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:bm caseInsensitive:YES treatAsOneLine:NO];
         if (arr && [arr count] == 1)
         {
-            balance2 = [self decimalNumberFromString:[arr objectAtIndex:0]];
+            balance = [self decimalNumberFromString:[arr objectAtIndex:0]];
+            if (nil != balance) self.loaderInfo.userBalance = balance;
         }
     }
-    
-    if (nil == balance1 && nil == balance2)
-    {
-        //balance 3
-        arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-        if (arr && [arr count] == 1)
-        {
-            balance3 = [self decimalNumberFromString:[arr objectAtIndex:0]];
-        }
-    }
-    
-    if (nil == balance1 && nil == balance2 && nil == balance3)
-    {
-        //balance 4
-        arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class=\"info\" id=\"BALANCE\" colspan=\"2\"><span>\\s*([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-        if (arr && [arr count] == 1)
-        {
-            balance4 = [self decimalNumberFromString:[arr objectAtIndex:0]];
-        }
-    }
-    
-    if (nil != balance1) self.loaderInfo.userBalance = balance1;
-    else if (nil != balance2) self.loaderInfo.userBalance = balance2;
-    else if (nil != balance3) self.loaderInfo.userBalance = balance3;
-    else if (nil != balance4) self.loaderInfo.userBalance = balance4;
     
     self.loaderInfo.extracted = YES;
+}
+
+- (void) checkIfLoggedInHtml:(NSString *) html;
+{
+    self.loggedIn = NO;
+    self.menuMarker = @"";
+    NSArray * menuMarkers = [NSArray arrayWithObjects:@"_root/USER_INFO", @"_root/MENU0", @"_root/PERSONAL_INFO", nil];
+    
+    for (NSString * marker in menuMarkers)
+    {
+        if ([html rangeOfString:marker].location != NSNotFound)
+        {
+            self.menuMarker = marker;
+            self.loggedIn = YES;
+            break;
+        }
+    }
 }
 
 @end
