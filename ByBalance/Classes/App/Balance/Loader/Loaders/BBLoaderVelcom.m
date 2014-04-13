@@ -176,7 +176,7 @@
     {
         self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    DDLogVerbose(@"userTitle: %@", self.loaderInfo.userTitle);
+    //DDLogVerbose(@"userTitle: %@", self.loaderInfo.userTitle);
     
     //userPlan
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td[^>]*id=\"TPLAN\"[^>]*><span>\\s*([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
@@ -184,7 +184,15 @@
     {
         self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
-    DDLogVerbose(@"userPlan: %@", self.loaderInfo.userPlan);
+    //DDLogVerbose(@"userPlan: %@", self.loaderInfo.userPlan);
+    
+    //bonuses
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td[^>]*id=\"DISCOUNT\"[^>]*><span>\\s*([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        self.loaderInfo.bonuses = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
+    }
+    //DDLogVerbose(@"bonuses: %@", self.loaderInfo.bonuses);
     
     NSDecimalNumber * balance = nil;
     NSArray * balanceMarkers = [NSArray arrayWithObjects:
@@ -200,11 +208,13 @@
         if (arr && [arr count] == 1)
         {
             balance = [self decimalNumberFromString:[arr objectAtIndex:0]];
-            if (nil != balance) self.loaderInfo.userBalance = balance;
+            if (nil != balance)
+            {
+                self.loaderInfo.userBalance = balance;
+                self.loaderInfo.extracted = YES;
+            }
         }
     }
-    
-    self.loaderInfo.extracted = YES;
 }
 
 - (void) checkIfLoggedInHtml:(NSString *) html;

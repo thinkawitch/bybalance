@@ -26,6 +26,8 @@
 @synthesize userMinutes;
 @synthesize userSms;
 
+@synthesize bonuses;
+
 
 #pragma mark - ObjectLife
 
@@ -49,6 +51,8 @@
         
         self.userMinutes = [NSNumber numberWithInt:0];
         self.userSms = [NSNumber numberWithInt:0];
+        
+        self.bonuses = @"";
 	}
 	
 	return self;

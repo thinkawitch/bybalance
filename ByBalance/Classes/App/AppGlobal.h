@@ -82,6 +82,7 @@ extern const CGFloat kHomeCellHeight;
 extern const CGFloat kAccountTypeCellHeight;
 extern const CGFloat kHistoryCellHeight1;
 extern const CGFloat kHistoryCellHeight2;
+extern const CGFloat kHistoryCellHeight3;
 extern const CGFloat kAboutCellHeight;
 extern const CGFloat kCheckPeriodTypeCellHeight;
 //

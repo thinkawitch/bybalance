@@ -11,7 +11,7 @@
 @interface BBHistoryAnitexCell : BBHistoryBaseCell
 {
     
-@private
+@protected
     IBOutlet UILabel * lblDate;
     IBOutlet UILabel * lblMegabytes;
     IBOutlet UILabel * lblDays;

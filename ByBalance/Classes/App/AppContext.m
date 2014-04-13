@@ -220,6 +220,27 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
         SETTINGS.build = [NSNumber numberWithInt:49];
         [SETTINGS save];
     }
+    
+    //added velcom bonuses v1.6.6
+    if (build < 68)
+    {
+        DDLogInfo(@"adding field: label");
+        for (acc in [BBMAccount findAll])
+        {
+            for (BBMBalanceHistory * history in acc.history)
+            {
+                if (!history.bonuses)
+                {
+                    history.bonuses = @"";
+                    updated = YES;
+                }
+            }
+        }
+        if (updated) [self saveDatabase];
+        
+        SETTINGS.build = [NSNumber numberWithInt:68];
+        [SETTINGS save];
+    }
 }
 
 - (void) saveDatabase

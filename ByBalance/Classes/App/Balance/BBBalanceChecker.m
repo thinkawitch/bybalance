@@ -143,6 +143,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         bh.credit = loaderInfo.userCredit;
         bh.minutes = loaderInfo.userMinutes;
         bh.sms = loaderInfo.userSms;
+        bh.bonuses = loaderInfo.bonuses;
         
         [APP_CONTEXT saveDatabase];
         

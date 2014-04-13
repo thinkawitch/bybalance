@@ -2,8 +2,8 @@
 //  BBMBalanceHistory.m
 //  ByBalance
 //
-//  Created by Andrew Sinkevitch on 11/5/13.
-//  Copyright (c) 2013 sinkevitch.name. All rights reserved.
+//  Created by Andrew Sinkevitch on 4/13/14.
+//  Copyright (c) 2014 sinkevitch.name. All rights reserved.
 //
 
 #import "BBMBalanceHistory.h"
@@ -13,6 +13,7 @@
 @implementation BBMBalanceHistory
 
 @dynamic balance;
+@dynamic credit;
 @dynamic date;
 @dynamic days;
 @dynamic extracted;
@@ -21,7 +22,7 @@
 @dynamic minutes;
 @dynamic packages;
 @dynamic sms;
-@dynamic credit;
+@dynamic bonuses;
 @dynamic account;
 
 @end

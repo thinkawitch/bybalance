@@ -322,14 +322,37 @@ typedef enum
 {
     static NSString * cellId1 = @"BBHistoryCommonCellID";
     static NSString * cellId2 = @"BBHistoryAnitexCellID";
+    static NSString * cellId3 = @"BBHistoryBonusesCellID";
     
     static NSString * nib1 = @"BBHistoryCommonCell";
     static NSString * nib2 = @"BBHistoryAnitexCell";
-    
-    NSString * cellId = [self.account.type.id integerValue] == kAccountAnitex ? cellId2 : cellId1;
-    NSString * nib = [self.account.type.id integerValue] == kAccountAnitex ? nib2 : nib1;
+    static NSString * nib3 = @"BBHistoryBonusesCell";
     
     NSArray * nibs;
+    NSString * cellId = nil;
+    NSString * nib = nil;
+    
+    BBMBalanceHistory * bh = [self.history objectAtIndex:indexPath.row];
+    
+    if ([self.account.type.id integerValue] == kAccountAnitex)
+    {
+        cellId = cellId2;
+        nib = nib2;
+    }
+    else
+    {
+        if ([bh.bonuses length] > 0)
+        {
+            cellId = cellId3;
+            nib = nib3;
+        }
+        else
+        {
+            cellId = cellId1;
+            nib = nib1;
+        }
+    }
+    
     
     BBHistoryBaseCell * cell = (BBHistoryBaseCell*)[tblHistory dequeueReusableCellWithIdentifier:cellId];
     if (!cell)
@@ -338,7 +361,7 @@ typedef enum
         cell = [nibs objectAtIndex:0];
     }
     
-    BBMBalanceHistory * bh = [self.history objectAtIndex:indexPath.row];
+    
     [cell setupWithHistory:bh];
     return cell;
 }
@@ -352,7 +375,24 @@ typedef enum
 
 - (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.account.type.id integerValue] == kAccountAnitex ? kHistoryCellHeight2 : kHistoryCellHeight1;
+    //return [self.account.type.id integerValue] == kAccountAnitex ? kHistoryCellHeight2 : kHistoryCellHeight1;
+    if ([self.account.type.id integerValue] == kAccountAnitex)
+    {
+        return kHistoryCellHeight2;
+    }
+    else
+    {
+        BBMBalanceHistory * bh = [self.history objectAtIndex:indexPath.row];
+        
+        if ([bh.bonuses length] > 0)
+        {
+            return kHistoryCellHeight3;
+        }
+        else
+        {
+            return kHistoryCellHeight1;
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

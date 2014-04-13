@@ -9,3 +9,4 @@
 #import "BBHistoryBaseCell.h"
 #import "BBHistoryCommonCell.h"
 #import "BBHistoryAnitexCell.h"
+#import "BBHistoryBonusesCell.h"

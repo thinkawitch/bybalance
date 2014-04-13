@@ -11,7 +11,7 @@
 @interface BBHistoryCommonCell : BBHistoryBaseCell
 {
     
-@private
+@protected
     IBOutlet UILabel * lblDate;
     IBOutlet UILabel * lblBalance;
     

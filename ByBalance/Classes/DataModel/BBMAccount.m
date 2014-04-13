@@ -2,8 +2,8 @@
 //  BBMAccount.m
 //  ByBalance
 //
-//  Created by Andrew Sinkevitch on 11/24/13.
-//  Copyright (c) 2013 sinkevitch.name. All rights reserved.
+//  Created by Andrew Sinkevitch on 4/13/14.
+//  Copyright (c) 2014 sinkevitch.name. All rights reserved.
 //
 
 #import "BBMAccount.h"
@@ -13,12 +13,12 @@
 
 @implementation BBMAccount
 
+@dynamic balanceLimit;
 @dynamic label;
 @dynamic order;
 @dynamic password;
-@dynamic username;
 @dynamic periodicCheck;
-@dynamic balanceLimit;
+@dynamic username;
 @dynamic history;
 @dynamic type;
 

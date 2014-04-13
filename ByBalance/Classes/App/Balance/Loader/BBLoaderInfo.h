@@ -29,6 +29,8 @@
 @property (nonatomic,strong) NSNumber * userMinutes;
 @property (nonatomic,strong) NSNumber * userSms;
 
+@property (nonatomic,strong) NSString * bonuses;
+
 
 - (NSString *) fullDescription;
 
