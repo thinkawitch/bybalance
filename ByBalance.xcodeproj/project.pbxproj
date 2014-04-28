@@ -19,6 +19,71 @@
 		C312CD311808AB1F005F25D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C312CD301808AB1F005F25D0 /* UIKit.framework */; };
 		C312CD391808AB1F005F25D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C312CD381808AB1F005F25D0 /* main.m */; };
 		C312CD451808AB1F005F25D0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312CD441808AB1F005F25D0 /* Images.xcassets */; };
+		C316693E190EBF0700E9B7DA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C316693D190EBF0700E9B7DA /* libxml2.dylib */; };
+		C3166A15190EC24000E9B7DA /* CPJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C316697F190EC24000E9B7DA /* CPJSONParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A16190EC24000E9B7DA /* CPGrammar.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166984190EC24000E9B7DA /* CPGrammar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A17190EC24000E9B7DA /* CPGrammarInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166986190EC24000E9B7DA /* CPGrammarInternal.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A18190EC24000E9B7DA /* CPGrammarPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166988190EC24000E9B7DA /* CPGrammarPrivate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A19190EC24000E9B7DA /* CPGrammarSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C316698A190EC24000E9B7DA /* CPGrammarSymbol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A1A190EC24000E9B7DA /* CPRHSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C316698D190EC24000E9B7DA /* CPRHSItem.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A1B190EC24000E9B7DA /* CPRHSItemResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C316698F190EC24000E9B7DA /* CPRHSItemResult.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A1C190EC24000E9B7DA /* CPRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166992190EC24000E9B7DA /* CPRule.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A1D190EC24000E9B7DA /* NSArray+Functional.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166994190EC24000E9B7DA /* NSArray+Functional.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A1E190EC24000E9B7DA /* NSSetFunctional.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166996190EC24000E9B7DA /* NSSetFunctional.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A1F190EC24000E9B7DA /* CPParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166999190EC24000E9B7DA /* CPParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A20190EC24000E9B7DA /* CPShiftReduceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C316699B190EC24000E9B7DA /* CPShiftReduceParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A21190EC24000E9B7DA /* CPItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C316699E190EC24000E9B7DA /* CPItem.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A22190EC24000E9B7DA /* CPLALR1Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669A0190EC24000E9B7DA /* CPLALR1Parser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A23190EC24000E9B7DA /* CPLR1Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669A2190EC24000E9B7DA /* CPLR1Item.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A24190EC24000E9B7DA /* CPLR1Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669A4190EC24000E9B7DA /* CPLR1Parser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A25190EC24000E9B7DA /* CPShiftAction.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669A6190EC24000E9B7DA /* CPShiftAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A26190EC24000E9B7DA /* CPShiftReduceAction.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669A8190EC24000E9B7DA /* CPShiftReduceAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A27190EC24000E9B7DA /* CPShiftReduceActionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669AA190EC24000E9B7DA /* CPShiftReduceActionTable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A28190EC24000E9B7DA /* CPShiftReduceGotoTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669AC190EC24000E9B7DA /* CPShiftReduceGotoTable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A29190EC24000E9B7DA /* CPShiftReduceState.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669AF190EC24000E9B7DA /* CPShiftReduceState.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A2A190EC24000E9B7DA /* CPSLRParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669B1190EC24000E9B7DA /* CPSLRParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A2B190EC24000E9B7DA /* CPRecoveryAction.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669B4190EC24000E9B7DA /* CPRecoveryAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A2C190EC24000E9B7DA /* CPSyntaxTree.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669B7190EC24000E9B7DA /* CPSyntaxTree.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A2D190EC24000E9B7DA /* CPTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669BA190EC24000E9B7DA /* CPTokeniser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A2E190EC24000E9B7DA /* CPTokenStream.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669BC190EC24000E9B7DA /* CPTokenStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A2F190EC24000E9B7DA /* CPIdentifierRecogniser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669BF190EC24000E9B7DA /* CPIdentifierRecogniser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A30190EC24000E9B7DA /* CPKeywordRecogniser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669C1190EC24000E9B7DA /* CPKeywordRecogniser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A31190EC24000E9B7DA /* CPNumberRecogniser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669C3190EC24000E9B7DA /* CPNumberRecogniser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A32190EC24000E9B7DA /* CPQuotedRecogniser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669C5190EC24000E9B7DA /* CPQuotedRecogniser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A33190EC24000E9B7DA /* CPRegexpRecogniser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669C7190EC24000E9B7DA /* CPRegexpRecogniser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A34190EC24000E9B7DA /* CPWhiteSpaceRecogniser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669CA190EC24000E9B7DA /* CPWhiteSpaceRecogniser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A35190EC24000E9B7DA /* CPEOFToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669CD190EC24000E9B7DA /* CPEOFToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A36190EC24000E9B7DA /* CPErrorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669CF190EC24000E9B7DA /* CPErrorToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A37190EC24000E9B7DA /* CPIdentifierToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669D1190EC24000E9B7DA /* CPIdentifierToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A38190EC24000E9B7DA /* CPKeywordToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669D3190EC24000E9B7DA /* CPKeywordToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A39190EC24000E9B7DA /* CPNumberToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669D5190EC24000E9B7DA /* CPNumberToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A3A190EC24000E9B7DA /* CPQuotedToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669D7190EC24000E9B7DA /* CPQuotedToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A3B190EC24000E9B7DA /* CPToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669D9190EC24000E9B7DA /* CPToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A3C190EC24000E9B7DA /* CPWhiteSpaceToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669DB190EC24000E9B7DA /* CPWhiteSpaceToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3166A3D190EC24000E9B7DA /* CSSBaseSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669DE190EC24000E9B7DA /* CSSBaseSelector.m */; };
+		C3166A3E190EC24000E9B7DA /* CSSClassSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669E0190EC24000E9B7DA /* CSSClassSelector.m */; };
+		C3166A3F190EC24000E9B7DA /* CSSCombinator.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669E2190EC24000E9B7DA /* CSSCombinator.m */; };
+		C3166A40190EC24000E9B7DA /* CSSIDSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669E4190EC24000E9B7DA /* CSSIDSelector.m */; };
+		C3166A41190EC24000E9B7DA /* CSSNamedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669E6190EC24000E9B7DA /* CSSNamedSelector.m */; };
+		C3166A42190EC24000E9B7DA /* CSSPseudoClass.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669E8190EC24000E9B7DA /* CSSPseudoClass.m */; };
+		C3166A43190EC24000E9B7DA /* CSSSelectorAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669EA190EC24000E9B7DA /* CSSSelectorAttribute.m */; };
+		C3166A44190EC24000E9B7DA /* CSSSelectorAttributeOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669EC190EC24000E9B7DA /* CSSSelectorAttributeOperator.m */; };
+		C3166A45190EC24000E9B7DA /* CSSSelectorGrammar.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669EF190EC24000E9B7DA /* CSSSelectorGrammar.m */; };
+		C3166A46190EC24000E9B7DA /* CSSSelectorGrammar.txt in Resources */ = {isa = PBXBuildFile; fileRef = C31669F0190EC24000E9B7DA /* CSSSelectorGrammar.txt */; };
+		C3166A47190EC24000E9B7DA /* CSSSelectorGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669F2190EC24000E9B7DA /* CSSSelectorGroup.m */; };
+		C3166A48190EC24000E9B7DA /* CSSSelectorParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669F4190EC24000E9B7DA /* CSSSelectorParser.m */; };
+		C3166A49190EC24000E9B7DA /* CSSSelectorParser.plist in Resources */ = {isa = PBXBuildFile; fileRef = C31669F5190EC24000E9B7DA /* CSSSelectorParser.plist */; };
+		C3166A4A190EC24000E9B7DA /* CSSSelectors.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669F7190EC24000E9B7DA /* CSSSelectors.m */; };
+		C3166A4B190EC24000E9B7DA /* CSSSelectorSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669F9190EC24000E9B7DA /* CSSSelectorSequence.m */; };
+		C3166A4C190EC24000E9B7DA /* CSSSelectorTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669FB190EC24000E9B7DA /* CSSSelectorTokeniser.m */; };
+		C3166A4D190EC24000E9B7DA /* CSSSelectorToXPathConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669FD190EC24000E9B7DA /* CSSSelectorToXPathConverter.m */; };
+		C3166A4E190EC24000E9B7DA /* CSSSelectorXPathVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C31669FF190EC24000E9B7DA /* CSSSelectorXPathVisitor.m */; };
+		C3166A4F190EC24000E9B7DA /* CSSTypeSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166A01190EC24000E9B7DA /* CSSTypeSelector.m */; };
+		C3166A50190EC24000E9B7DA /* CSSUniversalSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166A03190EC24000E9B7DA /* CSSUniversalSelector.m */; };
+		C3166A51190EC24000E9B7DA /* IGHTMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166A05190EC24000E9B7DA /* IGHTMLDocument.m */; };
+		C3166A52190EC24000E9B7DA /* IGXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166A09190EC24000E9B7DA /* IGXMLDocument.m */; };
+		C3166A53190EC24000E9B7DA /* IGXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166A0B190EC24000E9B7DA /* IGXMLNode.m */; };
+		C3166A54190EC24000E9B7DA /* IGXMLNodeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C3166A11190EC24000E9B7DA /* IGXMLNodeSet.m */; };
 		C32283581829775200D924DA /* BBHistoryAnitexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C32283551829775200D924DA /* BBHistoryAnitexCell.m */; };
 		C32283591829775200D924DA /* BBHistoryCommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C32283571829775200D924DA /* BBHistoryCommonCell.m */; };
 		C322835C1829778B00D924DA /* BBHistoryBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C322835B1829778B00D924DA /* BBHistoryBaseCell.m */; };
@@ -176,6 +241,147 @@
 		C312CD381808AB1F005F25D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C312CD3A1808AB1F005F25D0 /* ByBalance-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ByBalance-Prefix.pch"; sourceTree = "<group>"; };
 		C312CD441808AB1F005F25D0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C316693D190EBF0700E9B7DA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		C316697E190EC24000E9B7DA /* CPJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPJSONParser.h; sourceTree = "<group>"; };
+		C316697F190EC24000E9B7DA /* CPJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPJSONParser.m; sourceTree = "<group>"; };
+		C3166980190EC24000E9B7DA /* CoreParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreParse.h; sourceTree = "<group>"; };
+		C3166981190EC24000E9B7DA /* CPSenTestKitAssertions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSenTestKitAssertions.h; sourceTree = "<group>"; };
+		C3166983190EC24000E9B7DA /* CPGrammar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGrammar.h; sourceTree = "<group>"; };
+		C3166984190EC24000E9B7DA /* CPGrammar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGrammar.m; sourceTree = "<group>"; };
+		C3166985190EC24000E9B7DA /* CPGrammarInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGrammarInternal.h; sourceTree = "<group>"; };
+		C3166986190EC24000E9B7DA /* CPGrammarInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGrammarInternal.m; sourceTree = "<group>"; };
+		C3166987190EC24000E9B7DA /* CPGrammarPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGrammarPrivate.h; sourceTree = "<group>"; };
+		C3166988190EC24000E9B7DA /* CPGrammarPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGrammarPrivate.m; sourceTree = "<group>"; };
+		C3166989190EC24000E9B7DA /* CPGrammarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGrammarSymbol.h; sourceTree = "<group>"; };
+		C316698A190EC24000E9B7DA /* CPGrammarSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGrammarSymbol.m; sourceTree = "<group>"; };
+		C316698B190EC24000E9B7DA /* CPRHSItem+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPRHSItem+Private.h"; sourceTree = "<group>"; };
+		C316698C190EC24000E9B7DA /* CPRHSItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRHSItem.h; sourceTree = "<group>"; };
+		C316698D190EC24000E9B7DA /* CPRHSItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRHSItem.m; sourceTree = "<group>"; };
+		C316698E190EC24000E9B7DA /* CPRHSItemResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRHSItemResult.h; sourceTree = "<group>"; };
+		C316698F190EC24000E9B7DA /* CPRHSItemResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRHSItemResult.m; sourceTree = "<group>"; };
+		C3166990190EC24000E9B7DA /* CPRule+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPRule+Internal.h"; sourceTree = "<group>"; };
+		C3166991190EC24000E9B7DA /* CPRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRule.h; sourceTree = "<group>"; };
+		C3166992190EC24000E9B7DA /* CPRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRule.m; sourceTree = "<group>"; };
+		C3166993190EC24000E9B7DA /* NSArray+Functional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Functional.h"; sourceTree = "<group>"; };
+		C3166994190EC24000E9B7DA /* NSArray+Functional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Functional.m"; sourceTree = "<group>"; };
+		C3166995190EC24000E9B7DA /* NSSetFunctional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSetFunctional.h; sourceTree = "<group>"; };
+		C3166996190EC24000E9B7DA /* NSSetFunctional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSetFunctional.m; sourceTree = "<group>"; };
+		C3166998190EC24000E9B7DA /* CPParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPParser.h; sourceTree = "<group>"; };
+		C3166999190EC24000E9B7DA /* CPParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPParser.m; sourceTree = "<group>"; };
+		C316699A190EC24000E9B7DA /* CPShiftReduceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPShiftReduceParser.h; sourceTree = "<group>"; };
+		C316699B190EC24000E9B7DA /* CPShiftReduceParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPShiftReduceParser.m; sourceTree = "<group>"; };
+		C316699D190EC24000E9B7DA /* CPItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPItem.h; sourceTree = "<group>"; };
+		C316699E190EC24000E9B7DA /* CPItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPItem.m; sourceTree = "<group>"; };
+		C316699F190EC24000E9B7DA /* CPLALR1Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLALR1Parser.h; sourceTree = "<group>"; };
+		C31669A0190EC24000E9B7DA /* CPLALR1Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLALR1Parser.m; sourceTree = "<group>"; };
+		C31669A1190EC24000E9B7DA /* CPLR1Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLR1Item.h; sourceTree = "<group>"; };
+		C31669A2190EC24000E9B7DA /* CPLR1Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLR1Item.m; sourceTree = "<group>"; };
+		C31669A3190EC24000E9B7DA /* CPLR1Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLR1Parser.h; sourceTree = "<group>"; };
+		C31669A4190EC24000E9B7DA /* CPLR1Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLR1Parser.m; sourceTree = "<group>"; };
+		C31669A5190EC24000E9B7DA /* CPShiftAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPShiftAction.h; sourceTree = "<group>"; };
+		C31669A6190EC24000E9B7DA /* CPShiftAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPShiftAction.m; sourceTree = "<group>"; };
+		C31669A7190EC24000E9B7DA /* CPShiftReduceAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPShiftReduceAction.h; sourceTree = "<group>"; };
+		C31669A8190EC24000E9B7DA /* CPShiftReduceAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPShiftReduceAction.m; sourceTree = "<group>"; };
+		C31669A9190EC24000E9B7DA /* CPShiftReduceActionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPShiftReduceActionTable.h; sourceTree = "<group>"; };
+		C31669AA190EC24000E9B7DA /* CPShiftReduceActionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPShiftReduceActionTable.m; sourceTree = "<group>"; };
+		C31669AB190EC24000E9B7DA /* CPShiftReduceGotoTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPShiftReduceGotoTable.h; sourceTree = "<group>"; };
+		C31669AC190EC24000E9B7DA /* CPShiftReduceGotoTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPShiftReduceGotoTable.m; sourceTree = "<group>"; };
+		C31669AD190EC24000E9B7DA /* CPShiftReduceParserProtectedMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPShiftReduceParserProtectedMethods.h; sourceTree = "<group>"; };
+		C31669AE190EC24000E9B7DA /* CPShiftReduceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPShiftReduceState.h; sourceTree = "<group>"; };
+		C31669AF190EC24000E9B7DA /* CPShiftReduceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPShiftReduceState.m; sourceTree = "<group>"; };
+		C31669B0190EC24000E9B7DA /* CPSLRParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSLRParser.h; sourceTree = "<group>"; };
+		C31669B1190EC24000E9B7DA /* CPSLRParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSLRParser.m; sourceTree = "<group>"; };
+		C31669B3190EC24000E9B7DA /* CPRecoveryAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecoveryAction.h; sourceTree = "<group>"; };
+		C31669B4190EC24000E9B7DA /* CPRecoveryAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecoveryAction.m; sourceTree = "<group>"; };
+		C31669B6190EC24000E9B7DA /* CPSyntaxTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSyntaxTree.h; sourceTree = "<group>"; };
+		C31669B7190EC24000E9B7DA /* CPSyntaxTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSyntaxTree.m; sourceTree = "<group>"; };
+		C31669B9190EC24000E9B7DA /* CPTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTokeniser.h; sourceTree = "<group>"; };
+		C31669BA190EC24000E9B7DA /* CPTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTokeniser.m; sourceTree = "<group>"; };
+		C31669BB190EC24000E9B7DA /* CPTokenStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTokenStream.h; sourceTree = "<group>"; };
+		C31669BC190EC24000E9B7DA /* CPTokenStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTokenStream.m; sourceTree = "<group>"; };
+		C31669BE190EC24000E9B7DA /* CPIdentifierRecogniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPIdentifierRecogniser.h; sourceTree = "<group>"; };
+		C31669BF190EC24000E9B7DA /* CPIdentifierRecogniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPIdentifierRecogniser.m; sourceTree = "<group>"; };
+		C31669C0190EC24000E9B7DA /* CPKeywordRecogniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPKeywordRecogniser.h; sourceTree = "<group>"; };
+		C31669C1190EC24000E9B7DA /* CPKeywordRecogniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPKeywordRecogniser.m; sourceTree = "<group>"; };
+		C31669C2190EC24000E9B7DA /* CPNumberRecogniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNumberRecogniser.h; sourceTree = "<group>"; };
+		C31669C3190EC24000E9B7DA /* CPNumberRecogniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNumberRecogniser.m; sourceTree = "<group>"; };
+		C31669C4190EC24000E9B7DA /* CPQuotedRecogniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPQuotedRecogniser.h; sourceTree = "<group>"; };
+		C31669C5190EC24000E9B7DA /* CPQuotedRecogniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPQuotedRecogniser.m; sourceTree = "<group>"; };
+		C31669C6190EC24000E9B7DA /* CPRegexpRecogniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRegexpRecogniser.h; sourceTree = "<group>"; };
+		C31669C7190EC24000E9B7DA /* CPRegexpRecogniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRegexpRecogniser.m; sourceTree = "<group>"; };
+		C31669C8190EC24000E9B7DA /* CPTokenRecogniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTokenRecogniser.h; sourceTree = "<group>"; };
+		C31669C9190EC24000E9B7DA /* CPWhiteSpaceRecogniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPWhiteSpaceRecogniser.h; sourceTree = "<group>"; };
+		C31669CA190EC24000E9B7DA /* CPWhiteSpaceRecogniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPWhiteSpaceRecogniser.m; sourceTree = "<group>"; };
+		C31669CC190EC24000E9B7DA /* CPEOFToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPEOFToken.h; sourceTree = "<group>"; };
+		C31669CD190EC24000E9B7DA /* CPEOFToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPEOFToken.m; sourceTree = "<group>"; };
+		C31669CE190EC24000E9B7DA /* CPErrorToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPErrorToken.h; sourceTree = "<group>"; };
+		C31669CF190EC24000E9B7DA /* CPErrorToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPErrorToken.m; sourceTree = "<group>"; };
+		C31669D0190EC24000E9B7DA /* CPIdentifierToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPIdentifierToken.h; sourceTree = "<group>"; };
+		C31669D1190EC24000E9B7DA /* CPIdentifierToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPIdentifierToken.m; sourceTree = "<group>"; };
+		C31669D2190EC24000E9B7DA /* CPKeywordToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPKeywordToken.h; sourceTree = "<group>"; };
+		C31669D3190EC24000E9B7DA /* CPKeywordToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPKeywordToken.m; sourceTree = "<group>"; };
+		C31669D4190EC24000E9B7DA /* CPNumberToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNumberToken.h; sourceTree = "<group>"; };
+		C31669D5190EC24000E9B7DA /* CPNumberToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNumberToken.m; sourceTree = "<group>"; };
+		C31669D6190EC24000E9B7DA /* CPQuotedToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPQuotedToken.h; sourceTree = "<group>"; };
+		C31669D7190EC24000E9B7DA /* CPQuotedToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPQuotedToken.m; sourceTree = "<group>"; };
+		C31669D8190EC24000E9B7DA /* CPToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPToken.h; sourceTree = "<group>"; };
+		C31669D9190EC24000E9B7DA /* CPToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPToken.m; sourceTree = "<group>"; };
+		C31669DA190EC24000E9B7DA /* CPWhiteSpaceToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPWhiteSpaceToken.h; sourceTree = "<group>"; };
+		C31669DB190EC24000E9B7DA /* CPWhiteSpaceToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPWhiteSpaceToken.m; sourceTree = "<group>"; };
+		C31669DD190EC24000E9B7DA /* CSSBaseSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSBaseSelector.h; sourceTree = "<group>"; };
+		C31669DE190EC24000E9B7DA /* CSSBaseSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSBaseSelector.m; sourceTree = "<group>"; };
+		C31669DF190EC24000E9B7DA /* CSSClassSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSClassSelector.h; sourceTree = "<group>"; };
+		C31669E0190EC24000E9B7DA /* CSSClassSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSClassSelector.m; sourceTree = "<group>"; };
+		C31669E1190EC24000E9B7DA /* CSSCombinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSCombinator.h; sourceTree = "<group>"; };
+		C31669E2190EC24000E9B7DA /* CSSCombinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSCombinator.m; sourceTree = "<group>"; };
+		C31669E3190EC24000E9B7DA /* CSSIDSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSIDSelector.h; sourceTree = "<group>"; };
+		C31669E4190EC24000E9B7DA /* CSSIDSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSIDSelector.m; sourceTree = "<group>"; };
+		C31669E5190EC24000E9B7DA /* CSSNamedSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSNamedSelector.h; sourceTree = "<group>"; };
+		C31669E6190EC24000E9B7DA /* CSSNamedSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSNamedSelector.m; sourceTree = "<group>"; };
+		C31669E7190EC24000E9B7DA /* CSSPseudoClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSPseudoClass.h; sourceTree = "<group>"; };
+		C31669E8190EC24000E9B7DA /* CSSPseudoClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSPseudoClass.m; sourceTree = "<group>"; };
+		C31669E9190EC24000E9B7DA /* CSSSelectorAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorAttribute.h; sourceTree = "<group>"; };
+		C31669EA190EC24000E9B7DA /* CSSSelectorAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectorAttribute.m; sourceTree = "<group>"; };
+		C31669EB190EC24000E9B7DA /* CSSSelectorAttributeOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorAttributeOperator.h; sourceTree = "<group>"; };
+		C31669EC190EC24000E9B7DA /* CSSSelectorAttributeOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectorAttributeOperator.m; sourceTree = "<group>"; };
+		C31669ED190EC24000E9B7DA /* CSSSelectorConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorConverter.h; sourceTree = "<group>"; };
+		C31669EE190EC24000E9B7DA /* CSSSelectorGrammar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorGrammar.h; sourceTree = "<group>"; };
+		C31669EF190EC24000E9B7DA /* CSSSelectorGrammar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectorGrammar.m; sourceTree = "<group>"; };
+		C31669F0190EC24000E9B7DA /* CSSSelectorGrammar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CSSSelectorGrammar.txt; sourceTree = "<group>"; };
+		C31669F1190EC24000E9B7DA /* CSSSelectorGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorGroup.h; sourceTree = "<group>"; };
+		C31669F2190EC24000E9B7DA /* CSSSelectorGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectorGroup.m; sourceTree = "<group>"; };
+		C31669F3190EC24000E9B7DA /* CSSSelectorParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorParser.h; sourceTree = "<group>"; };
+		C31669F4190EC24000E9B7DA /* CSSSelectorParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectorParser.m; sourceTree = "<group>"; };
+		C31669F5190EC24000E9B7DA /* CSSSelectorParser.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = CSSSelectorParser.plist; sourceTree = "<group>"; };
+		C31669F6190EC24000E9B7DA /* CSSSelectors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectors.h; sourceTree = "<group>"; };
+		C31669F7190EC24000E9B7DA /* CSSSelectors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectors.m; sourceTree = "<group>"; };
+		C31669F8190EC24000E9B7DA /* CSSSelectorSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorSequence.h; sourceTree = "<group>"; };
+		C31669F9190EC24000E9B7DA /* CSSSelectorSequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectorSequence.m; sourceTree = "<group>"; };
+		C31669FA190EC24000E9B7DA /* CSSSelectorTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorTokeniser.h; sourceTree = "<group>"; };
+		C31669FB190EC24000E9B7DA /* CSSSelectorTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectorTokeniser.m; sourceTree = "<group>"; };
+		C31669FC190EC24000E9B7DA /* CSSSelectorToXPathConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorToXPathConverter.h; sourceTree = "<group>"; };
+		C31669FD190EC24000E9B7DA /* CSSSelectorToXPathConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectorToXPathConverter.m; sourceTree = "<group>"; };
+		C31669FE190EC24000E9B7DA /* CSSSelectorXPathVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSSelectorXPathVisitor.h; sourceTree = "<group>"; };
+		C31669FF190EC24000E9B7DA /* CSSSelectorXPathVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSSelectorXPathVisitor.m; sourceTree = "<group>"; };
+		C3166A00190EC24000E9B7DA /* CSSTypeSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSTypeSelector.h; sourceTree = "<group>"; };
+		C3166A01190EC24000E9B7DA /* CSSTypeSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSTypeSelector.m; sourceTree = "<group>"; };
+		C3166A02190EC24000E9B7DA /* CSSUniversalSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSUniversalSelector.h; sourceTree = "<group>"; };
+		C3166A03190EC24000E9B7DA /* CSSUniversalSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSUniversalSelector.m; sourceTree = "<group>"; };
+		C3166A04190EC24000E9B7DA /* IGHTMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGHTMLDocument.h; sourceTree = "<group>"; };
+		C3166A05190EC24000E9B7DA /* IGHTMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGHTMLDocument.m; sourceTree = "<group>"; };
+		C3166A06190EC24000E9B7DA /* IGHTMLQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGHTMLQuery.h; sourceTree = "<group>"; };
+		C3166A07190EC24000E9B7DA /* IGHTMLQueryJavaScriptExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGHTMLQueryJavaScriptExport.h; sourceTree = "<group>"; };
+		C3166A08190EC24000E9B7DA /* IGXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGXMLDocument.h; sourceTree = "<group>"; };
+		C3166A09190EC24000E9B7DA /* IGXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGXMLDocument.m; sourceTree = "<group>"; };
+		C3166A0A190EC24000E9B7DA /* IGXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGXMLNode.h; sourceTree = "<group>"; };
+		C3166A0B190EC24000E9B7DA /* IGXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGXMLNode.m; sourceTree = "<group>"; };
+		C3166A0C190EC24000E9B7DA /* IGXMLNodeAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGXMLNodeAttribute.h; sourceTree = "<group>"; };
+		C3166A0D190EC24000E9B7DA /* IGXMLNodeCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGXMLNodeCore.h; sourceTree = "<group>"; };
+		C3166A0E190EC24000E9B7DA /* IGXMLNodeManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGXMLNodeManipulation.h; sourceTree = "<group>"; };
+		C3166A0F190EC24000E9B7DA /* IGXMLNodeQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGXMLNodeQuery.h; sourceTree = "<group>"; };
+		C3166A10190EC24000E9B7DA /* IGXMLNodeSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGXMLNodeSet.h; sourceTree = "<group>"; };
+		C3166A11190EC24000E9B7DA /* IGXMLNodeSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGXMLNodeSet.m; sourceTree = "<group>"; };
+		C3166A12190EC24000E9B7DA /* IGXMLNodeTraversal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGXMLNodeTraversal.h; sourceTree = "<group>"; };
 		C32283541829775200D924DA /* BBHistoryAnitexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHistoryAnitexCell.h; sourceTree = "<group>"; };
 		C32283551829775200D924DA /* BBHistoryAnitexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHistoryAnitexCell.m; sourceTree = "<group>"; };
 		C32283561829775200D924DA /* BBHistoryCommonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHistoryCommonCell.h; sourceTree = "<group>"; };
@@ -423,6 +629,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C316693E190EBF0700E9B7DA /* libxml2.dylib in Frameworks */,
 				C33585ED1809D106001AB5D3 /* MobileCoreServices.framework in Frameworks */,
 				C33585EC1809D0FB001AB5D3 /* SystemConfiguration.framework in Frameworks */,
 				C3DE6F921809B2360024F9DD /* CoreData.framework in Frameworks */,
@@ -502,6 +709,7 @@
 		C312CD2B1808AB1F005F25D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C316693D190EBF0700E9B7DA /* libxml2.dylib */,
 				C3B23B711814736900A7243E /* libz.dylib */,
 				C3DE6F891809B2270024F9DD /* AddressBook.framework */,
 				C3DE6F8A1809B2270024F9DD /* AddressBookUI.framework */,
@@ -536,6 +744,241 @@
 				C312CD3A1808AB1F005F25D0 /* ByBalance-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C316697B190EC24000E9B7DA /* IGHTMLQuery */ = {
+			isa = PBXGroup;
+			children = (
+				C316697C190EC24000E9B7DA /* CoreParse */,
+				C31669DC190EC24000E9B7DA /* CSSSelectorConverter */,
+				C3166A04190EC24000E9B7DA /* IGHTMLDocument.h */,
+				C3166A05190EC24000E9B7DA /* IGHTMLDocument.m */,
+				C3166A06190EC24000E9B7DA /* IGHTMLQuery.h */,
+				C3166A07190EC24000E9B7DA /* IGHTMLQueryJavaScriptExport.h */,
+				C3166A08190EC24000E9B7DA /* IGXMLDocument.h */,
+				C3166A09190EC24000E9B7DA /* IGXMLDocument.m */,
+				C3166A0A190EC24000E9B7DA /* IGXMLNode.h */,
+				C3166A0B190EC24000E9B7DA /* IGXMLNode.m */,
+				C3166A0C190EC24000E9B7DA /* IGXMLNodeAttribute.h */,
+				C3166A0D190EC24000E9B7DA /* IGXMLNodeCore.h */,
+				C3166A0E190EC24000E9B7DA /* IGXMLNodeManipulation.h */,
+				C3166A0F190EC24000E9B7DA /* IGXMLNodeQuery.h */,
+				C3166A10190EC24000E9B7DA /* IGXMLNodeSet.h */,
+				C3166A11190EC24000E9B7DA /* IGXMLNodeSet.m */,
+				C3166A12190EC24000E9B7DA /* IGXMLNodeTraversal.h */,
+			);
+			path = IGHTMLQuery;
+			sourceTree = "<group>";
+		};
+		C316697C190EC24000E9B7DA /* CoreParse */ = {
+			isa = PBXGroup;
+			children = (
+				C316697D190EC24000E9B7DA /* Built In Parsers */,
+				C3166980190EC24000E9B7DA /* CoreParse.h */,
+				C3166981190EC24000E9B7DA /* CPSenTestKitAssertions.h */,
+				C3166982190EC24000E9B7DA /* Grammar */,
+				C3166993190EC24000E9B7DA /* NSArray+Functional.h */,
+				C3166994190EC24000E9B7DA /* NSArray+Functional.m */,
+				C3166995190EC24000E9B7DA /* NSSetFunctional.h */,
+				C3166996190EC24000E9B7DA /* NSSetFunctional.m */,
+				C3166997190EC24000E9B7DA /* Parsers */,
+				C31669B5190EC24000E9B7DA /* Syntax Tree */,
+				C31669B8190EC24000E9B7DA /* Tokenisation */,
+			);
+			path = CoreParse;
+			sourceTree = "<group>";
+		};
+		C316697D190EC24000E9B7DA /* Built In Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				C316697E190EC24000E9B7DA /* CPJSONParser.h */,
+				C316697F190EC24000E9B7DA /* CPJSONParser.m */,
+			);
+			path = "Built In Parsers";
+			sourceTree = "<group>";
+		};
+		C3166982190EC24000E9B7DA /* Grammar */ = {
+			isa = PBXGroup;
+			children = (
+				C3166983190EC24000E9B7DA /* CPGrammar.h */,
+				C3166984190EC24000E9B7DA /* CPGrammar.m */,
+				C3166985190EC24000E9B7DA /* CPGrammarInternal.h */,
+				C3166986190EC24000E9B7DA /* CPGrammarInternal.m */,
+				C3166987190EC24000E9B7DA /* CPGrammarPrivate.h */,
+				C3166988190EC24000E9B7DA /* CPGrammarPrivate.m */,
+				C3166989190EC24000E9B7DA /* CPGrammarSymbol.h */,
+				C316698A190EC24000E9B7DA /* CPGrammarSymbol.m */,
+				C316698B190EC24000E9B7DA /* CPRHSItem+Private.h */,
+				C316698C190EC24000E9B7DA /* CPRHSItem.h */,
+				C316698D190EC24000E9B7DA /* CPRHSItem.m */,
+				C316698E190EC24000E9B7DA /* CPRHSItemResult.h */,
+				C316698F190EC24000E9B7DA /* CPRHSItemResult.m */,
+				C3166990190EC24000E9B7DA /* CPRule+Internal.h */,
+				C3166991190EC24000E9B7DA /* CPRule.h */,
+				C3166992190EC24000E9B7DA /* CPRule.m */,
+			);
+			path = Grammar;
+			sourceTree = "<group>";
+		};
+		C3166997190EC24000E9B7DA /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				C3166998190EC24000E9B7DA /* CPParser.h */,
+				C3166999190EC24000E9B7DA /* CPParser.m */,
+				C316699A190EC24000E9B7DA /* CPShiftReduceParser.h */,
+				C316699B190EC24000E9B7DA /* CPShiftReduceParser.m */,
+				C316699C190EC24000E9B7DA /* CPShiftReduceParsers */,
+				C31669B2190EC24000E9B7DA /* Error Recovery */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		C316699C190EC24000E9B7DA /* CPShiftReduceParsers */ = {
+			isa = PBXGroup;
+			children = (
+				C316699D190EC24000E9B7DA /* CPItem.h */,
+				C316699E190EC24000E9B7DA /* CPItem.m */,
+				C316699F190EC24000E9B7DA /* CPLALR1Parser.h */,
+				C31669A0190EC24000E9B7DA /* CPLALR1Parser.m */,
+				C31669A1190EC24000E9B7DA /* CPLR1Item.h */,
+				C31669A2190EC24000E9B7DA /* CPLR1Item.m */,
+				C31669A3190EC24000E9B7DA /* CPLR1Parser.h */,
+				C31669A4190EC24000E9B7DA /* CPLR1Parser.m */,
+				C31669A5190EC24000E9B7DA /* CPShiftAction.h */,
+				C31669A6190EC24000E9B7DA /* CPShiftAction.m */,
+				C31669A7190EC24000E9B7DA /* CPShiftReduceAction.h */,
+				C31669A8190EC24000E9B7DA /* CPShiftReduceAction.m */,
+				C31669A9190EC24000E9B7DA /* CPShiftReduceActionTable.h */,
+				C31669AA190EC24000E9B7DA /* CPShiftReduceActionTable.m */,
+				C31669AB190EC24000E9B7DA /* CPShiftReduceGotoTable.h */,
+				C31669AC190EC24000E9B7DA /* CPShiftReduceGotoTable.m */,
+				C31669AD190EC24000E9B7DA /* CPShiftReduceParserProtectedMethods.h */,
+				C31669AE190EC24000E9B7DA /* CPShiftReduceState.h */,
+				C31669AF190EC24000E9B7DA /* CPShiftReduceState.m */,
+				C31669B0190EC24000E9B7DA /* CPSLRParser.h */,
+				C31669B1190EC24000E9B7DA /* CPSLRParser.m */,
+			);
+			path = CPShiftReduceParsers;
+			sourceTree = "<group>";
+		};
+		C31669B2190EC24000E9B7DA /* Error Recovery */ = {
+			isa = PBXGroup;
+			children = (
+				C31669B3190EC24000E9B7DA /* CPRecoveryAction.h */,
+				C31669B4190EC24000E9B7DA /* CPRecoveryAction.m */,
+			);
+			path = "Error Recovery";
+			sourceTree = "<group>";
+		};
+		C31669B5190EC24000E9B7DA /* Syntax Tree */ = {
+			isa = PBXGroup;
+			children = (
+				C31669B6190EC24000E9B7DA /* CPSyntaxTree.h */,
+				C31669B7190EC24000E9B7DA /* CPSyntaxTree.m */,
+			);
+			path = "Syntax Tree";
+			sourceTree = "<group>";
+		};
+		C31669B8190EC24000E9B7DA /* Tokenisation */ = {
+			isa = PBXGroup;
+			children = (
+				C31669B9190EC24000E9B7DA /* CPTokeniser.h */,
+				C31669BA190EC24000E9B7DA /* CPTokeniser.m */,
+				C31669BB190EC24000E9B7DA /* CPTokenStream.h */,
+				C31669BC190EC24000E9B7DA /* CPTokenStream.m */,
+				C31669BD190EC24000E9B7DA /* Token Recognisers */,
+				C31669CB190EC24000E9B7DA /* Token Types */,
+			);
+			path = Tokenisation;
+			sourceTree = "<group>";
+		};
+		C31669BD190EC24000E9B7DA /* Token Recognisers */ = {
+			isa = PBXGroup;
+			children = (
+				C31669BE190EC24000E9B7DA /* CPIdentifierRecogniser.h */,
+				C31669BF190EC24000E9B7DA /* CPIdentifierRecogniser.m */,
+				C31669C0190EC24000E9B7DA /* CPKeywordRecogniser.h */,
+				C31669C1190EC24000E9B7DA /* CPKeywordRecogniser.m */,
+				C31669C2190EC24000E9B7DA /* CPNumberRecogniser.h */,
+				C31669C3190EC24000E9B7DA /* CPNumberRecogniser.m */,
+				C31669C4190EC24000E9B7DA /* CPQuotedRecogniser.h */,
+				C31669C5190EC24000E9B7DA /* CPQuotedRecogniser.m */,
+				C31669C6190EC24000E9B7DA /* CPRegexpRecogniser.h */,
+				C31669C7190EC24000E9B7DA /* CPRegexpRecogniser.m */,
+				C31669C8190EC24000E9B7DA /* CPTokenRecogniser.h */,
+				C31669C9190EC24000E9B7DA /* CPWhiteSpaceRecogniser.h */,
+				C31669CA190EC24000E9B7DA /* CPWhiteSpaceRecogniser.m */,
+			);
+			path = "Token Recognisers";
+			sourceTree = "<group>";
+		};
+		C31669CB190EC24000E9B7DA /* Token Types */ = {
+			isa = PBXGroup;
+			children = (
+				C31669CC190EC24000E9B7DA /* CPEOFToken.h */,
+				C31669CD190EC24000E9B7DA /* CPEOFToken.m */,
+				C31669CE190EC24000E9B7DA /* CPErrorToken.h */,
+				C31669CF190EC24000E9B7DA /* CPErrorToken.m */,
+				C31669D0190EC24000E9B7DA /* CPIdentifierToken.h */,
+				C31669D1190EC24000E9B7DA /* CPIdentifierToken.m */,
+				C31669D2190EC24000E9B7DA /* CPKeywordToken.h */,
+				C31669D3190EC24000E9B7DA /* CPKeywordToken.m */,
+				C31669D4190EC24000E9B7DA /* CPNumberToken.h */,
+				C31669D5190EC24000E9B7DA /* CPNumberToken.m */,
+				C31669D6190EC24000E9B7DA /* CPQuotedToken.h */,
+				C31669D7190EC24000E9B7DA /* CPQuotedToken.m */,
+				C31669D8190EC24000E9B7DA /* CPToken.h */,
+				C31669D9190EC24000E9B7DA /* CPToken.m */,
+				C31669DA190EC24000E9B7DA /* CPWhiteSpaceToken.h */,
+				C31669DB190EC24000E9B7DA /* CPWhiteSpaceToken.m */,
+			);
+			path = "Token Types";
+			sourceTree = "<group>";
+		};
+		C31669DC190EC24000E9B7DA /* CSSSelectorConverter */ = {
+			isa = PBXGroup;
+			children = (
+				C31669DD190EC24000E9B7DA /* CSSBaseSelector.h */,
+				C31669DE190EC24000E9B7DA /* CSSBaseSelector.m */,
+				C31669DF190EC24000E9B7DA /* CSSClassSelector.h */,
+				C31669E0190EC24000E9B7DA /* CSSClassSelector.m */,
+				C31669E1190EC24000E9B7DA /* CSSCombinator.h */,
+				C31669E2190EC24000E9B7DA /* CSSCombinator.m */,
+				C31669E3190EC24000E9B7DA /* CSSIDSelector.h */,
+				C31669E4190EC24000E9B7DA /* CSSIDSelector.m */,
+				C31669E5190EC24000E9B7DA /* CSSNamedSelector.h */,
+				C31669E6190EC24000E9B7DA /* CSSNamedSelector.m */,
+				C31669E7190EC24000E9B7DA /* CSSPseudoClass.h */,
+				C31669E8190EC24000E9B7DA /* CSSPseudoClass.m */,
+				C31669E9190EC24000E9B7DA /* CSSSelectorAttribute.h */,
+				C31669EA190EC24000E9B7DA /* CSSSelectorAttribute.m */,
+				C31669EB190EC24000E9B7DA /* CSSSelectorAttributeOperator.h */,
+				C31669EC190EC24000E9B7DA /* CSSSelectorAttributeOperator.m */,
+				C31669ED190EC24000E9B7DA /* CSSSelectorConverter.h */,
+				C31669EE190EC24000E9B7DA /* CSSSelectorGrammar.h */,
+				C31669EF190EC24000E9B7DA /* CSSSelectorGrammar.m */,
+				C31669F0190EC24000E9B7DA /* CSSSelectorGrammar.txt */,
+				C31669F1190EC24000E9B7DA /* CSSSelectorGroup.h */,
+				C31669F2190EC24000E9B7DA /* CSSSelectorGroup.m */,
+				C31669F3190EC24000E9B7DA /* CSSSelectorParser.h */,
+				C31669F4190EC24000E9B7DA /* CSSSelectorParser.m */,
+				C31669F5190EC24000E9B7DA /* CSSSelectorParser.plist */,
+				C31669F6190EC24000E9B7DA /* CSSSelectors.h */,
+				C31669F7190EC24000E9B7DA /* CSSSelectors.m */,
+				C31669F8190EC24000E9B7DA /* CSSSelectorSequence.h */,
+				C31669F9190EC24000E9B7DA /* CSSSelectorSequence.m */,
+				C31669FA190EC24000E9B7DA /* CSSSelectorTokeniser.h */,
+				C31669FB190EC24000E9B7DA /* CSSSelectorTokeniser.m */,
+				C31669FC190EC24000E9B7DA /* CSSSelectorToXPathConverter.h */,
+				C31669FD190EC24000E9B7DA /* CSSSelectorToXPathConverter.m */,
+				C31669FE190EC24000E9B7DA /* CSSSelectorXPathVisitor.h */,
+				C31669FF190EC24000E9B7DA /* CSSSelectorXPathVisitor.m */,
+				C3166A00190EC24000E9B7DA /* CSSTypeSelector.h */,
+				C3166A01190EC24000E9B7DA /* CSSTypeSelector.m */,
+				C3166A02190EC24000E9B7DA /* CSSUniversalSelector.h */,
+				C3166A03190EC24000E9B7DA /* CSSUniversalSelector.m */,
+			);
+			path = CSSSelectorConverter;
 			sourceTree = "<group>";
 		};
 		C32283531829775200D924DA /* Cells */ = {
@@ -742,6 +1185,7 @@
 		C3C82B041808D1AF00E2C1D6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C316697B190EC24000E9B7DA /* IGHTMLQuery */,
 				C3DE6F931809B2E60024F9DD /* AFNetworking */,
 				C3C82B451808D59B00E2C1D6 /* DateHelper */,
 				C3B23B661814715800A7243E /* GoogleAnalytics */,
@@ -1139,8 +1583,10 @@
 				C3C1DA5F1809FCF300180AFA /* BBHistoryCommonCell.xib in Resources */,
 				C3C1DA421809FBC400180AFA /* add.png in Resources */,
 				C3DE70401809B5A30024F9DD /* cb_mono_on@2x.png in Resources */,
+				C3166A49190EC24000E9B7DA /* CSSSelectorParser.plist in Resources */,
 				C3C1DA431809FBC400180AFA /* add@2x.png in Resources */,
 				C3DE703E1809B5A30024F9DD /* cb_mono_off@2x.png in Resources */,
+				C3166A46190EC24000E9B7DA /* CSSSelectorGrammar.txt in Resources */,
 				C3BDDA1818FAB2A300A92B35 /* BBHistoryBonusesCell.xib in Resources */,
 				C3878F2B184B9566008FB289 /* arrow2_right@2x.png in Resources */,
 				C335860F1809DA1A001AB5D3 /* BBHomeCell.xib in Resources */,
@@ -1182,17 +1628,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				C32283581829775200D924DA /* BBHistoryAnitexCell.m in Sources */,
+				C3166A48190EC24000E9B7DA /* CSSSelectorParser.m in Sources */,
+				C3166A35190EC24000E9B7DA /* CPEOFToken.m in Sources */,
 				C3DE70731809BE1C0024F9DD /* BBLoaderNetBerry.m in Sources */,
+				C3166A1B190EC24000E9B7DA /* CPRHSItemResult.m in Sources */,
 				C3DE700E1809B2F70024F9DD /* MagicalRecord+ShorthandSupport.m in Sources */,
+				C3166A41190EC24000E9B7DA /* CSSNamedSelector.m in Sources */,
 				C3C82B511808D9D700E2C1D6 /* Reachability.m in Sources */,
+				C3166A30190EC24000E9B7DA /* CPKeywordRecogniser.m in Sources */,
 				C3C82B361808D4D600E2C1D6 /* BBBalanceChecker.m in Sources */,
 				C3DE706E1809BE1C0024F9DD /* BBLoaderCosmosTV.m in Sources */,
 				C3DE70091809B2F70024F9DD /* MagicalRecord+Actions.m in Sources */,
 				C3824FD218D4E853002AC0A3 /* DDDispatchQueueLogFormatter.m in Sources */,
+				C3166A45190EC24000E9B7DA /* CSSSelectorGrammar.m in Sources */,
 				C3DE70701809BE1C0024F9DD /* BBLoaderInfolan.m in Sources */,
 				C3C82AB01808AEC200E2C1D6 /* BBAppDelegate.m in Sources */,
+				C3166A1D190EC24000E9B7DA /* NSArray+Functional.m in Sources */,
+				C3166A3B190EC24000E9B7DA /* CPToken.m in Sources */,
 				C3C82B351808D4D600E2C1D6 /* AppSettings.m in Sources */,
 				C3BDDA1318FAAA8800A92B35 /* BBMAccountType.m in Sources */,
+				C3166A3E190EC24000E9B7DA /* CSSClassSelector.m in Sources */,
 				C3DE70061809B2F70024F9DD /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				C3DE706A1809BE1C0024F9DD /* BBLoaderBase.m in Sources */,
 				C3DE706B1809BE1C0024F9DD /* BBLoaderInfo.m in Sources */,
@@ -1202,28 +1657,47 @@
 				C3544A41184A47E400217456 /* BBCheckPeriodTypeCell.m in Sources */,
 				C3DE70001809B2F70024F9DD /* NSManagedObject+MagicalRecord.m in Sources */,
 				C3DE70071809B2F70024F9DD /* NSPersistentStore+MagicalRecord.m in Sources */,
+				C3166A1C190EC24000E9B7DA /* CPRule.m in Sources */,
 				C3B23B651814563700A7243E /* BBLoaderDiallog.m in Sources */,
+				C3166A21190EC24000E9B7DA /* CPItem.m in Sources */,
+				C3166A53190EC24000E9B7DA /* IGXMLNode.m in Sources */,
 				C3DE6FAA1809B2E60024F9DD /* AFJSONRequestOperation.m in Sources */,
 				C3DE70771809BE1C0024F9DD /* BBLoaderVelcom.m in Sources */,
 				C3DE70041809B2F70024F9DD /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				C3C82B081808D1AF00E2C1D6 /* MBProgressHUD.m in Sources */,
+				C3166A44190EC24000E9B7DA /* CSSSelectorAttributeOperator.m in Sources */,
+				C3166A16190EC24000E9B7DA /* CPGrammar.m in Sources */,
 				C3C6C5E618DE1F1D00C8B9D7 /* BBNavigationController.m in Sources */,
 				C3DE70031809B2F70024F9DD /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				C3166A2D190EC24000E9B7DA /* CPTokeniser.m in Sources */,
+				C3166A19190EC24000E9B7DA /* CPGrammarSymbol.m in Sources */,
+				C3166A4E190EC24000E9B7DA /* CSSSelectorXPathVisitor.m in Sources */,
 				C30FA4BD182D51D800818116 /* DDFileLogger.m in Sources */,
 				C3DE708B1809C13B0024F9DD /* BBMModelsExtension.m in Sources */,
 				C322835C1829778B00D924DA /* BBHistoryBaseCell.m in Sources */,
+				C3166A1E190EC24000E9B7DA /* NSSetFunctional.m in Sources */,
 				C3DE70101809B2F70024F9DD /* NSString+PDRegex.m in Sources */,
+				C3166A2F190EC24000E9B7DA /* CPIdentifierRecogniser.m in Sources */,
 				C3BDDA0D18FAAA8700A92B35 /* BBMBalanceHistory.m in Sources */,
 				C3DE6FAB1809B2E60024F9DD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C3DE700F1809B2F70024F9DD /* MagicalRecord.m in Sources */,
 				C30FA4BC182D51D800818116 /* DDASLLogger.m in Sources */,
+				C3166A37190EC24000E9B7DA /* CPIdentifierToken.m in Sources */,
+				C3166A3A190EC24000E9B7DA /* CPQuotedToken.m in Sources */,
+				C3166A2A190EC24000E9B7DA /* CPSLRParser.m in Sources */,
 				C3DE70741809BE1C0024F9DD /* BBLoaderNiks.m in Sources */,
+				C3166A40190EC24000E9B7DA /* CSSIDSelector.m in Sources */,
 				C33586081809D6BD001AB5D3 /* BBSelectAccountTypeVC.m in Sources */,
 				C3BDDA1618FAB12100A92B35 /* BBHistoryBonusesCell.m in Sources */,
+				C3166A54190EC24000E9B7DA /* IGXMLNodeSet.m in Sources */,
+				C3166A17190EC24000E9B7DA /* CPGrammarInternal.m in Sources */,
 				C3DE70411809B5A30024F9DD /* UIHelpers.m in Sources */,
 				C3C82B4B1808D59B00E2C1D6 /* IDDateHelper.m in Sources */,
 				C3BDDA1018FAAA8800A92B35 /* BBMAccount.m in Sources */,
+				C3166A2C190EC24000E9B7DA /* CPSyntaxTree.m in Sources */,
+				C3166A47190EC24000E9B7DA /* CSSSelectorGroup.m in Sources */,
 				C3DE6FAE1809B2E60024F9DD /* AFXMLRequestOperation.m in Sources */,
+				C3166A23190EC24000E9B7DA /* CPLR1Item.m in Sources */,
 				C312CD391808AB1F005F25D0 /* main.m in Sources */,
 				C3DE706C1809BE1C0024F9DD /* BBLoaderBn.m in Sources */,
 				C3DE70761809BE1C0024F9DD /* BBLoaderUnetBy.m in Sources */,
@@ -1233,50 +1707,84 @@
 				C3C82B031808CE1500E2C1D6 /* BBBaseViewController.m in Sources */,
 				C3DE6FF81809B2F70024F9DD /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				C33586061809D6BD001AB5D3 /* BBAccountFormVC.m in Sources */,
+				C3166A52190EC24000E9B7DA /* IGXMLDocument.m in Sources */,
 				C3C82B4C1808D59B00E2C1D6 /* IDPrimitiveHelper.m in Sources */,
 				C3DE6FAD1809B2E60024F9DD /* AFURLConnectionOperation.m in Sources */,
+				C3166A34190EC24000E9B7DA /* CPWhiteSpaceRecogniser.m in Sources */,
 				C3DE700B1809B2F70024F9DD /* MagicalRecord+iCloud.m in Sources */,
 				C30FA4BB182D51D800818116 /* DDAbstractDatabaseLogger.m in Sources */,
 				C3DE70421809B5A30024F9DD /* SSCheckBoxView.m in Sources */,
+				C3166A33190EC24000E9B7DA /* CPRegexpRecogniser.m in Sources */,
 				C3DE6FFC1809B2F70024F9DD /* NSString+MagicalDataImport.m in Sources */,
+				C3166A26190EC24000E9B7DA /* CPShiftReduceAction.m in Sources */,
+				C3166A27190EC24000E9B7DA /* CPShiftReduceActionTable.m in Sources */,
+				C3166A22190EC24000E9B7DA /* CPLALR1Parser.m in Sources */,
 				C335860A1809D6BD001AB5D3 /* BBBalanceVC.m in Sources */,
+				C3166A3D190EC24000E9B7DA /* CSSBaseSelector.m in Sources */,
 				C3DE700C1809B2F70024F9DD /* MagicalRecord+Options.m in Sources */,
 				C3544A3E184A444D00217456 /* BBSelectCheckPeriodVC.m in Sources */,
 				C3DE6FA81809B2E60024F9DD /* AFHTTPRequestOperation.m in Sources */,
+				C3166A4C190EC24000E9B7DA /* CSSSelectorTokeniser.m in Sources */,
+				C3166A1F190EC24000E9B7DA /* CPParser.m in Sources */,
+				C3166A4A190EC24000E9B7DA /* CSSSelectors.m in Sources */,
+				C3166A4D190EC24000E9B7DA /* CSSSelectorToXPathConverter.m in Sources */,
+				C3166A4B190EC24000E9B7DA /* CSSSelectorSequence.m in Sources */,
 				C30FA4BF182D51D800818116 /* DDTTYLogger.m in Sources */,
 				C3DE6FA71809B2E60024F9DD /* AFHTTPClient.m in Sources */,
 				452959BD18292CB0002D92FF /* BBLoaderAnitex.m in Sources */,
 				C3DE706D1809BE1C0024F9DD /* BBLoaderByFly.m in Sources */,
+				C3166A42190EC24000E9B7DA /* CSSPseudoClass.m in Sources */,
+				C3166A51190EC24000E9B7DA /* IGHTMLDocument.m in Sources */,
+				C3166A38190EC24000E9B7DA /* CPKeywordToken.m in Sources */,
 				C30FA4BE182D51D800818116 /* DDLog.m in Sources */,
 				C3DE70751809BE1C0024F9DD /* BBLoaderTcm.m in Sources */,
+				C3166A29190EC24000E9B7DA /* CPShiftReduceState.m in Sources */,
 				C3DE70111809B2F70024F9DD /* XMLReader.m in Sources */,
 				C3DE6FAF1809B2E60024F9DD /* UIImageView+AFNetworking.m in Sources */,
 				C3DE6FFF1809B2F70024F9DD /* NSManagedObject+MagicalFinders.m in Sources */,
 				C3DE6FF61809B2F70024F9DD /* MagicalImportFunctions.m in Sources */,
 				C3DE70021809B2F70024F9DD /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				C3166A36190EC24000E9B7DA /* CPErrorToken.m in Sources */,
 				C3DE6FF51809B2F70024F9DD /* iToast.m in Sources */,
 				C33585F41809D637001AB5D3 /* BBHomeVC.m in Sources */,
+				C3166A50190EC24000E9B7DA /* CSSUniversalSelector.m in Sources */,
 				C3DE70051809B2F70024F9DD /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				45CD8D341850713A00F62968 /* UIImage+Color.m in Sources */,
+				C3166A31190EC24000E9B7DA /* CPNumberRecogniser.m in Sources */,
+				C3166A32190EC24000E9B7DA /* CPQuotedRecogniser.m in Sources */,
 				C3DE70711809BE1C0024F9DD /* BBLoaderLife.m in Sources */,
 				C3DE70011809B2F70024F9DD /* NSManagedObject+MagicalRequests.m in Sources */,
 				C3DE708D1809C13B0024F9DD /* Model.xcdatamodeld in Sources */,
 				C3C82B331808D4D600E2C1D6 /* AppContext.m in Sources */,
 				C335860B1809D6BD001AB5D3 /* BBAboutCell.m in Sources */,
 				C3824FD318D4E853002AC0A3 /* DDMultiFormatter.m in Sources */,
+				C3166A2E190EC24000E9B7DA /* CPTokenStream.m in Sources */,
+				C3166A4F190EC24000E9B7DA /* CSSTypeSelector.m in Sources */,
 				C3DE700A1809B2F70024F9DD /* MagicalRecord+ErrorHandling.m in Sources */,
 				C3DE6FFE1809B2F70024F9DD /* NSManagedObject+MagicalDataImport.m in Sources */,
 				C3824FD118D4E853002AC0A3 /* DDContextFilterLogFormatter.m in Sources */,
+				C3166A2B190EC24000E9B7DA /* CPRecoveryAction.m in Sources */,
+				C3166A20190EC24000E9B7DA /* CPShiftReduceParser.m in Sources */,
 				C3C82B341808D4D600E2C1D6 /* AppGlobal.m in Sources */,
+				C3166A28190EC24000E9B7DA /* CPShiftReduceGotoTable.m in Sources */,
+				C3166A39190EC24000E9B7DA /* CPNumberToken.m in Sources */,
+				C3166A15190EC24000E9B7DA /* CPJSONParser.m in Sources */,
+				C3166A18190EC24000E9B7DA /* CPGrammarPrivate.m in Sources */,
+				C3166A3F190EC24000E9B7DA /* CSSCombinator.m in Sources */,
+				C3166A43190EC24000E9B7DA /* CSSSelectorAttribute.m in Sources */,
 				C3DE70721809BE1C0024F9DD /* BBLoaderMts.m in Sources */,
 				C3DE6FFB1809B2F70024F9DD /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
+				C3166A24190EC24000E9B7DA /* CPLR1Parser.m in Sources */,
 				C3DE6FAC1809B2E60024F9DD /* AFPropertyListRequestOperation.m in Sources */,
+				C3166A3C190EC24000E9B7DA /* CPWhiteSpaceToken.m in Sources */,
 				C3DE6FF71809B2F70024F9DD /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				C33585F31809D637001AB5D3 /* BBHomeCell.m in Sources */,
 				C3DE6FA91809B2E60024F9DD /* AFImageRequestOperation.m in Sources */,
 				C3DE6FFA1809B2F70024F9DD /* NSObject+MagicalDataImport.m in Sources */,
 				C335860C1809D6BD001AB5D3 /* BBAboutVC.m in Sources */,
 				C3DE6FFD1809B2F70024F9DD /* NSManagedObject+MagicalAggregation.m in Sources */,
+				C3166A1A190EC24000E9B7DA /* CPRHSItem.m in Sources */,
+				C3166A25190EC24000E9B7DA /* CPShiftAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1371,6 +1879,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Andrei Sinkevich (P779M2PD8B)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ByBalance/ByBalance-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDK_DIR)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1390,6 +1903,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrei Sinkevich (7NNP7NAEX3)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ByBalance/ByBalance-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDK_DIR)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (

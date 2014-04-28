@@ -7,6 +7,7 @@
 //
 
 #import "BBLoaderByFly.h"
+#import "IGHTMLQuery.h"
 
 @interface BBLoaderByFly ()
 @end
@@ -48,7 +49,7 @@
 - (void) extractInfoFromHtml:(NSString *)html
 {
     NSArray * arr = nil;
-    BOOL extracted = NO;
+    __block BOOL extracted = NO;
     //DDLogVerbose(@"%@", html);
     
     if ([html rangeOfString:@"name=\"oper_user\""].location != NSNotFound)
@@ -57,12 +58,42 @@
         return;
     }
     
-    //balance
+    //simple check, old style
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Актуальный баланс:\\s*<b>\\s*([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
         extracted = YES;
+    }
+    else
+    {
+        //new style check
+        IGHTMLDocument * node = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+        @try
+        {
+            IGXMLNodeSet * contents = [node queryWithCSS:@"#tree ul li"];
+            [contents enumerateNodesUsingBlock:^(IGXMLNode * content, NSUInteger idx, BOOL *stop)
+            {
+                NSString * buf = [NSString stringWithFormat:@"%@", content.html];
+                
+                if ([buf rangeOfString:self.account.username].location != NSNotFound)
+                {
+                    //our contract
+                    NSArray * arr = [buf stringsByExtractingGroupsUsingRegexPattern:@"Баланс\\s*([^)]+)" caseInsensitive:YES treatAsOneLine:YES];
+                    if (arr && [arr count] == 1)
+                    {
+                        //DDLogVerbose(@"баланс: %@", [arr objectAtIndex:0]);
+                        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
+                        extracted = YES;
+                    }
+                }
+                
+            }];
+        }
+        @catch(NSException * e)
+        {
+            // handle error
+        }
     }
     //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
     

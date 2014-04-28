@@ -9,6 +9,7 @@
 #import "BBAppDelegate.h"
 #import "BBHomeVC.h"
 #import "BBNavigationController.h"
+#import "IGHTMLQuery.h"
 
 @interface BBAppDelegate ()
 {
@@ -148,6 +149,38 @@
     //DDLogVerbose(@"%@", velcom);
      */
     
+    /*
+    //test byfly
+    NSString * html = [NSString stringWithContentsOfFile:@"/Users/administrator/Dropbox/1.html"
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:NULL];
+    IGHTMLDocument * node = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    @try {
+        IGXMLNodeSet* contents = [node queryWithCSS:@"#tree ul li"];
+        [contents enumerateNodesUsingBlock:^(IGXMLNode* content, NSUInteger idx, BOOL *stop){
+            NSLog(@"----------");
+            //NSLog(@"%@", content.html);
+            
+            NSString * buf = [NSString stringWithFormat:@"%@", content.html];
+            //NSLog(@"%@", buf);
+            
+            if ([buf rangeOfString:@"1704008644101"].location != NSNotFound)
+            {
+                //our contract
+                NSArray * arr = nil;
+                arr = [buf stringsByExtractingGroupsUsingRegexPattern:@"Баланс\\s*([^)]+)" caseInsensitive:YES treatAsOneLine:YES];
+                
+                if (arr && [arr count] == 1)
+                {
+                    NSLog(@"баланс: %@", [arr objectAtIndex:0]);
+                }
+            }
+            
+        }];
+    } @catch(NSException * e) {
+        // handle error
+    }
+    */
     
     return YES;
 }
