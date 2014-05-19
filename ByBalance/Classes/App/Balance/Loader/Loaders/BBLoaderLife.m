@@ -129,16 +129,16 @@
                              nil];
     
 
-    [self.httpClient setDefaultHeader:@"Referer" value:@"https://issa.life.com.by/ru/login/?next=/ru/"];
+    [self.httpClient setDefaultHeader:@"Referer" value:@"https://issa.life.com.by/ru/"];
     
-    [self.httpClient postPath:@"/ru/login/?next=/ru/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient postPath:@"/ru/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep2:operation.responseString];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         DDLogError(@"%@ step2 httpclient_error: %@", [self class], error.localizedDescription);
-        //DDLogInfo(@"%@", operation.responseString);
+        DDLogInfo(@"%@", operation.responseString);
         [self doFinish];
     }];
 }
@@ -159,6 +159,8 @@
     BOOL extracted = NO;
     
     //DDLogVerbose(@"%@", html);
+    //DDLogVerbose(@"------------");
+    //DDLogVerbose(@"------------");
     
     BOOL loggedIn = ([html rangeOfString:@"class=\"log-out\""].location != NSNotFound);
     if (!loggedIn)
@@ -237,11 +239,19 @@
      </td>
      </tr>
      */
-    
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Основной баланс\\s*</td>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+
+    //arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Основной баланс\\s*</td>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Основной баланс\\s*</td>\\s*<td[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
-        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
+        NSString * str = [arr objectAtIndex:0];
+        NSRange range = [str rangeOfString:@"руб"];
+        if (range.location != NSNotFound) {
+            NSString * newStr = [str substringToIndex:range.location];
+            self.loaderInfo.userBalance = [self decimalNumberFromString:newStr];
+        } else {
+            self.loaderInfo.userBalance = [self decimalNumberFromString:str];
+        }
         extracted = YES;
         
     }
