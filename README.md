@@ -8,10 +8,10 @@
 * МТС, Velcom, Life :).
 * Деловая сеть (iDom), TCM, НИКС, Шпаркі Дамавік, Соло, Телесеть, NetBerry, Космос ТВ, ByFly, Домашняя сеть (infolan.by), UNET.BY, Anitex.
 
-Работает на устройствах iOS 5 и новее
+Работает на устройствах iOS 6 и новее:
 
 * iphone 3gs +
-* ipad
-* ipod touch 3 +
+* ipad 2 +
+* ipod touch 4 +
 
 [Блог приложения](http://bybalance.wordpress.com)
