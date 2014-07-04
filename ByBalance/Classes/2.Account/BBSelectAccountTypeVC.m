@@ -36,7 +36,7 @@
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Список компаний"];
-    [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView]  build]];
 }
 
 #pragma mark - Setup

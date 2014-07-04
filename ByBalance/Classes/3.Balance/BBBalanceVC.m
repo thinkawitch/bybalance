@@ -81,7 +81,7 @@ typedef enum
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Баланс"];
-    [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView]  build]];
 }
 
 #pragma mark - Setup
