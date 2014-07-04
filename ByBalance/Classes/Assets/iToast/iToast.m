@@ -4,7 +4,7 @@ iToast.m
 
 MIT LICENSE
 
-Copyright (c) 2011 Travis CI development team
+Copyright (c) 2011 Guru Software
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -374,6 +374,8 @@ static iToastSettings *sharedSettings = nil;
 
 
 @implementation iToastSettings
+@synthesize offsetLeft;
+@synthesize offsetTop;
 @synthesize duration;
 @synthesize gravity;
 @synthesize postition;
@@ -386,8 +388,6 @@ static iToastSettings *sharedSettings = nil;
 @synthesize bgAlpha;
 @synthesize images;
 @synthesize imageLocation;
-@synthesize offsetLeft;
-@synthesize offsetTop;
 
 - (void) setImage:(UIImage *) img withLocation:(iToastImageLocation)location forType:(iToastType) type {
 	if (type == iToastTypeNone) {

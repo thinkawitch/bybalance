@@ -22,7 +22,7 @@
     if ([history.extracted boolValue])
     {
         lblBalance.text = [NSNumberFormatter localizedStringFromNumber:history.balance
-                                                       numberStyle:kCFNumberFormatterDecimalStyle];
+                                                           numberStyle:NSNumberFormatterDecimalStyle];
     }
     else if ([history.incorrectLogin boolValue])
     {

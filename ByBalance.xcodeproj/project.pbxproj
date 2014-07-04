@@ -660,6 +660,7 @@
 		C30FA4AA182D51D800818116 /* Lumberjack */ = {
 			isa = PBXGroup;
 			children = (
+				C30FA4B5182D51D800818116 /* Extensions */,
 				C30FA4AB182D51D800818116 /* DDAbstractDatabaseLogger.h */,
 				C30FA4AC182D51D800818116 /* DDAbstractDatabaseLogger.m */,
 				C30FA4AD182D51D800818116 /* DDASLLogger.h */,
@@ -671,7 +672,6 @@
 				C3824FCA18D4E83B002AC0A3 /* DDLog+LOGV.h */,
 				C30FA4B3182D51D800818116 /* DDTTYLogger.h */,
 				C30FA4B4182D51D800818116 /* DDTTYLogger.m */,
-				C30FA4B5182D51D800818116 /* Extensions */,
 			);
 			path = Lumberjack;
 			sourceTree = "<group>";
@@ -1874,6 +1874,10 @@
 		C312CD5C1808AB20005F25D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7s,
+					armv7,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Andrei Sinkevich (P779M2PD8B)";
@@ -1885,7 +1889,7 @@
 					"$(SDK_DIR)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					./ByBalance/Classes/Assets/GoogleAnalytics,
@@ -1898,6 +1902,10 @@
 		C312CD5D1808AB20005F25D0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7s,
+					armv7,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrei Sinkevich (7NNP7NAEX3)";
@@ -1909,7 +1917,7 @@
 					"$(SDK_DIR)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					./ByBalance/Classes/Assets/GoogleAnalytics,

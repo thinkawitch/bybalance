@@ -226,7 +226,7 @@
 {
     ABPeoplePickerNavigationController * picker = [[ABPeoplePickerNavigationController alloc] init];
     picker.peoplePickerDelegate = self;
-    [self presentModalViewController:picker animated:YES];
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 
@@ -409,8 +409,7 @@
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
-    
-    [self dismissModalViewControllerAnimated:YES];
+    [peoplePicker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
@@ -443,7 +442,7 @@
         tfUsername.text = [NSString stringWithFormat:@"%@", phone];
     }
     
-    [self dismissModalViewControllerAnimated:YES];
+    [peoplePicker dismissViewControllerAnimated:YES completion:nil];
     
     return NO;
 }

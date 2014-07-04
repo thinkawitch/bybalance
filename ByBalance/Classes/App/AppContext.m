@@ -301,7 +301,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont boldSystemFontOfSize:24.0f];
     label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [self colorRed];//[UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
     return label;
 }
@@ -312,7 +312,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont boldSystemFontOfSize:14.0f];
     label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [self colorRed];
     return label;
 }

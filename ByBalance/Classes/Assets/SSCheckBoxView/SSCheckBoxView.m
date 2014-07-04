@@ -61,7 +61,7 @@ static const CGFloat kHeight = 36.0f;
 
     CGRect labelFrame = CGRectMake(32.0f, 7.0f, self.frame.size.width - 32, 20.0f);
     UILabel *l = [[UILabel alloc] initWithFrame:labelFrame];
-    l.textAlignment = UITextAlignmentLeft;
+    l.textAlignment = NSTextAlignmentLeft;
     l.backgroundColor = [UIColor clearColor];
     //l.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
     l.font = [UIFont systemFontOfSize:17];

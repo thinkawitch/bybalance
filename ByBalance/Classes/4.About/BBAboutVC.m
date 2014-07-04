@@ -89,7 +89,7 @@
         [composer setSubject:@"Сообщение по БайБаланс"];
         [composer setMessageBody:@"Добрый день,\n" isHTML:NO];
         
-        [self presentModalViewController:composer animated:YES];
+        [self presentViewController:composer animated:YES completion:nil];
     }
     else
     {
@@ -170,7 +170,7 @@
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
-	[controller dismissModalViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
