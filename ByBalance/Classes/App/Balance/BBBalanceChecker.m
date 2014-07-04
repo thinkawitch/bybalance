@@ -298,20 +298,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 
 - (NSArray *) checkPeriodTypes
 {
-    //array indexes must match kCheckTypes enum
+    //array indexes must match kPeriodicChecks enum
     
     static NSArray * checkTypes;
     
     if (!checkTypes)
     {
-        if ([APP_CONTEXT isIos7])
-        {
-            checkTypes = [NSArray arrayWithObjects:@"Вручную", @"При запуске", @"Каждые 2 часа", @"Каждые 4 часа", @"Каждые 8 часов", @"Раз в сутки", nil];
-        }
-        else
-        {
-            checkTypes = [NSArray arrayWithObjects:@"Вручную", @"При запуске", nil];
-        }
+        checkTypes = [NSArray arrayWithObjects:@"Вручную", @"При запуске", @"Каждые 2 часа", @"Каждые 4 часа", @"Каждые 8 часов", @"Раз в сутки", nil];
     }
     
     return checkTypes;
@@ -404,7 +397,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     
     for (acc in [BBMAccount findAllSortedBy:@"order" ascending:YES])
     {
-        bh = [acc lastBalance];
+        bh = [acc lastGoodBalance];
         periodicCheckVal = [acc.periodicCheck integerValue];
         
         //skip others
