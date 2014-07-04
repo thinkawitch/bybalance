@@ -176,7 +176,7 @@
      <div class="divBold">Фамилия:</div>
      <div>
      */
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"ФИО\\s*</td>\\s*<td>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"ФИО\\s*</td>\\s*<td[^>]*>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
@@ -184,13 +184,7 @@
     //DDLogVerbose(@"userTitle: %@", self.loaderInfo.userTitle);
     
     //userPlan
-    /*
-     <div class="divBold">
-     Тарифный план:
-     </div>
-     <div>
-     */
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Наименование тарифного плана\\s*</td>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Наименование тарифного плана\\s*</td>\\s*<td[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
@@ -198,58 +192,19 @@
     //DDLogVerbose(@"userPlan: %@", self.loaderInfo.userPlan);
     
     //balance
-    /*
-     <div class="divBold">
-     Текущий основной баланс: *
-     </div>
-     <div>
-     7 500,00р.
-     </div>
-     */
-    
-    /*
-    html = @"<div>\
-    <div class=\"divBold\">\
-    Текущий основной баланс: *\
-    </div> \
-    <div> \
-    -97&nbsp;931,14р. \
-    </div> \
-    </div>";
-     */
-    
-    /*
-     <tr>
-     <td width="25%">Основной баланс</td>
-     <td>
-     
-     20 000,00 руб.
-     
-     
-     </td>
-     </tr>
-     
-     <tr>
-     <td width="25%">Бонусный баланс</td>
-     <td>
-     
-     0,00 руб.
-     
-     
-     </td>
-     </tr>
-     */
-
     //arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Основной баланс\\s*</td>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Основной баланс\\s*</td>\\s*<td[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         NSString * str = [arr objectAtIndex:0];
         NSRange range = [str rangeOfString:@"руб"];
-        if (range.location != NSNotFound) {
+        if (range.location != NSNotFound)
+        {
             NSString * newStr = [str substringToIndex:range.location];
             self.loaderInfo.userBalance = [self decimalNumberFromString:newStr];
-        } else {
+        }
+        else
+        {
             self.loaderInfo.userBalance = [self decimalNumberFromString:str];
         }
         extracted = YES;
