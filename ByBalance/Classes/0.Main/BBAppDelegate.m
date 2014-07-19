@@ -44,23 +44,27 @@
     [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
     [[DDTTYLogger sharedInstance] setForegroundColor:[UIColor grayColor] backgroundColor:nil forFlag:LOG_FLAG_VERBOSE];
     
-    NSString * docsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    DDLogFileManagerDefault * lfm = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:docsDirectory];
-    //delete all log files
+    //save logs to file
     if (NO)
     {
-        NSFileManager *fileMgr = [NSFileManager defaultManager];
-        for (NSString *logFile in [lfm unsortedLogFilePaths])
+        NSString * docsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        DDLogFileManagerDefault * lfm = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:docsDirectory];
+        //delete all log files
+        if (NO)
         {
-            [fileMgr removeItemAtPath:logFile error:NULL];
+            NSFileManager *fileMgr = [NSFileManager defaultManager];
+            for (NSString *logFile in [lfm unsortedLogFilePaths])
+            {
+                [fileMgr removeItemAtPath:logFile error:NULL];
+            }
         }
+        
+        DDFileLogger * fileLogger = [[DDFileLogger alloc] initWithLogFileManager:lfm];
+        //DDFileLogger * fileLogger = [[DDFileLogger alloc] init];
+        fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+        [DDLog addLogger:fileLogger];
     }
-    
-    DDFileLogger * fileLogger = [[DDFileLogger alloc] initWithLogFileManager:lfm];
-    //DDFileLogger * fileLogger = [[DDFileLogger alloc] init];
-    fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
-    [DDLog addLogger:fileLogger];
     
     DDLogVerbose(@"--- app started ----------------------------------------------------");
     if (application.applicationState == UIApplicationStateBackground)

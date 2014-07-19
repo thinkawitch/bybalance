@@ -28,8 +28,10 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+    <!--
 	<key>UIFileSharingEnabled</key>
 	<string>YES</string>
+    -->
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
