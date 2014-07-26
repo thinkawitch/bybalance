@@ -9,7 +9,7 @@
 #import "BBBaseViewController.h"
 
 @interface BBBalanceVC : BBBaseViewController
-<UIAlertViewDelegate>
+<UIAlertViewDelegate, UISplitViewControllerDelegate>
 {
 @private
     IBOutlet UILabel * lblType;

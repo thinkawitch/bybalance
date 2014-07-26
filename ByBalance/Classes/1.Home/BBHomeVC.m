@@ -403,16 +403,29 @@
         return;
     }
     
-    BBBalanceVC * vc = NEWVCFROMNIB(BBBalanceVC);
-    vc.account = cell.account;
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    {
+        //[[self.splitViewController.viewControllers lastObject] setViewControllers:[NSArray arrayWithObjects:vc, nil] animated:NO];
+        //[[self.splitViewController.viewControllers lastObject] pushViewController:vc animated:NO];
+        BBBalanceVC * vc = [[[self.splitViewController.viewControllers lastObject] viewControllers] firstObject];
+        vc.account = cell.account;
+    }
+    else
+    {
+        BBBalanceVC * vc = NEWVCFROMNIB(BBBalanceVC);
+        vc.account = cell.account;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleNone;
 }
-
 
 
 @end

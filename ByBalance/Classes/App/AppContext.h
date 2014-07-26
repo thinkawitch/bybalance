@@ -74,6 +74,9 @@
 - (NSString *) formatWordAccount:(NSInteger)num;
 - (NSString *) formatWordCrossed:(NSInteger)num;
 
+
+@property (nonatomic, strong) UIPopoverController *masterPC;
+
 @end
 
 

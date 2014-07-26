@@ -10,7 +10,6 @@
 #import "BBAccountFormVC.h"
 #import "BBHistoryAllCells.h"
 
-
 typedef enum
 {
 	kAlertModeDeleteAccount,
@@ -22,7 +21,7 @@ typedef enum
 
 @interface BBBalanceVC ()
 
-@property (strong, nonatomic) NSArray * history;
+@property (strong,nonatomic) NSArray * history;
 @property (strong,nonatomic) UIView * vCircle;
 
 - (void) onBtnEdit:(id)sender;
@@ -38,7 +37,7 @@ typedef enum
 @synthesize history;
 @synthesize vCircle;
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
     
@@ -90,10 +89,13 @@ typedef enum
 {
     [super setupNavBar];
     
-    //left button
-    UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"arrow_left"];
-    [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = btnInfo;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        //left button
+        UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"arrow_left"];
+        [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = btnInfo;
+    }
     
     //title
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
@@ -116,6 +118,7 @@ typedef enum
 
 - (IBAction) onNavButtonLeft:(id)sender
 {
+    DDLogVerbose(@"BBBalanceVC onNavButtonLeft");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -174,6 +177,19 @@ typedef enum
                    andButtonsTitles:[NSArray arrayWithObjects:@"Нет", @"Да", nil]];
 }
 
+- (void)setAccount:(BBMAccount *)newAcc
+{
+    account = newAcc;
+    
+    DDLogVerbose(@"setAccount");
+    DDLogVerbose(@"APP_CONTEXT.masterPC %@", APP_CONTEXT.masterPC);
+    if (APP_CONTEXT.masterPC != nil)
+    {
+        DDLogVerbose(@"do hide popover");
+        [APP_CONTEXT.masterPC dismissPopoverAnimated:YES];
+    }
+}
+
 
 #pragma mark - Notifications
 
@@ -201,6 +217,14 @@ typedef enum
 
 - (void) updateScreen
 {
+    
+    if (self.account == nil)
+    {
+        btnClear.hidden = YES;
+        btnRefresh.hidden = YES;
+        return;
+    }
+    
     lblType.text = account.type.name;
     lblName.text = account.username;
     lblLabel.text = account.label;
@@ -399,6 +423,33 @@ typedef enum
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //
+}
+
+#pragma mark - UISplitViewControllerDelegate
+
+- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
+{
+    DDLogVerbose(@"splitController willHideViewController");
+    barButtonItem.title = @"Master";
+    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
+    APP_CONTEXT.masterPC = popoverController;
+    DDLogVerbose(@"self.masterPC %@", APP_CONTEXT.masterPC);
+}
+
+- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    DDLogVerbose(@"splitController willShowViewController");
+    DDLogVerbose(@"invalidatingBarButtonItem %@", barButtonItem);
+    // Called when the view is shown again in the split view, invalidating the button and popover controller.
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    DDLogVerbose(@"self.masterPC %@", APP_CONTEXT.masterPC);
+    APP_CONTEXT.masterPC = nil;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc popoverController:(UIPopoverController *)pc willPresentViewController:(UIViewController *)aViewController
+{
+    DDLogVerbose(@"svc popoverController %@", pc);
+    //self.masterPC = pc;
 }
 
 @end

@@ -7,8 +7,9 @@
 //
 
 #import "BBAppDelegate.h"
-#import "BBHomeVC.h"
 #import "BBNavigationController.h"
+#import "BBHomeVC.h"
+#import "BBBalanceVC.h"
 #import "IGHTMLQuery.h"
 
 @interface BBAppDelegate ()
@@ -93,17 +94,45 @@
     application.statusBarHidden = NO;
     
     BBHomeVC * vc = NEWVCFROMNIB(BBHomeVC);
-    self.nc = [[BBNavigationController alloc] initWithRootViewController:vc];
-    self.nc.navigationBar.barStyle = UIBarStyleBlack;
-    self.nc.navigationBar.translucent = NO;
-    self.nc.navigationBar.backgroundColor = [UIColor blackColor];
+    self.nc1 = [[BBNavigationController alloc] initWithRootViewController:vc];
+    self.nc1.navigationBar.barStyle = UIBarStyleBlack;
+    self.nc1.navigationBar.translucent = NO;
+    self.nc1.navigationBar.backgroundColor = [UIColor blackColor];
     if (APP_CONTEXT.isIos7)
     {
-        self.nc.delegate = (id<UINavigationControllerDelegate>)self.nc;
-        self.nc.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+        self.nc1.delegate = (id<UINavigationControllerDelegate>)self.nc1;
+        self.nc1.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
     }
     
-    self.window.rootViewController = self.nc;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    {
+        self.split = [[UISplitViewController alloc] init];
+        
+        self.nc2 = [[BBNavigationController alloc] init];
+        self.nc2.navigationBar.barStyle = UIBarStyleBlack;
+        self.nc2.navigationBar.translucent = NO;
+        self.nc2.navigationBar.backgroundColor = [UIColor blackColor];
+        if (APP_CONTEXT.isIos7)
+        {
+            self.nc2.delegate = (id<UINavigationControllerDelegate>)self.nc2;
+            self.nc2.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+        }
+        
+        BBBalanceVC * balanceVC = NEWVCFROMNIB(BBBalanceVC);
+        balanceVC.account = nil;
+        
+        [self.nc2 pushViewController:balanceVC animated:NO];
+        self.split.delegate = balanceVC;
+        //self.split.delegate = self;
+        
+        self.split.viewControllers = [NSArray arrayWithObjects:self.nc1, self.nc2, nil];
+        self.window.rootViewController = self.split;
+    }
+    else
+    {
+        self.window.rootViewController = self.nc1;
+    }
+    
     [self.window makeKeyAndVisible];
     
     if (APP_CONTEXT.isIos7)

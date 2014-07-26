@@ -13,6 +13,8 @@
 }
 
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) UINavigationController *nc;
+@property (nonatomic, strong) UINavigationController *nc1;
+@property (nonatomic, strong) UINavigationController *nc2;
+@property (nonatomic, strong) UISplitViewController *split;
 
 @end
