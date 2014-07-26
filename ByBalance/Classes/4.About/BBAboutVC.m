@@ -116,6 +116,7 @@
     {
         nibs = [[NSBundle mainBundle] loadNibNamed:@"BBAboutCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
+        cell.backgroundColor = [UIColor clearColor]; //universal app, ipad makes bg white
     }
     
     switch (indexPath.row)

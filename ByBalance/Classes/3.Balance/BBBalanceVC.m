@@ -359,6 +359,7 @@ typedef enum
     {
         nibs = [[NSBundle mainBundle] loadNibNamed:nib owner:self options:nil];
         cell = [nibs objectAtIndex:0];
+        cell.backgroundColor = [UIColor clearColor]; //universal app, ipad makes bg white
     }
     
     

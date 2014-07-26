@@ -43,12 +43,6 @@
 
 #pragma mark - Autorotation
 
-//iOS 5
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation==UIInterfaceOrientationPortrait || interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown);
-}
-
 //iOS6
 - (BOOL)shouldAutorotate
 {
@@ -57,7 +51,8 @@
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) return UIInterfaceOrientationMaskAll;
+    else return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation

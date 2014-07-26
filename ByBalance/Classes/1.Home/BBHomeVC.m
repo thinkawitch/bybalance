@@ -339,7 +339,7 @@
     {
         nibs = [[NSBundle mainBundle] loadNibNamed:@"BBHomeCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
-        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.backgroundColor = [UIColor clearColor]; //universal app, ipad makes bg white
     }
     
     BBMAccount * account = [self.accounts objectAtIndex:indexPath.row];

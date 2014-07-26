@@ -81,6 +81,7 @@
     {
         nibs = [[NSBundle mainBundle] loadNibNamed:@"BBAccountTypeCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
+        cell.backgroundColor = [UIColor clearColor]; //universal app, ipad makes bg white
     }
     
     NSNumber * atId  = [NSNumber numberWithInteger:indexPath.row + 1];
