@@ -23,12 +23,14 @@ typedef enum
 
 @property (strong,nonatomic) NSArray * history;
 @property (strong,nonatomic) UIView * vCircle;
+@property (strong,nonatomic) UIView * ipadSplash;
 
 - (void) onBtnEdit:(id)sender;
 - (void) onBtnDelete:(id)sender;
 - (void) updateScreen;
 - (void) clearHistory;
-
+- (void) updateNavBar;
+- (void) makeIpadSplash;
 @end
 
 @implementation BBBalanceVC
@@ -53,6 +55,8 @@ typedef enum
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceChecked:) name:kNotificationOnBalanceChecked object:nil];
+    
+    [self makeIpadSplash];
 }
 
 
@@ -83,18 +87,30 @@ typedef enum
     [tracker send:[[GAIDictionaryBuilder createScreenView]  build]];
 }
 
+#pragma mark - Logic
+
+- (void)setAccount:(BBMAccount *)newAcc
+{
+    account = newAcc;
+    
+    if (APP_CONTEXT.masterPC != nil) [APP_CONTEXT.masterPC dismissPopoverAnimated:YES];
+    
+    [self updateScreen];
+}
+
 #pragma mark - Setup
 
 - (void) setupNavBar
 {
     [super setupNavBar];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    if (APP_CONTEXT.isIphone)
     {
         //left button
         UIBarButtonItem * btnInfo = [APP_CONTEXT buttonFromName:@"arrow_left"];
         [(UIButton *)btnInfo.customView addTarget:self action:@selector(onNavButtonLeft:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = btnInfo;
+        
     }
     
     //title
@@ -113,12 +129,33 @@ typedef enum
     
 }
 
+- (void) updateNavBar
+{
+    if (APP_CONTEXT.isIphone) return;
+    
+    if (self.account == nil)
+    {
+        self.navigationItem.rightBarButtonItems = nil;
+    }
+    else
+    {
+        //right button
+        UIBarButtonItem * btnEdit = [APP_CONTEXT buttonFromName:@"edit"];
+        [(UIButton *)btnEdit.customView addTarget:self action:@selector(onBtnEdit:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem * btnDelete = [APP_CONTEXT buttonFromName:@"delete"];
+        [(UIButton *)btnDelete.customView addTarget:self action:@selector(onBtnDelete:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:btnDelete, btnEdit, nil];
+    }
+    
+}
+
 
 #pragma mark - Actions
 
 - (IBAction) onNavButtonLeft:(id)sender
 {
-    DDLogVerbose(@"BBBalanceVC onNavButtonLeft");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -177,19 +214,6 @@ typedef enum
                    andButtonsTitles:[NSArray arrayWithObjects:@"Нет", @"Да", nil]];
 }
 
-- (void)setAccount:(BBMAccount *)newAcc
-{
-    account = newAcc;
-    
-    DDLogVerbose(@"setAccount");
-    DDLogVerbose(@"APP_CONTEXT.masterPC %@", APP_CONTEXT.masterPC);
-    if (APP_CONTEXT.masterPC != nil)
-    {
-        DDLogVerbose(@"do hide popover");
-        [APP_CONTEXT.masterPC dismissPopoverAnimated:YES];
-    }
-}
-
 
 #pragma mark - Notifications
 
@@ -217,12 +241,14 @@ typedef enum
 
 - (void) updateScreen
 {
+    [self updateNavBar];
     
     if (self.account == nil)
     {
-        btnClear.hidden = YES;
-        btnRefresh.hidden = YES;
-        return;
+        self.ipadSplash.hidden = NO;
+    }
+    else {
+        self.ipadSplash.hidden = YES;
     }
     
     lblType.text = account.type.name;
@@ -295,6 +321,50 @@ typedef enum
     [self updateScreen];
 }
 
+- (void) makeIpadSplash
+{
+    if (APP_CONTEXT.isIphone) return;
+    
+    UIView * splash = [[UIView alloc] initWithFrame:CGRectZero];
+    splash.translatesAutoresizingMaskIntoConstraints = NO;
+    splash.backgroundColor = [APP_CONTEXT colorBg];
+    [self.view addSubview:splash];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:splash
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:splash
+                                                          attribute:NSLayoutAttributeLeading
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeading
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:splash
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:splash
+                                                          attribute:NSLayoutAttributeTrailing
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTrailing
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    
+    self.ipadSplash = splash;
+}
+
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -315,7 +385,15 @@ typedef enum
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+            if (APP_CONTEXT.isIphone)
+            {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            else
+            {
+                self.account = nil;
+            }
             
             [APP_CONTEXT showToastWithText:@"Аккаунт удалён"]; 
         }
@@ -429,27 +507,18 @@ typedef enum
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
 {
-    DDLogVerbose(@"splitController willHideViewController");
-    barButtonItem.title = @"Master";
+    barButtonItem.title = @"Список";
+    barButtonItem.tintColor = [APP_CONTEXT colorRed];
     [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
     APP_CONTEXT.masterPC = popoverController;
-    DDLogVerbose(@"self.masterPC %@", APP_CONTEXT.masterPC);
 }
 
 - (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
-    DDLogVerbose(@"splitController willShowViewController");
-    DDLogVerbose(@"invalidatingBarButtonItem %@", barButtonItem);
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
-    DDLogVerbose(@"self.masterPC %@", APP_CONTEXT.masterPC);
     APP_CONTEXT.masterPC = nil;
 }
 
-- (void)splitViewController:(UISplitViewController *)svc popoverController:(UIPopoverController *)pc willPresentViewController:(UIViewController *)aViewController
-{
-    DDLogVerbose(@"svc popoverController %@", pc);
-    //self.masterPC = pc;
-}
 
 @end

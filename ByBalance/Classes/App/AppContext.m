@@ -43,6 +43,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     iOs7 = (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7"));
+    iPhone = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone);
+    iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
 }
 
 - (void) stop
@@ -122,11 +124,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     DDLogInfo(@"reachability isOnline:%d wifi:%d cellular:%d", isOnline, isOnlineWifi, isOnlineCellular);
 }
 
-#pragma mark - Ios versions
+#pragma mark - Ios helpers
 
 - (BOOL) isIos7
 {
     return iOs7;
+}
+
+- (BOOL) isIphone
+{
+    return iPhone;
+}
+
+- (BOOL) isIpad
+{
+    return iPad;
 }
 
 - (void) setupDatabase
@@ -337,6 +349,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 - (UIColor *) colorGrayDark
 {
     return [UIColor colorWithRed:85.f/255.f green:85.f/255.f blue:85.f/255.f alpha:1.f];
+}
+
+- (UIColor *) colorBg
+{
+    return [UIColor colorWithRed:37.f/255.f green:37.f/255.f blue:37.f/255.f alpha:1.f];
 }
 
 - (UIImage *) imageColored:(NSString *)resourceName

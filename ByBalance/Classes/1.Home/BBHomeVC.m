@@ -20,6 +20,7 @@
 - (void) loadAccounts;
 - (void) setupToolbar;
 - (void) toggleSplashMode;
+- (void) updateScreen;
 - (NSString *) lastBalanceStatus;
 
 - (void) onBtnReorder:(id)sender;
@@ -74,12 +75,7 @@
 {
     [super viewDidAppear:animated];
 
-    if (needUpdateScreen)
-    {
-        [self loadAccounts];
-        needUpdateScreen = NO;
-        [self toggleSplashMode];
-    }
+    [self updateScreen];
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Главный экран"];
@@ -251,6 +247,7 @@
 - (void) accountsListUpdated:(NSNotification *)notification
 {
     needUpdateScreen = YES;
+    if ([self isViewLoaded] && self.view.window) [self updateScreen];
 }
 
 - (void) balanceCheckStarted:(NSNotification *)notification
@@ -311,6 +308,16 @@
     }
 }
 
+- (void) updateScreen
+{
+    if (needUpdateScreen)
+    {
+        [self loadAccounts];
+        needUpdateScreen = NO;
+        [self toggleSplashMode];
+    }
+}
+
 - (NSString *) lastBalanceStatus;
 {
     NSArray * arr = [BBMBalanceHistory findAllSortedBy:@"date" ascending:NO];
@@ -340,6 +347,14 @@
         nibs = [[NSBundle mainBundle] loadNibNamed:@"BBHomeCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
         cell.backgroundColor = [UIColor clearColor]; //universal app, ipad makes bg white
+        
+        if (APP_CONTEXT.isIpad)
+        {
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            UIView *v = [[UIView alloc] init];
+            v.backgroundColor = [APP_CONTEXT colorGrayDark];
+            cell.selectedBackgroundView = v;
+        }
     }
     
     BBMAccount * account = [self.accounts objectAtIndex:indexPath.row];
@@ -403,14 +418,12 @@
         return;
     }
     
-    
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    if (APP_CONTEXT.isIpad)
     {
-        //[[self.splitViewController.viewControllers lastObject] setViewControllers:[NSArray arrayWithObjects:vc, nil] animated:NO];
-        //[[self.splitViewController.viewControllers lastObject] pushViewController:vc animated:NO];
         BBBalanceVC * vc = [[[self.splitViewController.viewControllers lastObject] viewControllers] firstObject];
         vc.account = cell.account;
+        [[self.splitViewController.viewControllers lastObject] popToRootViewControllerAnimated:NO];
+        
     }
     else
     {

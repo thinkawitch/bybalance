@@ -21,6 +21,8 @@
     
     //
     BOOL iOs7;
+    BOOL iPhone;
+    BOOL iPad;
 }
 
 
@@ -38,6 +40,8 @@
 - (BOOL) isOnlineCellular;
 //
 - (BOOL) isIos7;
+- (BOOL) isIphone;
+- (BOOL) isIpad;
 //
 - (void) saveDatabase;
 - (void) showAllAccounts;
@@ -55,6 +59,7 @@
 - (UIColor *) colorGrayLight;
 - (UIColor *) colorGrayMedium;
 - (UIColor *) colorGrayDark;
+- (UIColor *) colorBg;
 - (UIImage *) imageColored:(NSString *)resourceName;
 - (void) makeRedButton:(UIButton *) button;
 - (CGFloat) labelTextWidth:(UILabel *)label;

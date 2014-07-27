@@ -1889,7 +1889,7 @@
 					"$(SDK_DIR)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					./ByBalance/Classes/Assets/GoogleAnalytics,
@@ -1918,7 +1918,7 @@
 					"$(SDK_DIR)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					./ByBalance/Classes/Assets/GoogleAnalytics,

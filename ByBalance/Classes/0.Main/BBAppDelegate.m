@@ -12,6 +12,18 @@
 #import "BBBalanceVC.h"
 #import "IGHTMLQuery.h"
 
+
+@interface UISplitViewController (ByBalance)
+-(UIStatusBarStyle)preferredStatusBarStyle;
+@end
+@implementation UISplitViewController (ByBalance)
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+@end
+
+
 @interface BBAppDelegate ()
 {
     NSTimer * bgrTimer;
@@ -98,15 +110,17 @@
     self.nc1.navigationBar.barStyle = UIBarStyleBlack;
     self.nc1.navigationBar.translucent = NO;
     self.nc1.navigationBar.backgroundColor = [UIColor blackColor];
+
     if (APP_CONTEXT.isIos7)
     {
         self.nc1.delegate = (id<UINavigationControllerDelegate>)self.nc1;
         self.nc1.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
     }
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    if (APP_CONTEXT.isIpad)
     {
         self.split = [[UISplitViewController alloc] init];
+        //[self.split.view setBackgroundColor:[APP_CONTEXT colorGrayMedium]];
         
         self.nc2 = [[BBNavigationController alloc] init];
         self.nc2.navigationBar.barStyle = UIBarStyleBlack;
@@ -123,7 +137,6 @@
         
         [self.nc2 pushViewController:balanceVC animated:NO];
         self.split.delegate = balanceVC;
-        //self.split.delegate = self;
         
         self.split.viewControllers = [NSArray arrayWithObjects:self.nc1, self.nc2, nil];
         self.window.rootViewController = self.split;

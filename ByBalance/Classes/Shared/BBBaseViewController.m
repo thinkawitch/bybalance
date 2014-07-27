@@ -51,7 +51,7 @@
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) return UIInterfaceOrientationMaskAll;
+    if (APP_CONTEXT.isIpad) return UIInterfaceOrientationMaskAll;
     else return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
 }
 
