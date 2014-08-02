@@ -16,6 +16,7 @@
 @interface BBHomeVC ()
 
 @property (strong,nonatomic) NSMutableArray * accounts;
+@property (strong,nonatomic) NSIndexPath * selectedRow;
 
 - (void) loadAccounts;
 - (void) setupToolbar;
@@ -33,6 +34,7 @@
 @implementation BBHomeVC
 
 @synthesize accounts;
+@synthesize selectedRow;
 
 #pragma mark - ObjectLife
 
@@ -42,6 +44,9 @@
 
     [tblAccounts setSeparatorColor:[APP_CONTEXT colorGrayMedium]];
     
+    UINib *nib = [UINib nibWithNibName:@"BBHomeCell" bundle:nil];
+    [tblAccounts registerNib:nib forCellReuseIdentifier:@"BBHomeCellID"];
+    
     [APP_CONTEXT makeRedButton:btnBigAdd];
     
     [self setupToolbar];
@@ -49,6 +54,7 @@
     [self toggleSplashMode];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsListUpdated:) name:kNotificationOnAccountsListUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountDeleted:) name:kNotificationOnAccountDeleted object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckStarted:) name:kNotificationOnBalanceCheckStart object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckProgress:) name:kNotificationOnBalanceCheckProgress object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(balanceCheckStopped:) name:kNotificationOnBalanceCheckStop object:nil];
@@ -57,6 +63,7 @@
 - (void) cleanup
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnAccountsListUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnAccountDeleted object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnBalanceCheckStart object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnBalanceCheckProgress object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationOnBalanceCheckStop object:nil];
@@ -80,6 +87,32 @@
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Главный экран"];
     [tracker send:[[GAIDictionaryBuilder createScreenView]  build]];
+    
+    if (APP_CONTEXT.isIpad)
+    {
+        if (self.selectedRow)
+        {
+            [tblAccounts selectRowAtIndexPath:self.selectedRow animated:NO scrollPosition:UITableViewScrollPositionNone];
+        }
+        else
+        {
+            //select first account
+            NSIndexPath *path = [tblAccounts indexPathForSelectedRow];
+            if (!path)
+            {
+                //nothing selected
+                BBMAccount * acc = [BBMAccount findFirst];
+                if (acc)
+                {
+                    //we have atleast 1 account
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection: 0];
+                    [tblAccounts selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                    [self tableView:tblAccounts didSelectRowAtIndexPath:indexPath];
+                }
+                
+            }
+        }
+    }
 }
 
 
@@ -250,6 +283,11 @@
     if ([self isViewLoaded] && self.view.window) [self updateScreen];
 }
 
+- (void) accountDeleted:(NSNotification *)notification
+{
+    self.selectedRow = nil;
+}
+
 - (void) balanceCheckStarted:(NSNotification *)notification
 {
     DDLogVerbose(@"BBHomeVC.balanceCheckStarted");
@@ -338,31 +376,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellId = @"BBHomeCellID";
-    NSArray * nibs;
-    
-    BBHomeCell * cell = (BBHomeCell*)[tblAccounts dequeueReusableCellWithIdentifier:cellId];
-    if (!cell)
-    {
-        nibs = [[NSBundle mainBundle] loadNibNamed:@"BBHomeCell" owner:self options:nil];
-        cell = [nibs objectAtIndex:0];
-        cell.backgroundColor = [UIColor clearColor]; //universal app, ipad makes bg white
-        
-        if (APP_CONTEXT.isIpad)
-        {
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            UIView *v = [[UIView alloc] init];
-            v.backgroundColor = [APP_CONTEXT colorGrayDark];
-            cell.selectedBackgroundView = v;
-        }
-    }
-    
+    BBHomeCell * cell = (BBHomeCell*)[tblAccounts dequeueReusableCellWithIdentifier:@"BBHomeCellID"];
     BBMAccount * account = [self.accounts objectAtIndex:indexPath.row];
-    
     [cell setupWithAccount:account];
     
-    return cell;
+    if (self.selectedRow && [self.selectedRow compare:indexPath] == NSOrderedSame)
+    {
+        [_tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
     
+    return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -415,8 +438,11 @@
     if (nil == cell)
     {
         NSAssert(0, @"%@. Cell is nil", [self class]);
+        self.selectedRow = nil;
         return;
     }
+    
+    self.selectedRow = indexPath;
     
     if (APP_CONTEXT.isIpad)
     {

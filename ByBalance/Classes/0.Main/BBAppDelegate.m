@@ -140,6 +140,8 @@
         
         self.split.viewControllers = [NSArray arrayWithObjects:self.nc1, self.nc2, nil];
         self.window.rootViewController = self.split;
+        
+        
     }
     else
     {

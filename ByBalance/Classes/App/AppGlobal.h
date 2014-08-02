@@ -71,6 +71,7 @@ extern NSString * const kDictKeyHtml;
 #pragma mark - Notifications
 //
 extern NSString * const kNotificationOnAccountsListUpdated;
+extern NSString * const kNotificationOnAccountDeleted;
 extern NSString * const kNotificationOnBalanceCheckStart;
 extern NSString * const kNotificationOnBalanceCheckProgress;
 extern NSString * const kNotificationOnBalanceChecked;

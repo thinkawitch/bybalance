@@ -22,6 +22,9 @@
     [super viewDidLoad];
     
 	[tblAccountTypes setSeparatorColor:[APP_CONTEXT colorGrayMedium]];
+    
+    UINib *nib = [UINib nibWithNibName:@"BBAccountTypeCell" bundle:nil];
+    [tblAccountTypes registerNib:nib forCellReuseIdentifier:@"BBAccountTypeCellID"];
 }
 
 - (void)viewDidUnload
@@ -73,17 +76,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellId = @"BBAccountTypeCellID";
-    NSArray * nibs;
-    
-    BBAccountTypeCell * cell = (BBAccountTypeCell*)[tblAccountTypes dequeueReusableCellWithIdentifier:cellId];
-    if (!cell)
-    {
-        nibs = [[NSBundle mainBundle] loadNibNamed:@"BBAccountTypeCell" owner:self options:nil];
-        cell = [nibs objectAtIndex:0];
-        cell.backgroundColor = [UIColor clearColor]; //universal app, ipad makes bg white
-    }
-    
+    BBAccountTypeCell * cell = (BBAccountTypeCell*)[tblAccountTypes dequeueReusableCellWithIdentifier:@"BBAccountTypeCellID"];
     NSNumber * atId  = [NSNumber numberWithInteger:indexPath.row + 1];
     BBMAccountType * at = [BBMAccountType findFirstByAttribute:@"id" withValue:atId];
     
@@ -93,7 +86,6 @@
     }
     
     return cell;
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView

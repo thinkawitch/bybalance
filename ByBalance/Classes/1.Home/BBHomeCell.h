@@ -18,6 +18,7 @@
     IBOutlet UILabel * lblBalance;
     
     BBMAccount * account;
+    BOOL ipadChangesApplied;
 }
 
 @property (strong, nonatomic) BBMAccount * account;

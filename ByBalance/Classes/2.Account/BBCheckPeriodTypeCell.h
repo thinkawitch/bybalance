@@ -12,6 +12,7 @@
 @private
     IBOutlet UILabel * lblTitle;
     NSInteger periodType;
+    BOOL ipadChangesApplied;
 }
 
 - (void) setupWithTitle:(NSString *)title selected:(BOOL) selected;

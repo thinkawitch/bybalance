@@ -10,16 +10,19 @@
 
 @interface BBHomeCell ()
 @property (strong,nonatomic) UIView * vCircle;
+- (void) applyIpadChanges;
 @end
 
 @implementation BBHomeCell
 
 @synthesize vCircle;
-
 @synthesize account;
+
 
 - (void) setupWithAccount:(BBMAccount*) anAccount;
 {
+    [self applyIpadChanges];
+    
     self.account = anAccount;
     
     lblType.text = account.type.name;
@@ -50,6 +53,26 @@
         
         //lblBalance.textColor = [APP_CONTEXT colorGrayLight];
     }
+    
+}
+
+- (void) applyIpadChanges
+{
+    if (!APP_CONTEXT.isIpad || ipadChangesApplied) return;
+    
+    self.backgroundColor = [UIColor clearColor]; //universal app, ipad makes bg white
+    
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+    UIView *v = [[UIView alloc] init];
+    v.backgroundColor = [APP_CONTEXT colorGrayDark];
+    self.selectedBackgroundView = v;
+    
+    self.accessoryType = UITableViewCellAccessoryNone;
+    
+    CGRect frame = lblName.frame;
+    lblName.frame = CGRectMake(frame.origin.x, frame.origin.y, 200.f, frame.size.height);
+    
+    ipadChangesApplied = YES;
 }
 
 @end

@@ -40,6 +40,7 @@ NSString * const kDictKeyHtml = @"html";
 #pragma mark - Notifications
 //
 NSString * const kNotificationOnAccountsListUpdated = @"ON_ACCOUNTS_LIST_UPDATED";
+NSString * const kNotificationOnAccountDeleted = @"ON_ACCOUNT_DELETED";
 NSString * const kNotificationOnBalanceCheckStart = @"ON_BALANCE_CHECK_START";
 NSString * const kNotificationOnBalanceCheckProgress = @"ON_BALANCE_CHECK_PROGRESS";
 NSString * const kNotificationOnBalanceChecked = @"ON_BALANCE_CHECKED";

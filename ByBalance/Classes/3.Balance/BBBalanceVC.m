@@ -298,6 +298,14 @@ typedef enum
         [self.vCircle removeFromSuperview];
         self.vCircle = nil;
     }
+    
+    if (APP_CONTEXT.isIpad)
+    {
+        //update title
+        UILabel *titleView = (UILabel *)self.navigationItem.titleView;
+        titleView.text = account.type.name;
+        [titleView sizeToFit];
+    }
 }
 
 - (void) clearHistory
@@ -323,7 +331,7 @@ typedef enum
 
 - (void) makeIpadSplash
 {
-    if (APP_CONTEXT.isIphone) return;
+    if (!APP_CONTEXT.isIpad) return;
     
     UIView * splash = [[UIView alloc] initWithFrame:CGRectZero];
     splash.translatesAutoresizingMaskIntoConstraints = NO;
@@ -383,6 +391,7 @@ typedef enum
             [account deleteEntity];
             [APP_CONTEXT saveDatabase];
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountDeleted object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
             
             
@@ -518,6 +527,11 @@ typedef enum
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     APP_CONTEXT.masterPC = nil;
+}
+
+- (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation
+{
+    return NO;
 }
 
 

@@ -15,6 +15,7 @@
     IBOutlet UILabel * lblTitle;
     
     BBMAccountType * accountType;
+    BOOL ipadChangesApplied;
 }
 
 @property (strong, nonatomic) BBMAccountType * accountType;
