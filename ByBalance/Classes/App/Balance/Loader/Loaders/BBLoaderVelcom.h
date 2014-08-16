@@ -8,6 +8,6 @@
 
 #import "BBLoaderBase.h"
 
-@interface BBLoaderVelcom : BBLoaderBase
+@interface BBLoaderVelcom : BBLoaderBase <UIWebViewDelegate>
 
 @end

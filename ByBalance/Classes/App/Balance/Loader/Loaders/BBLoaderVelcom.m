@@ -9,11 +9,16 @@
 #import "BBLoaderVelcom.h"
 
 @interface BBLoaderVelcom ()
-
+{
+    NSInteger webViewLoads;
+    BOOL webViewFinished;
+}
+@property (nonatomic,strong) UIWebView * webView;
 @property (nonatomic,strong) NSString * sessionId;
 @property (nonatomic,assign) BOOL loggedIn;
 @property (nonatomic,strong) NSString * menuMarker;
 
+- (void) onStep0;
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
 - (void) onStep3:(NSString *)html;
@@ -24,7 +29,43 @@
 
 @implementation BBLoaderVelcom
 
+@synthesize webView;
 @synthesize sessionId;
+
+#pragma mark UIWebViewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    DDLogVerbose(@"webView shouldStartLoadWithRequest: %@", request.URL);
+    return !webViewFinished;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    DDLogVerbose(@"webViewDidStartLoad");
+    webViewLoads++;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    DDLogVerbose(@"webViewDidFinishLoad");
+    webViewLoads--;
+    if (webViewLoads <= 0)
+    {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        webViewFinished = YES;
+        [self onStep0];
+    }
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    DDLogVerbose(@"webView didFailLoadWithError: %@", error);
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    webViewLoads--;
+    webViewFinished = YES;
+    [self doFinish];
+}
 
 #pragma mark - Logic
 
@@ -36,6 +77,25 @@
     
     self.loggedIn = NO;
     self.menuMarker = @"";
+    
+    webViewLoads = 0;
+    webViewFinished = NO;
+    
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        self.webView = [[UIWebView alloc] init];
+        self.webView.delegate = self;
+        
+        NSString *strURL = @"https://internet.velcom.by/";
+        NSURL *url = [NSURL URLWithString:strURL];
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+        [self.webView loadRequest:urlRequest];
+    });
+
+}
+
+- (void) onStep0
+{
+    DDLogVerbose(@"BBLoaderVelcom.onStep0");
     
     [self.httpClient getPath:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
