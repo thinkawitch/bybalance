@@ -8,10 +8,14 @@
 
 #import "BBLoaderVelcom.h"
 
+NSString * const kUrlVelcom = @"https://internet.velcom.by/";
+
 @interface BBLoaderVelcom ()
 {
     NSInteger webViewLoads;
+    BOOL x3Started;
     BOOL webViewFinished;
+    
 }
 @property (nonatomic,strong) UIWebView * webView;
 @property (nonatomic,strong) NSString * sessionId;
@@ -36,21 +40,30 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     DDLogVerbose(@"webView shouldStartLoadWithRequest: %@", request.URL);
+    //DDLogVerbose(@"%@", request.allHTTPHeaderFields);
+    DDLogVerbose(@"webView shouldStartLoadWithRequest willLoad: %d", !webViewFinished);
+    
+    if ([request.URL.relativeString rangeOfString:@"X3_"].location != NSNotFound) {
+        DDLogVerbose(@"X3 started: %@", request.URL.relativeString);
+        x3Started = YES;
+    }
+    
     return !webViewFinished;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    DDLogVerbose(@"webViewDidStartLoad");
     webViewLoads++;
+    DDLogVerbose(@"webViewDidStartLoad %d", webViewLoads);
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    DDLogVerbose(@"webViewDidFinishLoad");
     webViewLoads--;
-    if (webViewLoads <= 0)
+    DDLogVerbose(@"webViewDidFinishLoad %d", webViewLoads);
+    if (webViewLoads <= 0 && x3Started)
     {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         webViewFinished = YES;
@@ -71,8 +84,9 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://internet.velcom.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://internet.velcom.by/"]];
+    [self showCookies:kUrlVelcom];
+    [self clearCookies:kUrlVelcom];
+    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kUrlVelcom]];
     [self setDefaultsForHttpClient];
     
     self.loggedIn = NO;
@@ -82,12 +96,12 @@
     webViewFinished = NO;
     
     dispatch_async(dispatch_get_main_queue(), ^(void){
-        self.webView = [[UIWebView alloc] init];
+        self.webView = [[UIWebView alloc] initWithFrame:CGRectZero];
         self.webView.delegate = self;
-        
-        NSString *strURL = @"https://internet.velcom.by/";
-        NSURL *url = [NSURL URLWithString:strURL];
+        NSURL *url = [NSURL URLWithString:kUrlVelcom];
         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+        //NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
+        //[urlRequest setValue:kBrowserUserAgent forHTTPHeaderField: @"User-Agent"];
         [self.webView loadRequest:urlRequest];
     });
 
@@ -96,7 +110,11 @@
 - (void) onStep0
 {
     DDLogVerbose(@"BBLoaderVelcom.onStep0");
+    [self showCookies:kUrlVelcom];
     
+    NSString *html = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
+    [self onStep1:html];
+    /*
     [self.httpClient getPath:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
@@ -106,11 +124,12 @@
         DDLogError(@"%@ step1 httpclient_error: %@", [self class], error.localizedDescription);
         [self doFinish];
     }];
+    */
 }
 
 - (void) onStep1:(NSString *)html
 {
-    //DDLogVerbose(@"BBLoaderVelcom.onStep1");
+    DDLogVerbose(@"BBLoaderVelcom.onStep1");
     //DDLogVerbose(@"%@", html);
     
     NSArray * arr = nil;
@@ -166,7 +185,7 @@
 
 - (void) onStep2:(NSString *)html
 {
-    //DDLogVerbose(@"BBLoaderVelcom.onStep2");
+    DDLogVerbose(@"BBLoaderVelcom.onStep2");
     //DDLogVerbose(@"%@", html);
     
     [self checkIfLoggedInHtml:html];
@@ -207,7 +226,7 @@
 
 - (void) onStep3:(NSString *)html
 {
-    //DDLogVerbose(@"BBLoaderVelcom.onStep3");
+    DDLogVerbose(@"BBLoaderVelcom.onStep3");
     //DDLogVerbose(@"%@", html);
     
     [self extractInfoFromHtml:html];

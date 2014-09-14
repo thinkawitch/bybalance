@@ -31,6 +31,7 @@
 
 // BalanceLoader
 - (void) startLoader;
+- (void) showCookies:(NSString *)url;
 - (void) clearCookies:(NSString *)url;
 - (void) setDefaultsForHttpClient;
 - (void) extractInfoFromHtml:(NSString *)html;

@@ -91,6 +91,9 @@
     //[APP_CONTEXT clearAllHistory];
     [BALANCE_CHECKER start];
     
+    //custom user agent
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:kBrowserUserAgent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     
     //google analytics
     [GAI sharedInstance].trackUncaughtExceptions = YES;

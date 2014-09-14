@@ -94,3 +94,8 @@ extern const CGFloat kBgrTimelimit; //background fetch request limit to establis
 extern const CGFloat kBgBcTimelimit; //background balance checker limit to get balances
 extern const CGFloat kAppOpenTimelimit; //app open limit to wait for ready internet connection
 //
+
+#pragma mark - Browser
+//
+extern NSString * const kBrowserUserAgent;
+//

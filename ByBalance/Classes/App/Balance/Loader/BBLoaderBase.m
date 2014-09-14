@@ -98,6 +98,15 @@
     //base, do nothing
 }
 
+- (void) showCookies:(NSString *)url
+{
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:url]];
+    for (NSHTTPCookie *cookie in cookies)
+    {
+        DDLogInfo(@"__cookie: %@", cookie);
+    }
+}
+
 - (void) clearCookies:(NSString *)url
 {
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:url]];
@@ -110,7 +119,7 @@
 
 - (void) setDefaultsForHttpClient
 {
-    [self.httpClient setDefaultHeader:@"User-Agent" value:@"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0"];
+    [self.httpClient setDefaultHeader:@"User-Agent" value:kBrowserUserAgent];
     self.httpClient.allowsInvalidSSLCertificate = YES;
 }
 
