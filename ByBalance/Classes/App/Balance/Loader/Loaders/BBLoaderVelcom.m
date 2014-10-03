@@ -86,9 +86,6 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
 {
     [self showCookies:kUrlVelcom];
     [self prepareHttpClient:kUrlVelcom];
-    //[self clearCookies:kUrlVelcom];
-    //self.httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kUrlVelcom]];
-    //[self setDefaultsForHttpClient];
     
     self.loggedIn = NO;
     self.menuMarker = @"";
@@ -101,10 +98,19 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
         self.webView.delegate = self;
         NSURL *url = [NSURL URLWithString:kUrlVelcom];
         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-        //NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
-        //[urlRequest setValue:kBrowserUserAgent forHTTPHeaderField: @"User-Agent"];
         [self.webView loadRequest:urlRequest];
     });
+    
+    /*
+     dispatch_async(dispatch_get_main_queue(), ^(void){
+     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 168, 320, 400)];
+     self.webView.delegate = self;
+     [[[[UIApplication sharedApplication] delegate] window] addSubview:self.webView];
+     NSURL *url = [NSURL URLWithString:kUrlVelcom];
+     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+     [self.webView loadRequest:urlRequest];
+     });
+     */
 
 }
 
@@ -113,10 +119,10 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
     DDLogVerbose(@"BBLoaderVelcom.onStep0");
     [self showCookies:kUrlVelcom];
     
-    NSString *html = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
-    [self onStep1:html];
-    /*
-    [self.httpClient getPath:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //NSString *html = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
+    //[self onStep1:html];
+    
+    [self.httpClient GET:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
         
@@ -125,12 +131,13 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
         DDLogError(@"%@ step1 httpclient_error: %@", [self class], error.localizedDescription);
         [self doFinish];
     }];
-    */
+    
 }
 
 - (void) onStep1:(NSString *)html
 {
     DDLogVerbose(@"BBLoaderVelcom.onStep1");
+    [self showCookies:kUrlVelcom];
     //DDLogVerbose(@"%@", html);
     
     NSArray * arr = nil;
@@ -142,7 +149,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
         self.sessionId = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
     }
     
-    //DDLogVerbose(@"sessionId: %@", self.sessionId);
+    DDLogVerbose(@"sessionId: %@", self.sessionId);
     
     if (!self.sessionId)
     {
@@ -154,35 +161,6 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
     NSString * s1 = [self.account.username substringToIndex:2];
     s1 = [NSString stringWithFormat:@"375%@", s1];
     NSString * s2 = [self.account.username substringFromIndex:2];
-    
-    /*
-    NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-        [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
-        [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
-        [formData appendPartWithFormData:[@"_next" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
-        [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"last_id"];
-        //[formData appendPartWithFormData:[@"5" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_8"];
-        [formData appendPartWithFormData:[s1 dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_1"];
-        [formData appendPartWithFormData:[s2 dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_2"];
-        [formData appendPartWithFormData:[self.account.password dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_3"];
-        //[formData appendPartWithFormData:[@"2" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_9"];
-        //[formData appendPartWithFormData:[@"0" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_10"];
-    }];
-
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-         [self onStep2:operation.responseString];
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         DDLogError(@"%@ step2 httpclient_error: %@", [self class], error.localizedDescription);
-         [self doFinish];
-     }];
-    
-    [self.httpClient enqueueHTTPRequestOperation:operation];
-     */
     
     [self.httpClient POST:@"/work.html" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
@@ -211,6 +189,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
 - (void) onStep2:(NSString *)html
 {
     DDLogVerbose(@"BBLoaderVelcom.onStep2");
+    [self showCookies:kUrlVelcom];
     //DDLogVerbose(@"%@", html);
     
     [self checkIfLoggedInHtml:html];
@@ -224,30 +203,6 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
     }
     
     NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
-    
-    /*
-    NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-        [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
-        [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
-        [formData appendPartWithFormData:[self.menuMarker dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
-        [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"last_id"];
-        [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_1"];
-    }];
-    
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-         [self onStep3:operation.responseString];
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         DDLogError(@"%@ step3 httpclient_error: %@", [self class], error.localizedDescription);
-         [self doFinish];
-     }];
-    
-    [self.httpClient enqueueHTTPRequestOperation:operation];
-     */
     
     [self.httpClient POST:@"/work.html" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
@@ -272,6 +227,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
 - (void) onStep3:(NSString *)html
 {
     DDLogVerbose(@"BBLoaderVelcom.onStep3");
+    [self showCookies:kUrlVelcom];
     //DDLogVerbose(@"%@", html);
     
     [self extractInfoFromHtml:html];

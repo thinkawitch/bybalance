@@ -236,7 +236,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     //added velcom bonuses v1.6.6
     if (build < 68)
     {
-        DDLogInfo(@"adding field: label");
+        DDLogInfo(@"adding field: bonuses");
         for (acc in [BBMAccount findAll])
         {
             for (BBMBalanceHistory * history in acc.history)

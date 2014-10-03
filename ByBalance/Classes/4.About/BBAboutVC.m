@@ -122,7 +122,7 @@
     switch (indexPath.row)
     {
         case 0:
-            [cell setTitle:@"Блог приложения"];
+            [cell setTitle:@"Новости приложения"];
             break;
             
         case 1:

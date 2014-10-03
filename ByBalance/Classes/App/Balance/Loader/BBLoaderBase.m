@@ -114,6 +114,7 @@
     for (NSHTTPCookie *cookie in cookies)
     {
         //DDLogVerbose(@"__cookie: %@", cookie);
+        //if ([cookie.name isEqualToString:@"X3"]) continue; //skip velcom
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
     }
 }
