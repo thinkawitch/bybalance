@@ -14,9 +14,7 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://stat.anitex.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://stat.anitex.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://stat.anitex.by/"];
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                              self.account.username, @"username",
@@ -24,7 +22,7 @@
                              @"dialup", @"type",
                              nil];
     
-    [self.httpClient postPath:@"/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *response2 = [[NSString alloc] initWithData:responseObject encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingKOI8_R)];
         

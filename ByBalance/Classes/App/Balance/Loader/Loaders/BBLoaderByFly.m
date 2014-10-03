@@ -19,9 +19,7 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://issa.beltelecom.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa.beltelecom.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://issa.beltelecom.by/"];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             self.account.username, @"oper_user",
@@ -30,7 +28,7 @@
                             nil];
     //DDLogVerbose(@"%@", params);
   
-    [self.httpClient postPath:@"main.html" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"main.html" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         //NSString *response1 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
         NSString * response = operation.responseString;

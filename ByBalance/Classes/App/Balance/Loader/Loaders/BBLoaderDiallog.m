@@ -14,9 +14,7 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://issa.diallog.by/cgi-bin/cgi.exe"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa.diallog.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://issa.diallog.by/"];
     
     NSString * s2 = [self.account.username substringFromIndex:2];
     
@@ -26,7 +24,7 @@
                              self.account.password, @"Password",
                              nil];
     
-    [self.httpClient postPath:@"/cgi-bin/cgi.exe?function=is_login" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/cgi-bin/cgi.exe?function=is_login" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *response1 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
         
@@ -37,7 +35,7 @@
         }
         else
         {
-            [self.httpClient getPath:@"/cgi-bin/cgi.exe?function=is_account" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.httpClient GET:@"/cgi-bin/cgi.exe?function=is_account" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 NSString *response2 = [[NSString alloc] initWithData:responseObject encoding:NSWindowsCP1251StringEncoding];
                 

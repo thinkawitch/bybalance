@@ -170,69 +170,6 @@
         //application.applicationIconBadgeNumber = 0;
     }
     
-    
-    /*
-    //test velcom
-    NSString * velcom = [NSString stringWithContentsOfFile:@"/Users/administrator/Documents/velcom.txt"
-                                                  encoding:NSUTF8StringEncoding
-                                                     error:NULL];
-    NSArray * arr = nil;
-    NSDecimalNumber * balance = nil;
-    NSArray * balanceMarkers = [NSArray arrayWithObjects:
-                                //@"Текущий баланс:</td><td class=\"INFO\">([^<]+)",
-                                //@"Баланс:</td><td class=\"INFO\">([^<]+)",
-                                //@"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)",
-                                //@"<td class=\"info\" id=\"BALANCE\" colspan=\"2\"><span>\\s*([^<]+)",
-                                @"<td[^>]*id=\"BALANCE\"[^>]*><span>\\s*([^<]+)",
-                                nil];
-    NSLog(@"velcom");
-    int c = 0;
-    for (NSString * bm in balanceMarkers)
-    {
-        arr = [velcom stringsByExtractingGroupsUsingRegexPattern:bm caseInsensitive:YES treatAsOneLine:NO];
-        if (arr && [arr count] == 1)
-        {
-            NSLog(@"%d:%@", c, [arr objectAtIndex:0]);
-        }
-        c++;
-    }
-    
-    //DDLogVerbose(@"%@", velcom);
-     */
-    
-    /*
-    //test byfly
-    NSString * html = [NSString stringWithContentsOfFile:@"/Users/administrator/Dropbox/1.html"
-                                                  encoding:NSUTF8StringEncoding
-                                                     error:NULL];
-    IGHTMLDocument * node = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    @try {
-        IGXMLNodeSet* contents = [node queryWithCSS:@"#tree ul li"];
-        [contents enumerateNodesUsingBlock:^(IGXMLNode* content, NSUInteger idx, BOOL *stop){
-            NSLog(@"----------");
-            //NSLog(@"%@", content.html);
-            
-            NSString * buf = [NSString stringWithFormat:@"%@", content.html];
-            //NSLog(@"%@", buf);
-            
-            if ([buf rangeOfString:@"1704008644101"].location != NSNotFound)
-            {
-                //our contract
-                NSArray * arr = nil;
-                arr = [buf stringsByExtractingGroupsUsingRegexPattern:@"Баланс\\s*([^)]+)" caseInsensitive:YES treatAsOneLine:YES];
-                
-                if (arr && [arr count] == 1)
-                {
-                    NSLog(@"баланс: %@", [arr objectAtIndex:0]);
-                }
-            }
-            
-        }];
-    } @catch(NSException * e) {
-        // handle error
-    }
-    */
-    
     return YES;
 }
 

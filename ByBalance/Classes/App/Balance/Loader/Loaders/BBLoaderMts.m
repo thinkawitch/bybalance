@@ -26,11 +26,9 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://ihelper.mts.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://ihelper.mts.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://ihelper.mts.by/"];
     
-    [self.httpClient getPath:@"/SelfCare/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:@"/SelfCare/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
         
@@ -70,7 +68,7 @@
                              @"Войти", @"ctl00$MainContent$btnEnter",
                              nil];
     
-    [self.httpClient postPath:@"/SelfCare/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/SelfCare/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep2:operation.responseString];
         

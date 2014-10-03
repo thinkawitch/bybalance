@@ -15,16 +15,14 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"http://balance.infolan.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://balance.infolan.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"http://balance.infolan.by/"];
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                              self.account.username, @"id",
                              self.account.password, @"auth",
                              nil];
     
-    [self.httpClient postPath:@"/balance_by.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/balance_by.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *text = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         [self extractInfoFromHtml:text];

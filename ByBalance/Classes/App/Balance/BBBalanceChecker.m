@@ -474,14 +474,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
 {
     NSString * newToken = token;
     NSString * oldToken = [SETTINGS apnToken];
-    AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
+    AFHTTPRequestOperationManager * httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
     
     if ([oldToken isEqualToString:newToken] || [oldToken length] < 1)
     {
         //add token
         NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:newToken, @"token", kApnServerEnv, @"env", nil];
         
-        [httpClient postPath:@"add_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [httpClient POST:@"add_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             SETTINGS.apnToken = newToken;
             [SETTINGS save];
@@ -500,7 +500,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
                                  kApnServerEnv, @"env",
                                  nil];
         
-        [httpClient postPath:@"update_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [httpClient POST:@"update_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             SETTINGS.apnToken = newToken;
             [SETTINGS save];
@@ -520,11 +520,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     
     //remove token
     
-    AFHTTPClient * httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
+    AFHTTPRequestOperationManager * httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:token, @"token", kApnServerEnv, @"env", nil];
     
-    [httpClient postPath:@"remove_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [httpClient POST:@"remove_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         SETTINGS.apnToken = @"";
         [SETTINGS save];

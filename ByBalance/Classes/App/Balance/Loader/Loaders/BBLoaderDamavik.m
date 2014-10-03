@@ -37,11 +37,9 @@
 
 - (void) startLoader
 {
-    [self clearCookies:self.baseUrl];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:self.baseUrl]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:self.baseUrl];
 
-    [self.httpClient getPath:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
         
@@ -79,7 +77,7 @@
     //load captcha image to get cookies
     NSString * captchaUrl = [NSString stringWithFormat:@"/img/_cap/items/%@", imgName];
     
-    [self.httpClient getPath:captchaUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:captchaUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         [self onStep2:nil];
         
@@ -122,7 +120,7 @@
                   nil];
     }
 
-    [self.httpClient postPath:self.baseUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:self.baseUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep3:operation.responseString];
         

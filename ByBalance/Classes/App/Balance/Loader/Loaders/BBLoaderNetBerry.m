@@ -22,9 +22,7 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://user.nbr.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://user.nbr.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://user.nbr.by/"];
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                              @"0", @"midAuth",
@@ -32,7 +30,7 @@
                              self.account.password, @"pswd",
                              nil];
     
-    [self.httpClient postPath:@"/bgbilling/webexecuter" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/bgbilling/webexecuter" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
         
@@ -65,7 +63,7 @@
     
     //https://user.nbr.by/bgbilling/webexecuter?action=ShowBalance&mid=contract
 
-    [self.httpClient getPath:@"/bgbilling/webexecuter?action=ShowBalance&mid=contract" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:@"/bgbilling/webexecuter?action=ShowBalance&mid=contract" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep2:operation.responseString];
         

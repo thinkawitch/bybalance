@@ -23,10 +23,10 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"http://cosmostv.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://cosmostv.by/"]];
-    [self setDefaultsForHttpClient];
-    [self.httpClient setDefaultHeader:@"Referer" value:@"http://cosmostv.by/"];
+    [self prepareHttpClient:@"http://cosmostv.by/"];
+    
+    //[self.httpClient setDefaultHeader:@"Referer" value:@"http://cosmostv.by/"];
+    [self.httpClient.requestSerializer setValue:@"http://cosmostv.by/" forHTTPHeaderField:@"Referer"];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             self.account.username, @"login",
@@ -35,7 +35,7 @@
                             @"1", @"ajax",
                             nil];
     
-    [self.httpClient postPath:@"/subscribers/login/?process" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/subscribers/login/?process" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
         
@@ -75,7 +75,7 @@
     }
     
     NSString * path = [NSString stringWithFormat:@"http://cosmostv.by%@", redirect];
-    [self.httpClient getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep2:operation.responseString];
         
@@ -113,7 +113,7 @@
     
 
     NSString * path = [NSString stringWithFormat:@"http://cosmostv.by/json/subscribers/account/cabinet/?contract=%@", num];
-    [self.httpClient getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep3:operation.responseString];
         

@@ -14,16 +14,14 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://tcm.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://tcm.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://tcm.by/"];
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                              self.account.username, @"login",
                              self.account.password, @"password",
                              nil];
     
-    [self.httpClient postPath:@"/info.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/info.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *text = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         [self extractInfoFromHtml:text];

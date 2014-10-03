@@ -28,14 +28,12 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://my.unet.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://my.unet.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://my.unet.by/"];
     
     NSString * loginUrl = [NSString stringWithFormat:@"https://my.unet.by/api/login?api_key=%@&login=%@&pass=%@",
                            kUnetKey, self.account.username, self.account.password];
     
-    [self.httpClient getPath:loginUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:loginUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
         
@@ -106,7 +104,7 @@ NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
     
     NSString * infoUrl = [NSString stringWithFormat:@"https://my.unet.by/api/info?api_key=%@&sid=%@", kUnetKey, self.sessionId];
     
-    [self.httpClient getPath:infoUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:infoUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *text = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         [self onStep2:text];

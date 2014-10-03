@@ -18,6 +18,7 @@
 @synthesize account;
 @synthesize delegate;
 @synthesize loaderInfo;
+@synthesize httpClient;
 
 #pragma mark - ObjectLife
 
@@ -100,7 +101,7 @@
 
 - (void) showCookies:(NSString *)url
 {
-    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:url]];
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:url]];
     for (NSHTTPCookie *cookie in cookies)
     {
         DDLogInfo(@"__cookie: %@", cookie);
@@ -109,7 +110,7 @@
 
 - (void) clearCookies:(NSString *)url
 {
-    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:url]];
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:url]];
     for (NSHTTPCookie *cookie in cookies)
     {
         //DDLogVerbose(@"__cookie: %@", cookie);
@@ -117,10 +118,13 @@
     }
 }
 
-- (void) setDefaultsForHttpClient
+- (void) prepareHttpClient:(NSString *)url
 {
-    [self.httpClient setDefaultHeader:@"User-Agent" value:kBrowserUserAgent];
-    self.httpClient.allowsInvalidSSLCertificate = YES;
+    [self clearCookies:url];
+    self.httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:url]];
+    [httpClient.requestSerializer setValue:kBrowserUserAgent forHTTPHeaderField:@"User-Agent"];
+    httpClient.responseSerializer = [AFHTTPResponseSerializer serializer];
+    httpClient.securityPolicy.allowInvalidCertificates = YES;
 }
 
 - (void) extractInfoFromHtml:(NSString *)html

@@ -20,6 +20,7 @@
     #import "NSString+PDRegex.h"
     #import "XMLReader.h"
     #import "AFNetworking.h"
+    #import "UIKit+AFNetworking.h"
     //
     #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
     #define MR_SHORTHAND

@@ -27,10 +27,7 @@
 
 - (void) OLD_startLoader
 {
-    [self clearCookies:@"https://issa.life.com.by/ru/"];
-    [self clearCookies:@"https://issa.life.com.by/ru/login/?next=/ru/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa.life.com.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://issa.life.com.by/"];
     
     NSString * s1 = [self.account.username substringToIndex:2];
     NSString * s2 = [self.account.username substringFromIndex:2];
@@ -41,7 +38,7 @@
                              s2, @"Phone",
                              nil];
     
-    [self.httpClient postPath:@"/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self extractInfoFromHtml:operation.responseString];
         [self doFinish];
@@ -51,11 +48,9 @@
         //DDLogError(@"%@ httpclient_error: %@", [self class], error.localizedDescription);
         //[self doFinish];
         
-        [self clearCookies:@"https://issa2.life.com.by/"];
-        self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa2.life.com.by/"]];
-        [self setDefaultsForHttpClient];
+        [self prepareHttpClient:@"https://issa2.life.com.by/"];
         
-        [self.httpClient postPath:@"/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             [self extractInfoFromHtml:operation.responseString];
             [self doFinish];
@@ -71,11 +66,9 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://issa.life.com.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://issa.life.com.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://issa.life.com.by/"];
     
-    [self.httpClient getPath:@"/ru/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:@"/ru/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
         
@@ -129,9 +122,10 @@
                              nil];
     
 
-    [self.httpClient setDefaultHeader:@"Referer" value:@"https://issa.life.com.by/ru/"];
+    //[self.httpClient setDefaultHeader:@"Referer" value:@"https://issa.life.com.by/ru/"];
+    [self.httpClient.requestSerializer setValue:@"https://issa.life.com.by/ru/" forHTTPHeaderField:@"Referer"];
     
-    [self.httpClient postPath:@"/ru/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/ru/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep2:operation.responseString];
         

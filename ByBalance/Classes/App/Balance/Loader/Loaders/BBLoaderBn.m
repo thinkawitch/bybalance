@@ -18,16 +18,14 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://ui.bn.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://ui.bn.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://ui.bn.by/"];
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                             self.account.username, @"login",
                             self.account.password, @"passwd",
                             nil];
     
-    [self.httpClient postPath:@"/index.php?mode=login?locale=ru" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/index.php?mode=login?locale=ru" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self extractInfoFromHtml:operation.responseString];
         [self doFinish];

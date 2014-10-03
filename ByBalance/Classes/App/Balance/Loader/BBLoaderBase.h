@@ -17,7 +17,7 @@
 @property (nonatomic,strong) BBMAccount * account;
 @property (nonatomic,strong) BBLoaderInfo * loaderInfo;
 @property (nonatomic,assign) id <BBLoaderDelegate> delegate;
-@property (nonatomic,strong) AFHTTPClient * httpClient;
+@property (nonatomic,strong) AFHTTPRequestOperationManager * httpClient;
 
 // NSOperation
 - (void) start;
@@ -33,7 +33,7 @@
 - (void) startLoader;
 - (void) showCookies:(NSString *)url;
 - (void) clearCookies:(NSString *)url;
-- (void) setDefaultsForHttpClient;
+- (void) prepareHttpClient:(NSString *)url;
 - (void) extractInfoFromHtml:(NSString *)html;
 - (void) doFinish;
 

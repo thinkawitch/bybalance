@@ -54,7 +54,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     webViewLoads++;
-    DDLogVerbose(@"webViewDidStartLoad %d", webViewLoads);
+    DDLogVerbose(@"webViewDidStartLoad %ld", webViewLoads);
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
@@ -62,7 +62,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     webViewLoads--;
-    DDLogVerbose(@"webViewDidFinishLoad %d", webViewLoads);
+    DDLogVerbose(@"webViewDidFinishLoad %ld", webViewLoads);
     if (webViewLoads <= 0 && x3Started)
     {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -85,9 +85,10 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
 - (void) startLoader
 {
     [self showCookies:kUrlVelcom];
-    [self clearCookies:kUrlVelcom];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kUrlVelcom]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:kUrlVelcom];
+    //[self clearCookies:kUrlVelcom];
+    //self.httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kUrlVelcom]];
+    //[self setDefaultsForHttpClient];
     
     self.loggedIn = NO;
     self.menuMarker = @"";
@@ -154,7 +155,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
     s1 = [NSString stringWithFormat:@"375%@", s1];
     NSString * s2 = [self.account.username substringFromIndex:2];
     
-    
+    /*
     NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
         [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
@@ -181,6 +182,30 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
      }];
     
     [self.httpClient enqueueHTTPRequestOperation:operation];
+     */
+    
+    [self.httpClient POST:@"/work.html" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
+        [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
+        [formData appendPartWithFormData:[@"_next" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
+        [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"last_id"];
+        //[formData appendPartWithFormData:[@"5" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_8"];
+        [formData appendPartWithFormData:[s1 dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_1"];
+        [formData appendPartWithFormData:[s2 dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_2"];
+        [formData appendPartWithFormData:[self.account.password dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_3"];
+        //[formData appendPartWithFormData:[@"2" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_9"];
+        //[formData appendPartWithFormData:[@"0" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_10"];
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep2:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        DDLogError(@"%@ step2 httpclient_error: %@", [self class], error.localizedDescription);
+        [self doFinish];
+    }];
 }
 
 - (void) onStep2:(NSString *)html
@@ -200,6 +225,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
     
     NSNumber * ts = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
     
+    /*
     NSMutableURLRequest *request = [self.httpClient multipartFormRequestWithMethod:@"POST" path:@"/work.html" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
         [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
@@ -221,6 +247,25 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
      }];
     
     [self.httpClient enqueueHTTPRequestOperation:operation];
+     */
+    
+    [self.httpClient POST:@"/work.html" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        [formData appendPartWithFormData:[self.sessionId dataUsingEncoding:NSUTF8StringEncoding] name:@"sid3"];
+        [formData appendPartWithFormData:[[ts stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_timestamp"];
+        [formData appendPartWithFormData:[self.menuMarker dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_0"];
+        [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"last_id"];
+        [formData appendPartWithFormData:[@"" dataUsingEncoding:NSUTF8StringEncoding] name:@"user_input_1"];
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onStep3:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        DDLogError(@"%@ step3 httpclient_error: %@", [self class], error.localizedDescription);
+        [self doFinish];
+    }];
 }
 
 

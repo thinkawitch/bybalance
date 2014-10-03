@@ -14,9 +14,7 @@
 
 - (void) startLoader
 {
-    [self clearCookies:@"https://user.niks.by/"];
-    self.httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://user.niks.by/"]];
-    [self setDefaultsForHttpClient];
+    [self prepareHttpClient:@"https://user.niks.by/"];
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                              @"dDwtOTM5ODc5MjcyOztsPExvZ2luSW1nQnRuOz4+LWAmSvmShzbE7AkSAWCVT7wVAJo=", @"__VIEWSTATE",
@@ -26,7 +24,7 @@
                              @"12", @"LoginImgBtn.y",
                              nil];
     
-    [self.httpClient postPath:@"/Login.aspx" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"/Login.aspx" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self extractInfoFromHtml:operation.responseString];
         [self doFinish];
