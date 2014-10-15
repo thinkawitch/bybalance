@@ -293,7 +293,7 @@
     {
         if (type == kAccountBn || type == kAccountDamavik || type == kAccountSolo || type == kAccountTeleset || type == kAccountAtlantTelecom) return @"Номер счёта";
         if (type == kAccountByFly || type == kAccountNetBerry || type == kAccountInfolan) return @"Номер договора";
-        if (type == kAccountTcm || type == kAccountNiks || type == kAccountCosmosTv || type == kAccountUnetBy || type == kAccountAnitex) return @"Логин";
+        if (type == kAccountTcm || type == kAccountNiks || type == kAccountCosmosTv || type == kAccountUnetBy || type == kAccountAnitex || type == kAccountAdslBy) return @"Логин";
     }
     
     return @"";
@@ -419,7 +419,7 @@
     return YES;
 }
 
-
+//before ios8
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person
                                 property:(ABPropertyID)property
@@ -445,6 +445,31 @@
     [peoplePicker dismissViewControllerAnimated:YES completion:nil];
     
     return NO;
+}
+
+//ios8 and above
+- (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker
+                         didSelectPerson:(ABRecordRef)person
+                                property:(ABPropertyID)property
+                              identifier:(ABMultiValueIdentifier)identifier
+{
+    if (property == kABPersonPhoneProperty)
+    {
+        ABMultiValueRef numbers = ABRecordCopyValue(person, property);
+        NSString * targetNumber = CFBridgingRelease(ABMultiValueCopyValueAtIndex(numbers, ABMultiValueGetIndexForIdentifier(numbers, identifier)));
+        
+        DDLogVerbose(@"%@", targetNumber);
+        
+        NSString * phone = [NSString stringWithFormat:@"%@", targetNumber];
+        phone = [phone stringByReplacingOccurrencesOfString:@"[^0-9]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [phone length])];
+        
+        if ([phone hasPrefix:@"375"]) phone = [phone substringFromIndex:3];
+        else if ([phone hasPrefix:@"802"]) phone = [phone substringFromIndex:2];
+        
+        tfUsername.text = [NSString stringWithFormat:@"%@", phone];
+    }
+    
+    [peoplePicker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - ABPersonViewControllerDelegate

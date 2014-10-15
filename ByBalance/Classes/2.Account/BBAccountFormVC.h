@@ -12,7 +12,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 
 @interface BBAccountFormVC : BBBaseViewController
-<UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate>
+<UITextFieldDelegate, ABPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate>
 {
     
 @private

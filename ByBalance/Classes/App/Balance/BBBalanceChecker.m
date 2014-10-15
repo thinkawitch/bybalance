@@ -232,6 +232,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         case kAccountAnitex:
             loader = [BBLoaderAnitex new];
             break;
+            
+        case kAccountAdslBy:
+            loader = [BBLoaderAdslBy new];
+            break;
     }
     
     return loader;

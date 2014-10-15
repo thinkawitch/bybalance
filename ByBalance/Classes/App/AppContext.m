@@ -168,6 +168,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
                            @"UNET.BY", [NSNumber numberWithInt:kAccountUnetBy],
                            @"БелCел", [NSNumber numberWithInt:kAccountDiallog],
                            @"Anitex", [NSNumber numberWithInt:kAccountAnitex],
+                           @"ADSL.BY", [NSNumber numberWithInt:kAccountAdslBy],
                            nil];
     
     BBMAccountType * item = nil;

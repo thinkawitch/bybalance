@@ -39,6 +39,7 @@ typedef enum
     kAccountUnetBy,
     kAccountDiallog,
     kAccountAnitex,
+    kAccountAdslBy,
 	//----------------------
 	kAccountsCount
 	

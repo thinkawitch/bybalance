@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		452959BD18292CB0002D92FF /* BBLoaderAnitex.m in Sources */ = {isa = PBXBuildFile; fileRef = 452959BC18292CB0002D92FF /* BBLoaderAnitex.m */; };
 		45CD8D341850713A00F62968 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD8D331850713A00F62968 /* UIImage+Color.m */; };
+		846FDAE019EEF27300FB7F5F /* BBLoaderAdslBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FDADF19EEF27300FB7F5F /* BBLoaderAdslBy.m */; };
 		8499F21819DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499F20819DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.m */; };
 		8499F21919DEA4CB00118AAD /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499F20A19DEA4CB00118AAD /* UIActivityIndicatorView+AFNetworking.m */; };
 		8499F21A19DEA4CB00118AAD /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499F20C19DEA4CB00118AAD /* UIAlertView+AFNetworking.m */; };
@@ -233,6 +234,8 @@
 		452959BC18292CB0002D92FF /* BBLoaderAnitex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderAnitex.m; sourceTree = "<group>"; };
 		45CD8D321850713A00F62968 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		45CD8D331850713A00F62968 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		846FDADE19EEF27300FB7F5F /* BBLoaderAdslBy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderAdslBy.h; sourceTree = "<group>"; };
+		846FDADF19EEF27300FB7F5F /* BBLoaderAdslBy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderAdslBy.m; sourceTree = "<group>"; };
 		8499F20719DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		8499F20819DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		8499F20919DEA4CB00118AAD /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -1537,6 +1540,8 @@
 		C3DE70501809BE1C0024F9DD /* Loaders */ = {
 			isa = PBXGroup;
 			children = (
+				846FDADE19EEF27300FB7F5F /* BBLoaderAdslBy.h */,
+				846FDADF19EEF27300FB7F5F /* BBLoaderAdslBy.m */,
 				452959BB18292CB0002D92FF /* BBLoaderAnitex.h */,
 				452959BC18292CB0002D92FF /* BBLoaderAnitex.m */,
 				C3DE70511809BE1C0024F9DD /* BBLoaderBn.h */,
@@ -1811,6 +1816,7 @@
 				C30FA4BF182D51D800818116 /* DDTTYLogger.m in Sources */,
 				84A80F1819E17BAC000E6786 /* MagicalRecord+Actions.m in Sources */,
 				84A80F1D19E17BAC000E6786 /* MagicalRecord+ShorthandSupport.m in Sources */,
+				846FDAE019EEF27300FB7F5F /* BBLoaderAdslBy.m in Sources */,
 				84A0526119DD8D36008B09B7 /* AFURLSessionManager.m in Sources */,
 				452959BD18292CB0002D92FF /* BBLoaderAnitex.m in Sources */,
 				C3DE706D1809BE1C0024F9DD /* BBLoaderByFly.m in Sources */,
@@ -1948,7 +1954,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Andrei Sinkevich (P779M2PD8B)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ByBalance/ByBalance-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1973,7 +1979,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrei Sinkevich (7NNP7NAEX3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ByBalance/ByBalance-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
