@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,35 +16,54 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="megabytes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="4">
-                        <rect key="frame" x="12" y="4" width="148" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="4O3-Pp-vrE">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="4O3-Pp-vrE">
                         <rect key="frame" x="12" y="22" width="148" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="5">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                         <rect key="frame" x="168" y="4" width="142" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="142" id="oNx-lC-maa"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="credit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="IXP-Go-uWk">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="credit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="IXP-Go-uWk">
                         <rect key="frame" x="168" y="22" width="142" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="142" id="hM5-hA-IGK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="megabytes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                        <rect key="frame" x="12" y="4" width="148" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="4O3-Pp-vrE" secondAttribute="bottom" constant="-4" id="JYo-bW-age"/>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="4O3-Pp-vrE" secondAttribute="trailing" constant="8" symbolic="YES" id="Ocz-Iu-jo4"/>
+                    <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="10" id="SKC-7B-bJK"/>
+                    <constraint firstItem="4" firstAttribute="leading" secondItem="4O3-Pp-vrE" secondAttribute="leading" id="X7F-7r-b4Z"/>
+                    <constraint firstItem="5" firstAttribute="top" secondItem="miS-7u-YXu" secondAttribute="top" constant="4" id="ZTt-HF-aQL"/>
+                    <constraint firstItem="4O3-Pp-vrE" firstAttribute="firstBaseline" secondItem="IXP-Go-uWk" secondAttribute="firstBaseline" id="cmY-Ul-Bb9"/>
+                    <constraint firstItem="4" firstAttribute="firstBaseline" secondItem="5" secondAttribute="firstBaseline" id="eEg-7v-hvE"/>
+                    <constraint firstItem="IXP-Go-uWk" firstAttribute="leading" secondItem="4O3-Pp-vrE" secondAttribute="trailing" constant="8" id="eea-P2-9Dh"/>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" symbolic="YES" id="etC-db-fnP"/>
+                    <constraint firstItem="4" firstAttribute="leading" secondItem="miS-7u-YXu" secondAttribute="leadingMargin" constant="4" id="kuK-Lr-uSW"/>
+                    <constraint firstAttribute="bottom" secondItem="5" secondAttribute="bottom" constant="22" id="nqQ-ST-1qR"/>
+                    <constraint firstItem="IXP-Go-uWk" firstAttribute="leading" secondItem="4O3-Pp-vrE" secondAttribute="trailing" constant="8" symbolic="YES" id="sLk-dN-588"/>
+                    <constraint firstItem="4O3-Pp-vrE" firstAttribute="top" secondItem="miS-7u-YXu" secondAttribute="topMargin" constant="14" id="sZF-oA-EVH"/>
+                    <constraint firstItem="4" firstAttribute="baseline" secondItem="5" secondAttribute="baseline" id="sa3-tg-Gpd"/>
+                    <constraint firstItem="4O3-Pp-vrE" firstAttribute="baseline" secondItem="IXP-Go-uWk" secondAttribute="baseline" id="z10-iT-mif"/>
+                </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
@@ -53,4 +74,9 @@
             </connections>
         </tableViewCell>
     </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>

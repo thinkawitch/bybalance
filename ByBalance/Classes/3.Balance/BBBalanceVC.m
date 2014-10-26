@@ -17,6 +17,13 @@ typedef enum
 	
 } kAlertMode;
 
+static NSString * cellId1 = @"BBHistoryCommonCellID";
+static NSString * cellId2 = @"BBHistoryAnitexCellID";
+static NSString * cellId3 = @"BBHistoryBonusesCellID";
+
+static NSString * nib1 = @"BBHistoryCommonCell";
+static NSString * nib2 = @"BBHistoryAnitexCell";
+static NSString * nib3 = @"BBHistoryBonusesCell";
 
 
 @interface BBBalanceVC ()
@@ -431,14 +438,6 @@ typedef enum
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellId1 = @"BBHistoryCommonCellID";
-    static NSString * cellId2 = @"BBHistoryAnitexCellID";
-    static NSString * cellId3 = @"BBHistoryBonusesCellID";
-    
-    static NSString * nib1 = @"BBHistoryCommonCell";
-    static NSString * nib2 = @"BBHistoryAnitexCell";
-    static NSString * nib3 = @"BBHistoryBonusesCell";
-    
     NSArray * nibs;
     NSString * cellId = nil;
     NSString * nib = nil;
@@ -454,6 +453,7 @@ typedef enum
     {
         if ([bh.bonuses length] > 0)
         {
+            DDLogVerbose(@"cellForRowAtIndexPath bonusesCell");
             cellId = cellId3;
             nib = nib3;
         }
@@ -498,6 +498,31 @@ typedef enum
         
         if ([bh.bonuses length] > 0)
         {
+            
+            static BBHistoryBonusesCell * cell = nil;
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                cell = [tblHistory dequeueReusableCellWithIdentifier:cellId3];
+            });
+            /*
+            cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tblHistory.bounds), 0.0f);
+            [cell setNeedsLayout];
+            [cell layoutIfNeeded];
+            [cell updateConstraintsIfNeeded];
+            
+            DDLogVerbose(@"width: %f", cell.contentView.frame.size.width);
+            
+            NSString *label =  bh.bonuses;
+            CGSize stringSize = [label sizeWithFont:[UIFont boldSystemFontOfSize:15]
+                                  constrainedToSize:CGSizeMake(cell.contentView.frame.size.width, 9999)
+                                      lineBreakMode:UILineBreakModeWordWrap];
+            
+            return kHistoryCellHeight3 + stringSize.height - 18;
+            */
+            
+            //[cell setupWithHistory:bh];
+            //return [self calculateHeightForBonusesCell:cell];
+            
             return kHistoryCellHeight3;
         }
         else
@@ -505,6 +530,31 @@ typedef enum
             return kHistoryCellHeight1;
         }
     }
+}
+
+- (CGFloat)calculateHeightForBonusesCell:(BBHistoryBonusesCell *)bonusesCell
+{
+    /*
+    NSString *label =  bh.bonuses;
+    CGSize stringSize = [label sizeWithFont:[UIFont boldSystemFontOfSize:15]
+                          constrainedToSize:CGSizeMake(320, 9999)
+                              lineBreakMode:UILineBreakModeWordWrap];
+    
+    return kHistoryCellHeight3 + stringSize.height - 18;
+    */
+    
+    bonusesCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tblHistory.bounds), 0.0f);
+    
+    DDLogVerbose(@"tblHistory width: %f", CGRectGetWidth(tblHistory.bounds));
+    DDLogVerbose(@"bonusesCell width: %f", bonusesCell.frame.size.width);
+    
+    [bonusesCell setNeedsLayout];
+    [bonusesCell layoutIfNeeded];
+    
+    CGSize size = [bonusesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height;
+    
+    return 0;
 }
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
