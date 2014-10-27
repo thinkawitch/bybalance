@@ -14,30 +14,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="balance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="balance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                         <rect key="frame" x="12" y="6" width="160" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="160" id="Lkj-aV-YXx"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" text="date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                         <rect key="frame" x="174" y="6" width="135" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="135" id="o1c-Jt-XwU"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="5" firstAttribute="top" secondItem="miS-7u-YXu" secondAttribute="top" constant="6" id="8fC-vq-lZn"/>
-                    <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="11" id="BV7-DA-wLn"/>
-                    <constraint firstItem="4" firstAttribute="leading" secondItem="miS-7u-YXu" secondAttribute="leading" constant="12" id="UxP-Su-lEc"/>
-                    <constraint firstItem="4" firstAttribute="top" secondItem="miS-7u-YXu" secondAttribute="top" constant="6" id="clk-dg-Fnd"/>
+                    <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="11" id="1WK-Om-4b4"/>
+                    <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="5" id="5Gf-yu-aia"/>
+                    <constraint firstItem="5" firstAttribute="top" secondItem="miS-7u-YXu" secondAttribute="top" constant="6" id="CLA-Rh-3Cm"/>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="2" id="EBC-yG-lOO"/>
+                    <constraint firstItem="4" firstAttribute="leading" secondItem="miS-7u-YXu" secondAttribute="leading" constant="12" id="FLm-XU-ym9"/>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="2" id="g7U-YL-5Vu"/>
+                    <constraint firstAttribute="bottom" secondItem="5" secondAttribute="bottom" constant="5" id="hNn-0R-80d"/>
+                    <constraint firstItem="4" firstAttribute="top" secondItem="miS-7u-YXu" secondAttribute="top" constant="6" id="hZm-Ly-3og"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

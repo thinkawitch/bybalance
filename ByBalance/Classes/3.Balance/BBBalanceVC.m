@@ -543,7 +543,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
     return kHistoryCellHeight3 + stringSize.height - 18;
     */
     
-    bonusesCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tblHistory.bounds), 0.0f);
+    bonusesCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tblHistory.bounds), CGRectGetHeight(bonusesCell.bounds));
     
     DDLogVerbose(@"tblHistory width: %f", CGRectGetWidth(tblHistory.bounds));
     DDLogVerbose(@"bonusesCell width: %f", bonusesCell.frame.size.width);
