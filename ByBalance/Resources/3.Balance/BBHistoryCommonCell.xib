@@ -33,7 +33,6 @@
                     <constraint firstItem="5" firstAttribute="top" secondItem="miS-7u-YXu" secondAttribute="top" constant="6" id="CLA-Rh-3Cm"/>
                     <constraint firstItem="5" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="2" id="EBC-yG-lOO"/>
                     <constraint firstItem="4" firstAttribute="leading" secondItem="miS-7u-YXu" secondAttribute="leading" constant="12" id="FLm-XU-ym9"/>
-                    <constraint firstItem="5" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="2" id="g7U-YL-5Vu"/>
                     <constraint firstAttribute="bottom" secondItem="5" secondAttribute="bottom" constant="5" id="hNn-0R-80d"/>
                     <constraint firstItem="4" firstAttribute="top" secondItem="miS-7u-YXu" secondAttribute="top" constant="6" id="hZm-Ly-3og"/>
                 </constraints>

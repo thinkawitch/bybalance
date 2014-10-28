@@ -17,4 +17,17 @@
     lblBonuses.text = [NSString stringWithFormat:@"%@", history.bonuses];
 }
 
+- (void) layoutSubviews
+{
+    [super layoutSubviews];
+    
+    //[self.contentView layoutIfNeeded];
+    //lblBonuses.preferredMaxLayoutWidth = CGRectGetWidth(lblBalance.frame);
+
+    if (lblBonuses.preferredMaxLayoutWidth != lblBonuses.frame.size.width) {
+        lblBonuses.preferredMaxLayoutWidth = lblBonuses.frame.size.width;
+        [lblBonuses setNeedsUpdateConstraints];
+    }
+}
+
 @end

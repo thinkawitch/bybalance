@@ -51,6 +51,9 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
     [super viewDidLoad];
     
     [tblHistory setSeparatorColor:[APP_CONTEXT colorGrayMedium]];
+    [tblHistory registerNib:[UINib nibWithNibName:nib1 bundle:nil] forCellReuseIdentifier:cellId1];
+    [tblHistory registerNib:[UINib nibWithNibName:nib2 bundle:nil] forCellReuseIdentifier:cellId2];
+    [tblHistory registerNib:[UINib nibWithNibName:nib3 bundle:nil] forCellReuseIdentifier:cellId3];
     
     historyStay = 5;
     
@@ -438,43 +441,24 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray * nibs;
     NSString * cellId = nil;
-    NSString * nib = nil;
-    
     BBMBalanceHistory * bh = [self.history objectAtIndex:indexPath.row];
     
     if ([self.account.type.id integerValue] == kAccountAnitex)
     {
         cellId = cellId2;
-        nib = nib2;
     }
     else
     {
-        if ([bh.bonuses length] > 0)
-        {
-            DDLogVerbose(@"cellForRowAtIndexPath bonusesCell");
-            cellId = cellId3;
-            nib = nib3;
-        }
-        else
-        {
-            cellId = cellId1;
-            nib = nib1;
-        }
+        if ([bh.bonuses length] > 0) cellId = cellId3;
+        else cellId = cellId1;
     }
     
     
     BBHistoryBaseCell * cell = (BBHistoryBaseCell*)[tblHistory dequeueReusableCellWithIdentifier:cellId];
-    if (!cell)
-    {
-        nibs = [[NSBundle mainBundle] loadNibNamed:nib owner:self options:nil];
-        cell = [nibs objectAtIndex:0];
-        cell.backgroundColor = [UIColor clearColor]; //universal app, ipad makes bg white
-    }
-    
-    
+    cell.backgroundColor = [UIColor clearColor];
     [cell setupWithHistory:bh];
+    
     return cell;
 }
 
@@ -504,24 +488,9 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
             dispatch_once(&onceToken, ^{
                 cell = [tblHistory dequeueReusableCellWithIdentifier:cellId3];
             });
-            /*
-            cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tblHistory.bounds), 0.0f);
-            [cell setNeedsLayout];
-            [cell layoutIfNeeded];
-            [cell updateConstraintsIfNeeded];
-            
-            DDLogVerbose(@"width: %f", cell.contentView.frame.size.width);
-            
-            NSString *label =  bh.bonuses;
-            CGSize stringSize = [label sizeWithFont:[UIFont boldSystemFontOfSize:15]
-                                  constrainedToSize:CGSizeMake(cell.contentView.frame.size.width, 9999)
-                                      lineBreakMode:UILineBreakModeWordWrap];
-            
-            return kHistoryCellHeight3 + stringSize.height - 18;
-            */
-            
-            //[cell setupWithHistory:bh];
-            //return [self calculateHeightForBonusesCell:cell];
+
+            [cell setupWithHistory:bh];
+            return [self calculateHeightForBonusesCell:cell];
             
             return kHistoryCellHeight3;
         }
@@ -532,29 +501,20 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewAutomaticDimension;
+}
+
 - (CGFloat)calculateHeightForBonusesCell:(BBHistoryBonusesCell *)bonusesCell
 {
-    /*
-    NSString *label =  bh.bonuses;
-    CGSize stringSize = [label sizeWithFont:[UIFont boldSystemFontOfSize:15]
-                          constrainedToSize:CGSizeMake(320, 9999)
-                              lineBreakMode:UILineBreakModeWordWrap];
-    
-    return kHistoryCellHeight3 + stringSize.height - 18;
-    */
-    
-    bonusesCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tblHistory.bounds), CGRectGetHeight(bonusesCell.bounds));
-    
-    DDLogVerbose(@"tblHistory width: %f", CGRectGetWidth(tblHistory.bounds));
-    DDLogVerbose(@"bonusesCell width: %f", bonusesCell.frame.size.width);
+    bonusesCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tblHistory.bounds), 0.0f);//CGRectGetHeight(bonusesCell.bounds));
     
     [bonusesCell setNeedsLayout];
     [bonusesCell layoutIfNeeded];
     
     CGSize size = [bonusesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height;
-    
-    return 0;
+    return size.height + 1.0f;
 }
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

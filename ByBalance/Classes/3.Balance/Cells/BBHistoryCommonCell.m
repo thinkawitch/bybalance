@@ -26,7 +26,7 @@
     }
     else if ([history.incorrectLogin boolValue])
     {
-        lblBalance.text = @"неправильный логин 234 123 6456 879767 впапав вап ваппав вот!";
+        lblBalance.text = @"неправильный логин";
     }
     else
     {

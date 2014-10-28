@@ -271,7 +271,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
     if (arr && [arr count] == 1)
     {
         self.loaderInfo.bonuses = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        self.loaderInfo.bonuses = [NSString stringWithFormat:@"%@ а также еще 150 смс сообщений и очень очень много траффика. Акции и бонусы уже в пути! Да и счастье не за горами, подождите всего 100 лет и 3 года.", self.loaderInfo.bonuses];
+        //self.loaderInfo.bonuses = [NSString stringWithFormat:@"%@ а также еще 150 смс сообщений и очень очень много траффика. Акции и бонусы уже в пути! Да и счастье не за горами, подождите всего 100 лет и 3 года.", self.loaderInfo.bonuses];
     }
     //DDLogVerbose(@"bonuses: %@", self.loaderInfo.bonuses);
     
