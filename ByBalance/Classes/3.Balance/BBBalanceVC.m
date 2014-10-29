@@ -487,6 +487,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{
                 cell = [tblHistory dequeueReusableCellWithIdentifier:cellId3];
+                cell.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             });
 
             [cell setupWithHistory:bh];
@@ -508,12 +509,13 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
 
 - (CGFloat)calculateHeightForBonusesCell:(BBHistoryBonusesCell *)bonusesCell
 {
-    bonusesCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tblHistory.bounds), 0.0f);//CGRectGetHeight(bonusesCell.bounds));
+    bonusesCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tblHistory.bounds), CGRectGetHeight(bonusesCell.bounds));
     
-    [bonusesCell setNeedsLayout];
+    //[bonusesCell setNeedsLayout];
     [bonusesCell layoutIfNeeded];
     
     CGSize size = [bonusesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    DDLogVerbose(@"height: %f", size.height + 1.0f);
     return size.height + 1.0f;
 }
 

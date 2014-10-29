@@ -21,13 +21,18 @@
 {
     [super layoutSubviews];
     
-    //[self.contentView layoutIfNeeded];
-    //lblBonuses.preferredMaxLayoutWidth = CGRectGetWidth(lblBalance.frame);
-
+//    [self.contentView layoutIfNeeded];
+    if (lblBonuses.preferredMaxLayoutWidth != self.contentView.frame.size.width) {
+        lblBonuses.preferredMaxLayoutWidth = self.contentView.frame.size.width;
+        [lblBonuses setNeedsUpdateConstraints];
+    }
+    
+    //[lblBonuses setNeedsUpdateConstraints];
+/*
     if (lblBonuses.preferredMaxLayoutWidth != lblBonuses.frame.size.width) {
         lblBonuses.preferredMaxLayoutWidth = lblBonuses.frame.size.width;
         [lblBonuses setNeedsUpdateConstraints];
-    }
+    }*/
 }
 
 @end
