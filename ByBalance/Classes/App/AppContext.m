@@ -43,6 +43,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     iOs7 = (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7"));
+    iOs8 = (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8"));
     iPhone = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone);
     iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
 }
@@ -129,6 +130,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 - (BOOL) isIos7
 {
     return iOs7;
+}
+
+- (BOOL) isIos8
+{
+    return iOs8;
 }
 
 - (BOOL) isIphone
