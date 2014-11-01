@@ -16,6 +16,7 @@
     IBOutlet UILabel * lblName;
     IBOutlet UILabel * lblDate;
     IBOutlet UILabel * lblBalance;
+    IBOutlet UIView * vCircle;
     
     BBMAccount * account;
     BOOL ipadChangesApplied;

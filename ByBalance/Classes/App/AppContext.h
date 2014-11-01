@@ -64,6 +64,7 @@
 - (void) makeRedButton:(UIButton *) button;
 - (CGFloat) labelTextWidth:(UILabel *)label;
 - (UIView *)circleWithColor:(UIColor *)color radius:(int)radius;
+- (void) makeRedCircle:(UIView *)circle;
 
 // UIAlertView variations:
 - (void) showAlertForNoInternet;

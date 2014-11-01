@@ -122,7 +122,6 @@
     
     if (APP_CONTEXT.isIpad)
     {
-        self.split = [[UISplitViewController alloc] init];
         //[self.split.view setBackgroundColor:[APP_CONTEXT colorGrayMedium]];
         
         self.nc2 = [[BBNavigationController alloc] init];
@@ -137,14 +136,12 @@
         
         BBBalanceVC * balanceVC = NEWVCFROMNIB(BBBalanceVC);
         balanceVC.account = nil;
-        
         [self.nc2 pushViewController:balanceVC animated:NO];
-        self.split.delegate = balanceVC;
         
+        self.split = [[UISplitViewController alloc] init];
         self.split.viewControllers = [NSArray arrayWithObjects:self.nc1, self.nc2, nil];
+        self.split.delegate = balanceVC;
         self.window.rootViewController = self.split;
-        
-        
     }
     else
     {

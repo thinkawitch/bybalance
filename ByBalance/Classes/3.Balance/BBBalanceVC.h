@@ -19,6 +19,8 @@
     IBOutlet UILabel * lblLabel;
     IBOutlet UILabel * lblHistory;
     
+    IBOutlet UIView * vCircle;
+    
     IBOutlet UIButton * btnRefresh;
     IBOutlet UIButton * btnClear;
     

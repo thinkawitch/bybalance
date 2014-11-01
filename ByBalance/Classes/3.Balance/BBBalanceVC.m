@@ -29,7 +29,6 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
 @interface BBBalanceVC ()
 
 @property (strong,nonatomic) NSArray * history;
-@property (strong,nonatomic) UIView * vCircle;
 @property (strong,nonatomic) UIView * ipadSplash;
 
 - (void) onBtnEdit:(id)sender;
@@ -44,7 +43,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
 
 @synthesize account;
 @synthesize history;
-@synthesize vCircle;
+@synthesize ipadSplash;
 
 - (void) viewDidLoad
 {
@@ -56,6 +55,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
     [tblHistory registerNib:[UINib nibWithNibName:nib3 bundle:nil] forCellReuseIdentifier:cellId3];
     
     historyStay = 5;
+    [APP_CONTEXT makeRedCircle:vCircle];
     
     [self updateScreen];
     
@@ -289,25 +289,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
         btnClear.hidden = ([history count] <= historyStay);
     }
     
-    
-    if ([account balanceLimitCrossed])
-    {
-        if (!self.vCircle)
-        {
-            self.vCircle = [APP_CONTEXT circleWithColor:[APP_CONTEXT colorRed] radius:5];
-            [self.view addSubview:vCircle];
-        }
-        
-        CGFloat textWidth = [APP_CONTEXT labelTextWidth:lblBalance];
-        CGFloat circleX = lblBalance.frame.origin.x + lblBalance.frame.size.width - textWidth - vCircle.frame.size.width - 3;
-        CGFloat circleY = lblBalance.frame.origin.y + (lblBalance.frame.size.height - vCircle.frame.size.height)/2;
-        vCircle.frame = CGRectMake(circleX, circleY, vCircle.frame.size.width, vCircle.frame.size.height);
-    }
-    else
-    {
-        [self.vCircle removeFromSuperview];
-        self.vCircle = nil;
-    }
+    vCircle.hidden = ![account balanceLimitCrossed];
     
     if (APP_CONTEXT.isIpad)
     {
@@ -515,7 +497,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
     [bonusesCell layoutIfNeeded];
     
     CGSize size = [bonusesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    DDLogVerbose(@"height: %f", size.height + 1.0f);
+    
     return size.height + 1.0f;
 }
 
@@ -545,6 +527,5 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
 {
     return NO;
 }
-
 
 @end

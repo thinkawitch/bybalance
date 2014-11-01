@@ -401,6 +401,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     return circle;
 }
 
+- (void) makeRedCircle:(UIView *)circle
+{
+    circle.backgroundColor = [self colorRed];
+    circle.layer.cornerRadius = circle.frame.size.width/2;
+    circle.layer.masksToBounds = YES;
+}
+
 //
 #pragma mark - UIAlertView variations:
 //
