@@ -267,12 +267,38 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
     //DDLogVerbose(@"userPlan: %@", self.loaderInfo.userPlan);
     
     //bonuses
+    NSArray * bonusesMarkers = [NSArray arrayWithObjects:
+                                @"<td[^>]*id=\"DISCOUNT\"[^>]*><span>\\s*([^<]+)",
+                                @"<td[^>]*id=\"TraficBalance\"[^>]*><span>\\s*([^<]+)",
+                                nil];
+    NSMutableArray * bonuses = [NSMutableArray arrayWithCapacity:2];
+    NSString * bonusLine = nil;
+    for (NSString * bm1 in bonusesMarkers)
+    {
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:bm1 caseInsensitive:YES treatAsOneLine:NO];
+        if (arr && [arr count] == 1)
+        {
+            bonusLine = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
+            if (nil != bonusLine && [bonusLine length] > 1)
+            {
+                [bonuses addObject:bonusLine];
+            }
+        }
+    }
+    
+    if ([bonuses count])
+    {
+        self.loaderInfo.bonuses = [bonuses componentsJoinedByString:@" "];
+    }
+    
+    /*
     arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td[^>]*id=\"DISCOUNT\"[^>]*><span>\\s*([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
     if (arr && [arr count] == 1)
     {
         self.loaderInfo.bonuses = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
         //self.loaderInfo.bonuses = [NSString stringWithFormat:@"%@ а также еще 150 смс сообщений и очень очень много траффика. Акции и бонусы уже в пути! Да и счастье не за горами, подождите всего 100 лет и 3 года.", self.loaderInfo.bonuses];
     }
+    */
     //DDLogVerbose(@"bonuses: %@", self.loaderInfo.bonuses);
     
     NSDecimalNumber * balance = nil;
@@ -281,11 +307,12 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
                                 @"Баланс:</td><td class=\"INFO\">([^<]+)",
                                 @"Начисления\\s*абонента\\*:</td><td class=\"INFO\">([^<]+)",
                                 @"<td[^>]*id=\"BALANCE\"[^>]*><span>\\s*([^<]+)",
+                                @"<td[^>]*id=\"contractCharge\"[^>]*><span>\\s*([^<]+)",
                                 nil];
     
-    for (NSString * bm in balanceMarkers)
+    for (NSString * bm2 in balanceMarkers)
     {
-        arr = [html stringsByExtractingGroupsUsingRegexPattern:bm caseInsensitive:YES treatAsOneLine:NO];
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:bm2 caseInsensitive:YES treatAsOneLine:NO];
         if (arr && [arr count] == 1)
         {
             balance = [self decimalNumberFromString:[arr objectAtIndex:0]];
@@ -302,7 +329,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
 {
     self.loggedIn = NO;
     self.menuMarker = @"";
-    NSArray * menuMarkers = [NSArray arrayWithObjects:@"_root/USER_INFO", @"_root/MENU0", @"_root/PERSONAL_INFO", nil];
+    NSArray * menuMarkers = [NSArray arrayWithObjects:@"_root/PERSONAL_INFO_ABONENT",  @"_root/PERSONAL_INFO", @"_root/USER_INFO", @"_root/MENU0",  nil];
     
     for (NSString * marker in menuMarkers)
     {
