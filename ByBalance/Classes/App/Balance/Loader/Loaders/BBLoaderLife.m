@@ -150,7 +150,6 @@
 - (void) extractInfoFromHtml:(NSString *)html
 {
     NSArray * arr = nil;
-    BOOL extracted = NO;
     
     //DDLogVerbose(@"%@", html);
     //DDLogVerbose(@"------------");
@@ -163,7 +162,6 @@
         self.loaderInfo.incorrectLogin = true;
         return;
     }
-    
     
     //userTitle
     /*
@@ -186,28 +184,30 @@
     //DDLogVerbose(@"userPlan: %@", self.loaderInfo.userPlan);
     
     //balance
-    //arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Основной баланс\\s*</td>\\s*<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Основной баланс\\s*</td>\\s*<td[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
+    NSArray * balanceMarkers = [NSArray arrayWithObjects:
+                                @"Основной баланс\\s*</td>\\s*<td[^>]*>([^<]+)",
+                                @"Основной счет\\s*</td>\\s*<td[^>]*>([^<]+)",
+                                nil];
+    
+    for (NSString * bm in balanceMarkers)
     {
-        NSString * str = [arr objectAtIndex:0];
-        NSRange range = [str rangeOfString:@"руб"];
-        if (range.location != NSNotFound)
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:bm caseInsensitive:YES treatAsOneLine:NO];
+        if (arr && [arr count] == 1)
         {
-            NSString * newStr = [str substringToIndex:range.location];
-            self.loaderInfo.userBalance = [self decimalNumberFromString:newStr];
+            NSString * str = [arr objectAtIndex:0];
+            NSRange range = [str rangeOfString:@"руб"];
+            if (range.location != NSNotFound)
+            {
+                NSString * newStr = [str substringToIndex:range.location];
+                self.loaderInfo.userBalance = [self decimalNumberFromString:newStr];
+            }
+            else
+            {
+                self.loaderInfo.userBalance = [self decimalNumberFromString:str];
+            }
+            self.loaderInfo.extracted = YES;
         }
-        else
-        {
-            self.loaderInfo.userBalance = [self decimalNumberFromString:str];
-        }
-        extracted = YES;
-        
     }
-    //DDLogVerbose(@"balance: %@", self.loaderInfo.userBalance);
-    
-    
-    self.loaderInfo.extracted = extracted;
 }
 
 @end
