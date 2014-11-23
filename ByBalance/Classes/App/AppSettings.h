@@ -13,9 +13,9 @@
 
 }
 
-@property (nonatomic, strong) NSString * appId;
 @property (nonatomic, strong) NSNumber * build;
 @property (nonatomic, strong) NSString * apnToken;
+@property (nonatomic, strong) NSString * basesVersion;
 
 + (AppSettings *) sharedAppSettings;
 

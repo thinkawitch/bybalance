@@ -6,21 +6,19 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-//my keys
-#define OPT_DICT_SETTINGS   @"Settings"
-#define OPT_KEY_BUILD       @"build"
-#define OPT_KEY_APN_TOKEN   @"apnToken"
-
-//settings bundle keys
-#define SB_OPT_KEY_VERSION      @"version"
-#define SB_OPT_KEY_AUTOCHECK    @"check_periodically"
-
 #import "AppSettings.h"
+
+//my keys
+NSString * const kAsSettings = @"Settings";
+NSString * const kAsKeyBuild = @"build";
+NSString * const kAsKeyApnToken = @"apnToken";
+NSString * const kAsKeyBasesVersion = @"basesVersion";
 
 @implementation AppSettings
 
 @synthesize build;
 @synthesize apnToken;
+@synthesize basesVersion;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 
@@ -32,10 +30,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 	NSMutableDictionary *settingsDefaults = [NSMutableDictionary dictionary];	
 	
 	NSMutableDictionary *userDefaults = [NSMutableDictionary dictionary];
-    [userDefaults setObject:[NSNumber numberWithInt:1] forKey:OPT_KEY_BUILD];
-    [userDefaults setObject:@"" forKey:OPT_KEY_APN_TOKEN];
+    [userDefaults setObject:[NSNumber numberWithInt:1] forKey:kAsKeyBuild];
+    [userDefaults setObject:@"" forKey:kAsKeyApnToken];
+    [userDefaults setObject:@"" forKey:kAsKeyBasesVersion];
 	
-	[settingsDefaults setObject:userDefaults forKey:OPT_DICT_SETTINGS];
+	[settingsDefaults setObject:userDefaults forKey:kAsSettings];
 	
     [defaults registerDefaults:settingsDefaults];
     [defaults synchronize];
@@ -59,10 +58,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 {
 	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];	
 	
-	NSMutableDictionary * userDefaults = [defaults objectForKey:OPT_DICT_SETTINGS];
+	NSMutableDictionary * userDefaults = [defaults objectForKey:kAsSettings];
     
-    self.build = [PRIMITIVE_HELPER numberIntegerValue:[userDefaults objectForKey:OPT_KEY_BUILD]];
-    self.apnToken = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:OPT_KEY_APN_TOKEN]];
+    self.build = [PRIMITIVE_HELPER numberIntegerValue:[userDefaults objectForKey:kAsKeyBuild]];
+    self.apnToken = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:kAsKeyApnToken]];
+    self.basesVersion = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:kAsKeyBasesVersion]];
 }
 
 - (void) save
@@ -71,10 +71,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 	
 	NSMutableDictionary * userDefaults = [NSMutableDictionary dictionary];
 
-    [userDefaults setObject:self.build forKey:OPT_KEY_BUILD];
-    [userDefaults setObject:self.apnToken forKey:OPT_KEY_APN_TOKEN];
+    [userDefaults setObject:self.build forKey:kAsKeyBuild];
+    [userDefaults setObject:self.apnToken forKey:kAsKeyApnToken];
+    [userDefaults setObject:self.basesVersion forKey:kAsKeyBasesVersion];
 	
-	[defaults setObject:userDefaults forKey:OPT_DICT_SETTINGS];
+	[defaults setObject:userDefaults forKey:kAsSettings];
     [defaults synchronize];
 }
 
