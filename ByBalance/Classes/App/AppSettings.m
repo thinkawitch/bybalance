@@ -13,12 +13,14 @@ NSString * const kAsSettings = @"Settings";
 NSString * const kAsKeyBuild = @"build";
 NSString * const kAsKeyApnToken = @"apnToken";
 NSString * const kAsKeyBasesVersion = @"basesVersion";
+NSString * const kAsKeyBasesChecked = @"basesChecked";
 
 @implementation AppSettings
 
 @synthesize build;
 @synthesize apnToken;
 @synthesize basesVersion;
+@synthesize basesChecked;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 
@@ -30,9 +32,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
 	NSMutableDictionary *settingsDefaults = [NSMutableDictionary dictionary];	
 	
 	NSMutableDictionary *userDefaults = [NSMutableDictionary dictionary];
-    [userDefaults setObject:[NSNumber numberWithInt:1] forKey:kAsKeyBuild];
+    [userDefaults setObject:@1 forKey:kAsKeyBuild];
     [userDefaults setObject:@"" forKey:kAsKeyApnToken];
     [userDefaults setObject:@"" forKey:kAsKeyBasesVersion];
+    [userDefaults setObject:@1 forKey:kAsKeyBasesChecked];
 	
 	[settingsDefaults setObject:userDefaults forKey:kAsSettings];
 	
@@ -63,6 +66,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
     self.build = [PRIMITIVE_HELPER numberIntegerValue:[userDefaults objectForKey:kAsKeyBuild]];
     self.apnToken = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:kAsKeyApnToken]];
     self.basesVersion = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:kAsKeyBasesVersion]];
+    self.basesChecked = [PRIMITIVE_HELPER numberIntegerValue:[userDefaults objectForKey:kAsKeyBasesChecked]];
 }
 
 - (void) save
@@ -74,6 +78,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
     [userDefaults setObject:self.build forKey:kAsKeyBuild];
     [userDefaults setObject:self.apnToken forKey:kAsKeyApnToken];
     [userDefaults setObject:self.basesVersion forKey:kAsKeyBasesVersion];
+    [userDefaults setObject:self.basesChecked forKey:kAsKeyBasesChecked];
 	
 	[defaults setObject:userDefaults forKey:kAsSettings];
     [defaults synchronize];

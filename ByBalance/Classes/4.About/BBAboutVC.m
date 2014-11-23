@@ -24,10 +24,10 @@
     [super viewDidLoad];
     
     [tblButtons setSeparatorColor:[APP_CONTEXT colorGrayMedium]];
+    [APP_CONTEXT makeRedButton:btnUpdate];
     
-    //lblVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    lblVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    
+    lblAppVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    lblBasesVersion.text = @"1411.0";//SETTINGS.basesVersion;
 }
 
 - (void)viewDidUnload
@@ -97,6 +97,10 @@
     }
 }
 
+- (IBAction) onBtnUpdate:(id)sender
+{
+    
+}
 
 
 #pragma mark - UITableViewDataSource

@@ -14,7 +14,11 @@
 <UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
 {
 @private
-    IBOutlet UILabel * lblVersion;
+    IBOutlet UILabel * lblAppVersion;
     IBOutlet UITableView * tblButtons;
+    IBOutlet UILabel * lblBasesVersion;
+    IBOutlet UIButton * btnUpdate;
 }
+
+- (IBAction) onBtnUpdate:(id)sender;
 @end
