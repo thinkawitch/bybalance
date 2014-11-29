@@ -27,7 +27,7 @@
     [APP_CONTEXT makeRedButton:btnUpdate];
     
     lblAppVersion.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    lblBasesVersion.text = @"1411.0";//SETTINGS.basesVersion;
+    lblBasesVersion.text = SETTINGS.basesVersion;
 }
 
 - (void)viewDidUnload
@@ -99,7 +99,14 @@
 
 - (IBAction) onBtnUpdate:(id)sender
 {
-    
+    [BASES_MANAGER updateWithCallback:^(BOOL updated, NSString *message) {
+        
+        if (updated) {
+            lblBasesVersion.text = SETTINGS.basesVersion;
+        }
+        
+        [APP_CONTEXT showToastWithText:message];
+    }];
 }
 
 

@@ -6,6 +6,10 @@
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
+#pragma mark - Bases server
+//
+extern NSString * const kBasesServerUrl;
+
 #pragma mark - APN server
 //
 extern NSString * const kApnServerUrl;

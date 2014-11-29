@@ -8,6 +8,10 @@
 
 #import "AppGlobal.h"
 
+#pragma mark - Bases server
+//
+NSString * const kBasesServerUrl = @"http://192.168.0.2/bybalance_bases/";
+
 #pragma mark - APN server
 //
 NSString * const kApnServerUrl = @"http://km32238-06.keymachine.de/bybalance_apn/home/";
@@ -22,7 +26,7 @@ NSString * const kApnServerEnv = @"prod";
 #pragma mark - Text and Messages
 //
 NSString * const kAppNoInternetAlertTitle = @"";
-NSString * const kAppNoInternetAlertText =  @"Нет подключения к интернет"; //@"You have no internet connection";
+NSString * const kAppNoInternetAlertText =  @"Нет подключения к интернет";
 //
 NSString * const kAppEmailRegexp = @"^([\\w\\-\\.]+)@((\\[([0-9]{1,3}\\.){3}[0-9]{1,3}\\])|(([\\w\\-]+\\.)+)([a-zA-Z]{2,4}))$";
 

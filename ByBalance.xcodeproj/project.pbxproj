@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		452959BD18292CB0002D92FF /* BBLoaderAnitex.m in Sources */ = {isa = PBXBuildFile; fileRef = 452959BC18292CB0002D92FF /* BBLoaderAnitex.m */; };
 		45CD8D341850713A00F62968 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD8D331850713A00F62968 /* UIImage+Color.m */; };
+		84538FC11A2A1D6800912BDA /* BBBasesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84538FC01A2A1D6800912BDA /* BBBasesManager.m */; };
+		84538FC31A2A251400912BDA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84538FC21A2A251400912BDA /* JavaScriptCore.framework */; };
 		846FDAE019EEF27300FB7F5F /* BBLoaderAdslBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FDADF19EEF27300FB7F5F /* BBLoaderAdslBy.m */; };
 		8499F21819DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499F20819DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.m */; };
 		8499F21919DEA4CB00118AAD /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499F20A19DEA4CB00118AAD /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -234,6 +236,9 @@
 		452959BC18292CB0002D92FF /* BBLoaderAnitex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderAnitex.m; sourceTree = "<group>"; };
 		45CD8D321850713A00F62968 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		45CD8D331850713A00F62968 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		84538FBF1A2A1D6800912BDA /* BBBasesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBasesManager.h; sourceTree = "<group>"; };
+		84538FC01A2A1D6800912BDA /* BBBasesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBasesManager.m; sourceTree = "<group>"; };
+		84538FC21A2A251400912BDA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		846FDADE19EEF27300FB7F5F /* BBLoaderAdslBy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderAdslBy.h; sourceTree = "<group>"; };
 		846FDADF19EEF27300FB7F5F /* BBLoaderAdslBy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderAdslBy.m; sourceTree = "<group>"; };
 		8499F20719DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -664,6 +669,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84538FC31A2A251400912BDA /* JavaScriptCore.framework in Frameworks */,
 				C316693E190EBF0700E9B7DA /* libxml2.dylib in Frameworks */,
 				C33585ED1809D106001AB5D3 /* MobileCoreServices.framework in Frameworks */,
 				C33585EC1809D0FB001AB5D3 /* SystemConfiguration.framework in Frameworks */,
@@ -899,6 +905,7 @@
 		C312CD2B1808AB1F005F25D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84538FC21A2A251400912BDA /* JavaScriptCore.framework */,
 				C316693D190EBF0700E9B7DA /* libxml2.dylib */,
 				C3B23B711814736900A7243E /* libz.dylib */,
 				C3DE6F891809B2270024F9DD /* AddressBook.framework */,
@@ -1422,6 +1429,8 @@
 			isa = PBXGroup;
 			children = (
 				C3DE704A1809BE1C0024F9DD /* Loader */,
+				84538FBF1A2A1D6800912BDA /* BBBasesManager.h */,
+				84538FC01A2A1D6800912BDA /* BBBasesManager.m */,
 				C3C82B111808D4D600E2C1D6 /* BBBalanceChecker.h */,
 				C3C82B121808D4D600E2C1D6 /* BBBalanceChecker.m */,
 			);
@@ -1764,6 +1773,7 @@
 				C3166A2A190EC24000E9B7DA /* CPSLRParser.m in Sources */,
 				C3DE70741809BE1C0024F9DD /* BBLoaderNiks.m in Sources */,
 				84A80F1519E17BAC000E6786 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
+				84538FC11A2A1D6800912BDA /* BBBasesManager.m in Sources */,
 				C3166A40190EC24000E9B7DA /* CSSIDSelector.m in Sources */,
 				C33586081809D6BD001AB5D3 /* BBSelectAccountTypeVC.m in Sources */,
 				C3BDDA1618FAB12100A92B35 /* BBHistoryBonusesCell.m in Sources */,
@@ -1910,7 +1920,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1943,7 +1953,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1963,7 +1973,7 @@
 					"$(SDK_DIR)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					./ByBalance/Classes/Assets/GoogleAnalytics,
@@ -1988,7 +1998,7 @@
 					"$(SDK_DIR)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "ByBalance/ByBalance-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					./ByBalance/Classes/Assets/GoogleAnalytics,
