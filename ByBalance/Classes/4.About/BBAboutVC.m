@@ -99,7 +99,19 @@
 
 - (IBAction) onBtnUpdate:(id)sender
 {
-    [BASES_MANAGER updateWithCallback:^(BOOL updated, NSString *message) {
+    if (![APP_CONTEXT isOnline])
+    {
+        [APP_CONTEXT showAlertForNoInternet];
+        return;
+    }
+    
+    if ([BASES_MANAGER isBusy])
+    {
+        [APP_CONTEXT showToastWithText:@"Идёт обновление, подождите"];
+        return;
+    }
+    
+    [BASES_MANAGER updateBasesWithCallback:^(BOOL updated, NSString *message) {
         
         if (updated) {
             lblBasesVersion.text = SETTINGS.basesVersion;

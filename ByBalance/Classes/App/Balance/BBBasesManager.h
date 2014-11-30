@@ -13,6 +13,13 @@
 
 + (BBBasesManager *) sharedBBBasesManager;
 
-- (void) updateWithCallback:(void(^)(BOOL,NSString*))callback;
+//
+- (void) start;
+- (BOOL) isReady;
+- (BOOL) isBusy;
+- (void) stop;
+//
+- (void) checkForUpdate;
+- (void) updateBasesWithCallback:(void(^)(BOOL,NSString*))callback;
 
 @end

@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSNumber * build;
 @property (nonatomic, strong) NSString * apnToken;
 @property (nonatomic, strong) NSString * basesVersion;
-@property (nonatomic, strong) NSNumber * basesChecked;
+@property (nonatomic, assign) NSInteger basesChecked;
 
 + (AppSettings *) sharedAppSettings;
 

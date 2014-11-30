@@ -66,7 +66,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
     self.build = [PRIMITIVE_HELPER numberIntegerValue:[userDefaults objectForKey:kAsKeyBuild]];
     self.apnToken = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:kAsKeyApnToken]];
     self.basesVersion = [PRIMITIVE_HELPER stringValue:[userDefaults objectForKey:kAsKeyBasesVersion]];
-    self.basesChecked = [PRIMITIVE_HELPER numberIntegerValue:[userDefaults objectForKey:kAsKeyBasesChecked]];
+    self.basesChecked = [PRIMITIVE_HELPER integerValue:[userDefaults objectForKey:kAsKeyBasesChecked]];
 }
 
 - (void) save
@@ -78,7 +78,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppSettings, sharedAppSettings);
     [userDefaults setObject:self.build forKey:kAsKeyBuild];
     [userDefaults setObject:self.apnToken forKey:kAsKeyApnToken];
     [userDefaults setObject:self.basesVersion forKey:kAsKeyBasesVersion];
-    [userDefaults setObject:self.basesChecked forKey:kAsKeyBasesChecked];
+    [userDefaults setObject:[NSNumber numberWithInteger:self.basesChecked] forKey:kAsKeyBasesChecked];
 	
 	[defaults setObject:userDefaults forKey:kAsSettings];
     [defaults synchronize];

@@ -89,6 +89,7 @@
     [APP_CONTEXT start];
     //[APP_CONTEXT showAllAccounts];
     //[APP_CONTEXT clearAllHistory];
+    [BASES_MANAGER start];
     [BALANCE_CHECKER start];
     
     //custom user agent
@@ -228,6 +229,7 @@
     DDLogVerbose(@"applicationWillTerminate");
     
     [BALANCE_CHECKER stop];
+    [BASES_MANAGER stop];
     [APP_CONTEXT stop];
     [SETTINGS save];
 }
