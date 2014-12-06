@@ -8,6 +8,7 @@
 
 #import "BBBasesManager.h"
 
+
 @interface BBBasesManager ()
 {
     JSContext * jsContext;
@@ -20,6 +21,7 @@
 - (NSString *) basesFilepath;
 - (BOOL) saveBases:(NSString *)bases;
 - (BOOL) checkBasesVersion:(NSString *)verions;
+- (void) prepareJsContext;
 
 @end
 
@@ -34,6 +36,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
     NSString * bases = [NSString stringWithContentsOfFile:[self basesFilepath] encoding:NSUTF8StringEncoding error:nil];
     if ([bases length])
     {
+        [self prepareJsContext];
         [jsContext evaluateScript:bases];
         NSString * version = [jsContext[@"bb"][@"version"] toString];
         basesReady = [self checkBasesVersion:version];
@@ -44,6 +47,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
     [httpClient.requestSerializer setValue:kBrowserUserAgent forHTTPHeaderField:@"User-Agent"];
     httpClient.responseSerializer = [AFHTTPResponseSerializer serializer];
     httpClient.securityPolicy.allowInvalidCertificates = YES;
+}
+
+- (void) prepareJsContext
+{
+    [jsContext setExceptionHandler:^(JSContext *context, JSValue *value) {
+        DDLogVerbose(@"js_exception: %@", value);
+    }];
+    
+    jsContext[@"console"][@"log"] = ^(NSString *message) {
+        DDLogVerbose(@"js_console: %@", message);
+    };
 }
 
 - (BOOL) isReady
@@ -74,7 +88,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
     DDLogVerbose(@"BasesManager - try to update");
     isBusy = YES;
     
-    [httpClient GET:@"bases.js" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithUnsignedInteger:arc4random()], @"r",
+                             nil];
+    
+    [httpClient GET:@"bases.js" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString * bases = [NSString stringWithFormat:@"%@", operation.responseString];
         [self saveBases:bases];
@@ -91,7 +109,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 {
     isBusy = YES;
     
-    [httpClient GET:@"bases.js" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithUnsignedInteger:arc4random()], @"r",
+                             nil];
+    
+    [httpClient GET:@"bases.js" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString * bases = [NSString stringWithFormat:@"%@", operation.responseString];
         BOOL saved = [self saveBases:bases];
@@ -154,6 +176,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
         SETTINGS.basesVersion = newVersion;
         [SETTINGS save];
         updateMessage = @"Базы обновлены";
+        [self prepareJsContext];
         [jsContext evaluateScript:bases]; //insert into context
     }
     else
@@ -167,6 +190,35 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 - (BOOL) checkBasesVersion:(NSString *)verion;
 {
     return ([verion length] >= 6 && ![verion isEqualToString:@"undefined"]);
+}
+
+
+- (BBLoaderInfo *) extractInfoForType:(NSInteger)type fromHtml:(NSString *)html
+{
+    BBLoaderInfo * info = [BBLoaderInfo new];
+
+    JSValue * func = jsContext[@"extractData"];
+    NSArray * args = @[[NSNumber numberWithInteger:type],[NSString stringWithFormat:@"%@", html]];
+    JSValue * result = [func callWithArguments:args];
+    
+    BOOL notSupported = [result[@"notSupported"] toBool];
+    BOOL extracted = [result[@"extracted"] toBool];
+    BOOL incorrectLogin = [result[@"incorrectLogin"] toBool];
+    NSNumber * balance = [result[@"balance"] toNumber];
+    NSString * bonuses = [result[@"bonuses"] toString];
+    
+    DDLogVerbose(@"converted result");
+    DDLogVerbose(@"notSupported: %d, extracted: %d, incorrectLogin: %d, balance: %@, bonuses: %@", notSupported, extracted, incorrectLogin, balance, bonuses);
+    
+    info.extracted = extracted;
+    info.incorrectLogin = incorrectLogin;
+    if (extracted)
+    {
+        info.userBalance = [NSDecimalNumber decimalNumberWithDecimal:[balance decimalValue]];
+        info.bonuses = bonuses;
+    }
+    
+    return info;
 }
 
 @end

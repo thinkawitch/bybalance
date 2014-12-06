@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 sinkevitch.name. All rights reserved.
 //
 
+#import "BBLoaderInfo.h"
 
 @interface BBBasesManager : NSObject
 {
@@ -21,5 +22,7 @@
 //
 - (void) checkForUpdate;
 - (void) updateBasesWithCallback:(void(^)(BOOL,NSString*))callback;
+//
+- (BBLoaderInfo *) extractInfoForType:(NSInteger)type fromHtml:(NSString *)html;
 
 @end

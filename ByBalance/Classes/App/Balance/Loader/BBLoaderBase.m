@@ -131,6 +131,17 @@
 - (void) extractInfoFromHtml:(NSString *)html
 {
     //base, do nothing
+    NSInteger type = [account.type.id integerValue];
+    BBLoaderInfo * jsInfo = [BASES_MANAGER extractInfoForType:type fromHtml:html];
+    
+    self.loaderInfo.extracted = jsInfo.extracted;
+    self.loaderInfo.incorrectLogin = jsInfo.incorrectLogin;
+    if (jsInfo.extracted)
+    {
+        self.loaderInfo.userBalance = jsInfo.userBalance;
+        self.loaderInfo.bonuses = jsInfo.bonuses;
+    }
+    
 }
 
 - (void) doFinish
