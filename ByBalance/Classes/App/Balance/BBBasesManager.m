@@ -32,9 +32,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 {
     jsContext = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
     NSString * bases = [NSString stringWithContentsOfFile:[self basesFilepath] encoding:NSUTF8StringEncoding error:nil];
-    [jsContext evaluateScript:bases];
-    NSString * version = [jsContext[@"bb"][@"version"] toString];
-    basesReady = [self checkBasesVersion:version];
+    if ([bases length])
+    {
+        [jsContext evaluateScript:bases];
+        NSString * version = [jsContext[@"bb"][@"version"] toString];
+        basesReady = [self checkBasesVersion:version];
+    }
     
     NSString * url = [NSString stringWithFormat:@"%@", kBasesServerUrl];
     httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:url]];
@@ -63,8 +66,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 - (void) checkForUpdate
 {
     NSInteger now = [[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] integerValue];
-    if (now - SETTINGS.basesChecked < 86400) return;
+    if (now - SETTINGS.basesChecked < 86400) {
+        DDLogVerbose(@"BasesManager - bases checked today already");
+        return;
+    }
     
+    DDLogVerbose(@"BasesManager - try to update");
     isBusy = YES;
     
     [httpClient GET:@"bases.js" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -111,7 +118,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 
 - (BOOL) saveBases:(NSString *)bases
 {
-    DDLogVerbose(@"bases %@", bases);
+    DDLogVerbose(@"BasesManager - bases %@", bases);
+    
     if ([bases length] < 10)
     {
         updateMessage = @"Ошибка чтения файла баз";
@@ -137,9 +145,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
         return NO;
     }
     
-    DDLogVerbose(@"bases new version: %@", newVersion);
+    DDLogVerbose(@"BasesManager - bases new version: %@", newVersion);
     
-    NSString *path = [self basesFilepath];
+    NSString * path = [self basesFilepath];
     BOOL saved = [bases writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
     if (saved)
     {

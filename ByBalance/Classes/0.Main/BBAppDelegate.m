@@ -10,7 +10,6 @@
 #import "BBNavigationController.h"
 #import "BBHomeVC.h"
 #import "BBBalanceVC.h"
-#import "IGHTMLQuery.h"
 
 
 @interface UISplitViewController (ByBalance)
@@ -212,14 +211,6 @@
     application.applicationIconBadgeNumber = 0;
     [APP_CONTEXT startReachability];
     
-    toCheckAccountsOnStart = [BALANCE_CHECKER accountsToCheckOnStart];
-    if ([toCheckAccountsOnStart count] < 1)
-    {
-        //no accounts to check
-        DDLogInfo(@"checkOnStart - no accounts to check");
-        return;
-    }
-    
     [self startAppOpenTimer];
 }
 
@@ -269,12 +260,23 @@
             
             if (![BALANCE_CHECKER isBusy])
             {
-                DDLogInfo(@"checkOnStart - do check");
-                for (BBMAccount * oneAcc in toCheckAccountsOnStart)
+                toCheckAccountsOnStart = [BALANCE_CHECKER accountsToCheckOnStart];
+                if ([toCheckAccountsOnStart count] < 1)
                 {
-                    [BALANCE_CHECKER addItem:oneAcc];
+                    //no accounts to check
+                    DDLogInfo(@"checkOnStart - no accounts to check");
+                }
+                else
+                {
+                    DDLogInfo(@"checkOnStart - do check");
+                    for (BBMAccount * oneAcc in toCheckAccountsOnStart)
+                    {
+                        [BALANCE_CHECKER addItem:oneAcc];
+                    }
                 }
             }
+
+            if (![BASES_MANAGER isBusy]) [BASES_MANAGER checkForUpdate];
         }
     }
     else
