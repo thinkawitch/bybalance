@@ -55,8 +55,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
         DDLogVerbose(@"js_exception: %@", value);
     }];
     
-    jsContext[@"console"][@"log"] = ^(NSString *message) {
-        DDLogVerbose(@"js_console: %@", message);
+    jsContext[@"console"][@"log"] = ^{
+        NSArray * args = [JSContext currentArguments];
+        DDLogVerbose(@"js_console: %@", [args componentsJoinedByString:@" | "]);
     };
 }
 

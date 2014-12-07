@@ -41,6 +41,9 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
+    [super extractInfoFromHtml:html];
+    return;
+    
     NSString * buf = nil;
     NSArray * arr = nil;
     BOOL extracted = NO;

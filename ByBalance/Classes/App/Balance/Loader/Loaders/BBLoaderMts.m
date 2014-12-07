@@ -91,7 +91,7 @@
 - (void) extractInfoFromHtml:(NSString *)html
 {
     [super extractInfoFromHtml:html];
-    
+
     return;
     
     NSString * buf = nil;
