@@ -149,6 +149,9 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
+    [super extractInfoFromHtml:html];
+    return;
+    
     NSArray * arr = nil;
     
     //DDLogVerbose(@"%@", html);

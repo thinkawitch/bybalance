@@ -236,6 +236,9 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
+    [super extractInfoFromHtml:html];
+    return;
+    
     NSArray * arr = nil;
     
     [self checkIfLoggedInHtml:html];

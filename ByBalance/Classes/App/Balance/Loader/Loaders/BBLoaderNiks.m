@@ -16,6 +16,8 @@
 {
     [self prepareHttpClient:@"https://user.niks.by/"];
     
+    //TODO viewstate should be readed from page before submit
+    
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                              @"dDwtOTM5ODc5MjcyOztsPExvZ2luSW1nQnRuOz4+LWAmSvmShzbE7AkSAWCVT7wVAJo=", @"__VIEWSTATE",
                              self.account.username, @"LoginTxt",
@@ -40,6 +42,9 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
+    [super extractInfoFromHtml:html];
+    return;
+    
     //DDLogVerbose(@"%@", html);
     if (!html) return;
     
