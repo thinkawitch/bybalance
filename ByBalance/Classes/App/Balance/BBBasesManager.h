@@ -24,5 +24,6 @@
 - (void) updateBasesWithCallback:(void(^)(BOOL,NSString*))callback;
 //
 - (BBLoaderInfo *) extractInfoForType:(NSInteger)type fromHtml:(NSString *)html;
+- (void) putUsername:(NSString *)username;
 
 @end

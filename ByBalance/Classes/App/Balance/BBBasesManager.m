@@ -197,7 +197,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 - (BBLoaderInfo *) extractInfoForType:(NSInteger)type fromHtml:(NSString *)html
 {
     BBLoaderInfo * info = [BBLoaderInfo new];
-
+    
     JSValue * func = jsContext[@"extractData"];
     NSArray * args = @[[NSNumber numberWithInteger:type],[NSString stringWithFormat:@"%@", html]];
     JSValue * result = [func callWithArguments:args];
@@ -220,6 +220,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
     }
     
     return info;
+}
+
+- (void) putUsername:(NSString *)username
+{
+    jsContext[@"username"] = username;
 }
 
 @end

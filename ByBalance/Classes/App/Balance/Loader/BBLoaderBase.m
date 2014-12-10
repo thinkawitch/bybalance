@@ -130,7 +130,7 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    //base, do nothing
+    [BASES_MANAGER putUsername:account.username]; //for byfly
     NSInteger type = [account.type.id integerValue];
     BBLoaderInfo * jsInfo = [BASES_MANAGER extractInfoForType:type fromHtml:html];
     

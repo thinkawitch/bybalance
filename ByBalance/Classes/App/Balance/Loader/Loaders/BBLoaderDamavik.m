@@ -9,8 +9,12 @@
 #import "BBLoaderDamavik.h"
 
 @interface BBLoaderDamavik ()
+{
+    BOOL isDamavik;
+    BOOL isAtlant;
+}
 
-@property (strong, readwrite) NSString * baseUrl;
+@property (nonatomic,strong) NSString * baseUrl;
 
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
@@ -138,36 +142,6 @@
     
     [self extractInfoFromHtml:html];
     [self doFinish];
-}
-
-- (void) extractInfoFromHtml:(NSString *)html
-{
-    //DDLogVerbose(@"%@", html);
-    
-    if (!html) return;
-    
-    //incorrect login/pass
-    self.loaderInfo.incorrectLogin = ([html rangeOfString:@"<div class=\"redmsg mesg\"><div>Введенные данные неверны. Проверьте и повторите попытку.</div></div>"].location != NSNotFound);
-    //DDLogVerbose(@"incorrectLogin: %d", loaderInfo.incorrectLogin);
-    if (self.loaderInfo.incorrectLogin) return;
-    
-    NSArray * arr = nil;
-    BOOL extracted = NO;
-    
-    //userTitle - absent
-    
-    //userPlan - absent
-    
-    //balance
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Состояние счета</td>\\s+<td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
-    {
-        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
-        extracted = YES;
-    }
-    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
-    
-    self.loaderInfo.extracted = extracted;
 }
 
 @end
