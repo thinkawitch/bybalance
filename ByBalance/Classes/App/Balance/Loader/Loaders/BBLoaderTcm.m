@@ -34,42 +34,4 @@
     }];
 }
 
-- (void) extractInfoFromHtml:(NSString *)html
-{
-    [super extractInfoFromHtml:html];
-    return;
-    
-    //DDLogVerbose(@"%@", html);
-    if (!html) return;
-    
-    if ([html isEqualToString:@"ERROR"] || [html isEqualToString:@"FORBIDDEN"])
-    {
-        self.loaderInfo.incorrectLogin = YES;
-        return;
-    }
-    
-    /*
-     5081;2703034;226203;0;1;
-     
-     Где:
-     5081 - номер лицевого счета
-     2703034 - логин
-     226203 - баланс, руб.
-     0 - кредит, руб.
-     1 - статус интернета (0 - ОТКЛ, 1 - ВКЛ)
-     */
-    
-    NSArray *arr = [html componentsSeparatedByString:@";"];
-    if (!arr || [arr count] < 3) return;
-    
-    NSString * bal = [arr objectAtIndex:2];
-    if (![PRIMITIVE_HELPER stringIsNumeric:bal]) return;
-    
-    self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:bal];
-    
-    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
-    
-    self.loaderInfo.extracted = YES;
-}
-
 @end

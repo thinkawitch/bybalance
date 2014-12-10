@@ -11,7 +11,6 @@
 @interface BBLoaderBn ()
 @end
 
-
 @implementation BBLoaderBn
 
 #pragma mark - Logic
@@ -36,58 +35,6 @@
         [self doFinish];
     }];
     
-}
-
-
-- (void) extractInfoFromHtml:(NSString *)html
-{
-    [super extractInfoFromHtml:html];
-    return;
-    
-    NSString * buf = nil;
-    NSArray * arr = nil;
-    BOOL extracted = NO;
-    
-    //incorrect login/pass
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<div class='alarma'>(.+)</div>" caseInsensitive:YES treatAsOneLine:YES];
-    if (arr && [arr count] == 1)
-    {
-        buf = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-        if ([buf length] > 0)
-        {
-            self.loaderInfo.incorrectLogin = YES;
-            return;
-        }
-    }
-    
-    //DDLogVerbose(@"%@", html);
-    
-    //userTitle
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Ф.И.О.:</td><td>([^<]+)</td></tr>" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
-    {
-        self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-    }
-    //DDLogVerbose(@"userTitle: %@", loaderInfo.userTitle);
-    
-    //userPlan
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='title'>Тариф:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
-    {
-        self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-    }
-    //DDLogVerbose(@"userPlan: %@", loaderInfo.userPlan);
-    
-    //balance
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Текущий баланс:</td><td>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
-    {
-        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
-        extracted = YES;
-    }
-    //DDLogVerbose(@"balance: %@", loaderInfo.userBalance);
-    
-    self.loaderInfo.extracted = extracted;
 }
 
 @end

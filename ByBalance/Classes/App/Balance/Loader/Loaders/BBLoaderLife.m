@@ -23,8 +23,6 @@
 
 #pragma mark - Logic
 
-
-
 - (void) OLD_startLoader
 {
     [self prepareHttpClient:@"https://issa.life.com.by/"];
@@ -144,73 +142,6 @@
     
     [self extractInfoFromHtml:html];
     [self doFinish];
-}
-
-
-- (void) extractInfoFromHtml:(NSString *)html
-{
-    [super extractInfoFromHtml:html];
-    return;
-    
-    NSArray * arr = nil;
-    
-    //DDLogVerbose(@"%@", html);
-    //DDLogVerbose(@"------------");
-    //DDLogVerbose(@"------------");
-    
-    BOOL loggedIn = ([html rangeOfString:@"class=\"log-out\""].location != NSNotFound);
-    if (!loggedIn)
-    {
-        //incorrect login/pass
-        self.loaderInfo.incorrectLogin = true;
-        return;
-    }
-    
-    //userTitle
-    /*
-     <div class="divBold">Фамилия:</div>
-     <div>
-     */
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"ФИО\\s*</td>\\s*<td[^>]*>([^<]+)</td>" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
-    {
-        self.loaderInfo.userTitle = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-    }
-    //DDLogVerbose(@"userTitle: %@", self.loaderInfo.userTitle);
-    
-    //userPlan
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Наименование тарифного плана\\s*</td>\\s*<td[^>]*>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
-    {
-        self.loaderInfo.userPlan = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]];
-    }
-    //DDLogVerbose(@"userPlan: %@", self.loaderInfo.userPlan);
-    
-    //balance
-    NSArray * balanceMarkers = [NSArray arrayWithObjects:
-                                @"Основной баланс\\s*</td>\\s*<td[^>]*>([^<]+)",
-                                @"Основной счет\\s*</td>\\s*<td[^>]*>([^<]+)",
-                                nil];
-    
-    for (NSString * bm in balanceMarkers)
-    {
-        arr = [html stringsByExtractingGroupsUsingRegexPattern:bm caseInsensitive:YES treatAsOneLine:NO];
-        if (arr && [arr count] == 1)
-        {
-            NSString * str = [arr objectAtIndex:0];
-            NSRange range = [str rangeOfString:@"руб"];
-            if (range.location != NSNotFound)
-            {
-                NSString * newStr = [str substringToIndex:range.location];
-                self.loaderInfo.userBalance = [self decimalNumberFromString:newStr];
-            }
-            else
-            {
-                self.loaderInfo.userBalance = [self decimalNumberFromString:str];
-            }
-            self.loaderInfo.extracted = YES;
-        }
-    }
 }
 
 @end
