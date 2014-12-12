@@ -38,7 +38,11 @@
 
 - (void) extractInfoFromHtml:(NSString *)html
 {
-    //DDLogVerbose(@"%@", html);
+    
+    [super extractInfoFromHtml:html];
+    return;
+    
+    DDLogVerbose(@"%@", html);
     
     if (!html) return;
     

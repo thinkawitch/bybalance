@@ -11,12 +11,16 @@
 
 @interface BBBasesManager ()
 {
+    UIWebView * webView;
     JSContext * jsContext;
     BOOL basesReady;
     BOOL isBusy;
     NSString * updateMessage;
     AFHTTPRequestOperationManager * httpClient;
 }
+
+//@property (strong,nonatomic) UIWebView * webView;
+//@property (strong,nonatomic) JSContext * jsContext;
 
 - (NSString *) basesFilepath;
 - (BOOL) saveBases:(NSString *)bases;
@@ -28,11 +32,19 @@
 
 @implementation BBBasesManager
 
+//@synthesize webView, jsContext;
 SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 
 - (void) start
 {
-    jsContext = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
+
+    //dispatch_async(dispatch_get_main_queue(), ^(void){
+        webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+        jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+        //DDLogVerbose(@"jsContext1 %@", jsContext);
+    //});
+    //DDLogVerbose(@"jsContext2 %@", jsContext);
+    //jsContext = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
     NSString * bases = [NSString stringWithContentsOfFile:[self basesFilepath] encoding:NSUTF8StringEncoding error:nil];
     if ([bases length])
     {
@@ -74,6 +86,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 - (void) stop
 {
     basesReady = NO;
+    if (webView) webView = nil;
     if (jsContext) jsContext = nil;
     if (httpClient) httpClient = nil;
 }
@@ -141,7 +154,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 
 - (BOOL) saveBases:(NSString *)bases
 {
-    DDLogVerbose(@"BasesManager - bases %@", bases);
+    //DDLogVerbose(@"BasesManager - bases %@", bases);
     
     if ([bases length] < 10)
     {
@@ -150,6 +163,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
     }
     
     JSContext * context = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
+    [context setExceptionHandler:^(JSContext *context, JSValue *value) {
+        DDLogVerbose(@"js_exception_2: %@", value);
+    }];
     [context evaluateScript:bases];
     NSString * newVersion = [context[@"bb"][@"version"] toString];
     if (![self checkBasesVersion:newVersion])
