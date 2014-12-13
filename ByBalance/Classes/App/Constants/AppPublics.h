@@ -1,19 +1,10 @@
 //
-//  AppGlobal.h
+//  AppPublics.h
 //  ByBalance
 //
 //  Created by Andrew Sinkevitch on 15.06.12.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
-
-#pragma mark - Bases server
-//
-extern NSString * const kBasesServerUrl;
-
-#pragma mark - APN server
-//
-extern NSString * const kApnServerUrl;
-extern NSString * const kApnServerEnv;
 
 #pragma mark - Text and Messages
 //
@@ -100,7 +91,3 @@ extern const CGFloat kBgBcTimelimit; //background balance checker limit to get b
 extern const CGFloat kAppOpenTimelimit; //app open limit to wait for ready internet connection
 //
 
-#pragma mark - Browser
-//
-extern NSString * const kBrowserUserAgent;
-//

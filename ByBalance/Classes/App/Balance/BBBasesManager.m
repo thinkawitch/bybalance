@@ -86,8 +86,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 - (void) stop
 {
     basesReady = NO;
-    if (webView) webView = nil;
     if (jsContext) jsContext = nil;
+    if (webView) webView = nil;
     if (httpClient) httpClient = nil;
 }
 

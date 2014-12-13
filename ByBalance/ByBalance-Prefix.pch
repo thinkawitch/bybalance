@@ -33,7 +33,8 @@
     #import "DDFileLogger.h"
     //
     //
-    #import "AppGlobal.h"
+    #import "AppPublics.h"
+    #import "AppPrivates.h"
     #import "MacrosAndDefines.h"
     //
     #import "BBMAllManagedItems.h"

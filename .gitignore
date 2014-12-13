@@ -13,5 +13,5 @@ build/*
 xcuserdata
 profile
 *.moved-aside
-
 .DS_Store
+ByBalance/Classes/App/Constants/AppPrivates.m

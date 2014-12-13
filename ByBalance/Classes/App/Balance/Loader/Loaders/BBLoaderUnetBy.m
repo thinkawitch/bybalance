@@ -8,8 +8,6 @@
 
 #import "BBLoaderUnetBy.h"
 
-NSString * const kUnetKey = @"dce5ff68a9094f749cd73cfc794cdd45";
-
 @interface BBLoaderUnetBy()
 
 @property (nonatomic,strong) NSString * sessionId;

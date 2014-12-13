@@ -1,26 +1,12 @@
 //
-//  AppGlobal.m
+//  AppPublics.m
 //  ByBalance
 //
 //  Created by Andrew Sinkevitch on 15.06.12.
 //  Copyright (c) 2012 sinkevitch.name. All rights reserved.
 //
 
-#import "AppGlobal.h"
-
-#pragma mark - Bases server
-//
-NSString * const kBasesServerUrl = @"http://192.168.0.2/bybalance_bases/";
-
-#pragma mark - APN server
-//
-NSString * const kApnServerUrl = @"http://km32238-06.keymachine.de/bybalance_apn/home/";
-
-#ifdef DEBUG
-NSString * const kApnServerEnv = @"dev";
-#else
-NSString * const kApnServerEnv = @"prod";
-#endif
+#import "AppPublics.h"
 
 
 #pragma mark - Text and Messages
@@ -68,7 +54,3 @@ const CGFloat kBgBcTimelimit = 23.f;
 const CGFloat kAppOpenTimelimit = 3.f;
 //
 
-#pragma mark - Browser
-//
-NSString * const kBrowserUserAgent = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0";
-//

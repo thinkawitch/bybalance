@@ -1,0 +1,32 @@
+//
+//  AppPrivates.m
+//  ByBalance
+//
+//  Created by Andrew Sinkevitch on 13.12.14.
+//  Copyright (c) 2014 sinkevitch.name. All rights reserved.
+//
+
+#import "AppPrivates.h"
+
+#pragma mark - Bases server
+//
+NSString * const kBasesServerUrl = @"http://192.168.0.2/bybalance_bases/";
+
+#pragma mark - APN server
+//
+NSString * const kApnServerUrl = @"http://192.168.0.2/bybalance_apn/home/";
+
+#ifdef DEBUG
+NSString * const kApnServerEnv = @"dev";
+#else
+NSString * const kApnServerEnv = @"prod";
+#endif
+
+
+#pragma mark - Browser
+//
+NSString * const kBrowserUserAgent = @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0";
+
+#pragma mark - Unet.by
+//
+NSString * const kUnetKey = @"123456";

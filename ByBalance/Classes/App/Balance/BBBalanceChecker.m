@@ -226,7 +226,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
             break;
             
         case kAccountDiallog:
-            loader = [BBLoaderDiallog new];
+            //dead
             break;
             
         case kAccountAnitex:
