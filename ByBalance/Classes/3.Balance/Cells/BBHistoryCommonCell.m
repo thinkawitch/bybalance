@@ -14,11 +14,8 @@
 {
     [super setupWithHistory:history];
     
-
-    lblDate.text = [NSDateFormatter localizedStringFromDate:history.date 
-                                                  dateStyle:NSDateFormatterMediumStyle
-                                                  timeStyle:NSDateFormatterShortStyle];
-
+    lblDate.text = [DATE_HELPER formatAsMonthDayTime:history.date];
+    
     if ([history.extracted boolValue])
     {
         lblBalance.text = [NSNumberFormatter localizedStringFromNumber:history.balance

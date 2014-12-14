@@ -92,13 +92,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(IDDateHelper, sharedIDDateHelper);
 //
 - (NSString *) formatAsMonthDay:(NSDate *)date
 {
-    [formatter setDateFormat:@"dd MMM"];
+    [formatter setDateFormat:@"d MMM"];
     return [formatter stringFromDate:date];
 }
 
 - (NSString *) formatAsMonthDayTime:(NSDate *)date
 {
-    [formatter setDateFormat:@"dd MMM"];
+    [formatter setDateFormat:@"d MMM"];
     
     NSString * part1 = [formatter stringFromDate:date];
     NSString * part2 = [NSDateFormatter localizedStringFromDate:date
