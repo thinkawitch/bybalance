@@ -5,13 +5,13 @@
 
 Поддерживаются:
 
-* МТС, Velcom, Life :).
-* Деловая сеть (iDom), TCM, НИКС, Шпаркі Дамавік, Соло, Телесеть, NetBerry, Космос ТВ, ByFly, Домашняя сеть (infolan.by), UNET.BY, Anitex.
+* МТС, Velcom, Life.
+* Деловая сеть (iDom), TCM, НИКС, Шпаркі Дамавік, Соло, Телесеть, NetBerry, Космос ТВ, ByFly, Домашняя сеть (infolan.by), UNET.BY, Anitex, Adsl.by.
 
-Работает на устройствах iOS 6 и новее:
+Работает на устройствах iOS 7 и новее:
 
-* iphone 3gs +
+* iphone 4 +
 * ipad 2 +
-* ipod touch 4 +
+* ipod touch 5 +
 
 [Блог приложения](http://bybalance.wordpress.com)
