@@ -30,45 +30,4 @@
     }];
 }
 
-
-- (void) extractInfoFromHtml:(NSString *)html
-{
-    DDLogVerbose(@"%@", html);
-    if (!html) return;
-    
-    NSString * buf = nil;
-    NSMutableArray * bonuses = [[NSMutableArray alloc] initWithCapacity:2];
-    NSArray * arr = nil;
-    BOOL extracted = NO;
-    
-    //Включен
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@">Аккаунт</td>\\s+<td[^>]+><b>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
-    {
-        buf = [arr objectAtIndex:0];
-        if ([buf isKindOfClass:[NSString class]]) [bonuses addObject:buf];
-    }
-    
-    //осталось
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<td class='left'></td>\\s+<td[^>]+>осталось\\s+<b>([^<]+)</b></td>\\s+</tr>\\s+<tr class=\"sub last_pay\">" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
-    {
-        buf = [arr objectAtIndex:0];
-        if ([buf isKindOfClass:[NSString class]]) [bonuses addObject:[NSString stringWithFormat:@"осталось %@", buf]];
-    }
-    
-    if ([bonuses count]>0) self.loaderInfo.bonuses = [bonuses componentsJoinedByString:@", "];
-    DDLogVerbose(@"bonuses %@", self.loaderInfo.bonuses);
-    
-    //balance
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"Осталось трафика на сумму</td>\\s+<td[^>]+><b>([^<]+)" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
-    {
-        self.loaderInfo.userBalance = [self decimalNumberFromString:[arr objectAtIndex:0]];
-        extracted = YES;
-    }
-    
-    self.loaderInfo.extracted = extracted;
-}
-
 @end
