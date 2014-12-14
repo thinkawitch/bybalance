@@ -141,7 +141,6 @@
         self.loaderInfo.userBalance = jsInfo.userBalance;
         self.loaderInfo.bonuses = jsInfo.bonuses;
     }
-    
 }
 
 - (void) doFinish

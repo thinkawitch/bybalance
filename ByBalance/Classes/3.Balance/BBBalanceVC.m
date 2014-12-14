@@ -18,11 +18,11 @@ typedef enum
 } kAlertMode;
 
 static NSString * cellId1 = @"BBHistoryCommonCellID";
-static NSString * cellId2 = @"BBHistoryAnitexCellID";
+//static NSString * cellId2 = @"BBHistoryAnitexCellID";
 static NSString * cellId3 = @"BBHistoryBonusesCellID";
 
 static NSString * nib1 = @"BBHistoryCommonCell";
-static NSString * nib2 = @"BBHistoryAnitexCell";
+//static NSString * nib2 = @"BBHistoryAnitexCell";
 static NSString * nib3 = @"BBHistoryBonusesCell";
 
 
@@ -51,7 +51,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
     
     [tblHistory setSeparatorColor:[APP_CONTEXT colorGrayMedium]];
     [tblHistory registerNib:[UINib nibWithNibName:nib1 bundle:nil] forCellReuseIdentifier:cellId1];
-    [tblHistory registerNib:[UINib nibWithNibName:nib2 bundle:nil] forCellReuseIdentifier:cellId2];
+    //[tblHistory registerNib:[UINib nibWithNibName:nib2 bundle:nil] forCellReuseIdentifier:cellId2];
     [tblHistory registerNib:[UINib nibWithNibName:nib3 bundle:nil] forCellReuseIdentifier:cellId3];
     
     historyStay = 5;
@@ -425,17 +425,9 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
 {
     NSString * cellId = nil;
     BBMBalanceHistory * bh = [self.history objectAtIndex:indexPath.row];
-    
-    if ([self.account.type.id integerValue] == kAccountAnitex)
-    {
-        cellId = cellId2;
-    }
-    else
-    {
-        if ([bh.bonuses length] > 0) cellId = cellId3;
-        else cellId = cellId1;
-    }
-    
+
+    if ([bh.bonuses length] > 0) cellId = cellId3;
+    else cellId = cellId1;
     
     BBHistoryBaseCell * cell = (BBHistoryBaseCell*)[tblHistory dequeueReusableCellWithIdentifier:cellId];
     cell.backgroundColor = [UIColor clearColor];
@@ -453,34 +445,27 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
 
 - (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //return [self.account.type.id integerValue] == kAccountAnitex ? kHistoryCellHeight2 : kHistoryCellHeight1;
-    if ([self.account.type.id integerValue] == kAccountAnitex)
+
+    BBMBalanceHistory * bh = [self.history objectAtIndex:indexPath.row];
+    
+    if ([bh.bonuses length] > 0)
     {
-        return kHistoryCellHeight2;
+        
+        static BBHistoryBonusesCell * cell = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            cell = [tblHistory dequeueReusableCellWithIdentifier:cellId3];
+            cell.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        });
+
+        [cell setupWithHistory:bh];
+        return [self calculateHeightForBonusesCell:cell];
+        
+        return kHistoryCellHeight3;
     }
     else
     {
-        BBMBalanceHistory * bh = [self.history objectAtIndex:indexPath.row];
-        
-        if ([bh.bonuses length] > 0)
-        {
-            
-            static BBHistoryBonusesCell * cell = nil;
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                cell = [tblHistory dequeueReusableCellWithIdentifier:cellId3];
-                cell.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-            });
-
-            [cell setupWithHistory:bh];
-            return [self calculateHeightForBonusesCell:cell];
-            
-            return kHistoryCellHeight3;
-        }
-        else
-        {
-            return kHistoryCellHeight1;
-        }
+        return kHistoryCellHeight1;
     }
 }
 
