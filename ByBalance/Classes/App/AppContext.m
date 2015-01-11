@@ -42,7 +42,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
     //
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
-    iOs7 = (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7"));
     iOs8 = (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8"));
     iPhone = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone);
     iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
@@ -126,11 +125,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 }
 
 #pragma mark - Ios helpers
-
-- (BOOL) isIos7
-{
-    return iOs7;
-}
 
 - (BOOL) isIos8
 {
@@ -380,22 +374,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
 
 - (CGFloat) labelTextWidth:(UILabel *)label
 {
-    if (APP_CONTEXT.isIos7)
-    {
-        CGRect expectedLabelSize = [label.text boundingRectWithSize:label.frame.size
-                                                            options:(NSStringDrawingTruncatesLastVisibleLine)
-                                                         attributes:@{NSFontAttributeName:label.font}
-                                                            context:nil];
+    CGRect expectedLabelSize = [label.text boundingRectWithSize:label.frame.size
+                                                        options:(NSStringDrawingTruncatesLastVisibleLine)
+                                                     attributes:@{NSFontAttributeName:label.font}
+                                                        context:nil];
         
-        return expectedLabelSize.size.width;
-    }
-    else
-    {
-        CGSize expectedLabelSize = [label.text sizeWithFont:label.font
-                                          constrainedToSize:label.frame.size
-                                              lineBreakMode:label.lineBreakMode];
-        return expectedLabelSize.width;
-    }
+    return expectedLabelSize.size.width;
 }
 
 - (UIView *)circleWithColor:(UIColor *)color radius:(int)radius

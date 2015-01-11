@@ -10,7 +10,11 @@
 
 #pragma mark - Bases server
 //
+#ifdef DEBUG
 NSString * const kBasesServerUrl = @"http://192.168.0.2/bybalance_bases/";
+#else
+NSString * const kBasesServerUrl = @"https://raw.githubusercontent.com/thinkawitch/bybalance-bases/master/";
+#endif
 
 #pragma mark - APN server
 //

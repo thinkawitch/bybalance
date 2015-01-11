@@ -113,12 +113,8 @@
     self.nc1.navigationBar.barStyle = UIBarStyleBlack;
     self.nc1.navigationBar.translucent = NO;
     self.nc1.navigationBar.backgroundColor = [UIColor blackColor];
-
-    if (APP_CONTEXT.isIos7)
-    {
-        self.nc1.delegate = (id<UINavigationControllerDelegate>)self.nc1;
-        self.nc1.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
-    }
+    self.nc1.delegate = (id<UINavigationControllerDelegate>)self.nc1;
+    self.nc1.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
     
     if (APP_CONTEXT.isIpad)
     {
@@ -128,11 +124,8 @@
         self.nc2.navigationBar.barStyle = UIBarStyleBlack;
         self.nc2.navigationBar.translucent = NO;
         self.nc2.navigationBar.backgroundColor = [UIColor blackColor];
-        if (APP_CONTEXT.isIos7)
-        {
-            self.nc2.delegate = (id<UINavigationControllerDelegate>)self.nc2;
-            self.nc2.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
-        }
+        self.nc2.delegate = (id<UINavigationControllerDelegate>)self.nc2;
+        self.nc2.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
         
         BBBalanceVC * balanceVC = NEWVCFROMNIB(BBBalanceVC);
         balanceVC.account = nil;
@@ -156,14 +149,10 @@
         
         [application registerForRemoteNotifications];
     }
-    else if (APP_CONTEXT.isIos7)
-    {
-        [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeNewsstandContentAvailability];
-    }
     else
     {
-        //ios 6
-        [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound];
+        //ios 7
+        [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeNewsstandContentAvailability];
     }
     
     // Launched from push notification
@@ -348,8 +337,6 @@
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-    if (!APP_CONTEXT.isIos7) return;
-    
     NSString * newToken = [deviceToken description];
 	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -359,8 +346,6 @@
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-    if (!APP_CONTEXT.isIos7) return;
-    
 	DDLogError(@"Failed to get token, error: %@", error);
     [BALANCE_CHECKER serverRemoveToken];
 }

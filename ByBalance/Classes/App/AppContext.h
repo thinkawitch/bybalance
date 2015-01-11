@@ -20,7 +20,6 @@
 	Reachability * reachability;
     
     //
-    BOOL iOs7;
     BOOL iOs8;
     BOOL iPhone;
     BOOL iPad;
@@ -40,7 +39,6 @@
 - (BOOL) isOnlineWifi;
 - (BOOL) isOnlineCellular;
 //
-- (BOOL) isIos7;
 - (BOOL) isIos8;
 - (BOOL) isIphone;
 - (BOOL) isIpad;
