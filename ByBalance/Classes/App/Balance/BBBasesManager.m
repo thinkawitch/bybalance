@@ -19,9 +19,6 @@
     AFHTTPRequestOperationManager * httpClient;
 }
 
-//@property (strong,nonatomic) UIWebView * webView;
-//@property (strong,nonatomic) JSContext * jsContext;
-
 - (NSString *) basesFilepath;
 - (BOOL) saveBases:(NSString *)bases;
 - (BOOL) checkBasesVersion:(NSString *)verions;
@@ -67,10 +64,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
         DDLogVerbose(@"js_exception: %@", value);
     }];
     
+    #ifdef DEBUG
     jsContext[@"console"][@"log"] = ^{
         NSArray * args = [JSContext currentArguments];
         DDLogVerbose(@"js_console: %@", [args componentsJoinedByString:@" | "]);
     };
+    #endif
 }
 
 - (BOOL) isReady

@@ -36,18 +36,19 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
 @synthesize webView;
 @synthesize sessionId;
 
+
 #pragma mark UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    DDLogVerbose(@"webView shouldStartLoadWithRequest: %@", request.URL);
+    //DDLogVerbose(@"webView shouldStartLoadWithRequest: %@", request.URL);
     //DDLogVerbose(@"%@", request.allHTTPHeaderFields);
-    DDLogVerbose(@"webView shouldStartLoadWithRequest willLoad: %d", !webViewFinished);
+    //DDLogVerbose(@"webView shouldStartLoadWithRequest willLoad: %d", !webViewFinished);
     
     if ([request.URL.relativeString rangeOfString:@"X3_"].location != NSNotFound) {
         DDLogVerbose(@"X3 started: %@", request.URL.relativeString);
         x3Started = YES;
     }
-    
+    x3Started = YES;
     return !webViewFinished;
 }
 
@@ -80,6 +81,7 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
     [self doFinish];
 }
 
+
 #pragma mark - Logic
 
 - (void) startLoader
@@ -100,18 +102,6 @@ NSString * const kUrlVelcom = @"https://internet.velcom.by/";
         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
         [self.webView loadRequest:urlRequest];
     });
-    
-    /*
-     dispatch_async(dispatch_get_main_queue(), ^(void){
-     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 168, 320, 400)];
-     self.webView.delegate = self;
-     [[[[UIApplication sharedApplication] delegate] window] addSubview:self.webView];
-     NSURL *url = [NSURL URLWithString:kUrlVelcom];
-     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-     [self.webView loadRequest:urlRequest];
-     });
-     */
-
 }
 
 - (void) onStep0
