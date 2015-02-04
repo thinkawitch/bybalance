@@ -61,11 +61,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
 - (void) prepareJsContext
 {
     [jsContext setExceptionHandler:^(JSContext *context, JSValue *value) {
-        DDLogVerbose(@"js_exception: %@", value);
+        DDLogError(@"js_exception: %@", value);
     }];
     
     #ifdef DEBUG
-    jsContext[@"console"][@"log"] = ^{
+    jsContext[@"bbLog"] = ^{
         NSArray * args = [JSContext currentArguments];
         DDLogVerbose(@"js_console: %@", [args componentsJoinedByString:@" | "]);
     };
@@ -161,6 +161,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBasesManager, sharedBBBasesManager);
         return NO;
     }
     
+    //JSContext * context = [[[UIWebView alloc] initWithFrame:CGRectZero] valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     JSContext * context = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
     [context setExceptionHandler:^(JSContext *context, JSValue *value) {
         DDLogVerbose(@"js_exception_2: %@", value);
