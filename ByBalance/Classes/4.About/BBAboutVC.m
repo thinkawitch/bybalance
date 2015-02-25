@@ -43,6 +43,18 @@
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Справка"];
     [tracker send:[[GAIDictionaryBuilder createScreenView]  build]];
+    
+    //test
+    NSMutableDictionary * newAcc = [NSMutableDictionary dictionaryWithCapacity:3];
+    [newAcc setObject:@"мой мтс" forKey:@"name"];
+    [newAcc setObject:@"23500" forKey:@"balance"];
+    [newAcc setObject:@"12:46" forKey:@"date"];
+    NSArray * accounts = [AppGroupSettings sharedAppGroupSettings].accounts;
+    NSMutableArray * ma = [NSMutableArray arrayWithArray:accounts];
+    [ma addObject:newAcc];
+    NSLog(@"accounts ma: %d", [ma count]);
+    [[AppGroupSettings sharedAppGroupSettings] setAccounts:ma];
+    [[AppGroupSettings sharedAppGroupSettings] save];
 }
 
 #pragma mark - Setup

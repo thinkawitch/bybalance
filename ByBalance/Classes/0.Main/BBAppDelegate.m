@@ -85,6 +85,7 @@
     }
     
     [SETTINGS load];
+    [[AppGroupSettings sharedAppGroupSettings] load];
     [APP_CONTEXT start];
     //[APP_CONTEXT showAllAccounts];
     //[APP_CONTEXT clearAllHistory];

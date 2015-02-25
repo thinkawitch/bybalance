@@ -4,8 +4,6 @@
 //  The contents of this file are implicitly included at the beginning of every source file.
 //
 
-#import <Availability.h>
-
 #ifndef __IPHONE_7_0
 #warning "This project uses features only available in iOS SDK 7.0 and later."
 #endif
@@ -16,6 +14,7 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <JavaScriptCore/JavaScriptCore.h>
+    #import <Availability.h>
     //
     #import "SynthesizeSingleton.h"
     #import "NSString+PDRegex.h"
@@ -36,6 +35,7 @@
     #import "AppPublics.h"
     #import "AppPrivates.h"
     #import "MacrosAndDefines.h"
+    #import "AppGroupSettings.h"
     //
     #import "BBMAllManagedItems.h"
     #import "BBAllLoaders.h"
