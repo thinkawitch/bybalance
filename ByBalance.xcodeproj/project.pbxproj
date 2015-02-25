@@ -216,6 +216,7 @@
 		84538FBF1A2A1D6800912BDA /* BBBasesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBasesManager.h; sourceTree = "<group>"; };
 		84538FC01A2A1D6800912BDA /* BBBasesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBasesManager.m; sourceTree = "<group>"; };
 		84538FC21A2A251400912BDA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		845BCBC31A9E5C6C0091C7B6 /* Model7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model7.xcdatamodel; sourceTree = "<group>"; };
 		846FDADE19EEF27300FB7F5F /* BBLoaderAdslBy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoaderAdslBy.h; sourceTree = "<group>"; };
 		846FDADF19EEF27300FB7F5F /* BBLoaderAdslBy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoaderAdslBy.m; sourceTree = "<group>"; };
 		8499F20719DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -1711,6 +1712,7 @@
 				45FC717E1A9DBDAC0010A6E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C312CD241808AB1F005F25D0 /* Build configuration list for PBXProject "ByBalance" */ = {
 			isa = XCConfigurationList;
@@ -1736,6 +1738,7 @@
 		C3DE70841809C13B0024F9DD /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				845BCBC31A9E5C6C0091C7B6 /* Model7.xcdatamodel */,
 				C3A211F11841853D005A2883 /* Model5.xcdatamodel */,
 				C3BDDA0A18FAA88000A92B35 /* Model6.xcdatamodel */,
 				C3228360182981E300D924DA /* Model4.xcdatamodel */,
@@ -1743,7 +1746,7 @@
 				C3DE70861809C13B0024F9DD /* Model2.xcdatamodel */,
 				C3DE70871809C13B0024F9DD /* Model3.xcdatamodel */,
 			);
-			currentVersion = C3BDDA0A18FAA88000A92B35 /* Model6.xcdatamodel */;
+			currentVersion = 845BCBC31A9E5C6C0091C7B6 /* Model7.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

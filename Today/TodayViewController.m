@@ -20,25 +20,9 @@
 
 @implementation TodayViewController
 
-/*
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super initWithCoder:aDecoder])
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(userDefaultsDidChange:)
-                                                     name:NSUserDefaultsDidChangeNotification
-                                                   object:nil];
-    }
-    return self;
-}
- */
-
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-
-    NSLog(@"viewDidLoad");
     
     [self updateScreen];
     
@@ -46,40 +30,36 @@
                                              selector:@selector(userDefaultsDidChange:)
                                                  name:NSUserDefaultsDidChangeNotification
                                                object:nil];
-    
-    
-}
-
-- (void) viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    //[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (IBAction) openMainApp: (id)sender
 {
-    NSLog(@"openMainApp");
     NSURL *url = [NSURL URLWithString:@"ByBalance://"];
     [self.extensionContext openURL:url completionHandler:nil];
 }
 
 - (void) userDefaultsDidChange:(NSNotification *)notification
 {
-    NSLog(@"userDefaultsDidChange");
-    NSLog(@"%@", notification);
-    
     [self updateScreen];
 }
 
 - (void) updateScreen
 {
-    NSLog(@"updateScreen");
     [[AppGroupSettings sharedAppGroupSettings] load];
-    NSArray * accounts = [[AppGroupSettings sharedAppGroupSettings] accounts];
-    NSLog(@"accounts %@", accounts);
+    NSArray * records = [[AppGroupSettings sharedAppGroupSettings] accounts];
+    if ([records count] < 1)
+    {
+        self.lblNoAccounts.text = @"Выберите записи для виджета";
+        return;
+    }
     
-    self.lblNoAccounts.text = [NSString stringWithFormat:@"accounts: %d", [accounts count]];
+    NSMutableString * ms = [NSMutableString stringWithString:@""];
+    for (NSDictionary * rec in records)
+    {
+        [ms appendFormat:@"%@ - %@ - %@\n", [rec valueForKey:@"name"], [rec valueForKey:@"balance"], [rec valueForKey:@"date"]];
+    }
+    
+    self.lblNoAccounts.text = ms;
 }
 
 #pragma mark - NCWidgetProviding

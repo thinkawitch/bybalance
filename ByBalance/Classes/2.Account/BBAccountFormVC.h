@@ -43,6 +43,7 @@
 - (IBAction) add:(id) sender;
 - (IBAction) hideKeyboard:(id) sender;
 - (IBAction) togglePasswordDisplay:(id) sender;
+- (IBAction) toggleWidget:(id) sender;
 - (IBAction) openContacts:(id) sender;
 
 @end

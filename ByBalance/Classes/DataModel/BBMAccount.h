@@ -14,6 +14,7 @@
 @interface BBMAccount : NSManagedObject
 
 @property (nonatomic, retain) NSDecimalNumber * balanceLimit;
+@property (nonatomic, retain) NSNumber * inTodayWidget;
 @property (nonatomic, retain) NSString * label;
 @property (nonatomic, retain) NSNumber * order;
 @property (nonatomic, retain) NSString * password;

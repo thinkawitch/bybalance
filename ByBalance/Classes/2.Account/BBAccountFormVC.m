@@ -60,6 +60,16 @@
     [cbv setStateChangedTarget:self selector:@selector(togglePasswordDisplay:)];
     [self.view addSubview:cbv];
     
+    if (APP_CONTEXT.isIos8)
+    {
+        SSCheckBoxView * cbWidget = [[SSCheckBoxView alloc] initWithFrame:CGRectMake(178, 150, 110, 30)
+                                                                    style:kSSCheckBoxViewStyleMono
+                                                                  checked:[account.inTodayWidget boolValue]];
+        [cbWidget setText:@"виджет"];
+        [cbWidget setStateChangedTarget:self selector:@selector(toggleWidget:)];
+        [self.view addSubview:cbWidget];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -125,7 +135,6 @@
 
 - (IBAction) add:(id) sender
 {
-    
     //trim username
     NSString * username = [tfUsername.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
     tfUsername.text = username;
@@ -220,6 +229,11 @@
 {
     [tfPassword resignFirstResponder];
     tfPassword.secureTextEntry = ![sender checked];
+}
+
+- (IBAction) toggleWidget:(id) sender
+{
+    self.account.inTodayWidget = [NSNumber numberWithBool:[sender checked]];
 }
 
 - (IBAction) openContacts:(id) sender

@@ -14,6 +14,7 @@
 @implementation BBMAccount
 
 @dynamic balanceLimit;
+@dynamic inTodayWidget;
 @dynamic label;
 @dynamic order;
 @dynamic password;
