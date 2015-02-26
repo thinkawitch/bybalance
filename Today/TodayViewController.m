@@ -113,19 +113,7 @@ static NSString * nib1 = @"BBTodayCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray * records = [[AppGroupSettings sharedAppGroupSettings] accounts];
-    NSDictionary * record;
-    
-    if ([records count] > 0)
-    {
-        record = [records objectAtIndex:indexPath.row];
-    }
-    else
-    {
-        record = [NSDictionary dictionaryWithObjectsAndKeys:@"Выберите аккаунты в приложении", @"name",
-                                 @"", @"balance",
-                                 @"", @"date", nil];
-    }
-    
+    NSDictionary * record = [records objectAtIndex:indexPath.row];
     
     BBTodayCell * cell = (BBTodayCell*)[tableView dequeueReusableCellWithIdentifier:cellId1];
     cell.backgroundColor = [UIColor clearColor];
