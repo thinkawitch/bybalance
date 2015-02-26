@@ -42,6 +42,7 @@
 //
 - (void) serverAddToken:(NSString *)token;
 - (void) serverRemoveToken;
-
+//
+- (void) saveAccountsForTodayWidget;
 
 @end

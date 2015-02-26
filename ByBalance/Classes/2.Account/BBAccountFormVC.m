@@ -223,6 +223,8 @@
                                                                label:[NSString stringWithFormat:@"%@", newAccount.type.name]
                                                                value:nil] build]];
     }
+    
+    [BALANCE_CHECKER saveAccountsForTodayWidget];
 }
 
 - (IBAction) togglePasswordDisplay:(id) sender

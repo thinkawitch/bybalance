@@ -147,6 +147,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         
         [APP_CONTEXT saveDatabase];
         
+        [self saveAccountsForTodayWidget];
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceChecked object:self userInfo:info];
         
         if (queue.operationCount <= 1)
@@ -154,46 +156,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
             [self notifyAboutLimits];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStop object:self userInfo:nil];
             if (bgUpdate) [self onBgUpdateEnd:YES];
-        }
-        
-        //save data in group userDefaults
-        if (APP_CONTEXT.isIos8)
-        {
-            NSMutableArray * widgetAccounts = [NSMutableArray array];
-            
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"inTodayWidget = 1"];
-            NSArray * arr = [BBMAccount findAllSortedBy:@"order" ascending:YES withPredicate:pred];
-            NSString * balance = nil;
-            for (BBMAccount * acc in arr)
-            {
-                BBMBalanceHistory * h = [acc lastBalance];
-                if (!h) continue;
-                
-                NSMutableDictionary * record = [NSMutableDictionary dictionaryWithCapacity:3];
-                [record setObject:acc.nameLabel forKey:@"name"];
-                
-                if ([h.extracted boolValue])
-                {
-                    balance = [NSNumberFormatter localizedStringFromNumber:h.balance
-                                                               numberStyle:NSNumberFormatterDecimalStyle];
-                }
-                else if ([h.incorrectLogin boolValue])
-                {
-                    balance = @"неправильный логин";
-                }
-                else
-                {
-                    balance = @"ошибка";
-                }
-                
-                [record setObject:balance forKey:@"balance"];
-                [record setObject:[DATE_HELPER formatSmartAsDayOrTime:h.date] forKey:@"date"];
-                
-                [widgetAccounts addObject:record];
-            }
-            
-            [[AppGroupSettings sharedAppGroupSettings] setAccounts:widgetAccounts];
-            [[AppGroupSettings sharedAppGroupSettings] save];
         }
     }
 }
@@ -577,6 +539,47 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         
         DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
     }];
+}
+
+- (void) saveAccountsForTodayWidget
+{
+    if (!APP_CONTEXT.isIos8) return;
+    
+    NSMutableArray * widgetAccounts = [NSMutableArray array];
+    
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"inTodayWidget = 1"];
+    NSArray * arr = [BBMAccount findAllSortedBy:@"order" ascending:YES withPredicate:pred];
+    NSString * balance = nil;
+    for (BBMAccount * acc in arr)
+    {
+        BBMBalanceHistory * h = [acc lastBalance];
+        if (!h) continue;
+        
+        NSMutableDictionary * record = [NSMutableDictionary dictionaryWithCapacity:3];
+        [record setObject:acc.nameLabel forKey:@"name"];
+        
+        if ([h.extracted boolValue])
+        {
+            balance = [NSNumberFormatter localizedStringFromNumber:h.balance
+                                                       numberStyle:NSNumberFormatterDecimalStyle];
+        }
+        else if ([h.incorrectLogin boolValue])
+        {
+            balance = @"неправильный логин";
+        }
+        else
+        {
+            balance = @"ошибка";
+        }
+        
+        [record setObject:balance forKey:@"balance"];
+        [record setObject:[DATE_HELPER formatSmartAsDayOrTime:h.date] forKey:@"date"];
+        
+        [widgetAccounts addObject:record];
+    }
+    
+    [[AppGroupSettings sharedAppGroupSettings] setAccounts:widgetAccounts];
+    [[AppGroupSettings sharedAppGroupSettings] save];
 }
 
 @end
