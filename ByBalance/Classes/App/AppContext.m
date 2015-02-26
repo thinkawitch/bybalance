@@ -254,12 +254,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppContext, sharedAppContext);
         SETTINGS.build = [NSNumber numberWithInt:68];
         [SETTINGS save];
     }
-    
-    
-    for (acc in [BBMAccount findAll])
-    {
-        NSLog(@"username:%@ inWidget:%d", acc.username, [acc.inTodayWidget boolValue]);
-    }
 }
 
 - (void) saveDatabase

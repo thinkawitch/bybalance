@@ -8,21 +8,33 @@
 
 #import "TodayViewController.h"
 #import <NotificationCenter/NotificationCenter.h>
+#import "BBTodayCell.h"
 
-@interface TodayViewController () <NCWidgetProviding>
+static NSString * cellId1 = @"BBTodayCellID";
+static NSString * nib1 = @"BBTodayCell";
 
-@property (weak, nonatomic) IBOutlet UILabel * lblNoAccounts;
+
+@interface TodayViewController () <NCWidgetProviding, UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UILabel * lblSelect;
+@property (weak, nonatomic) IBOutlet UITableView * tblAccounts;
 
 - (void) userDefaultsDidChange:(NSNotification *)notification;
 - (void) updateScreen;
 
 @end
 
+
 @implementation TodayViewController
+
+@synthesize lblSelect;
+@synthesize tblAccounts;
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    
+    [tblAccounts registerNib:[UINib nibWithNibName:nib1 bundle:nil] forCellReuseIdentifier:cellId1];
     
     [self updateScreen];
     
@@ -47,19 +59,22 @@
 {
     [[AppGroupSettings sharedAppGroupSettings] load];
     NSArray * records = [[AppGroupSettings sharedAppGroupSettings] accounts];
-    if ([records count] < 1)
-    {
-        self.lblNoAccounts.text = @"Выберите записи для виджета";
-        return;
-    }
     
-    NSMutableString * ms = [NSMutableString stringWithString:@""];
-    for (NSDictionary * rec in records)
+    if ([records count] > 0)
     {
-        [ms appendFormat:@"%@ - %@ - %@\n", [rec valueForKey:@"name"], [rec valueForKey:@"balance"], [rec valueForKey:@"date"]];
+        lblSelect.hidden = YES;
+        
+        tblAccounts.hidden = NO;
+        [tblAccounts reloadData];
+        self.preferredContentSize = tblAccounts.contentSize;
     }
-    
-    self.lblNoAccounts.text = ms;
+    else
+    {
+        tblAccounts.hidden = YES;
+        
+        self.preferredContentSize = CGSizeMake(320, 40);
+        lblSelect.hidden = NO;
+    }
 }
 
 #pragma mark - NCWidgetProviding
@@ -71,8 +86,6 @@
     // If there's no update required, use NCUpdateResultNoData
     // If there's an update, use NCUpdateResultNewData
     
-    //[self updateScreen];
-    
     completionHandler(NCUpdateResultNewData);
 }
 
@@ -80,6 +93,50 @@
 {
     margins.bottom = 4.0;
     return margins;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 21.0;
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSArray * records = [[AppGroupSettings sharedAppGroupSettings] accounts];
+    return [records count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray * records = [[AppGroupSettings sharedAppGroupSettings] accounts];
+    NSDictionary * record;
+    
+    if ([records count] > 0)
+    {
+        record = [records objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        record = [NSDictionary dictionaryWithObjectsAndKeys:@"Выберите аккаунты в приложении", @"name",
+                                 @"", @"balance",
+                                 @"", @"date", nil];
+    }
+    
+    
+    BBTodayCell * cell = (BBTodayCell*)[tableView dequeueReusableCellWithIdentifier:cellId1];
+    cell.backgroundColor = [UIColor clearColor];
+    [cell setupWithDictionary:record];
+    
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
 @end

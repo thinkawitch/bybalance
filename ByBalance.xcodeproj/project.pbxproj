@@ -15,6 +15,8 @@
 		45FC717C1A9DBDAC0010A6E9 /* Today.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 45FC716F1A9DBDAB0010A6E9 /* Today.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		45FC71881A9DFB990010A6E9 /* AppGroupSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FC71871A9DFB990010A6E9 /* AppGroupSettings.m */; };
 		45FC71891A9DFB990010A6E9 /* AppGroupSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FC71871A9DFB990010A6E9 /* AppGroupSettings.m */; };
+		8403B5801A9F995B0020CAF1 /* BBTodayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8403B57F1A9F995B0020CAF1 /* BBTodayCell.m */; };
+		8403B5821A9F9F1B0020CAF1 /* BBTodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8403B5811A9F9F1B0020CAF1 /* BBTodayCell.xib */; };
 		84538FC11A2A1D6800912BDA /* BBBasesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84538FC01A2A1D6800912BDA /* BBBasesManager.m */; };
 		84538FC31A2A251400912BDA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84538FC21A2A251400912BDA /* JavaScriptCore.framework */; };
 		846FDAE019EEF27300FB7F5F /* BBLoaderAdslBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FDADF19EEF27300FB7F5F /* BBLoaderAdslBy.m */; };
@@ -213,6 +215,9 @@
 		45FC71861A9DFB980010A6E9 /* AppGroupSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppGroupSettings.h; sourceTree = "<group>"; };
 		45FC71871A9DFB990010A6E9 /* AppGroupSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppGroupSettings.m; sourceTree = "<group>"; };
 		45FC718A1A9DFFCF0010A6E9 /* Today-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Today-Prefix.pch"; sourceTree = "<group>"; };
+		8403B57E1A9F995B0020CAF1 /* BBTodayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTodayCell.h; sourceTree = "<group>"; };
+		8403B57F1A9F995B0020CAF1 /* BBTodayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTodayCell.m; sourceTree = "<group>"; };
+		8403B5811A9F9F1B0020CAF1 /* BBTodayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BBTodayCell.xib; sourceTree = "<group>"; };
 		84538FBF1A2A1D6800912BDA /* BBBasesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBasesManager.h; sourceTree = "<group>"; };
 		84538FC01A2A1D6800912BDA /* BBBasesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBasesManager.m; sourceTree = "<group>"; };
 		84538FC21A2A251400912BDA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -547,6 +552,9 @@
 		45FC71721A9DBDAC0010A6E9 /* Today */ = {
 			isa = PBXGroup;
 			children = (
+				8403B57E1A9F995B0020CAF1 /* BBTodayCell.h */,
+				8403B57F1A9F995B0020CAF1 /* BBTodayCell.m */,
+				8403B5811A9F9F1B0020CAF1 /* BBTodayCell.xib */,
 				45FC71751A9DBDAC0010A6E9 /* TodayViewController.h */,
 				45FC71761A9DBDAC0010A6E9 /* TodayViewController.m */,
 				45FC71781A9DBDAC0010A6E9 /* MainInterface.storyboard */,
@@ -1341,6 +1349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45FC71791A9DBDAC0010A6E9 /* MainInterface.storyboard in Resources */,
+				8403B5821A9F9F1B0020CAF1 /* BBTodayCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1395,6 +1404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45FC71891A9DFB990010A6E9 /* AppGroupSettings.m in Sources */,
+				8403B5801A9F995B0020CAF1 /* BBTodayCell.m in Sources */,
 				45FC71771A9DBDAC0010A6E9 /* TodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

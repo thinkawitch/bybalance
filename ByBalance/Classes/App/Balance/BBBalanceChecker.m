@@ -549,31 +549,35 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
     
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"inTodayWidget = 1"];
     NSArray * arr = [BBMAccount findAllSortedBy:@"order" ascending:YES withPredicate:pred];
-    NSString * balance = nil;
+    
     for (BBMAccount * acc in arr)
     {
         BBMBalanceHistory * h = [acc lastBalance];
-        if (!h) continue;
         
         NSMutableDictionary * record = [NSMutableDictionary dictionaryWithCapacity:3];
         [record setObject:acc.nameLabel forKey:@"name"];
         
-        if ([h.extracted boolValue])
+        if (h)
         {
-            balance = [NSNumberFormatter localizedStringFromNumber:h.balance
-                                                       numberStyle:NSNumberFormatterDecimalStyle];
-        }
-        else if ([h.incorrectLogin boolValue])
-        {
-            balance = @"неправильный логин";
+            NSString * balance = nil;
+            if ([h.extracted boolValue])
+            {
+                balance = [NSNumberFormatter localizedStringFromNumber:h.balance
+                                                           numberStyle:NSNumberFormatterDecimalStyle];
+            }
+            else
+            {
+                balance = @"ошибка";
+            }
+            
+            [record setObject:balance forKey:@"balance"];
+            [record setObject:[DATE_HELPER formatSmartAsDayOrTime:h.date] forKey:@"date"];
         }
         else
         {
-            balance = @"ошибка";
+            [record setObject:@"-" forKey:@"balance"];
+            [record setObject:@"-" forKey:@"date"];
         }
-        
-        [record setObject:balance forKey:@"balance"];
-        [record setObject:[DATE_HELPER formatSmartAsDayOrTime:h.date] forKey:@"date"];
         
         [widgetAccounts addObject:record];
     }

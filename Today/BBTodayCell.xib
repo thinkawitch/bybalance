@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BBTodayCellID" id="sjQ-YK-V18" customClass="BBTodayCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="21"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sjQ-YK-V18" id="4sF-qA-kVL">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="kcj-kn-H40">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.6020350302419355" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="balance" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="CKe-PT-FIl">
+                        <rect key="frame" x="150" y="0.0" width="90" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="JEh-qM-czV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Jp-BM-96y">
+                        <rect key="frame" x="240" y="0.0" width="80" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="MJq-h4-aaD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.49770035282258063" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="CKe-PT-FIl" firstAttribute="top" secondItem="4sF-qA-kVL" secondAttribute="top" id="0EJ-l5-PHg"/>
+                    <constraint firstAttribute="bottom" secondItem="1Jp-BM-96y" secondAttribute="bottom" id="1g1-L8-UzF"/>
+                    <constraint firstItem="kcj-kn-H40" firstAttribute="leading" secondItem="4sF-qA-kVL" secondAttribute="leading" id="Lee-NC-cBs"/>
+                    <constraint firstItem="CKe-PT-FIl" firstAttribute="leading" secondItem="kcj-kn-H40" secondAttribute="trailing" id="Ycb-CX-srd"/>
+                    <constraint firstItem="kcj-kn-H40" firstAttribute="top" secondItem="4sF-qA-kVL" secondAttribute="top" id="baR-7D-0qY"/>
+                    <constraint firstItem="1Jp-BM-96y" firstAttribute="top" secondItem="4sF-qA-kVL" secondAttribute="top" id="dun-Gj-X9G"/>
+                    <constraint firstAttribute="bottom" secondItem="CKe-PT-FIl" secondAttribute="bottom" id="eXW-2y-Dgd"/>
+                    <constraint firstItem="1Jp-BM-96y" firstAttribute="leading" secondItem="CKe-PT-FIl" secondAttribute="trailing" id="hfP-Dc-BwN"/>
+                    <constraint firstItem="CKe-PT-FIl" firstAttribute="leading" secondItem="kcj-kn-H40" secondAttribute="trailing" id="hh3-gJ-Bhw"/>
+                    <constraint firstAttribute="trailing" secondItem="1Jp-BM-96y" secondAttribute="trailing" id="pPr-lO-KqF"/>
+                    <constraint firstAttribute="bottom" secondItem="kcj-kn-H40" secondAttribute="bottom" id="sF6-BP-DtT"/>
+                    <constraint firstItem="1Jp-BM-96y" firstAttribute="leading" secondItem="CKe-PT-FIl" secondAttribute="trailing" id="vE2-Rt-Rif"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="lblBalance" destination="CKe-PT-FIl" id="fPA-5P-2oq"/>
+                <outlet property="lblDate" destination="1Jp-BM-96y" id="jMm-pN-F72"/>
+                <outlet property="lblName" destination="kcj-kn-H40" id="WmT-Wq-cbq"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
