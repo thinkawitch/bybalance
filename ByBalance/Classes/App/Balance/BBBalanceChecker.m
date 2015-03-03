@@ -571,7 +571,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
             }
             
             [record setObject:balance forKey:@"balance"];
-            [record setObject:[DATE_HELPER formatSmartAsDayOrTime:h.date] forKey:@"date"];
+            [record setObject:[DATE_HELPER dateToMysqlDateTime:h.date] forKey:@"date"];
         }
         else
         {

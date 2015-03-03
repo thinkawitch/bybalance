@@ -7,6 +7,7 @@
 //
 
 #import "BBTodayCell.h"
+#import "IDDateHelper.h"
 
 @implementation BBTodayCell
 
@@ -14,8 +15,9 @@
 {
     lblName.text = [dict objectForKey:@"name"];
     lblBalance.text = [dict objectForKey:@"balance"];
-    lblDate.text = [dict objectForKey:@"date"];
     
+    NSDate * date = [[IDDateHelper sharedIDDateHelper] mysqlDateTimeToDate:[dict objectForKey:@"date"]];
+    lblDate.text = [[IDDateHelper sharedIDDateHelper] formatSmartAsDayOrTime:date];
 }
 
 @end

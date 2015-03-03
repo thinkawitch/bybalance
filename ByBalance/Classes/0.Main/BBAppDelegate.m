@@ -84,6 +84,10 @@
         DDLogVerbose(@"app started in background");
     }
     
+    #ifdef DEBUG
+    DDLogVerbose(@"app started in debug");
+    #endif
+    
     [SETTINGS load];
     [[AppGroupSettings sharedAppGroupSettings] load];
     [APP_CONTEXT start];
@@ -99,9 +103,9 @@
     //google analytics
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 30;
-#ifdef DEBUG
+    #ifdef DEBUG
     //[[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
-#endif
+    #endif
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-39554166-1"];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

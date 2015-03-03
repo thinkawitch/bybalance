@@ -41,6 +41,7 @@
 		84A0525F19DD8D36008B09B7 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0525419DD8D36008B09B7 /* AFURLRequestSerialization.m */; };
 		84A0526019DD8D36008B09B7 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0525619DD8D36008B09B7 /* AFURLResponseSerialization.m */; };
 		84A0526119DD8D36008B09B7 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0525819DD8D36008B09B7 /* AFURLSessionManager.m */; };
+		84A687481AA61EDB00E7CD33 /* IDDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B471808D59B00E2C1D6 /* IDDateHelper.m */; };
 		84A80F0519E17BAC000E6786 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A80ECD19E17BAC000E6786 /* MagicalImportFunctions.m */; };
 		84A80F0619E17BAC000E6786 /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A80ECF19E17BAC000E6786 /* NSAttributeDescription+MagicalDataImport.m */; };
 		84A80F0719E17BAC000E6786 /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A80ED119E17BAC000E6786 /* NSEntityDescription+MagicalDataImport.m */; };
@@ -1403,6 +1404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A687481AA61EDB00E7CD33 /* IDDateHelper.m in Sources */,
 				45FC71891A9DFB990010A6E9 /* AppGroupSettings.m in Sources */,
 				8403B5801A9F995B0020CAF1 /* BBTodayCell.m in Sources */,
 				45FC71771A9DBDAC0010A6E9 /* TodayViewController.m in Sources */,

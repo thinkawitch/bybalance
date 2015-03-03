@@ -86,6 +86,8 @@ static NSString * nib1 = @"BBTodayCell";
     // If there's no update required, use NCUpdateResultNoData
     // If there's an update, use NCUpdateResultNewData
     
+    [self updateScreen];
+    
     completionHandler(NCUpdateResultNewData);
 }
 
