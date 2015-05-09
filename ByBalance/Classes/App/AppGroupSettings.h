@@ -14,6 +14,8 @@
 }
 
 @property (nonatomic, strong) NSArray * accounts;
+@property (nonatomic, assign) NSInteger updateBegin;
+@property (nonatomic, assign) NSInteger updateEnd;
 
 + (AppGroupSettings *) sharedAppGroupSettings;
 

@@ -11,5 +11,6 @@
 @interface TodayViewController : UIViewController
 
 - (IBAction) openMainApp: (id)sender;
+- (IBAction) updateAccounts: (id)sender;
 
 @end

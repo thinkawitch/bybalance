@@ -7,12 +7,10 @@
 //
 
 #import "TodayViewController.h"
-#import <NotificationCenter/NotificationCenter.h>
 #import "BBTodayCell.h"
 
 static NSString * cellId1 = @"BBTodayCellID";
 static NSString * nib1 = @"BBTodayCell";
-
 
 @interface TodayViewController () <NCWidgetProviding, UITableViewDelegate, UITableViewDataSource>
 
@@ -38,11 +36,15 @@ static NSString * nib1 = @"BBTodayCell";
     
     [self updateScreen];
     
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userDefaultsDidChange:)
                                                  name:NSUserDefaultsDidChangeNotification
                                                object:nil];
+     */
+    
 }
+
 
 - (IBAction) openMainApp: (id)sender
 {
@@ -50,8 +52,20 @@ static NSString * nib1 = @"BBTodayCell";
     [self.extensionContext openURL:url completionHandler:nil];
 }
 
+- (IBAction) updateAccounts: (id)sender
+{
+    AppGroupSettings * gs = [AppGroupSettings sharedAppGroupSettings];
+    [gs load];
+    gs.updateBegin = arc4random_uniform(1000);
+    gs.updateEnd = 0;
+    [gs save];
+}
+
+
+
 - (void) userDefaultsDidChange:(NSNotification *)notification
 {
+    NSLog(@"widget userDefaultsDidChange");
     [self updateScreen];
 }
 
@@ -93,6 +107,7 @@ static NSString * nib1 = @"BBTodayCell";
 
 - (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)margins
 {
+    //margins.left = 18.0;
     margins.bottom = 4.0;
     return margins;
 }

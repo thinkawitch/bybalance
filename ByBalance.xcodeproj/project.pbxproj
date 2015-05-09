@@ -19,6 +19,8 @@
 		8403B5821A9F9F1B0020CAF1 /* BBTodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8403B5811A9F9F1B0020CAF1 /* BBTodayCell.xib */; };
 		84538FC11A2A1D6800912BDA /* BBBasesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84538FC01A2A1D6800912BDA /* BBBasesManager.m */; };
 		84538FC31A2A251400912BDA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84538FC21A2A251400912BDA /* JavaScriptCore.framework */; };
+		846D6D081AFE5975009BA5FE /* IDPrimitiveHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B4A1808D59B00E2C1D6 /* IDPrimitiveHelper.m */; };
+		846D6D091AFE6E3B009BA5FE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FC71701A9DBDAC0010A6E9 /* NotificationCenter.framework */; };
 		846FDAE019EEF27300FB7F5F /* BBLoaderAdslBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FDADF19EEF27300FB7F5F /* BBLoaderAdslBy.m */; };
 		8499F21819DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499F20819DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.m */; };
 		8499F21919DEA4CB00118AAD /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499F20A19DEA4CB00118AAD /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -521,6 +523,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846D6D091AFE6E3B009BA5FE /* NotificationCenter.framework in Frameworks */,
 				84538FC31A2A251400912BDA /* JavaScriptCore.framework in Frameworks */,
 				C316693E190EBF0700E9B7DA /* libxml2.dylib in Frameworks */,
 				C33585ED1809D106001AB5D3 /* MobileCoreServices.framework in Frameworks */,
@@ -1407,6 +1410,7 @@
 				84A687481AA61EDB00E7CD33 /* IDDateHelper.m in Sources */,
 				45FC71891A9DFB990010A6E9 /* AppGroupSettings.m in Sources */,
 				8403B5801A9F995B0020CAF1 /* BBTodayCell.m in Sources */,
+				846D6D081AFE5975009BA5FE /* IDPrimitiveHelper.m in Sources */,
 				45FC71771A9DBDAC0010A6E9 /* TodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

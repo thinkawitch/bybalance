@@ -40,6 +40,14 @@
                                     <outlet property="delegate" destination="M4Y-Lb-cyx" id="Zyg-pc-6eE"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgQ-Z0-LmT">
+                                <rect key="frame" x="137" y="5" width="37" height="22"/>
+                                <accessibility key="accessibilityConfiguration" label=""/>
+                                <state key="normal" title="ККК"/>
+                                <connections>
+                                    <action selector="updateAccounts:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="BUH-E7-aVu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <gestureRecognizers/>
                         <constraints>
