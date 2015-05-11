@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F1077" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -13,17 +13,17 @@
                         <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выберите аккаунты в приложении" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbh-aW-WPv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Выберите аккаунты в приложении" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbh-aW-WPv">
                                 <rect key="frame" x="0.0" y="5" width="315" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="20" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="rrA-6Q-z1M">
-                                <rect key="frame" x="0.0" y="0.0" width="315" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -40,10 +40,18 @@
                                     <outlet property="delegate" destination="M4Y-Lb-cyx" id="Zyg-pc-6eE"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgQ-Z0-LmT">
-                                <rect key="frame" x="137" y="5" width="37" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgQ-Z0-LmT">
+                                <rect key="frame" x="94" y="48" width="120" height="22"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label=""/>
-                                <state key="normal" title="ККК"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="shJ-vO-eRw"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Обновить">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="updateAccounts:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="BUH-E7-aVu"/>
                                 </connections>
@@ -51,14 +59,17 @@
                         </subviews>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="gbh-aW-WPv" secondAttribute="trailing" constant="5" id="1Yu-yt-zMr"/>
-                            <constraint firstItem="rrA-6Q-z1M" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="6dU-nm-PfU"/>
-                            <constraint firstItem="gbh-aW-WPv" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="CwX-At-raY"/>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="gbh-aW-WPv" secondAttribute="bottom" constant="5" id="GEr-Bh-WLO"/>
-                            <constraint firstAttribute="trailing" secondItem="rrA-6Q-z1M" secondAttribute="trailing" constant="5" id="Pqi-Xu-3Xa"/>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="rrA-6Q-z1M" secondAttribute="bottom" id="Rgx-G5-oOd"/>
-                            <constraint firstItem="gbh-aW-WPv" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="5" id="hV0-GF-SWb"/>
-                            <constraint firstItem="rrA-6Q-z1M" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="zSo-YK-HVs"/>
+                            <constraint firstAttribute="trailing" secondItem="rgQ-Z0-LmT" secondAttribute="trailing" constant="106" id="6w5-TR-9CX"/>
+                            <constraint firstAttribute="trailing" secondItem="rrA-6Q-z1M" secondAttribute="trailing" constant="5" id="FvC-kX-YWs"/>
+                            <constraint firstItem="gbh-aW-WPv" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="RbD-Pt-fv1"/>
+                            <constraint firstItem="gbh-aW-WPv" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="5" id="Uil-Vy-ea6"/>
+                            <constraint firstItem="rrA-6Q-z1M" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="X7L-FY-amV"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="gbh-aW-WPv" secondAttribute="bottom" constant="5" id="bWn-bW-ekp"/>
+                            <constraint firstItem="rgQ-Z0-LmT" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="94" id="bnB-O9-Br1"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="rgQ-Z0-LmT" secondAttribute="bottom" id="byR-S9-pVM"/>
+                            <constraint firstItem="rrA-6Q-z1M" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="snY-tp-QF2"/>
+                            <constraint firstAttribute="trailing" secondItem="gbh-aW-WPv" secondAttribute="trailing" id="wkA-mm-Cfr"/>
+                            <constraint firstItem="rgQ-Z0-LmT" firstAttribute="top" secondItem="rrA-6Q-z1M" secondAttribute="bottom" constant="3" id="ywt-AL-tjL"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="8vS-hU-Bvw" appends="YES" id="ejj-wc-51N"/>
@@ -69,8 +80,9 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="40"/>
+                    <size key="freeformSize" width="320" height="70"/>
                     <connections>
+                        <outlet property="btnUpdate" destination="rgQ-Z0-LmT" id="yI1-4P-Hen"/>
                         <outlet property="lblSelect" destination="gbh-aW-WPv" id="ZAQ-xK-lKL"/>
                         <outlet property="tblAccounts" destination="rrA-6Q-z1M" id="1dy-Lz-wdj"/>
                     </connections>

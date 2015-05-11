@@ -8,6 +8,7 @@
 
 #import "TodayViewController.h"
 #import "BBTodayCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 static NSString * cellId1 = @"BBTodayCellID";
 static NSString * nib1 = @"BBTodayCell";
@@ -16,8 +17,8 @@ static NSString * nib1 = @"BBTodayCell";
 
 @property (weak, nonatomic) IBOutlet UILabel * lblSelect;
 @property (weak, nonatomic) IBOutlet UITableView * tblAccounts;
+@property (weak, nonatomic) IBOutlet UIButton * btnUpdate;
 
-- (void) userDefaultsDidChange:(NSNotification *)notification;
 - (void) updateScreen;
 
 @end
@@ -27,21 +28,15 @@ static NSString * nib1 = @"BBTodayCell";
 
 @synthesize lblSelect;
 @synthesize tblAccounts;
+@synthesize btnUpdate;
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
     
     [tblAccounts registerNib:[UINib nibWithNibName:nib1 bundle:nil] forCellReuseIdentifier:cellId1];
-    
+    btnUpdate.layer.cornerRadius = 3;
     [self updateScreen];
-    
-    /*
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(userDefaultsDidChange:)
-                                                 name:NSUserDefaultsDidChangeNotification
-                                               object:nil];
-     */
 }
 
 
@@ -53,6 +48,7 @@ static NSString * nib1 = @"BBTodayCell";
 
 - (IBAction) updateAccounts: (id)sender
 {
+    NSLog(@"widget updateAccounts");
     /*
     AppGroupSettings * gs = [AppGroupSettings sharedAppGroupSettings];
     [gs load];
@@ -84,14 +80,6 @@ static NSString * nib1 = @"BBTodayCell";
     
 }
 
-
-
-- (void) userDefaultsDidChange:(NSNotification *)notification
-{
-    NSLog(@"widget userDefaultsDidChange");
-    [self updateScreen];
-}
-
 - (void) updateScreen
 {
     [GROUP_SETTINGS load];
@@ -103,14 +91,18 @@ static NSString * nib1 = @"BBTodayCell";
         
         tblAccounts.hidden = NO;
         [tblAccounts reloadData];
-        self.preferredContentSize = tblAccounts.contentSize;
+        btnUpdate.hidden = NO;
+        
+        //self.preferredContentSize = tblAccounts.contentSize;
+        self.preferredContentSize = CGSizeMake(tblAccounts.contentSize.width, tblAccounts.contentSize.height + 25.f);
     }
     else
     {
         tblAccounts.hidden = YES;
+        btnUpdate.hidden = YES;
+        lblSelect.hidden = NO;
         
         self.preferredContentSize = CGSizeMake(320, 40);
-        lblSelect.hidden = NO;
     }
 }
 
@@ -130,7 +122,7 @@ static NSString * nib1 = @"BBTodayCell";
 
 - (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)margins
 {
-    //margins.left = 18.0;
+    margins.left = 18.0;
     margins.bottom = 4.0;
     return margins;
 }
