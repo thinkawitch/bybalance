@@ -7,7 +7,6 @@
 //
 
 #import "BBTodayCell.h"
-#import "IDDateHelper.h"
 
 @implementation BBTodayCell
 
@@ -16,8 +15,8 @@
     lblName.text = [dict objectForKey:@"name"];
     lblBalance.text = [dict objectForKey:@"balance"];
     
-    //NSDate * date = [[IDDateHelper sharedIDDateHelper] mysqlDateTimeToDate:[dict objectForKey:@"date"]];
-    //lblDate.text = [[IDDateHelper sharedIDDateHelper] formatSmartAsDayOrTime:date];
+    //NSDate * date = [DATE_HELPER mysqlDateTimeToDate:[dict objectForKey:@"date"]];
+    //lblDate.text = [DATE_HELPER formatSmartAsDayOrTime:date];
     
     NSString * strDate = [dict objectForKey:@"date"];
     if (!strDate || [strDate length] < 5)
@@ -26,9 +25,8 @@
     }
     else
     {
-        IDDateHelper * dh = [IDDateHelper sharedIDDateHelper];
-        NSDate * date = [dh mysqlDateTimeToDate:strDate];
-        lblDate.text = date ? [dh formatSmartAsDayOrTime:date] : @"-";
+        NSDate * date = [DATE_HELPER mysqlDateTimeToDate:strDate];
+        lblDate.text = date ? [DATE_HELPER formatSmartAsDayOrTime:date] : @"-";
     }
 }
 

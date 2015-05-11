@@ -14,6 +14,7 @@
 }
 
 @property (nonatomic, strong) NSArray * accounts;
+@property (nonatomic, strong) NSString * apnToken;
 @property (nonatomic, assign) NSInteger updateBegin;
 @property (nonatomic, assign) NSInteger updateEnd;
 

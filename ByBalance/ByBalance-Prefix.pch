@@ -35,7 +35,7 @@
     #import "AppPublics.h"
     #import "AppPrivates.h"
     #import "MacrosAndDefines.h"
-    #import "AppGroupSettings.h"
+    #import "AppGroupMacros.h"
     //
     #import "BBMAllManagedItems.h"
     #import "BBAllLoaders.h"

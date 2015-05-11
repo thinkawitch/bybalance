@@ -510,6 +510,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
             
             SETTINGS.apnToken = newToken;
             [SETTINGS save];
+            GROUP_SETTINGS.apnToken = newToken;
+            [GROUP_SETTINGS save];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -534,6 +536,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         
         SETTINGS.apnToken = @"";
         [SETTINGS save];
+        GROUP_SETTINGS.apnToken = @"";
+        [GROUP_SETTINGS save];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -582,8 +586,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         [widgetAccounts addObject:record];
     }
     
-    [[AppGroupSettings sharedAppGroupSettings] setAccounts:widgetAccounts];
-    [[AppGroupSettings sharedAppGroupSettings] save];
+    [GROUP_SETTINGS setAccounts:widgetAccounts];
+    [GROUP_SETTINGS save];
 }
 
 @end

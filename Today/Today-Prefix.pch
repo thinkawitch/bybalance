@@ -15,5 +15,5 @@
     //
     #import "SynthesizeSingleton.h"
     //
-    #import "AppGroupSettings.h"
+    #import "AppGroupMacros.h"
 #endif

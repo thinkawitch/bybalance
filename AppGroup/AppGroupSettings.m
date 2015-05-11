@@ -7,18 +7,20 @@
 //
 
 #import "AppGroupSettings.h"
-#import "IDPrimitiveHelper.h"
 
 //my keys
 NSString * const kAgsNamespace = @"group.name.sinkevitch.ByBalance";
 NSString * const kAgsSettings = @"GroupSettings";
 NSString * const kAgsAccounts = @"accounts";
+NSString * const kAgsKeyApnToken = @"apnToken";
 NSString * const kAgsUpdateBegin = @"updateBegin";
 NSString * const kAgsUpdateEnd = @"updateEnd";
+
 
 @implementation AppGroupSettings
 
 @synthesize accounts;
+@synthesize apnToken;
 @synthesize updateBegin, updateEnd;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AppGroupSettings, sharedAppGroupSettings);
@@ -35,6 +37,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppGroupSettings, sharedAppGroupSettings);
     
     [userDefaults setObject:@0 forKey:kAgsUpdateBegin];
     [userDefaults setObject:@0 forKey:kAgsUpdateEnd];
+    [userDefaults setObject:@"" forKey:kAgsUpdateBegin];
     
     [settingsDefaults setObject:userDefaults forKey:kAgsSettings];
     
@@ -51,9 +54,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppGroupSettings, sharedAppGroupSettings);
     NSMutableDictionary * settings = [defaults objectForKey:kAgsSettings];
     
     self.accounts = [settings objectForKey:kAgsAccounts];
-    IDPrimitiveHelper * ph = [IDPrimitiveHelper sharedIDPrimitiveHelper];
-    self.updateBegin = [ph integerValue:[settings objectForKey:kAgsUpdateBegin]];
-    self.updateEnd = [ph integerValue:[settings objectForKey:kAgsUpdateEnd]];
+    self.updateBegin = [PRIMITIVE_HELPER integerValue:[settings objectForKey:kAgsUpdateBegin]];
+    self.updateEnd = [PRIMITIVE_HELPER integerValue:[settings objectForKey:kAgsUpdateEnd]];
+    self.apnToken = [PRIMITIVE_HELPER stringValue:[settings objectForKey:kAgsKeyApnToken]];
 }
 
 - (void) save
@@ -63,6 +66,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppGroupSettings, sharedAppGroupSettings);
     NSMutableDictionary * settings = [NSMutableDictionary dictionary];
     
     [settings setObject:self.accounts forKey:kAgsAccounts];
+    [settings setObject:self.apnToken forKey:kAgsKeyApnToken];
     [settings setObject:[NSNumber numberWithInteger:self.updateBegin] forKey:kAgsUpdateBegin];
     [settings setObject:[NSNumber numberWithInteger:self.updateEnd] forKey:kAgsUpdateEnd];
     

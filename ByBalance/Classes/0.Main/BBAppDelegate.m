@@ -89,8 +89,13 @@
     #endif
     
     [SETTINGS load];
-    [[AppGroupSettings sharedAppGroupSettings] load];
+    [GROUP_SETTINGS load];
     [APP_CONTEXT start];
+    if (![GROUP_SETTINGS.apnToken isEqualToString:SETTINGS.apnToken])
+    {
+        GROUP_SETTINGS.apnToken = SETTINGS.apnToken;
+        [GROUP_SETTINGS save];
+    }
     //[APP_CONTEXT showAllAccounts];
     //[APP_CONTEXT clearAllHistory];
     [BASES_MANAGER start];

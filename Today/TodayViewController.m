@@ -42,7 +42,6 @@ static NSString * nib1 = @"BBTodayCell";
                                                  name:NSUserDefaultsDidChangeNotification
                                                object:nil];
      */
-    
 }
 
 
@@ -54,11 +53,35 @@ static NSString * nib1 = @"BBTodayCell";
 
 - (IBAction) updateAccounts: (id)sender
 {
+    /*
     AppGroupSettings * gs = [AppGroupSettings sharedAppGroupSettings];
     [gs load];
     gs.updateBegin = arc4random_uniform(1000);
     gs.updateEnd = 0;
     [gs save];
+     */
+
+    /*
+    NSString * token = [SETTINGS apnToken];
+    AFHTTPRequestOperationManager * httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
+    
+    if ([oldToken isEqualToString:newToken] || [oldToken length] < 1)
+    {
+        //add token
+        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:newToken, @"token", kApnServerEnv, @"env", nil];
+        
+        [httpClient POST:@"add_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            SETTINGS.apnToken = newToken;
+            [SETTINGS save];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
+        }];
+    }
+    */
+    
 }
 
 
@@ -71,8 +94,8 @@ static NSString * nib1 = @"BBTodayCell";
 
 - (void) updateScreen
 {
-    [[AppGroupSettings sharedAppGroupSettings] load];
-    NSArray * records = [[AppGroupSettings sharedAppGroupSettings] accounts];
+    [GROUP_SETTINGS load];
+    NSArray * records = [GROUP_SETTINGS accounts];
     
     if ([records count] > 0)
     {
@@ -123,13 +146,13 @@ static NSString * nib1 = @"BBTodayCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray * records = [[AppGroupSettings sharedAppGroupSettings] accounts];
+    NSArray * records = [GROUP_SETTINGS accounts];
     return [records count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray * records = [[AppGroupSettings sharedAppGroupSettings] accounts];
+    NSArray * records = [GROUP_SETTINGS accounts];
     NSDictionary * record = [records objectAtIndex:indexPath.row];
     
     BBTodayCell * cell = (BBTodayCell*)[tableView dequeueReusableCellWithIdentifier:cellId1];
