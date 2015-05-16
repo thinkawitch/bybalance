@@ -60,6 +60,7 @@
 - (UIColor *) colorGrayMedium;
 - (UIColor *) colorGrayDark;
 - (UIColor *) colorBg;
+- (UIImage *) imageWithColor:(UIColor *)color;
 - (UIImage *) imageColored:(NSString *)resourceName;
 - (void) makeRedButton:(UIButton *) button;
 - (CGFloat) labelTextWidth:(UILabel *)label;

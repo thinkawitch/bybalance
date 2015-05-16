@@ -18,6 +18,8 @@ static NSString * nib1 = @"BBTodayCell";
     NSTimer * uaTimer;
     CFTimeInterval uaStartTime;
     CGFloat uaTimerLimit;
+    UIActivityIndicatorView * uaAiv;
+    BOOL isUpdating;
 }
 @property (weak, nonatomic) IBOutlet UILabel * lblSelect;
 @property (weak, nonatomic) IBOutlet UITableView * tblAccounts;
@@ -28,6 +30,10 @@ static NSString * nib1 = @"BBTodayCell";
 - (void) startUaTimer; //timer to check the progress of update accounts request
 - (void) stopUaTimer;
 - (void) onUaTimerTick:(NSTimer *)timer;
+- (void) showActivityIndicator;
+- (void) hideActivityIndicator;
+
+- (UIImage *) imageWithColor:(UIColor *)color;
 
 @end
 
@@ -43,7 +49,11 @@ static NSString * nib1 = @"BBTodayCell";
     [super viewDidLoad];
     
     [tblAccounts registerNib:[UINib nibWithNibName:nib1 bundle:nil] forCellReuseIdentifier:cellId1];
-    btnUpdate.layer.cornerRadius = 3;
+    
+    [btnUpdate setBackgroundImage:[self imageWithColor:[UIColor colorWithRed:179.f/255.f green:0.f/255.f blue:0.f/255.f alpha:1.f]] forState:UIControlStateHighlighted];
+    btnUpdate.layer.cornerRadius = 4;
+    btnUpdate.clipsToBounds = YES;
+    
     [self updateScreen];
 }
 
@@ -64,7 +74,8 @@ static NSString * nib1 = @"BBTodayCell";
         
         tblAccounts.hidden = NO;
         [tblAccounts reloadData];
-        btnUpdate.hidden = NO;
+        if (isUpdating) [self showActivityIndicator];
+        else btnUpdate.hidden = NO;
         
         //self.preferredContentSize = tblAccounts.contentSize;
         self.preferredContentSize = CGSizeMake(tblAccounts.contentSize.width, tblAccounts.contentSize.height + 25.f);
@@ -90,6 +101,9 @@ static NSString * nib1 = @"BBTodayCell";
 - (IBAction) updateAccounts: (id)sender
 {
     //NSLog(@"widget updateAccounts");
+    //uaTimerLimit = [[GROUP_SETTINGS accounts] count] * 7.f; // 7 secs per account
+    //[self startUaTimer];
+    //return;
     
     [GROUP_SETTINGS load];
     NSString * apnToken = GROUP_SETTINGS.apnToken;
@@ -113,6 +127,7 @@ static NSString * nib1 = @"BBTodayCell";
 
 - (void) startUaTimer
 {
+    isUpdating = YES;
     if (uaTimer) [self stopUaTimer];
     
     uaTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
@@ -121,6 +136,9 @@ static NSString * nib1 = @"BBTodayCell";
                                               userInfo:nil
                                                repeats:YES];
     uaStartTime = CACurrentMediaTime();
+    
+    [self showActivityIndicator];
+    btnUpdate.hidden = YES;
 }
 
 - (void) stopUaTimer
@@ -130,6 +148,11 @@ static NSString * nib1 = @"BBTodayCell";
         [uaTimer invalidate];
         uaTimer = nil;
     }
+    
+    [self hideActivityIndicator];
+    
+    btnUpdate.hidden = NO;
+    isUpdating = NO;
 }
 
 - (void) onUaTimerTick:(NSTimer *)timer
@@ -142,6 +165,29 @@ static NSString * nib1 = @"BBTodayCell";
     }
     
     [self updateScreen];
+}
+
+- (void) showActivityIndicator
+{
+    [self hideActivityIndicator];
+    
+    uaAiv = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    //uaAiv.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+    uaAiv.color = [UIColor darkGrayColor];
+    uaAiv.hidesWhenStopped = YES;
+    [self.view addSubview:uaAiv];
+    //uaAiv.center = CGPointMake(btnUpdate.frame.origin.x - 20.f, btnUpdate.frame.origin.y + 10.f);
+    uaAiv.center = btnUpdate.center;
+    [uaAiv startAnimating];
+}
+
+- (void) hideActivityIndicator
+{
+    if (uaAiv)
+    {
+        [uaAiv removeFromSuperview];
+        uaAiv = nil;
+    }
 }
 
 #pragma mark - NCWidgetProviding
@@ -215,6 +261,23 @@ static NSString * nib1 = @"BBTodayCell";
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
+}
+
+#pragma mark - Miscs
+
+- (UIImage *) imageWithColor:(UIColor *)color
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 @end
