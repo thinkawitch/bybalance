@@ -291,10 +291,10 @@
 {
     if (bgrTimer) [self stopBgrTimer];
     
-    bgrTimer = [NSTimer scheduledTimerWithTimeInterval: 0.1f
-                                             target: self
+    bgrTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
+                                             target:self
                                            selector:@selector(onBgrTimerTick:)
-                                           userInfo: nil
+                                           userInfo:nil
                                             repeats:YES];
     bgrStartTime = CACurrentMediaTime();
 }
@@ -366,6 +366,7 @@
     bgFetchCompletionHandler = nil;
     toCheckAccountsInBg = nil;
     DDLogInfo(@"didReceiveRemoteNotification fetchCompletionHandler: %@", [DATE_HELPER dateToMysqlDateTime:date]);
+    DDLogInfo(@"apn_bgFetch notification userInfo: %@", userInfo);
     
     if ([BALANCE_CHECKER isBusy])
     {
@@ -374,7 +375,19 @@
         return;
     }
     
-    NSArray * toCheckAccounts = [BALANCE_CHECKER accountsToCheckInBg];
+    BOOL updateWidget = [[userInfo valueForKey:@"update"] isEqualToString:@"widget"];
+    NSArray * toCheckAccounts;
+    if (updateWidget)
+    {
+        NSPredicate * pred = [NSPredicate predicateWithFormat:@"inTodayWidget = 1"];
+        toCheckAccounts = [BBMAccount findAllSortedBy:@"order" ascending:YES withPredicate:pred];
+    }
+    else
+    {
+        //regular check by schedule
+        toCheckAccounts = [BALANCE_CHECKER accountsToCheckInBg];
+    }
+    
     if ([toCheckAccounts count] < 1)
     {
         //no accounts to check

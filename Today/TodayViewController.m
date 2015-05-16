@@ -13,13 +13,21 @@
 static NSString * cellId1 = @"BBTodayCellID";
 static NSString * nib1 = @"BBTodayCell";
 
-@interface TodayViewController () <NCWidgetProviding, UITableViewDelegate, UITableViewDataSource>
-
+@interface TodayViewController () <NCWidgetProviding, UITableViewDelegate, UITableViewDataSource, NSURLConnectionDataDelegate>
+{
+    NSTimer * uaTimer;
+    CFTimeInterval uaStartTime;
+    CGFloat uaTimerLimit;
+}
 @property (weak, nonatomic) IBOutlet UILabel * lblSelect;
 @property (weak, nonatomic) IBOutlet UITableView * tblAccounts;
 @property (weak, nonatomic) IBOutlet UIButton * btnUpdate;
 
 - (void) updateScreen;
+
+- (void) startUaTimer; //timer to check the progress of update accounts request
+- (void) stopUaTimer;
+- (void) onUaTimerTick:(NSTimer *)timer;
 
 @end
 
@@ -39,60 +47,10 @@ static NSString * nib1 = @"BBTodayCell";
     [self updateScreen];
 }
 
-
-- (IBAction) openMainApp: (id)sender
+- (void) viewWillDisappear:(BOOL)animated
 {
-    NSURL *url = [NSURL URLWithString:@"ByBalance://"];
-    [self.extensionContext openURL:url completionHandler:nil];
-}
-
-- (IBAction) updateAccounts: (id)sender
-{
-    NSLog(@"widget updateAccounts");
-    
-    [GROUP_SETTINGS load];
-    NSString * apnToken = GROUP_SETTINGS.apnToken;
-    if (!apnToken || [apnToken isEqualToString:@""]) {
-        NSLog(@"apnToken: %@", apnToken);
-        return;
-    }
-    
-    NSString * link = [NSString stringWithFormat:@"%@update/%@", kApnServerUrl, GROUP_SETTINGS.apnToken];
-    NSLog(@"link: %@", link);
-    NSURL * url = [NSURL URLWithString:link];
-    NSData * data = [NSData dataWithContentsOfURL:url];
-    NSString * result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"result: %@", result);
-    
-    /*
-    AppGroupSettings * gs = [AppGroupSettings sharedAppGroupSettings];
-    [gs load];
-    gs.updateBegin = arc4random_uniform(1000);
-    gs.updateEnd = 0;
-    [gs save];
-     */
-
-    /*
-    NSString * token = [SETTINGS apnToken];
-    AFHTTPRequestOperationManager * httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kApnServerUrl]];
-    
-    if ([oldToken isEqualToString:newToken] || [oldToken length] < 1)
-    {
-        //add token
-        NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:newToken, @"token", kApnServerEnv, @"env", nil];
-        
-        [httpClient POST:@"add_token/" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            SETTINGS.apnToken = newToken;
-            [SETTINGS save];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            DDLogError(@"%s httpclient_error: %@", __PRETTY_FUNCTION__, error.localizedDescription);
-        }];
-    }
-    */
-    
+    [self stopUaTimer];
+    [super viewWillDisappear:animated];
 }
 
 - (void) updateScreen
@@ -121,6 +79,71 @@ static NSString * nib1 = @"BBTodayCell";
     }
 }
 
+#pragma mark - Actions
+
+- (IBAction) openMainApp: (id)sender
+{
+    NSURL *url = [NSURL URLWithString:@"ByBalance://"];
+    [self.extensionContext openURL:url completionHandler:nil];
+}
+
+- (IBAction) updateAccounts: (id)sender
+{
+    //NSLog(@"widget updateAccounts");
+    
+    [GROUP_SETTINGS load];
+    NSString * apnToken = GROUP_SETTINGS.apnToken;
+    if (!apnToken || [apnToken isEqualToString:@""])
+    {
+        NSLog(@"widget empty apnToken: %@", apnToken);
+        return;
+    }
+    
+    NSString * link = [NSString stringWithFormat:@"%@update/%@/%@", kApnServerUrl, kApnServerEnv, apnToken];
+    //NSLog(@"widget link: %@", link);
+    NSURL * url = [NSURL URLWithString:link];
+    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
+    NSURLConnection * conn = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    
+    uaTimerLimit = [[GROUP_SETTINGS accounts] count] * 7.f; // 7 secs per account
+    [self startUaTimer];
+}
+
+#pragma mark - Update accounts timer
+
+- (void) startUaTimer
+{
+    if (uaTimer) [self stopUaTimer];
+    
+    uaTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
+                                                target:self
+                                              selector:@selector(onUaTimerTick:)
+                                              userInfo:nil
+                                               repeats:YES];
+    uaStartTime = CACurrentMediaTime();
+}
+
+- (void) stopUaTimer
+{
+    if (uaTimer)
+    {
+        [uaTimer invalidate];
+        uaTimer = nil;
+    }
+}
+
+- (void) onUaTimerTick:(NSTimer *)timer
+{
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - uaStartTime;
+    
+    if (elapsedTime > uaTimerLimit)
+    {
+        [self stopUaTimer];
+    }
+    
+    [self updateScreen];
+}
+
 #pragma mark - NCWidgetProviding
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
@@ -140,6 +163,26 @@ static NSString * nib1 = @"BBTodayCell";
     margins.left = 18.0;
     margins.bottom = 4.0;
     return margins;
+}
+
+#pragma mark - NSURLConnectionDataDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    //NSLog(@"didReceiveResponse %@", response);
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    //NSLog(@"didReceiveData %@", data);
+    NSString * result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    //NSLog(@"connection result: %@", result);
+    if ([result rangeOfString:@"push_sent"].location == NSNotFound)
+    {
+        //not sent
+        [self stopUaTimer];
+        return;
+    }
 }
 
 #pragma mark - UITableViewDelegate
