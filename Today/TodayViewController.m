@@ -49,6 +49,21 @@ static NSString * nib1 = @"BBTodayCell";
 - (IBAction) updateAccounts: (id)sender
 {
     NSLog(@"widget updateAccounts");
+    
+    [GROUP_SETTINGS load];
+    NSString * apnToken = GROUP_SETTINGS.apnToken;
+    if (!apnToken || [apnToken isEqualToString:@""]) {
+        NSLog(@"apnToken: %@", apnToken);
+        return;
+    }
+    
+    NSString * link = [NSString stringWithFormat:@"%@update/%@", kApnServerUrl, GROUP_SETTINGS.apnToken];
+    NSLog(@"link: %@", link);
+    NSURL * url = [NSURL URLWithString:link];
+    NSData * data = [NSData dataWithContentsOfURL:url];
+    NSString * result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"result: %@", result);
+    
     /*
     AppGroupSettings * gs = [AppGroupSettings sharedAppGroupSettings];
     [gs load];
