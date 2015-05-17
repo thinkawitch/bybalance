@@ -102,7 +102,7 @@
     [BALANCE_CHECKER start];
     
     //custom user agent
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:kBrowserUserAgent, @"UserAgent", nil];
+    NSDictionary * dictionary = [NSDictionary dictionaryWithObjectsAndKeys:kBrowserUserAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     
     //google analytics

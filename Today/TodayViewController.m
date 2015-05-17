@@ -50,6 +50,7 @@ static NSString * nib1 = @"BBTodayCell";
     
     [tblAccounts registerNib:[UINib nibWithNibName:nib1 bundle:nil] forCellReuseIdentifier:cellId1];
     
+    //[btnUpdate setBackgroundImage:[self imageWithColor:[UIColor colorWithRed:70.f/255.f green:70.f/255.f blue:70.f/255.f alpha:1.f]] forState:UIControlStateNormal];
     [btnUpdate setBackgroundImage:[self imageWithColor:[UIColor colorWithRed:179.f/255.f green:0.f/255.f blue:0.f/255.f alpha:1.f]] forState:UIControlStateHighlighted];
     btnUpdate.layer.cornerRadius = 4;
     btnUpdate.clipsToBounds = YES;
@@ -67,6 +68,11 @@ static NSString * nib1 = @"BBTodayCell";
 {
     [GROUP_SETTINGS load];
     NSArray * records = [GROUP_SETTINGS accounts];
+    
+    if (GROUP_SETTINGS.updateBegin == 1 && GROUP_SETTINGS.updateEnd == 1)
+    {
+        [self stopUaTimer];
+    }
     
     if ([records count] > 0)
     {
@@ -114,7 +120,7 @@ static NSString * nib1 = @"BBTodayCell";
     }
     
     NSString * link = [NSString stringWithFormat:@"%@update/%@/%@", kApnServerUrl, kApnServerEnv, apnToken];
-    //NSLog(@"widget link: %@", link);
+    NSLog(@"widget link: %@", link);
     NSURL * url = [NSURL URLWithString:link];
     NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
     NSURLConnection * conn = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
@@ -130,7 +136,7 @@ static NSString * nib1 = @"BBTodayCell";
     isUpdating = YES;
     if (uaTimer) [self stopUaTimer];
     
-    uaTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
+    uaTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
                                                 target:self
                                               selector:@selector(onUaTimerTick:)
                                               userInfo:nil
@@ -139,6 +145,11 @@ static NSString * nib1 = @"BBTodayCell";
     
     [self showActivityIndicator];
     btnUpdate.hidden = YES;
+    
+    [GROUP_SETTINGS load];
+    GROUP_SETTINGS.updateBegin = 1;
+    GROUP_SETTINGS.updateEnd = 0;
+    [GROUP_SETTINGS save];
 }
 
 - (void) stopUaTimer
@@ -152,6 +163,12 @@ static NSString * nib1 = @"BBTodayCell";
     [self hideActivityIndicator];
     
     btnUpdate.hidden = NO;
+    
+    [GROUP_SETTINGS load];
+    GROUP_SETTINGS.updateBegin = 0;
+    GROUP_SETTINGS.updateEnd = 0;
+    [GROUP_SETTINGS save];
+    
     isUpdating = NO;
 }
 
@@ -172,8 +189,8 @@ static NSString * nib1 = @"BBTodayCell";
     [self hideActivityIndicator];
     
     uaAiv = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    //uaAiv.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
-    uaAiv.color = [UIColor darkGrayColor];
+    uaAiv.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+    //uaAiv.color = [UIColor darkGrayColor];
     uaAiv.hidesWhenStopped = YES;
     [self.view addSubview:uaAiv];
     //uaAiv.center = CGPointMake(btnUpdate.frame.origin.x - 20.f, btnUpdate.frame.origin.y + 10.f);

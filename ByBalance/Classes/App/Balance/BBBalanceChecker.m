@@ -153,6 +153,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         
         if (queue.operationCount <= 1)
         {
+            [GROUP_SETTINGS load];
+            if (GROUP_SETTINGS.updateBegin == 1) GROUP_SETTINGS.updateEnd = 1;
+            [GROUP_SETTINGS save];
+            
             [self notifyAboutLimits];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnBalanceCheckStop object:self userInfo:nil];
             if (bgUpdate) [self onBgUpdateEnd:YES];
@@ -491,6 +495,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
             
             SETTINGS.apnToken = newToken;
             [SETTINGS save];
+            [GROUP_SETTINGS load];
+            GROUP_SETTINGS.apnToken = newToken;
+            [GROUP_SETTINGS save];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -510,6 +517,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
             
             SETTINGS.apnToken = newToken;
             [SETTINGS save];
+            [GROUP_SETTINGS load];
             GROUP_SETTINGS.apnToken = newToken;
             [GROUP_SETTINGS save];
             
@@ -536,6 +544,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         
         SETTINGS.apnToken = @"";
         [SETTINGS save];
+        [GROUP_SETTINGS load];
         GROUP_SETTINGS.apnToken = @"";
         [GROUP_SETTINGS save];
         
@@ -586,6 +595,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BBBalanceChecker, sharedBBBalanceChecker);
         [widgetAccounts addObject:record];
     }
     
+    [GROUP_SETTINGS load];
     [GROUP_SETTINGS setAccounts:widgetAccounts];
     [GROUP_SETTINGS save];
 }
