@@ -189,8 +189,8 @@ static NSString * nib1 = @"BBTodayCell";
     [self hideActivityIndicator];
     
     uaAiv = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    uaAiv.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
-    //uaAiv.color = [UIColor darkGrayColor];
+    //uaAiv.color = [UIColor colorWithRed:229.f/255.f green:20.f/255.f blue:13.f/255.f alpha:1.f];
+    uaAiv.color = [UIColor lightTextColor];
     uaAiv.hidesWhenStopped = YES;
     [self.view addSubview:uaAiv];
     //uaAiv.center = CGPointMake(btnUpdate.frame.origin.x - 20.f, btnUpdate.frame.origin.y + 10.f);
