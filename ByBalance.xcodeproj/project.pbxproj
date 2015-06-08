@@ -18,7 +18,7 @@
 		84538FC11A2A1D6800912BDA /* BBBasesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84538FC01A2A1D6800912BDA /* BBBasesManager.m */; };
 		84538FC31A2A251400912BDA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84538FC21A2A251400912BDA /* JavaScriptCore.framework */; };
 		846D6D081AFE5975009BA5FE /* IDPrimitiveHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C82B4A1808D59B00E2C1D6 /* IDPrimitiveHelper.m */; };
-		846D6D091AFE6E3B009BA5FE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FC71701A9DBDAC0010A6E9 /* NotificationCenter.framework */; };
+		846D6D091AFE6E3B009BA5FE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FC71701A9DBDAC0010A6E9 /* NotificationCenter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		846FDAE019EEF27300FB7F5F /* BBLoaderAdslBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FDADF19EEF27300FB7F5F /* BBLoaderAdslBy.m */; };
 		8495C1071B0773B2000643C5 /* AppPrivates.m in Sources */ = {isa = PBXBuildFile; fileRef = 849D4A1C1A3C41E40024933B /* AppPrivates.m */; };
 		8499F21819DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499F20819DEA4CB00118AAD /* AFNetworkActivityIndicatorManager.m */; };
