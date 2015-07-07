@@ -8,7 +8,7 @@
 
 #import "BBLoaderVelcom.h"
 
-NSString * const kUrlVelcom = @"https://internet.velcom.by/";
+NSString * const kUrlVelcom = @"https://my.velcom.by/";
 
 @interface BBLoaderVelcom ()
 {
