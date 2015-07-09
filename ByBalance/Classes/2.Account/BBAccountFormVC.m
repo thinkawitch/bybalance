@@ -34,17 +34,20 @@
 @synthesize account;
 @synthesize cellPhone;
 @synthesize currPeriodicCheck;
+@synthesize currInTodayWidget;
 
 - (void) viewDidLoad
 {
     if (editMode)
     {
         self.accountType = self.account.type;
-        currPeriodicCheck = [self.account.periodicCheck intValue];
+        currPeriodicCheck = [self.account.periodicCheck integerValue];
+        currInTodayWidget = [self.account.inTodayWidget integerValue];
     }
     else
     {
         currPeriodicCheck = kPeriodicCheckManual;
+        currInTodayWidget = 0;
     }
     
     [super viewDidLoad];
@@ -64,7 +67,7 @@
     {
         SSCheckBoxView * cbWidget = [[SSCheckBoxView alloc] initWithFrame:CGRectMake(178, 150, 110, 30)
                                                                     style:kSSCheckBoxViewStyleMono
-                                                                  checked:[account.inTodayWidget boolValue]];
+                                                                  checked:currInTodayWidget];
         [cbWidget setText:@"виджет"];
         [cbWidget setStateChangedTarget:self selector:@selector(toggleWidget:)];
         [self.view addSubview:cbWidget];
@@ -185,6 +188,7 @@
         account.label = tfLabel.text;
         account.periodicCheck = [NSNumber numberWithInteger:currPeriodicCheck];
         account.balanceLimit = [PRIMITIVE_HELPER numberDecimalValue:tfBalanceLimit.text];
+        account.inTodayWidget = [NSNumber numberWithInteger:currInTodayWidget];
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
@@ -207,9 +211,8 @@
         newAccount.label = tfLabel.text;
         newAccount.order = [BBMAccount nextOrder];
         newAccount.periodicCheck = [NSNumber numberWithInteger:currPeriodicCheck];
-        
         newAccount.balanceLimit = [PRIMITIVE_HELPER numberDecimalValue:tfBalanceLimit.text];
-        
+        newAccount.inTodayWidget = [NSNumber numberWithInteger:currInTodayWidget];
         [APP_CONTEXT saveDatabase];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnAccountsListUpdated object:nil];
@@ -235,7 +238,7 @@
 
 - (IBAction) toggleWidget:(id) sender
 {
-    self.account.inTodayWidget = [NSNumber numberWithBool:[sender checked]];
+    currInTodayWidget = [sender checked] ? 1 : 0;
 }
 
 - (IBAction) openContacts:(id) sender

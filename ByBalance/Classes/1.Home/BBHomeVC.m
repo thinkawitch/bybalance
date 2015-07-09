@@ -427,6 +427,7 @@
         order++;
     }
     [APP_CONTEXT saveDatabase];
+    [BALANCE_CHECKER saveAccountsForTodayWidget];
 }
 
 #pragma mark - UITableViewDelegate

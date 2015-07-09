@@ -39,6 +39,7 @@
 @property (strong, nonatomic) BBMAccount * account;
 @property (assign, nonatomic) BOOL cellPhone;
 @property (assign, nonatomic) NSInteger currPeriodicCheck;
+@property (assign, nonatomic) NSInteger currInTodayWidget;
 
 - (IBAction) add:(id) sender;
 - (IBAction) hideKeyboard:(id) sender;
