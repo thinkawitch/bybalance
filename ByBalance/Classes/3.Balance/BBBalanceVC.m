@@ -253,13 +253,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
 {
     [self updateNavBar];
     
-    if (self.account == nil)
-    {
-        self.ipadSplash.hidden = NO;
-    }
-    else {
-        self.ipadSplash.hidden = YES;
-    }
+    self.ipadSplash.hidden = (self.account != nil);
     
     lblType.text = account.type.name;
     lblName.text = account.username;
@@ -284,6 +278,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
     {
         //update table
         tblHistory.hidden = NO;
+        [tblHistory setContentOffset:CGPointZero animated:NO];
         [tblHistory reloadData];
         lblHistory.hidden = NO;
         btnClear.hidden = ([history count] <= historyStay);
@@ -472,7 +467,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewAutomaticDimension;
-}
+} 
 
 - (CGFloat)calculateHeightForBonusesCell:(BBHistoryBonusesCell *)bonusesCell
 {
