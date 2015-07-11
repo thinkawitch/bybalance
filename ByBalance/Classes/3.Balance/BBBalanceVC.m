@@ -393,6 +393,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
                 self.account = nil;
             }
             
+            [BALANCE_CHECKER saveAccountsForTodayWidget];
             [APP_CONTEXT showToastWithText:@"Аккаунт удалён"]; 
         }
     }
