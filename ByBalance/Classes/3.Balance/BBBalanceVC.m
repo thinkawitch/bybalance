@@ -262,12 +262,13 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
     lblDate.text = [account lastGoodBalanceDate];
     lblBalance.text = [account lastGoodBalanceValue];
     
-    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"account=%@", self.account];
-    self.history = [BBMBalanceHistory findAllSortedBy:@"date"
-                                            ascending:NO
-                                        withPredicate:predicate];
     
-    if ([history count] < 1)
+    
+    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"account=%@", self.account];
+    NSArray * freshHistory = [BBMBalanceHistory findAllSortedBy:@"date"
+                                                      ascending:NO
+                                                  withPredicate:predicate];
+    if ([freshHistory count] < 1)
     {
         //no history
         tblHistory.hidden = YES;
@@ -279,6 +280,7 @@ static NSString * nib3 = @"BBHistoryBonusesCell";
         //update table
         tblHistory.hidden = NO;
         [tblHistory setContentOffset:CGPointZero animated:NO];
+        self.history = freshHistory;
         [tblHistory reloadData];
         lblHistory.hidden = NO;
         btnClear.hidden = ([history count] <= historyStay);
