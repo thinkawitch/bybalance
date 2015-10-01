@@ -23,19 +23,11 @@
 
 - (void) startLoader
 {
-    [self prepareHttpClient:@"http://cosmostv.by/"];
+    [self prepareHttpClient:@"https://private.cosmostv.by:8443/"];
     
-    //[self.httpClient setDefaultHeader:@"Referer" value:@"http://cosmostv.by/"];
-    [self.httpClient.requestSerializer setValue:@"http://cosmostv.by/" forHTTPHeaderField:@"Referer"];
+    // https://private.cosmostv.by:8443/group/cosmostv/balances
     
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            self.account.username, @"login",
-                            self.account.password, @"password",
-                            @"1", @"doit!",
-                            @"1", @"ajax",
-                            nil];
-    
-    [self.httpClient POST:@"/subscribers/login/?process" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:@"/web/eshop/lk_auth" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep1:operation.responseString];
         
@@ -46,83 +38,89 @@
     }];
 }
 
+
 - (void) onStep1:(NSString *)html
 {
-    //DDLogVerbose(@"BBLoaderCosmosTV.onStep1");
+    DDLogVerbose(@"BBLoaderCosmosTV.onStep1");
     //DDLogVerbose(@"%@", html);
     
-    NSString * jsonString = [NSString stringWithFormat:@"%@", html];
-    NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError * jsonError = nil;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&jsonError];
+    NSArray * arr = nil;
+    NSString * formUrl = nil;
+    NSString * formDate = nil;
     
-    if (![jsonObject isKindOfClass:[NSDictionary class]])
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<form.*action=\"([^\"]+)\".*id=\"_58_fm\"" caseInsensitive:YES treatAsOneLine:NO];
+    //DDLogVerbose(@"arr: %@", arr);
+    if (arr && [arr count] == 1)
     {
-        //это не json
-        [self doFinish];
-        return;
-    }
-        
-    NSDictionary * jsonDictionary = (NSDictionary *)jsonObject;
-    
-    NSString * redirect = [jsonDictionary objectForKey:@"redirect"];
-    if (!redirect)
-    {
-        //авторизация не прошла
-        self.loaderInfo.incorrectLogin = YES;
-        [self doFinish];
-        return;
+        formUrl = [arr objectAtIndex:0];
     }
     
-    NSString * path = [NSString stringWithFormat:@"http://cosmostv.by%@", redirect];
-    [self.httpClient GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<input name=\"_58_formDate\" type=\"hidden\" value=\"([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        formDate = [arr objectAtIndex:0];
+    }
+    
+    DDLogVerbose(@"formUrl: %@", formUrl);
+    DDLogVerbose(@"formDate: %@", formDate);
+    if (!formUrl || !formDate) [self doFinish];
+    
+    
+    //decode %2F
+    formUrl = [formUrl stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    DDLogVerbose(@"formUrl 2: %@", formUrl);
+    
+    //decode &amp;
+    //formUrl = [formUrl stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    //DDLogVerbose(@"formUrl 3: %@", formUrl);
+    
+    //decode &amp;
+    NSData * stringData = [formUrl dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary * options = @{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType};
+    NSAttributedString * decodedString;
+    decodedString = [[NSAttributedString alloc] initWithData:stringData
+                                                     options:options
+                                          documentAttributes:NULL
+                                                       error:NULL];
+    formUrl = decodedString.string;
+    DDLogVerbose(@"formUrl 3: %@", formUrl);
+    
+    
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             formDate, @"_58_formDate",
+                             @"", @"_58_redirect",
+                             self.account.username, @"_58_login",
+                             self.account.password, @"_58_password",
+                             nil];
+    DDLogVerbose(@"params: %@", params);
+    
+    [self.httpClient.requestSerializer setValue:@"https://private.cosmostv.by:8443/web/eshop/lk_auth" forHTTPHeaderField:@"Referer"];
+    
+    [self.httpClient POST:formUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep2:operation.responseString];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        DDLogError(@"%@ step2 httpclient_error: %@", [self class], error.localizedDescription);
+        DDLogError(@"%@ onStep1 httpclient_error: %@", [self class], error.localizedDescription);
         [self doFinish];
     }];
 }
 
 - (void) onStep2:(NSString *)html
 {
-    //DDLogVerbose(@"BBLoaderCosmosTV.onStep2");
-    //DDLogVerbose(@"%@", html);
+    DDLogVerbose(@"BBLoaderCosmosTV.onStep2");
+    DDLogVerbose(@"%@", html);
     
-    //showServices(this, "101932108", "41263"
-    //http://cosmostv.by/json/subscribers/account/cabinet/?contract=101932108
-    
-    NSArray * arr = nil;
-    NSString * buf = nil;
-    NSDecimalNumber * num = nil;
-    
-    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"showServices\\(this,\\s*\"([^\"]+)" caseInsensitive:YES treatAsOneLine:NO];
-    if (arr && [arr count] == 1)
+    //
+    if ([html rangeOfString:@"portlet-msg-error"].location != NSNotFound)
     {
-        buf = [arr objectAtIndex:0];
-        num = [self decimalNumberFromString:[arr objectAtIndex:0]];
-    }
-    
-    if (!num)
-    {
+        self.loaderInfo.incorrectLogin = YES;
         [self doFinish];
         return;
     }
     
-
-    NSString * path = [NSString stringWithFormat:@"http://cosmostv.by/json/subscribers/account/cabinet/?contract=%@", num];
-    [self.httpClient GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        [self onStep3:operation.responseString];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        DDLogError(@"%@ step3 httpclient_error: %@", [self class], error.localizedDescription);
-        [self doFinish];
-    }];
-
+    [self doFinish];
 }
 
 - (void) onStep3:(NSString *)html
