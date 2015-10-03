@@ -39,5 +39,5 @@
 
 //utils
 - (NSDecimalNumber *) decimalNumberFromString:(id)value;
-
+- (NSString *) fixUrlEncoding:(NSString *)url;
 @end

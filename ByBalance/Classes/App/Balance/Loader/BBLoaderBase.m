@@ -134,6 +134,7 @@
     NSInteger type = [account.type.id integerValue];
     BBLoaderInfo * jsInfo = [BASES_MANAGER extractInfoForType:type fromHtml:html];
     
+    //might be straight assign to self.loaderInfo
     self.loaderInfo.extracted = jsInfo.extracted;
     self.loaderInfo.incorrectLogin = jsInfo.incorrectLogin;
     if (jsInfo.extracted)
@@ -165,6 +166,24 @@
     NSString  * buf = [PRIMITIVE_HELPER trimmedString:value];
     buf = [buf stringByReplacingRegexPattern:@"[^0-9.,\\-]" withString:@""];
     return [NSDecimalNumber decimalNumberWithString:buf];
+}
+
+- (NSString *) fixUrlEncoding:(NSString *)url
+{
+    // % values
+    NSString * fixed = [url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    // html entities
+    NSData * stringData = [fixed dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary * options = @{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType};
+    NSAttributedString * decodedString;
+    decodedString = [[NSAttributedString alloc] initWithData:stringData
+                                                     options:options
+                                          documentAttributes:NULL
+                                                       error:NULL];
+    fixed = decodedString.string;
+    
+    return fixed;
 }
 
 #pragma mark - Private

@@ -12,12 +12,21 @@
 
 - (void) onStep1:(NSString *)html;
 - (void) onStep2:(NSString *)html;
-- (void) onStep3:(NSString *)html;
+- (void) processAllContracts;
+- (void) doOneContract:(NSString *)cid;
+- (void) onOneContract:(NSString *)cid withHtml:(NSString *)html;
+- (BBLoaderInfo *) extractCosmosTvFromHtml:(NSString *)html;
+
+@property NSString * contractFormUrl;
+@property NSMutableDictionary * contracts;
 
 @end
 
 
 @implementation BBLoaderCosmosTV
+
+@synthesize contracts;
+@synthesize contractFormUrl;
 
 #pragma mark - Logic
 
@@ -25,7 +34,7 @@
 {
     [self prepareHttpClient:@"https://private.cosmostv.by:8443/"];
     
-    // https://private.cosmostv.by:8443/group/cosmostv/balances
+    self.contracts = [NSMutableDictionary dictionary];
     
     [self.httpClient GET:@"/web/eshop/lk_auth" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -67,24 +76,9 @@
     
     
     //decode %2F
-    formUrl = [formUrl stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    DDLogVerbose(@"formUrl 2: %@", formUrl);
-    
-    //decode &amp;
-    //formUrl = [formUrl stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-    //DDLogVerbose(@"formUrl 3: %@", formUrl);
-    
-    //decode &amp;
-    NSData * stringData = [formUrl dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary * options = @{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType};
-    NSAttributedString * decodedString;
-    decodedString = [[NSAttributedString alloc] initWithData:stringData
-                                                     options:options
-                                          documentAttributes:NULL
-                                                       error:NULL];
-    formUrl = decodedString.string;
-    DDLogVerbose(@"formUrl 3: %@", formUrl);
-    
+    formUrl = [self fixUrlEncoding:formUrl];
+    DDLogVerbose(@"formUrl fixed: %@", formUrl);
+    if (!formUrl) [self doFinish];
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
                              formDate, @"_58_formDate",
@@ -94,7 +88,7 @@
                              nil];
     DDLogVerbose(@"params: %@", params);
     
-    [self.httpClient.requestSerializer setValue:@"https://private.cosmostv.by:8443/web/eshop/lk_auth" forHTTPHeaderField:@"Referer"];
+    //[self.httpClient.requestSerializer setValue:@"https://private.cosmostv.by:8443/web/eshop/lk_auth" forHTTPHeaderField:@"Referer"];
     
     [self.httpClient POST:formUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -110,7 +104,7 @@
 - (void) onStep2:(NSString *)html
 {
     DDLogVerbose(@"BBLoaderCosmosTV.onStep2");
-    DDLogVerbose(@"%@", html);
+    //DDLogVerbose(@"%@", html);
     
     //
     if ([html rangeOfString:@"portlet-msg-error"].location != NSNotFound)
@@ -120,46 +114,146 @@
         return;
     }
     
+    NSArray * arr = nil;
+    
+    //check contracts form
+    NSString * formUrl = nil;
+    NSString * contractsHtml = nil;
+    
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<form id=\"frm_contracts\" action=\"([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        formUrl = [arr objectAtIndex:0];
+        formUrl = [self fixUrlEncoding:formUrl];
+    }
+    
+    if (formUrl)
+    {
+        self.contractFormUrl = formUrl;
+        
+        //form exists, might be multiple contracts
+        DDLogVerbose(@"contractFormUrl: %@", contractFormUrl);
+        
+        arr = [html stringsByExtractingGroupsUsingRegexPattern:@"<select\\s*id\\s*=\\s*\"contracts\"[^>]+>(.*)</select>" caseInsensitive:YES treatAsOneLine:NO];
+        //DDLogVerbose(@"arr: %@", arr);
+        // <option value="101909390" selected class = "" > TO_7518 </option> <option value="101910260" class = "" > 40399 </option>
+        if (arr && [arr count] == 1)
+        {
+            contractsHtml = [arr objectAtIndex:0];
+        }
+        DDLogVerbose(@"contractsHtml %@", contractsHtml);
+        
+        if (contractsHtml)
+        {
+            arr = [contractsHtml stringsByExtractingGroupsUsingRegexPattern:@"<option\\s*value=\"([^\"]+)\"[^>]*>([^<]+)</option>" caseInsensitive:YES treatAsOneLine:NO];
+            DDLogVerbose(@"arr: %@", arr);
+            if (arr && [arr count] > 0)
+            {
+                NSString * cid = @"";
+                NSString * cname = @"";
+                for (uint i=0; i<arr.count; i++)
+                {
+                    BOOL isKey = (i + 1) % 2 ? YES : NO;
+                    
+                    NSString * val = [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:i]];
+                    DDLogVerbose(@"isKey: %@ %d", val, isKey);
+                    if (isKey) cid = val;
+                    else cname = val;
+                    
+                    [self.contracts setValue:cname forKey:cid];
+                }
+            }
+            
+            //exclude tech contracts
+            for (NSString * cid in [contracts allKeys])
+            {
+                NSString * cname = [contracts objectForKey:cid];
+                if ([cname hasPrefix:@"TO_"]) [contracts removeObjectForKey:cid];
+            }
+            
+            DDLogVerbose(@"contracts: %@", contracts);
+        }
+    }
+    
+    
+    if (contracts.count > 0)
+    {
+        [self processAllContracts];
+    }
+    else
+    {
+        self.loaderInfo = [self extractCosmosTvFromHtml:html];
+        [self doFinish];
+    }
+}
+
+- (void) processAllContracts
+{
+    //search next
+    for (NSString * cid in contracts)
+    {
+        NSObject * obj = [contracts objectForKey:cid];
+        if (![obj isKindOfClass:[BBLoaderInfo class]])
+        {
+            [self doOneContract:cid];
+            return;
+        }
+    }
+    
+    //all loaded, combine results
+    NSMutableArray * lines = [NSMutableArray array];
+    NSDecimalNumber * maxBalance = [[NSDecimalNumber alloc] initWithInt:0];
+    BOOL atLeastOne = NO;
+    
+    for (NSString * cid2 in contracts)
+    {
+        BBLoaderInfo * info = [contracts objectForKey:cid2];
+        if (info.extracted) atLeastOne = YES;
+        if (info.extracted && [maxBalance compare:info.userBalance] == NSOrderedAscending) maxBalance = info.userBalance;
+        if (info.bonuses) [lines addObject:info.bonuses];
+    }
+    
+    if (atLeastOne)
+    {
+        self.loaderInfo.extracted = YES;
+        self.loaderInfo.userBalance = maxBalance;
+        self.loaderInfo.bonuses = [lines componentsJoinedByString:@"\n"];
+    }
+    
     [self doFinish];
 }
 
-- (void) onStep3:(NSString *)html
+- (void) doOneContract:(NSString *)cid
 {
-    //DDLogVerbose(@"BBLoaderCosmosTV.onStep3");
-    //DDLogVerbose(@"%@", html);
+    DDLogVerbose(@"BBLoaderCosmosTV.doOneContract %@", cid);
     
-    [self extractInfoFromHtml:html];
-    [self doFinish];
+    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             cid, @"id_contract",
+                             nil];
+    
+    [self.httpClient POST:self.contractFormUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self onOneContract:cid withHtml:operation.responseString];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        DDLogError(@"%@ doOneContract httpclient_error: %@", [self class], error.localizedDescription);
+        [self doFinish];
+    }];
 }
 
-- (void) extractInfoFromHtml:(NSString *)html
+- (void) onOneContract:(NSString *)cid withHtml:(NSString *)html
 {
-    if (!html) return;
+    BBLoaderInfo * info = [self extractCosmosTvFromHtml:html];
+    [self.contracts setValue:info forKey:cid];
     
-    //TODO
-    
-    NSString * jsonString = [NSString stringWithFormat:@"%@", html];
-    NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError * jsonError = nil;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&jsonError];
-    
-    //это не json
-    if (![jsonObject isKindOfClass:[NSDictionary class]]) return;
+    [self processAllContracts];
+}
 
-    
-    NSDictionary * dict = (NSDictionary *) jsonObject;
-    NSArray * services = [dict objectForKey:@"services"];
-    if (!services || [services count] < 1) return;
-    
-    NSDictionary * service1 = [services objectAtIndex:0];
-    if (![service1 isKindOfClass:[NSDictionary class]]) return;
-    
-    NSString * pbalance = [service1 objectForKey:@"pbalance"];
-    if (!pbalance) return;
-    
-    self.loaderInfo.userBalance = [NSDecimalNumber decimalNumberWithString:pbalance];
-    
-    self.loaderInfo.extracted = YES;
+- (BBLoaderInfo *) extractCosmosTvFromHtml:(NSString *)html;
+{
+    NSInteger type = [self.account.type.id integerValue];
+    return [BASES_MANAGER extractInfoForType:type fromHtml:html];
 }
 
 @end
