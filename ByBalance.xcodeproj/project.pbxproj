@@ -71,6 +71,7 @@
 		84A80F1E19E17BAC000E6786 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A80F0219E17BAC000E6786 /* MagicalRecord.m */; };
 		84B5B4F11B01310300190498 /* AppGroupSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5B4F01B01310300190498 /* AppGroupSettings.m */; };
 		84B5B4F21B01310300190498 /* AppGroupSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5B4F01B01310300190498 /* AppGroupSettings.m */; };
+		84E405E11C551A0B007B3F5C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E405E01C551A0B007B3F5C /* libsqlite3.tbd */; };
 		C30FA4BB182D51D800818116 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4AC182D51D800818116 /* DDAbstractDatabaseLogger.m */; };
 		C30FA4BC182D51D800818116 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4AE182D51D800818116 /* DDASLLogger.m */; };
 		C30FA4BD182D51D800818116 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FA4B0182D51D800818116 /* DDFileLogger.m */; };
@@ -328,6 +329,7 @@
 		84B5B4EF1B01310300190498 /* AppGroupSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppGroupSettings.h; sourceTree = "<group>"; };
 		84B5B4F01B01310300190498 /* AppGroupSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppGroupSettings.m; sourceTree = "<group>"; };
 		84B5B4F31B01315100190498 /* AppGroupMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppGroupMacros.h; sourceTree = "<group>"; };
+		84E405E01C551A0B007B3F5C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C30FA4AB182D51D800818116 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		C30FA4AC182D51D800818116 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
 		C30FA4AD182D51D800818116 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E405E11C551A0B007B3F5C /* libsqlite3.tbd in Frameworks */,
 				846D6D091AFE6E3B009BA5FE /* NotificationCenter.framework in Frameworks */,
 				84538FC31A2A251400912BDA /* JavaScriptCore.framework in Frameworks */,
 				C316693E190EBF0700E9B7DA /* libxml2.dylib in Frameworks */,
@@ -810,6 +813,7 @@
 		C312CD2B1808AB1F005F25D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84E405E01C551A0B007B3F5C /* libsqlite3.tbd */,
 				84538FC21A2A251400912BDA /* JavaScriptCore.framework */,
 				C316693D190EBF0700E9B7DA /* libxml2.dylib */,
 				C3B23B711814736900A7243E /* libz.dylib */,
