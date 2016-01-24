@@ -29,7 +29,7 @@
 
 - (void) actAsDamavik
 {
-    self.baseUrl = @"https://issa.damavik.by/";
+    self.baseUrl = @"https://issa.telecom.by/";
     isDamavik = YES;
 }
 
@@ -123,6 +123,8 @@
                   self.account.password, @"password__n28",
                   nil];
     }
+    
+    //DDLogVerbose(@"BBLoaderDamavik.step2 params %@", params);
 
     [self.httpClient POST:self.baseUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
