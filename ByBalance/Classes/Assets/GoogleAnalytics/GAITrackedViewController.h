@@ -1,6 +1,7 @@
 /*!
  @header    GAITrackedViewController.h
  @abstract  Google Analytics for iOS Tracked View Controller Header
+ @version   2.0
  @copyright Copyright 2012 Google Inc. All rights reserved.
  */
 
@@ -10,7 +11,7 @@
 @protocol GAITracker;
 
 /*!
- Extends UIViewController to generate Google Analytics screenview calls
+ Extends UIViewController to generate Google Analytics appview calls
  whenever the view appears; this is done by overriding the `viewDidAppear:`
  method. The screen name must be set for any tracking calls to be made.
 
