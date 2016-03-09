@@ -54,16 +54,25 @@
         return;
     }
     
+    NSArray * arr = nil;
+    NSString * balancePage = nil;
+    
     //ссылка на страницу баланса
-    if ([html rangeOfString:@"?action=ShowBalance&mid=contract"].location == NSNotFound)
+    //<li><a href="?action=GetBalance&mid=0&module=contract&contractId=11128">Просмотр баланса</a></li>
+    arr = [html stringsByExtractingGroupsUsingRegexPattern:@"href=\"\\?action=GetBalance([^\"]+)\"" caseInsensitive:YES treatAsOneLine:NO];
+    if (arr && [arr count] == 1)
+    {
+        balancePage = [NSString stringWithFormat:@"/bgbilling/webexecuter?action=GetBalance%@", [PRIMITIVE_HELPER trimmedString:[arr objectAtIndex:0]]];
+    }
+    else
     {
         [self doFinish];
         return;
     }
     
-    //https://user.nbr.by/bgbilling/webexecuter?action=ShowBalance&mid=contract
+    DDLogVerbose(@"balancePage: %@", balancePage);
 
-    [self.httpClient GET:@"/bgbilling/webexecuter?action=ShowBalance&mid=contract" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient GET:balancePage parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [self onStep2:operation.responseString];
         
